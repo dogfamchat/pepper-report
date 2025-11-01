@@ -14,6 +14,7 @@
 import { chromium } from "playwright";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";
+import { login, getCredentials } from "../utils/auth-utils";
 import type { Schedule } from "../types";
 
 interface ScraperOptions {
@@ -191,15 +192,12 @@ async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
 
   // Get credentials and URL from environment
   const daycareUrl = process.env.DAYCARE_SCHEDULE_URL;
-  const username = process.env.DAYCARE_USERNAME;
-  const password = process.env.DAYCARE_PASSWORD;
+  const credentials = getCredentials();
 
-  if (!daycareUrl || !username || !password) {
+  if (!daycareUrl) {
     throw new Error(
-      "Missing required environment variables:\n" +
-        "  - DAYCARE_SCHEDULE_URL\n" +
-        "  - DAYCARE_USERNAME\n" +
-        "  - DAYCARE_PASSWORD"
+      "Missing required environment variable:\n" +
+        "  - DAYCARE_SCHEDULE_URL"
     );
   }
 
@@ -214,24 +212,8 @@ async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
 
     await page.goto(daycareUrl);
 
-    // TODO: Fill in actual login selectors
-    // Login flow
-    if (verbose) {
-      console.log("🔐 Logging in...");
-    }
-
-    await page.fill("input#template-passport-login", username);
-    await page.fill("input#template-passport-password", password);
-
-    // Wait for navigation after login (modern Playwright pattern)
-    await Promise.all([
-      page.waitForURL("**/*", { waitUntil: "networkidle" }), // TODO: Update URL pattern
-      page.click('button[type="submit"]'), // TODO: Update selector
-    ]);
-
-    if (verbose) {
-      console.log("✓ Logged in successfully");
-    }
+    // Login using shared utility
+    await login(page, credentials, verbose);
 
     // Navigate to schedule page
     await page.getByRole("link", { name: "My Schedule" }).click();

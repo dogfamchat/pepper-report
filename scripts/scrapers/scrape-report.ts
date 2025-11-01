@@ -16,6 +16,7 @@ import { chromium } from 'playwright';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { processStaffNames } from '../utils/staff-utils';
+import { login, getCredentials } from '../utils/auth-utils';
 // import { uploadPhotosToR2 } from '../storage/r2-uploader'; // TODO: Uncomment when R2 uploader is ready
 import type { ReportCard, Grade, Activity } from '../types';
 
@@ -182,15 +183,12 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
   // Get credentials and URL from environment
   const daycareUrl = process.env.DAYCARE_REPORT_URL;
-  const username = process.env.DAYCARE_USERNAME;
-  const password = process.env.DAYCARE_PASSWORD;
+  const credentials = getCredentials();
 
-  if (!daycareUrl || !username || !password) {
+  if (!daycareUrl) {
     throw new Error(
-      'Missing required environment variables:\n' +
-      '  - DAYCARE_REPORT_URL\n' +
-      '  - DAYCARE_USERNAME\n' +
-      '  - DAYCARE_PASSWORD'
+      'Missing required environment variable:\n' +
+      '  - DAYCARE_REPORT_URL'
     );
   }
 
@@ -205,24 +203,8 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
     await page.goto(daycareUrl);
 
-    // TODO: Fill in actual login selectors
-    // Login flow
-    if (verbose) {
-      console.log('🔐 Logging in...');
-    }
-
-    await page.fill('input[name="username"]', username); // TODO: Update selector
-    await page.fill('input[name="password"]', password); // TODO: Update selector
-
-    // Wait for navigation after login
-    await Promise.all([
-      page.waitForURL('**/*', { waitUntil: 'networkidle' }), // TODO: Update URL pattern
-      page.click('button[type="submit"]'), // TODO: Update selector
-    ]);
-
-    if (verbose) {
-      console.log('✓ Logged in successfully');
-    }
+    // Login using shared utility
+    await login(page, credentials, verbose);
 
     // TODO: Navigate to report card for target date
     // await page.goto(`${daycareUrl}/reports/${targetDate}`);
