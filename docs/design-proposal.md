@@ -36,15 +36,15 @@ Everything gets stored in Git, so we have a complete history of Pepper's daycare
 - Scrape daycare website to find Pepper's schedule for the week
 - She attends 2-3 days per week, so we'll know which days to expect report cards
 - This helps us catch the rare cases where staff forgets to give her one
-- Store schedule data: `data/schedule/2024.json`
+- Store schedule data: `data/schedule/2025.json`
 
 **Report Card Scraping** (runs 2-3 times on school days, in the afternoon)
 - Check the schedule to see if today is a school day
 - If yes, scrape the report card section of the website
 - Extract: date, letter grade, staff notes, activity descriptions, staff names, friend mentions
 - Download any photos they attached (ignoring stock photos)
-- Store report card: `data/reports/2024/2024-11-15.json`
-- Store photo: `photos/2024/2024-11-15-001.jpg` (uploaded to Cloudflare R2)
+- Store report card: `data/reports/2025/2025-08-08.json`
+- Store photo: `photos/2025/2025-08-08-001.jpg` (uploaded to Cloudflare R2)
 - Only run analysis after we successfully get a new report card
 
 **Authentication:** Username/password stored as GitHub Actions secrets
@@ -127,11 +127,11 @@ Everything lives in the Git repository (except photos):
 pepper-report/
 ├── data/
 │   ├── schedule/
-│   │   └── 2024.json
+│   │   └── 2025.json
 │   ├── reports/
-│   │   └── 2024/
-│   │       ├── 2024-11-15.json
-│   │       └── 2024-11-16.json
+│   │   └── 2025/
+│   │       ├── 2025-08-08.json
+│   │       └── 2025-08-12.json
 │   ├── analysis/
 │   │   ├── weekly-summary.json
 │   │   ├── top-friends.json

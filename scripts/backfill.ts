@@ -8,7 +8,7 @@
  * Usage:
  *   bun run scripts/backfill.ts --start 2025-08-01 --end 2025-10-31
  *   bun run scripts/backfill.ts --dates 2025-08-05,2025-08-07,2025-08-12
- *   bun run scripts/backfill.ts --schedule data/schedule/2024.json
+ *   bun run scripts/backfill.ts --schedule data/schedule/2025.json
  */
 
 import { scrapeReportCard, reportExists, saveReport } from './scrapers/scrape-report';
@@ -107,7 +107,7 @@ Examples:
   bun run scripts/backfill.ts --dates 2025-08-05,2025-08-07,2025-08-12
 
   # Use schedule file (only scrape attendance days)
-  bun run scripts/backfill.ts --schedule data/schedule/2024.json
+  bun run scripts/backfill.ts --schedule data/schedule/2025.json
 
   # Skip photos for faster backfill
   bun run scripts/backfill.ts --start 2025-08 --end 2025-10 --skip-photos

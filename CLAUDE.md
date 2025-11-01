@@ -23,8 +23,8 @@ Historical data: August-October 2025 (~30-40 report cards) backfilled before aut
 
 ```
 data/
-  schedule/2024.json          # Pepper's weekly daycare schedule
-  reports/2024/*.json         # Individual report cards by date
+  schedule/2025.json          # Pepper's weekly daycare schedule
+  reports/2025/*.json         # Individual report cards by date
   analysis/*.json             # Aggregated insights (weekly summaries, top friends)
   viz/*.json                  # Chart.js-ready data files
 photos.json                   # Metadata with R2 URLs (photos stored in R2, not Git)
@@ -171,10 +171,10 @@ When adding new features:
 Always test scrapers on known historical dates before production:
 ```bash
 # Test on a single known date
-bun run scripts/scrape-report.ts --date 2024-11-15 --dry-run
+bun run scripts/scrape-report.ts --date 2025-08-08 --dry-run
 
 # Verify output
-cat data/reports/2024/2024-11-15.json
+cat data/reports/2025/2025-08-08.json
 ```
 
 Use Playwright's headed mode for debugging:
