@@ -5,7 +5,9 @@
  * staff names from report cards.
  */
 
-import { registerStaffNames, getPseudonym } from '../anonymize';
+import { registerStaffNames, getPseudonym, loadStaffMapping } from '../anonymize';
+import { writeFileSync } from 'fs';
+import { join } from 'path';
 
 /**
  * Process staff names from a scraped report card
@@ -132,9 +134,59 @@ export function processAndValidateStaffNames(
   return processStaffNames(validNames, processOptions);
 }
 
+/**
+ * Initialize staff mappings from GitHub Secrets
+ *
+ * In GitHub Actions, STAFF_PRIVATE_JSON is stored as a secret.
+ * This function loads it and writes to staff.private.json before scraping.
+ *
+ * @param staffPrivateJson JSON string from GitHub secret
+ *
+ * @example
+ * // In GitHub Actions workflow:
+ * const secretData = process.env.STAFF_PRIVATE_JSON;
+ * if (secretData) {
+ *   initializeStaffMappingFromSecret(secretData);
+ * }
+ */
+export function initializeStaffMappingFromSecret(staffPrivateJson: string): void {
+  try {
+    // Validate it's proper JSON
+    const mapping = JSON.parse(staffPrivateJson);
+
+    // Write to staff.private.json
+    const privateFile = join(process.cwd(), 'staff.private.json');
+    writeFileSync(privateFile, JSON.stringify(mapping, null, 2) + '\n', 'utf-8');
+
+    console.log('✅ Loaded staff mapping from GitHub Secret');
+  } catch (error) {
+    console.error('❌ Failed to parse STAFF_PRIVATE_JSON secret:', error);
+    throw error;
+  }
+}
+
+/**
+ * Get the current staff.private.json content as a string
+ *
+ * Useful for updating the GitHub Secret after local scraping discovers new staff.
+ *
+ * @returns JSON string of staff.private.json content
+ *
+ * @example
+ * const currentMapping = getStaffMappingForSecret();
+ * console.log('Update STAFF_PRIVATE_JSON secret with:');
+ * console.log(currentMapping);
+ */
+export function getStaffMappingForSecret(): string {
+  const mapping = loadStaffMapping();
+  return JSON.stringify(mapping, null, 2);
+}
+
 export default {
   processStaffNames,
   processAndValidateStaffNames,
   extractFirstName,
   isValidStaffName,
+  initializeStaffMappingFromSecret,
+  getStaffMappingForSecret,
 };

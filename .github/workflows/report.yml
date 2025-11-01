@@ -1,0 +1,133 @@
+name: Report Card Checker
+
+on:
+  schedule:
+    # Run 3x daily: 3 PM, 5 PM, 7 PM UTC (adjust timezone as needed)
+    # These times are when report cards are typically posted
+    - cron: '0 15 * * 1-5' # 3 PM, Mon-Fri (school days)
+    - cron: '0 17 * * 1-5' # 5 PM, Mon-Fri
+    - cron: '0 19 * * 1-5' # 7 PM, Mon-Fri
+  workflow_dispatch: # Allow manual trigger
+    inputs:
+      date:
+        description: 'Date to scrape (YYYY-MM-DD, defaults to today)'
+        required: false
+        type: string
+
+jobs:
+  scrape-report:
+    runs-on: ubuntu-latest
+    outputs:
+      report_found: ${{ steps.scrape.outputs.report_found }}
+      report_date: ${{ steps.scrape.outputs.report_date }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for proper commits
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Install Playwright browsers
+        run: bunx playwright install chromium --with-deps
+
+      - name: Load staff mapping from secret
+        run: |
+          cat > staff.private.json << 'EOF'
+          ${{ secrets.STAFF_PRIVATE_JSON }}
+          EOF
+        shell: bash
+
+      - name: Scrape report card
+        id: scrape
+        env:
+          DAYCARE_URL: ${{ secrets.DAYCARE_URL }}
+          DAYCARE_USERNAME: ${{ secrets.DAYCARE_USERNAME }}
+          DAYCARE_PASSWORD: ${{ secrets.DAYCARE_PASSWORD }}
+          CLOUDFLARE_R2_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}
+          CLOUDFLARE_R2_ACCESS_KEY: ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY }}
+          CLOUDFLARE_R2_SECRET_KEY: ${{ secrets.CLOUDFLARE_R2_SECRET_KEY }}
+          CLOUDFLARE_R2_BUCKET: ${{ secrets.CLOUDFLARE_R2_BUCKET }}
+        run: |
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            bun run scripts/scrapers/scrape-report.ts --date "${{ github.event.inputs.date }}" --verbose
+          else
+            bun run scripts/scrapers/scrape-report.ts --verbose
+          fi
+
+      - name: Check for new report card
+        id: changes
+        run: |
+          if git diff --quiet data/reports/; then
+            echo "has_new_report=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_new_report=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update staff mapping secret if needed
+        if: steps.changes.outputs.has_new_report == 'true'
+        run: |
+          if ! git diff --quiet staff.private.json; then
+            echo "⚠️  New staff members discovered!"
+            echo "📝 Please update the STAFF_PRIVATE_JSON GitHub Secret with:"
+            echo "---"
+            cat staff.private.json
+            echo "---"
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_new_report == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Add report cards, photos.json, and public staff mapping
+          git add data/reports/
+          git add photos.json
+          git add staff.public.json
+
+          # Get the date from the most recent report
+          REPORT_DATE=$(ls -t data/reports/*/*.json | head -n 1 | xargs basename .json)
+          GRADE=$(jq -r '.grade' "data/reports/${REPORT_DATE:0:4}/${REPORT_DATE}.json")
+
+          git commit -m "$(cat <<EOF
+          Add report card for ${REPORT_DATE} (Grade: ${GRADE})
+
+          Automatically scraped and processed daycare report card.
+
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+          Co-Authored-By: Claude <noreply@anthropic.com>
+          EOF
+          )"
+
+          git push
+
+      - name: No new report
+        if: steps.changes.outputs.has_new_report == 'false'
+        run: echo "No new report card found for today"
+
+  # Phase 3: Add analysis and deployment jobs here
+  # These will trigger conditionally after successful report card scrape
+  #
+  # analyze:
+  #   needs: scrape-report
+  #   if: needs.scrape-report.outputs.report_found == 'true'
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Run analysis
+  #       run: bun run scripts/analysis/analyze-all.ts
+  #
+  # deploy:
+  #   needs: analyze
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Build and deploy to GitHub Pages
+  #       run: bun run build

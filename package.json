@@ -17,6 +17,7 @@
     "test:staff": "bun run scripts/test-staff-discovery.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.922.0",
     "astro": "^5.15.3",
     "chart.js": "^4.5.1",
     "playwright": "^1.56.1",

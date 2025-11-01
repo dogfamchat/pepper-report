@@ -1,0 +1,74 @@
+name: Daily Schedule Scraper
+
+on:
+  schedule:
+    # Run daily at 8:00 AM UTC (adjust timezone as needed)
+    - cron: '0 8 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  scrape-schedule:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Full history for proper commits
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Install Playwright browsers
+        run: bunx playwright install chromium --with-deps
+
+      - name: Load staff mapping from secret
+        run: |
+          cat > staff.private.json << 'EOF'
+          ${{ secrets.STAFF_PRIVATE_JSON }}
+          EOF
+        shell: bash
+
+      - name: Scrape schedule
+        env:
+          DAYCARE_URL: ${{ secrets.DAYCARE_URL }}
+          DAYCARE_USERNAME: ${{ secrets.DAYCARE_USERNAME }}
+          DAYCARE_PASSWORD: ${{ secrets.DAYCARE_PASSWORD }}
+        run: bun run scripts/scrapers/scrape-schedule.ts --verbose
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet data/schedule/; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/schedule/
+
+          git commit -m "$(cat <<'EOF'
+          Update daycare schedule
+
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+          Co-Authored-By: Claude <noreply@anthropic.com>
+          EOF
+          )"
+
+          git push
+
+      - name: No changes
+        if: steps.changes.outputs.has_changes == 'false'
+        run: echo "No schedule changes detected"

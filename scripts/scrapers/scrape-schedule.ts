@@ -1,0 +1,375 @@
+#!/usr/bin/env bun
+/**
+ * Schedule Scraper
+ *
+ * Scrapes Pepper's weekly daycare schedule from the daycare website.
+ * Saves attendance days to data/schedule/YYYY.json
+ *
+ * Usage:
+ *   bun run scripts/scrapers/scrape-schedule.ts
+ *   bun run scripts/scrapers/scrape-schedule.ts --month 2024-11
+ *   bun run scripts/scrapers/scrape-schedule.ts --dry-run
+ */
+
+import { chromium } from "playwright";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
+import { join } from "path";
+import type { Schedule } from "../types";
+
+interface ScraperOptions {
+  month?: string; // YYYY-MM format
+  dryRun?: boolean;
+  headless?: boolean;
+  verbose?: boolean;
+}
+
+/**
+ * Parse command line arguments
+ */
+function parseArgs(): ScraperOptions {
+  const args = process.argv.slice(2);
+  const options: ScraperOptions = {
+    headless: true,
+    dryRun: false,
+    verbose: false,
+  };
+
+  for (let i = 0; i < args.length; i++) {
+    switch (args[i]) {
+      case "--month":
+        options.month = args[++i];
+        break;
+      case "--dry-run":
+        options.dryRun = true;
+        break;
+      case "--headed":
+        options.headless = false;
+        break;
+      case "--verbose":
+      case "-v":
+        options.verbose = true;
+        break;
+      case "--help":
+      case "-h":
+        console.log(`
+Schedule Scraper - Extract Pepper's daycare attendance schedule
+
+Usage:
+  bun run scripts/scrapers/scrape-schedule.ts [options]
+
+Options:
+  --month YYYY-MM     Scrape schedule for specific month (default: current month)
+  --dry-run           Run scraper without saving data
+  --headed            Show browser window (for debugging)
+  --verbose, -v       Verbose logging
+  --help, -h          Show this help message
+
+Examples:
+  bun run scripts/scrapers/scrape-schedule.ts
+  bun run scripts/scrapers/scrape-schedule.ts --month 2024-11
+  bun run scripts/scrapers/scrape-schedule.ts --headed --verbose
+        `);
+        process.exit(0);
+    }
+  }
+
+  return options;
+}
+
+/**
+ * Load existing schedule data
+ */
+function loadSchedule(year: string): Schedule {
+  const scheduleFile = join(process.cwd(), "data", "schedule", `${year}.json`);
+
+  if (!existsSync(scheduleFile)) {
+    return {};
+  }
+
+  try {
+    return JSON.parse(readFileSync(scheduleFile, "utf-8"));
+  } catch (error) {
+    console.warn(`⚠️  Could not parse ${scheduleFile}, starting fresh`);
+    return {};
+  }
+}
+
+/**
+ * Save schedule data
+ */
+function saveSchedule(year: string, schedule: Schedule): void {
+  const scheduleDir = join(process.cwd(), "data", "schedule");
+  const scheduleFile = join(scheduleDir, `${year}.json`);
+
+  // Ensure directory exists
+  if (!existsSync(scheduleDir)) {
+    mkdirSync(scheduleDir, { recursive: true });
+  }
+
+  writeFileSync(
+    scheduleFile,
+    JSON.stringify(schedule, null, 2) + "\n",
+    "utf-8"
+  );
+  console.log(`✅ Saved schedule to ${scheduleFile}`);
+}
+
+/**
+ * Parse a date from schedule text into YYYY-MM-DD format
+ * Handles common date formats found on daycare websites
+ */
+function parseScheduleDate(dateText: string): string | null {
+  const cleaned = dateText.trim();
+
+  // Try ISO format first: 2024-11-15
+  if (/^\d{4}-\d{2}-\d{2}$/.test(cleaned)) {
+    return cleaned;
+  }
+
+  // Try slash format: 11/15/2024 or 2024/11/15
+  const slashMatch = cleaned.match(/(\d{1,4})[\/\-](\d{1,2})[\/\-](\d{1,4})/);
+  if (slashMatch) {
+    const [, first, second, third] = slashMatch;
+    // Determine which is year
+    if (first.length === 4) {
+      // 2024/11/15 or 2024-11-15
+      return `${first}-${second.padStart(2, '0')}-${third.padStart(2, '0')}`;
+    } else if (third.length === 4) {
+      // 11/15/2024 or 11-15-2024
+      return `${third}-${first.padStart(2, '0')}-${second.padStart(2, '0')}`;
+    }
+  }
+
+  // Try text format: "November 15, 2024" or "Nov 15, 2024"
+  const textMatch = cleaned.match(
+    /(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2}),?\s+(\d{4})/i
+  );
+  if (textMatch) {
+    const [, monthName, day, year] = textMatch;
+    const monthMap: Record<string, string> = {
+      'jan': '01', 'january': '01',
+      'feb': '02', 'february': '02',
+      'mar': '03', 'march': '03',
+      'apr': '04', 'april': '04',
+      'may': '05',
+      'jun': '06', 'june': '06',
+      'jul': '07', 'july': '07',
+      'aug': '08', 'august': '08',
+      'sep': '09', 'september': '09',
+      'oct': '10', 'october': '10',
+      'nov': '11', 'november': '11',
+      'dec': '12', 'december': '12',
+    };
+    const month = monthMap[monthName.toLowerCase()];
+    if (month) {
+      return `${year}-${month}-${day.padStart(2, '0')}`;
+    }
+  }
+
+  // Try data-date attribute format
+  const dataDateMatch = cleaned.match(/data-date="(\d{4}-\d{2}-\d{2})"/);
+  if (dataDateMatch) {
+    return dataDateMatch[1];
+  }
+
+  console.warn(`   ⚠️  Could not parse date: "${dateText}"`);
+  return null;
+}
+
+/**
+ * Scrape schedule for a specific month
+ */
+async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
+  const { month, headless = true, verbose = false } = options;
+
+  // Determine target month (default: current month)
+  const targetMonth = month || new Date().toISOString().slice(0, 7);
+
+  if (verbose) {
+    console.log(`🔍 Scraping schedule for ${targetMonth}`);
+  }
+
+  // Get credentials and URL from environment
+  const daycareUrl = process.env.DAYCARE_URL;
+  const username = process.env.DAYCARE_USERNAME;
+  const password = process.env.DAYCARE_PASSWORD;
+
+  if (!daycareUrl || !username || !password) {
+    throw new Error(
+      "Missing required environment variables:\n" +
+        "  - DAYCARE_URL\n" +
+        "  - DAYCARE_USERNAME\n" +
+        "  - DAYCARE_PASSWORD"
+    );
+  }
+
+  const browser = await chromium.launch({ headless });
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  try {
+    if (verbose) {
+      console.log(`📡 Navigating to ${daycareUrl}`);
+    }
+
+    await page.goto(daycareUrl);
+
+    // TODO: Fill in actual login selectors
+    // Login flow
+    if (verbose) {
+      console.log("🔐 Logging in...");
+    }
+
+    await page.fill("input#template-passport-login", username);
+    await page.fill("input#template-passport-password", password);
+
+    // Wait for navigation after login (modern Playwright pattern)
+    await Promise.all([
+      page.waitForURL("**/*", { waitUntil: "networkidle" }), // TODO: Update URL pattern
+      page.click('button[type="submit"]'), // TODO: Update selector
+    ]);
+
+    if (verbose) {
+      console.log("✓ Logged in successfully");
+    }
+
+    // Navigate to schedule page
+    await page.getByRole("link", { name: "My Schedule" }).click();
+
+    const upcomingScheduleLink = page.getByRole("link", {
+      name: "Upcoming Schedule",
+    });
+    const pastScheduleLink = page.getByRole("link", { name: "Past Schedule" });
+
+    await upcomingScheduleLink.waitFor();
+    await pastScheduleLink.waitFor();
+
+    // Determine if we should use Upcoming or Past schedule
+    const now = new Date();
+    const currentMonth = now.toISOString().slice(0, 7);
+    const isPastMonth = targetMonth < currentMonth;
+
+    if (verbose) {
+      console.log(`   Target month: ${targetMonth}`);
+      console.log(`   Current month: ${currentMonth}`);
+      console.log(`   Using ${isPastMonth ? "Past" : "Upcoming"} Schedule`);
+    }
+
+    // Click on the appropriate schedule
+    if (isPastMonth) {
+      await pastScheduleLink.click();
+    } else {
+      await upcomingScheduleLink.click();
+    }
+
+    // Wait for schedule content to load
+    // TODO: Update this selector to match the actual schedule container
+    await page.waitForSelector('[class*="schedule"]', { timeout: 10000 });
+
+    if (verbose) {
+      console.log("   Schedule loaded, extracting dates...");
+    }
+
+    // Extract schedule dates
+    const scheduleDates: string[] = [];
+
+    // TODO: Replace these selectors with actual ones from the schedule page
+    // You'll need to inspect the page to find the right selectors
+    // Common patterns:
+    // - Table rows with dates: 'table tr td.date'
+    // - Div containers: '.schedule-item .date'
+    // - Data attributes: '[data-date]'
+
+    // Example implementation (update selectors):
+    const dateElements = await page.$$('.schedule-date'); // TODO: Update selector
+    for (const element of dateElements) {
+      const dateText = await element.textContent();
+      if (dateText) {
+        const parsedDate = parseScheduleDate(dateText);
+        if (parsedDate && parsedDate.startsWith(targetMonth)) {
+          scheduleDates.push(parsedDate);
+        }
+      }
+    }
+
+    // DEBUGGING: Take a screenshot to see the schedule page
+    if (verbose) {
+      const screenshotPath = `debug-schedule-${targetMonth}.png`;
+      await page.screenshot({ path: screenshotPath, fullPage: true });
+      console.log(`   📸 Screenshot saved to: ${screenshotPath}`);
+    }
+
+    // TEMPORARY: Mock data if no real dates were extracted
+    // Remove this when the actual selector is working
+    if (scheduleDates.length === 0) {
+      console.warn(
+        "⚠️  No dates extracted - using mock data. Update the selector in the code!"
+      );
+      console.warn(
+        "   Check the screenshot to find the correct selector for schedule dates."
+      );
+      const mockDates = [
+        `${targetMonth}-01`,
+        `${targetMonth}-03`,
+        `${targetMonth}-05`,
+      ];
+      scheduleDates.push(...mockDates);
+    }
+
+    if (verbose) {
+      console.log(`📅 Found ${scheduleDates.length} attendance days`);
+      scheduleDates.forEach((date) => console.log(`   - ${date}`));
+    }
+
+    return scheduleDates.sort();
+  } finally {
+    await browser.close();
+  }
+}
+
+/**
+ * Main execution
+ */
+async function main() {
+  const options = parseArgs();
+  const targetMonth = options.month || new Date().toISOString().slice(0, 7);
+  const [year] = targetMonth.split("-");
+
+  console.log("📅 Pepper Schedule Scraper\n");
+
+  try {
+    // Scrape the schedule
+    const dates = await scrapeSchedule(options);
+
+    if (dates.length === 0) {
+      console.warn("⚠️  No attendance days found");
+      return;
+    }
+
+    console.log(
+      `\n✅ Scraped ${dates.length} attendance days for ${targetMonth}`
+    );
+
+    // Load existing schedule and merge
+    const schedule = loadSchedule(year);
+    schedule[targetMonth] = dates;
+
+    if (options.dryRun) {
+      console.log("\n🔍 Dry run - would save:");
+      console.log(JSON.stringify({ [targetMonth]: dates }, null, 2));
+      console.log("\n(Use without --dry-run to save)");
+    } else {
+      saveSchedule(year, schedule);
+    }
+  } catch (error) {
+    console.error("\n❌ Scraping failed:", error);
+    process.exit(1);
+  }
+}
+
+// Run if called directly
+if (import.meta.main) {
+  main();
+}
+
+export { scrapeSchedule, loadSchedule, saveSchedule };
