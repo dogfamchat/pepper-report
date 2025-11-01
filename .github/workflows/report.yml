@@ -48,7 +48,7 @@ jobs:
       - name: Scrape report card
         id: scrape
         env:
-          DAYCARE_URL: ${{ secrets.DAYCARE_URL }}
+          DAYCARE_REPORT_URL: ${{ secrets.DAYCARE_REPORT_URL }}
           DAYCARE_USERNAME: ${{ secrets.DAYCARE_USERNAME }}
           DAYCARE_PASSWORD: ${{ secrets.DAYCARE_PASSWORD }}
           CLOUDFLARE_R2_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}

@@ -190,14 +190,14 @@ async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
   }
 
   // Get credentials and URL from environment
-  const daycareUrl = process.env.DAYCARE_URL;
+  const daycareUrl = process.env.DAYCARE_SCHEDULE_URL;
   const username = process.env.DAYCARE_USERNAME;
   const password = process.env.DAYCARE_PASSWORD;
 
   if (!daycareUrl || !username || !password) {
     throw new Error(
       "Missing required environment variables:\n" +
-        "  - DAYCARE_URL\n" +
+        "  - DAYCARE_SCHEDULE_URL\n" +
         "  - DAYCARE_USERNAME\n" +
         "  - DAYCARE_PASSWORD"
     );

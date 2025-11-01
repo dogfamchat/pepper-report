@@ -10,10 +10,16 @@ GitHub Secrets are encrypted environment variables that keep sensitive credentia
 
 ### 1. Daycare Website Credentials
 
-**`DAYCARE_URL`**
-- **Description**: The base URL of your daycare website
-- **Example**: `https://daycare-website.com` or `https://app.example-daycare.com`
-- **Where to find**: The website URL you visit to log in
+**`DAYCARE_SCHEDULE_URL`**
+- **Description**: The URL to the daycare schedule page
+- **Example**: `https://daycare-website.com/schedule` or `https://app.example-daycare.com/schedule`
+- **Where to find**: The schedule page URL after logging in
+- **Note**: Do not include trailing slash
+
+**`DAYCARE_REPORT_URL`**
+- **Description**: The URL to the daycare report cards page
+- **Example**: `https://daycare-website.com/reports` or `https://app.example-daycare.com/reports`
+- **Where to find**: The report cards page URL after logging in
 - **Note**: Do not include trailing slash
 
 **`DAYCARE_USERNAME`**
@@ -245,7 +251,8 @@ Store in a password manager like 1Password, Bitwarden, or LastPass:
 
 ```
 GitHub Secrets - Pepper Report
-├─ DAYCARE_URL: https://daycare-website.com
+├─ DAYCARE_SCHEDULE_URL: https://daycare-website.com/schedule
+├─ DAYCARE_REPORT_URL: https://daycare-website.com/reports
 ├─ DAYCARE_USERNAME: john@example.com
 ├─ DAYCARE_PASSWORD: MySecureP@ssw0rd!
 ├─ CLOUDFLARE_R2_ACCOUNT_ID: a1b2c3d4e5f6...
@@ -261,7 +268,8 @@ Create `.env.backup` (add to `.gitignore`):
 
 ```bash
 # GitHub Secrets Backup (DO NOT COMMIT!)
-DAYCARE_URL=https://daycare-website.com
+DAYCARE_SCHEDULE_URL=https://daycare-website.com/schedule
+DAYCARE_REPORT_URL=https://daycare-website.com/reports
 DAYCARE_USERNAME=john@example.com
 DAYCARE_PASSWORD=MySecureP@ssw0rd!
 CLOUDFLARE_R2_ACCOUNT_ID=a1b2c3d4e5f6...

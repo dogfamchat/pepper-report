@@ -181,14 +181,14 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
   }
 
   // Get credentials and URL from environment
-  const daycareUrl = process.env.DAYCARE_URL;
+  const daycareUrl = process.env.DAYCARE_REPORT_URL;
   const username = process.env.DAYCARE_USERNAME;
   const password = process.env.DAYCARE_PASSWORD;
 
   if (!daycareUrl || !username || !password) {
     throw new Error(
       'Missing required environment variables:\n' +
-      '  - DAYCARE_URL\n' +
+      '  - DAYCARE_REPORT_URL\n' +
       '  - DAYCARE_USERNAME\n' +
       '  - DAYCARE_PASSWORD'
     );
@@ -225,7 +225,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     }
 
     // TODO: Navigate to report card for target date
-    // await page.goto(`${DAYCARE_URL}/reports/${targetDate}`);
+    // await page.goto(`${daycareUrl}/reports/${targetDate}`);
     // OR: await page.click(`.date-selector[data-date="${targetDate}"]`);
 
     // TODO: Wait for report card to load

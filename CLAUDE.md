@@ -105,6 +105,8 @@ Always respect the daycare website:
 ## GitHub Actions Secrets Required
 
 ```
+DAYCARE_SCHEDULE_URL      # URL to schedule page
+DAYCARE_REPORT_URL        # URL to report cards page
 DAYCARE_USERNAME          # Login credentials
 DAYCARE_PASSWORD
 STAFF_PRIVATE_JSON        # Real staff names mapping

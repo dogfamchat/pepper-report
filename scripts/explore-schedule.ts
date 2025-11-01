@@ -17,13 +17,13 @@ async function exploreSchedule() {
   console.log('The browser will pause so you can inspect elements.\n');
 
   // Get credentials from environment
-  const daycareUrl = process.env.DAYCARE_URL;
+  const daycareUrl = process.env.DAYCARE_SCHEDULE_URL;
   const username = process.env.DAYCARE_USERNAME;
   const password = process.env.DAYCARE_PASSWORD;
 
   if (!daycareUrl || !username || !password) {
     console.error('❌ Missing environment variables!');
-    console.log('   Make sure .env has: DAYCARE_URL, DAYCARE_USERNAME, DAYCARE_PASSWORD');
+    console.log('   Make sure .env has: DAYCARE_SCHEDULE_URL, DAYCARE_USERNAME, DAYCARE_PASSWORD');
     process.exit(1);
   }
 

@@ -36,7 +36,7 @@ jobs:
 
       - name: Scrape schedule
         env:
-          DAYCARE_URL: ${{ secrets.DAYCARE_URL }}
+          DAYCARE_SCHEDULE_URL: ${{ secrets.DAYCARE_SCHEDULE_URL }}
           DAYCARE_USERNAME: ${{ secrets.DAYCARE_USERNAME }}
           DAYCARE_PASSWORD: ${{ secrets.DAYCARE_PASSWORD }}
         run: bun run scripts/scrapers/scrape-schedule.ts --verbose
