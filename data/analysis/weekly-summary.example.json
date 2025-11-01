@@ -6,14 +6,9 @@
   "daysAttended": 3,
   "averageGrade": 3.9,
   "gradeDistribution": {
-    "A": 2,
-    "A-": 1,
-    "B+": 0,
+    "A": 3,
     "B": 0,
-    "B-": 0,
-    "C+": 0,
     "C": 0,
-    "C-": 0,
     "D": 0,
     "F": 0
   },

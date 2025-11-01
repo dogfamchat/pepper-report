@@ -14,7 +14,7 @@ export interface ReportCard {
   photos: string[]; // Photo filenames or R2 URLs
 }
 
-export type Grade = 'A+' | 'A' | 'A-' | 'B+' | 'B' | 'B-' | 'C+' | 'C' | 'C-' | 'D' | 'F';
+export type Grade = 'A' | 'B' | 'C' | 'D' | 'F';
 
 export type Activity =
   | 'playtime'
@@ -141,15 +141,9 @@ export interface StaffMapping {
 
 export function gradeToNumber(grade: Grade): number {
   const gradeMap: Record<Grade, number> = {
-    'A+': 4.3,
     'A': 4.0,
-    'A-': 3.7,
-    'B+': 3.3,
     'B': 3.0,
-    'B-': 2.7,
-    'C+': 2.3,
     'C': 2.0,
-    'C-': 1.7,
     'D': 1.0,
     'F': 0.0,
   };
@@ -157,15 +151,9 @@ export function gradeToNumber(grade: Grade): number {
 }
 
 export function numberToGrade(num: number): Grade {
-  if (num >= 4.2) return 'A+';
-  if (num >= 3.85) return 'A';
-  if (num >= 3.5) return 'A-';
-  if (num >= 3.15) return 'B+';
-  if (num >= 2.85) return 'B';
-  if (num >= 2.5) return 'B-';
-  if (num >= 2.15) return 'C+';
-  if (num >= 1.85) return 'C';
-  if (num >= 1.5) return 'C-';
+  if (num >= 3.5) return 'A';
+  if (num >= 2.5) return 'B';
+  if (num >= 1.5) return 'C';
   if (num >= 0.5) return 'D';
   return 'F';
 }
