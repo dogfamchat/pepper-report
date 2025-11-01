@@ -1,0 +1,6 @@
+{
+  "_comment": "Photo metadata with Cloudflare R2 URLs. Photos are stored in R2, not Git.",
+  "photos": [],
+  "totalSize": 0,
+  "count": 0
+}

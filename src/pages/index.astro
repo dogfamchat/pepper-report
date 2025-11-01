@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Pepper's Daycare Dashboard">
+  <main>
+    <h1>🐕 Pepper's Daycare Dashboard</h1>
+    <p>Welcome to Pepper's daycare report tracking system!</p>
+
+    <div class="placeholder">
+      <h2>Coming Soon</h2>
+      <ul>
+        <li>Latest report card</li>
+        <li>Grade trends over time</li>
+        <li>Friend network visualization</li>
+        <li>Photo gallery</li>
+      </ul>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-top: 0;
+    color: #333;
+  }
+
+  .placeholder {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid rgb(var(--accent));
+  }
+
+  .placeholder h2 {
+    margin-top: 0;
+  }
+
+  .placeholder ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .placeholder li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .placeholder li:last-child {
+    border-bottom: none;
+  }
+</style>

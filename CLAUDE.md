@@ -79,11 +79,21 @@ GitHub Actions orchestrates everything:
 - Deploy triggers after analysis completes
 
 ### Privacy via Anonymization
-Staff names are anonymized using deterministic pseudonyms:
-- `staff.private.json` contains real names (GitHub Actions secret, not committed)
-- Build script generates consistent pseudonyms: "Jane" → "River Oak"
-- `staff.public.json` is committed and used by website
+Staff names are automatically discovered and anonymized using deterministic pseudonyms:
+- Scrapers call `processStaffNames()` to auto-register new staff members
+- Real names stored in `staff.private.json` (in .gitignore, never committed)
+- Deterministic pseudonyms generated: "Jane Smith" → "River Oak" (same name = same pseudonym)
+- `staff.public.json` committed to Git and used by website
 - Other dogs' first names and all report card data remain public
+
+**For scrapers:**
+```typescript
+import { processStaffNames } from './utils/staff-utils';
+
+const realNames = ['Jane Smith', 'John Doe'];  // From scraped report
+const anonymized = processStaffNames(realNames); // Auto-registers + anonymizes
+// Save 'anonymized' in report card JSON
+```
 
 ### Rate Limiting in Scrapers
 Always respect the daycare website:

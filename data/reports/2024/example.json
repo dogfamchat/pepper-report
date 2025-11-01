@@ -1,0 +1,27 @@
+{
+  "_comment": "This is an example report card structure. Actual report cards will be scraped automatically.",
+  "date": "2024-11-15",
+  "grade": "A",
+  "staffNotes": "Pepper had a wonderful day! She was very social and played well with all her friends. She particularly enjoyed outdoor playtime and made several new friends today.",
+  "activities": [
+    "playtime",
+    "nap",
+    "outdoor",
+    "socialization",
+    "feeding"
+  ],
+  "staffNames": [
+    "River Oak",
+    "Meadow Pine"
+  ],
+  "friends": [
+    "Max",
+    "Luna",
+    "Charlie",
+    "Bella"
+  ],
+  "photos": [
+    "2024-11-15-001.jpg",
+    "2024-11-15-002.jpg"
+  ]
+}

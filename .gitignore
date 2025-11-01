@@ -140,3 +140,39 @@ vite.config.ts.timestamp-*
 
 # Claude Code local settings file
 .claude/settings.local.json
+
+# ===== Pepper Report Project-Specific =====
+
+# Private staff data (NEVER commit this!)
+staff.private.json
+
+# Credentials and secrets
+credentials.json
+secrets.json
+
+# Bun
+.bun
+
+# Astro build outputs
+.astro/
+
+# Playwright
+playwright-report/
+test-results/
+playwright/.cache/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
