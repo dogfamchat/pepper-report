@@ -67,7 +67,9 @@ async function exploreSchedule() {
     // Click on Upcoming Schedule
     console.log('\n📌 Clicking "Upcoming Schedule"...');
     await upcomingScheduleLink.click();
-    await page.waitForTimeout(2000);
+
+    // Wait for the schedule content to load
+    await page.waitForLoadState('networkidle', { timeout: 10000 });
 
     console.log('\n🔍 Analyzing page structure...\n');
 

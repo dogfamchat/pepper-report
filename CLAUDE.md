@@ -201,3 +201,4 @@ Analysis runs after each new report card and generates:
 - `viz/*.json`: Chart.js ready data for website
 
 All analysis scripts are idempotent and can safely re-run on full dataset.
+- AVOID waitForTimeout with Playwright because it results in flaky scripts

@@ -265,8 +265,15 @@ async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
     // Wait for schedule table to load
     await page.waitForSelector('.css-wl-first-table-list-content', { timeout: 10000 });
 
-    // Wait a bit more for the month display to fully load
-    await page.waitForTimeout(1000);
+    // Wait for the month display element to be visible and have content
+    await page.waitForSelector('.js-navigate-calendar', { state: 'visible' });
+    await page.waitForFunction(
+      () => {
+        const element = document.querySelector('.js-navigate-calendar');
+        return element && element.textContent && element.textContent.trim().length > 0;
+      },
+      { timeout: 5000 }
+    );
 
     // Navigate to the target month using the month navigation
     const currentMonthDisplay = await page.textContent('.js-navigate-calendar') || '';
@@ -333,8 +340,8 @@ async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
           { timeout: 5000 }
         );
 
-        // Additional wait for data to load
-        await page.waitForTimeout(2000);
+        // Wait for network activity to settle after month change
+        await page.waitForLoadState('networkidle', { timeout: 10000 });
       }
 
       if (verbose) {
