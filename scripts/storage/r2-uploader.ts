@@ -9,7 +9,7 @@
 
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
-import { writeFileSync, existsSync, mkdirSync, readFileSync } from 'fs';
+import { writeFileSync, existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 import type { PhotoMetadata, PhotosCollection } from '../types';
 
@@ -113,10 +113,24 @@ async function uploadToR2(
 
   await client.send(command);
 
-  // Return public URL (assumes bucket has public access configured)
-  // Format: https://pub-{hash}.r2.dev/{key}
-  // You'll need to configure R2 custom domain or public bucket URL
-  return `https://${bucketName}.r2.dev/${key}`;
+  // Return public URL
+  // NOTE: This URL will only work after configuring R2 bucket for public access:
+  // 1. Go to Cloudflare R2 dashboard
+  // 2. Select your bucket
+  // 3. Go to Settings > Public Access
+  // 4. Click "Allow Access" and copy the public bucket URL
+  // 5. Update this function to use the correct domain
+  //
+  // Alternatively, set up a custom domain:
+  // https://developers.cloudflare.com/r2/buckets/public-buckets/#custom-domains
+  //
+  // The file IS uploaded to R2, and you can access it via the public URL.
+  let publicDomain = process.env.CLOUDFLARE_R2_PUBLIC_DOMAIN || `${bucketName}.r2.dev`;
+
+  // Strip https:// or http:// prefix if present
+  publicDomain = publicDomain.replace(/^https?:\/\//, '');
+
+  return `https://${publicDomain}/${key}`;
 }
 
 /**
@@ -238,6 +252,105 @@ function updatePhotosCollection(photo: PhotoMetadata): void {
 }
 
 /**
+ * Upload local photo files to R2
+ *
+ * Reads local photos, resizes them (full + thumbnail), uploads to R2,
+ * and returns array of photo filenames.
+ *
+ * @param localPaths Array of local file paths to photos
+ * @param date Report card date (YYYY-MM-DD)
+ * @param options Upload options
+ * @returns Array of photo filenames
+ */
+export async function uploadLocalPhotosToR2(
+  localPaths: string[],
+  date: string,
+  options: {
+    fullWidth?: number; // Default: 1920px
+    thumbnailWidth?: number; // Default: 400px
+    verbose?: boolean;
+  } = {}
+): Promise<string[]> {
+  const { fullWidth = 1920, thumbnailWidth = 400, verbose = false } = options;
+
+  if (localPaths.length === 0) {
+    return [];
+  }
+
+  const config = getR2Config();
+  const client = createR2Client(config);
+  const uploadedPhotos: string[] = [];
+
+  for (let i = 0; i < localPaths.length; i++) {
+    const localPath = localPaths[i];
+
+    try {
+      if (verbose) {
+        console.log(`   📸 Processing photo ${i + 1}/${localPaths.length}: ${localPath}...`);
+      }
+
+      // Check if file exists
+      if (!existsSync(localPath)) {
+        console.error(`   ❌ File not found: ${localPath}`);
+        continue;
+      }
+
+      // Read local file
+      const originalBuffer = readFileSync(localPath);
+      const metadata = await getImageMetadata(originalBuffer);
+
+      if (verbose) {
+        console.log(`      Original size: ${metadata.width}x${metadata.height}`);
+      }
+
+      // Generate unique filename
+      const filename = `${date}-${String(i + 1).padStart(3, '0')}.jpg`;
+
+      // Resize for full version
+      const fullBuffer = await resizePhoto(originalBuffer, fullWidth);
+
+      // Resize for thumbnail
+      const thumbnailBuffer = await resizePhoto(originalBuffer, thumbnailWidth);
+
+      // Upload both versions to R2
+      const fullKey = `photos/${date}/${filename}`;
+      const thumbnailKey = `photos/${date}/thumbnails/${filename}`;
+
+      const fullUrl = await uploadToR2(client, config.bucketName, fullKey, fullBuffer);
+      const thumbnailUrl = await uploadToR2(client, config.bucketName, thumbnailKey, thumbnailBuffer);
+
+      if (verbose) {
+        console.log(`      ✓ Uploaded to R2: ${filename}`);
+        console.log(`         Full: ${fullUrl}`);
+        console.log(`         Thumbnail: ${thumbnailUrl}`);
+      }
+
+      // Store photo metadata
+      const photoMetadata: PhotoMetadata = {
+        filename,
+        date,
+        r2Url: fullUrl,
+        thumbnailUrl,
+        size: fullBuffer.length,
+        width: metadata.width,
+        height: metadata.height,
+        uploaded: new Date().toISOString(),
+      };
+
+      // Update photos.json
+      updatePhotosCollection(photoMetadata);
+
+      uploadedPhotos.push(filename);
+    } catch (error) {
+      console.error(`   ❌ Failed to process photo ${i + 1}:`, error);
+      // Continue with other photos
+    }
+  }
+
+  return uploadedPhotos;
+}
+
+/**
  * Get photos for a specific date
  */
 export function getPhotosForDate(date: string): PhotoMetadata[] {
@@ -258,5 +371,6 @@ export function getPhotosForDate(date: string): PhotoMetadata[] {
 
 export default {
   uploadPhotosToR2,
+  uploadLocalPhotosToR2,
   getPhotosForDate,
 };

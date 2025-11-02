@@ -13,18 +13,18 @@ Focus on completing data ingestion and storage before building analysis and webs
 
 ### Immediate Tasks (This Week)
 
-- [ ] **Implement photo upload to Cloudflare R2**
-  - Update `scripts/storage/r2-uploader.ts` to upload photos
-  - Add image resizing with sharp (1920px full, 400px thumbnails)
-  - Filter out stock photos (already implemented in scraper)
-  - Update `photos.json` with R2 URLs
-  - Test upload with existing local photo
+- [x] **Implement photo upload to Cloudflare R2**
+  - ✓ Update `scripts/storage/r2-uploader.ts` to upload photos
+  - ✓ Add image resizing with sharp (1920px full, 400px thumbnails)
+  - ✓ Filter out stock photos (already implemented in scraper)
+  - ✓ Update `photos.json` with R2 URLs
+  - ✓ Test upload with existing local photo
 
-- [ ] **Test R2 upload integration**
-  - Verify R2 bucket is configured in secrets
-  - Test upload script with one photo
-  - Verify photo is accessible via R2 URL
-  - Update scraper to call R2 upload after extracting photos
+- [x] **Test R2 upload integration**
+  - ✓ Verify R2 bucket is configured in secrets
+  - ✓ Test upload script with one photo
+  - ✓ Verify photo is accessible via R2 URL
+  - ✓ Update scraper to call R2 upload after extracting photos
 
 - [ ] **Run historical backfill for all report cards**
   - Verify daycare credentials are working
@@ -256,8 +256,12 @@ Focus on completing data ingestion and storage before building analysis and webs
 ### Infrastructure
 - [x] Remove IP addresses from metadata (privacy)
 - [x] Set up photo extraction from modals
-- [x] Create R2 uploader script structure (needs implementation)
+- [x] Create R2 uploader script structure
 - [x] Add sharp library for image resizing
+- [x] Implement R2 photo upload with resizing (full size + thumbnails)
+- [x] Integrate R2 upload into scraper
+- [x] Configure public access for R2 bucket
+- [x] Test end-to-end photo upload pipeline
 
 ## Notes
 

@@ -9,6 +9,7 @@ import { writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { createHash } from 'crypto';
 import type { Page } from 'playwright';
+import { uploadLocalPhotosToR2 } from '../storage/r2-uploader';
 
 // SHA256 hash of the stock photo used by the daycare
 // This is the placeholder image they use when no real photo is available
@@ -110,6 +111,67 @@ export function savePhotosLocally(photos: PhotoData[], outputDir: string = 'data
     writeFileSync(filePath, buffer);
     console.log(`   ✓ Saved photo to ${filePath}`);
   }
+}
+
+/**
+ * Upload photos to Cloudflare R2
+ * Saves photos locally first as temp files, then uploads to R2
+ *
+ * @param photos Photo data extracted from report card
+ * @param date Report card date (YYYY-MM-DD)
+ * @param options Upload options
+ * @returns Array of photo filenames uploaded to R2
+ */
+export async function uploadPhotosToR2(
+  photos: PhotoData[],
+  date: string,
+  options: {
+    verbose?: boolean;
+  } = {}
+): Promise<string[]> {
+  if (photos.length === 0) {
+    return [];
+  }
+
+  const { verbose = false } = options;
+
+  // Create temp directory for photos
+  const tempDir = join(process.cwd(), 'data', 'photos', 'temp');
+  if (!existsSync(tempDir)) {
+    mkdirSync(tempDir, { recursive: true });
+  }
+
+  // Save photos to temp files first
+  const tempPaths: string[] = [];
+  for (const photo of photos) {
+    const tempPath = join(tempDir, photo.filename);
+    const buffer = Buffer.from(photo.base64Data, 'base64');
+    writeFileSync(tempPath, buffer);
+    tempPaths.push(tempPath);
+
+    if (verbose) {
+      console.log(`   ✓ Saved temp photo: ${photo.filename}`);
+    }
+  }
+
+  // Upload to R2
+  if (verbose) {
+    console.log(`   📤 Uploading ${tempPaths.length} photo(s) to R2...`);
+  }
+
+  const uploadedFiles = await uploadLocalPhotosToR2(tempPaths, date, { verbose });
+
+  // Clean up temp files
+  for (const tempPath of tempPaths) {
+    try {
+      const fs = await import('fs/promises');
+      await fs.unlink(tempPath);
+    } catch (error) {
+      // Ignore cleanup errors
+    }
+  }
+
+  return uploadedFiles;
 }
 
 /**

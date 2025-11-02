@@ -14,7 +14,8 @@
     "analyze": "bun run scripts/analysis/analyze-all.ts",
     "anonymize": "bun run scripts/anonymize.ts",
     "test": "bun test",
-    "test:staff": "bun run scripts/test-staff-discovery.ts"
+    "test:staff": "bun run scripts/test-staff-discovery.ts",
+    "test:r2": "bun run scripts/test-r2-upload.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.922.0",

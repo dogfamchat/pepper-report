@@ -1,0 +1,35 @@
+{
+  "date": "2025-10-31",
+  "completedDateTime": "2025-10-31T20:11:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Cedar"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "special event"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Howl-ween! 🐶👻\nToday was spook-tacular! We had a special Halloween party at day school and I had sooo much fun! I did a ghost race and posed for cute costume photos! 🎃📸 There will be a costume contest on Clever Canines’ Facebook page, so go check it out and vote! 🧡🐾",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Jasper Cedar",
+    "completedBy": "Jasper Cedar"
+  }
+}

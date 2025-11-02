@@ -17,8 +17,7 @@ import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { processStaffNames } from '../utils/staff-utils';
 import { login, getCredentials } from '../utils/auth-utils';
-import { extractPhotosFromModal, savePhotosLocally } from '../utils/photo-utils';
-// import { uploadPhotosToR2 } from '../storage/r2-uploader'; // TODO: Uncomment when R2 uploader is ready
+import { extractPhotosFromModal, uploadPhotosToR2 } from '../utils/photo-utils';
 import type { ReportCard, Grade, ReportListRow } from '../types';
 
 interface ScraperOptions {
@@ -445,11 +444,22 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       console.log('📸 Extracting photos from modal...');
     }
     const photoData = await extractPhotosFromModal(page, targetDate);
-    const photos = photoData.map(p => p.filename);
+    let photos: string[] = [];
 
-    // Save photos locally if not in dry-run mode and not skipping photos
+    // Upload photos to R2 if not in dry-run mode and not skipping photos
     if (!options.skipPhotos && !options.dryRun && photoData.length > 0) {
-      savePhotosLocally(photoData);
+      try {
+        photos = await uploadPhotosToR2(photoData, targetDate, { verbose });
+        if (verbose && photos.length > 0) {
+          console.log(`   ✓ Uploaded ${photos.length} photo(s) to R2`);
+        }
+      } catch (error) {
+        console.error('   ❌ Failed to upload photos to R2:', error);
+        // Fall back to just using filenames
+        photos = photoData.map(p => p.filename);
+      }
+    } else {
+      photos = photoData.map(p => p.filename);
     }
 
     // Anonymize all staff names
