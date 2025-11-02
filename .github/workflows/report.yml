@@ -2,11 +2,11 @@ name: Report Card Checker
 
 on:
   schedule:
-    # Run 3x daily: 3 PM, 5 PM, 7 PM UTC (adjust timezone as needed)
+    # Run 3x daily: 3:30 PM, 4:30 PM, 5:30 PM MST (school days)
     # These times are when report cards are typically posted
-    - cron: '0 15 * * 1-5' # 3 PM, Mon-Fri (school days)
-    - cron: '0 17 * * 1-5' # 5 PM, Mon-Fri
-    - cron: '0 19 * * 1-5' # 7 PM, Mon-Fri
+    - cron: '30 22 * * 1-5' # 3:30 PM MST (10:30 PM UTC), Mon-Fri
+    - cron: '30 23 * * 1-5' # 4:30 PM MST (11:30 PM UTC), Mon-Fri
+    - cron: '30 0 * * 2-6'  # 5:30 PM MST (12:30 AM UTC), Tue-Sat (runs for Mon-Fri in MST)
   workflow_dispatch: # Allow manual trigger
     inputs:
       date:
