@@ -26,13 +26,15 @@ Focus on completing data ingestion and storage before building analysis and webs
   - ✓ Verify photo is accessible via R2 URL
   - ✓ Update scraper to call R2 upload after extracting photos
 
-- [ ] **Run historical backfill for all report cards**
-  - Verify daycare credentials are working
-  - Run: `bun run backfill:reports --start 2025-08-01 --end 2025-10-31`
-  - Monitor progress (30+ report cards, ~3-5 second delays)
-  - Verify all photos are uploaded to R2
-  - Check for any failed scrapes and retry if needed
-  - Commit all backfilled data to Git
+- [x] **Run historical backfill for all report cards**
+  - ✓ Verify daycare credentials are working
+  - ✓ Fix bug: Schedule date parsing to handle _comment field
+  - ✓ Fix bug: Refactor scraper to reuse browser session (30x faster)
+  - ✓ Run: `bun run backfill:reports --schedule data/schedule/2025.json`
+  - ✓ Scraped 28/31 report cards (3 dates had no report filed)
+  - ✓ Uploaded 12 photos to R2 successfully
+  - ✓ Auto-discovered 7 new staff members with anonymization
+  - ✓ Commit all backfilled data to Git
 
 ### Phase 2: Complete Automation
 
