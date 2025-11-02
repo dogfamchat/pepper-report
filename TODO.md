@@ -85,10 +85,11 @@ Focus on completing data ingestion and storage before building analysis and webs
   - Output: `data/analysis/grade-trends.json`
 
 - [ ] **Implement friend network analysis**
-  - Extract friend mentions from whatIDidToday field
-  - Count frequency of each friend name
-  - Calculate top friends list
+  - Extract friend names from AI insights output (names mentioned in noteworthyComments)
+  - Count frequency of each friend name across all reports
+  - Calculate top friends list with statistics
   - Output: `data/analysis/top-friends.json`
+  - **Depends on:** AI insights implementation
 
 - [ ] **Implement weekly summary analysis**
   - Aggregate report cards by week
@@ -102,12 +103,14 @@ Focus on completing data ingestion and storage before building analysis and webs
   - Calculate time spent in each category
   - Output: `data/analysis/activity-breakdown.json`
 
-- [ ] **Optional: AI insights with Claude API**
+- [ ] **AI insights with Claude API**
   - Create `scripts/analysis/ai-insights.ts`
-  - Send report cards to Claude API for natural language summaries
-  - Generate weekly narrative summaries
+  - Send report cards to Claude API for structured analysis
+  - Extract friend names mentioned in noteworthyComments field
+  - Generate natural language summaries of each report
   - Flag patterns or notable behaviors
-  - Output: `data/analysis/ai-insights.json`
+  - Output: `data/analysis/ai-insights.json` (one file per report)
+  - **Note:** Friend extraction is critical for friend network analysis
 
 ### Visualization Data Preparation
 

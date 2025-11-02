@@ -152,7 +152,7 @@ CLOUDFLARE_R2_SECRET_KEY
 CLOUDFLARE_R2_BUCKET        # Bucket name (e.g., "pepper-daycare-photos")
 CLOUDFLARE_R2_PUBLIC_DOMAIN # Public R2 domain (e.g., "pub-xxxxx.r2.dev")
 SLACK_WEBHOOK_URL           # Optional: Slack notifications
-ANTHROPIC_API_KEY           # Optional: AI insights
+ANTHROPIC_API_KEY           # Required: AI insights (friend extraction & summaries)
 ```
 
 **Note:** GitHub Secrets use UPPERCASE_WITH_UNDERSCORES, while 1Password fields use lowercase_with_underscores. The values are the same, just the naming convention differs.
@@ -236,8 +236,8 @@ Photos are resized before uploading to R2:
 
 Analysis runs after each new report card and generates:
 - `weekly-summary.json`: Grade averages, attendance counts
-- `top-friends.json`: Friend mention frequency
-- `ai-insights.json`: Claude API generated summaries (optional)
+- `top-friends.json`: Friend mention frequency (uses AI-extracted friend names)
+- `ai-insights.json`: Claude API summaries & friend extraction (required)
 - `viz/*.json`: Chart.js ready data for website
 
 All analysis scripts are idempotent and can safely re-run on full dataset.

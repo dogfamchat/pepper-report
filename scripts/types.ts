@@ -173,6 +173,7 @@ export interface AIInsights {
   date: string;
   reportCardDate: string;
   summary: string;
+  friendsMentioned: string[]; // Dog names extracted from noteworthyComments
   behavioralPatterns: string[];
   suggestedQuestions: string[];
   sentiment: 'positive' | 'neutral' | 'negative';

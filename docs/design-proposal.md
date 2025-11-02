@@ -61,12 +61,13 @@ We'll run two types of analysis:
 - Flag special events or notes from staff
 - Store results: `data/analysis/weekly-summary.json`, `data/analysis/top-friends.json`
 
-**AI-Assisted Insights** (Claude API, optional)
+**AI-Assisted Insights** (Claude API, required)
+- **Extract friend names from noteworthyComments field** (critical for friend network analysis)
 - Generate natural language summaries: "Pepper had a great week! She played well with Max and Luna."
 - Identify behavioral patterns staff might mention repeatedly
 - Suggest questions we might want to explore
-- This is where we might spend a tiny bit of money ($1-2/month max)
-- Store insights: `data/analysis/ai-insights.json`
+- Cost: ~$0.20-$2/year (trivial expense)
+- Store insights: `data/analysis/ai-insights.json` (one file per report)
 
 ### Stage 3: Visualization
 
@@ -577,10 +578,10 @@ This gives you the best of both: instant awareness via Slack where you're alread
 - SendGrid email (100 emails/day = plenty for our use case)
 
 **Minimal Cost:**
-- Claude API for AI insights: ~$1-2/month (we can skip this if we want zero cost)
+- Claude API for AI insights: ~$0.20-$2/year (required for friend extraction)
 - After 3-4 years, R2 storage: ~$0.01/month per additional GB
 
-**Total: $0-2/month** depending on whether we want AI insights
+**Total: ~$0.20-$2/year** (essentially free)
 
 ## Implementation Phases
 
@@ -618,11 +619,11 @@ This gives you the best of both: instant awareness via Slack where you're alread
 - [ ] Staff name anonymization
 
 ### Phase 4: Polish (Optional)
-- [ ] Add Claude API for AI insights
 - [ ] Improve chart designs
 - [ ] Add more analysis dimensions
 - [ ] Build "special events" detection
 - [ ] Historical comparison views
+- [ ] Advanced friend interaction graphs
 
 ## Open Questions / Decisions
 
@@ -634,7 +635,7 @@ This gives you the best of both: instant awareness via Slack where you're alread
 
 4. **Scraping Schedule:** Should we check for report cards 2x or 3x per day? (3x is safer but uses more Actions minutes)
 
-3. **Analysis Frequency:** Run AI insights on every report card, or batch weekly to save API costs?
+3. **AI Model Choice:** Use Haiku ($0.20/year) or Sonnet ($2/year) for better quality insights?
 
 4. **Photo Processing:** Resize to 1920px or 1200px width? Generate thumbnails at what size?
 
