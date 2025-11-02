@@ -1,6 +1,127 @@
 {
   "_comment": "Photo metadata with Cloudflare R2 URLs. Photos are stored in R2, not Git.",
-  "photos": [],
-  "totalSize": 0,
-  "count": 0
+  "photos": [
+    {
+      "filename": "2025-08-19-001.jpg",
+      "date": "2025-08-19",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-08-19/2025-08-19-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-08-19/thumbnails/2025-08-19-001.jpg",
+      "size": 328226,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:05:01.569Z"
+    },
+    {
+      "filename": "2025-08-22-001.jpg",
+      "date": "2025-08-22",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-08-22/2025-08-22-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-08-22/thumbnails/2025-08-22-001.jpg",
+      "size": 374994,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:05:10.744Z"
+    },
+    {
+      "filename": "2025-09-10-001.jpg",
+      "date": "2025-09-10",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-10/2025-09-10-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-10/thumbnails/2025-09-10-001.jpg",
+      "size": 191690,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:05:58.986Z"
+    },
+    {
+      "filename": "2025-09-12-001.jpg",
+      "date": "2025-09-12",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-12/2025-09-12-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-12/thumbnails/2025-09-12-001.jpg",
+      "size": 146909,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:06:07.633Z"
+    },
+    {
+      "filename": "2025-09-15-001.jpg",
+      "date": "2025-09-15",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-15/2025-09-15-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-15/thumbnails/2025-09-15-001.jpg",
+      "size": 365710,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:06:17.990Z"
+    },
+    {
+      "filename": "2025-09-26-001.jpg",
+      "date": "2025-09-26",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-26/2025-09-26-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-26/thumbnails/2025-09-26-001.jpg",
+      "size": 233359,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:06:47.323Z"
+    },
+    {
+      "filename": "2025-09-29-001.jpg",
+      "date": "2025-09-29",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-29/2025-09-29-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-29/thumbnails/2025-09-29-001.jpg",
+      "size": 328387,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:06:57.908Z"
+    },
+    {
+      "filename": "2025-10-03-001.jpg",
+      "date": "2025-10-03",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-03/2025-10-03-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-03/thumbnails/2025-10-03-001.jpg",
+      "size": 324287,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:07:15.644Z"
+    },
+    {
+      "filename": "2025-10-14-001.jpg",
+      "date": "2025-10-14",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-14/2025-10-14-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-14/thumbnails/2025-10-14-001.jpg",
+      "size": 140259,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:07:44.952Z"
+    },
+    {
+      "filename": "2025-10-15-001.jpg",
+      "date": "2025-10-15",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-15/2025-10-15-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-15/thumbnails/2025-10-15-001.jpg",
+      "size": 80449,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:07:54.024Z"
+    },
+    {
+      "filename": "2025-10-20-001.jpg",
+      "date": "2025-10-20",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-20/2025-10-20-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-20/thumbnails/2025-10-20-001.jpg",
+      "size": 388908,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:08:13.619Z"
+    },
+    {
+      "filename": "2025-10-24-001.jpg",
+      "date": "2025-10-24",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-24/2025-10-24-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-10-24/thumbnails/2025-10-24-001.jpg",
+      "size": 341763,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-11-02T20:08:32.491Z"
+    }
+  ],
+  "totalSize": 3244941,
+  "count": 12
 }

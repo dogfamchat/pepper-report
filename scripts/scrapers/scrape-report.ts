@@ -12,7 +12,7 @@
  *   bun run scripts/scrapers/scrape-report.ts --date 2024-11-15 --dry-run
  */
 
-import { chromium } from 'playwright';
+import { chromium, type Page } from 'playwright';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { processStaffNames } from '../utils/staff-utils';
@@ -26,6 +26,7 @@ interface ScraperOptions {
   headless?: boolean;
   verbose?: boolean;
   skipPhotos?: boolean;
+  page?: Page; // Optional: reuse existing page (for backfill efficiency)
 }
 
 /**
@@ -172,7 +173,7 @@ function parseCompletedDateTime(completedOnText: string, fallbackDate: string): 
  * Scrape report card for a specific date
  */
 async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | null> {
-  const { date, headless = true, verbose = false } = options;
+  const { date, headless = true, verbose = false, page: existingPage } = options;
 
   // Determine target date (default: today)
   const targetDate = date || new Date().toISOString().slice(0, 10);
@@ -181,22 +182,27 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     console.log(`🔍 Scraping report card for ${targetDate}`);
   }
 
-  // Get credentials and URL from environment
-  const daycareUrl = process.env.DAYCARE_REPORT_URL;
-  const credentials = getCredentials();
+  // Determine if we need to manage our own browser or use provided page
+  const shouldManageBrowser = !existingPage;
+  let browser;
+  let page: Page;
 
-  if (!daycareUrl) {
-    throw new Error(
-      'Missing required environment variable:\n' +
-      '  - DAYCARE_REPORT_URL'
-    );
-  }
+  if (shouldManageBrowser) {
+    // Get credentials and URL from environment
+    const daycareUrl = process.env.DAYCARE_REPORT_URL;
+    const credentials = getCredentials();
 
-  const browser = await chromium.launch({ headless });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+    if (!daycareUrl) {
+      throw new Error(
+        'Missing required environment variable:\n' +
+        '  - DAYCARE_REPORT_URL'
+      );
+    }
 
-  try {
+    browser = await chromium.launch({ headless });
+    const context = await browser.newContext();
+    page = await context.newPage();
+
     if (verbose) {
       console.log(`📡 Navigating to ${daycareUrl}`);
     }
@@ -205,14 +211,24 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
     // Login using shared utility
     await login(page, credentials, verbose);
+  } else {
+    // Reuse existing page (already logged in)
+    page = existingPage;
+  }
 
-    if (verbose) {
+  try {
+    if (shouldManageBrowser && verbose) {
       console.log('📋 Navigating to Forms page...');
     }
 
-    // Click on "Forms" tab
-    await page.click('a:has-text("Forms")');
-    await page.waitForLoadState('networkidle');
+    // Navigate to Forms tab (or refresh if already there)
+    if (shouldManageBrowser) {
+      await page.click('a:has-text("Forms")');
+      await page.waitForLoadState('networkidle');
+    } else {
+      // Already on Forms page, just refresh to see latest data
+      await page.reload({ waitUntil: 'networkidle' });
+    }
 
     // Wait for the table to exist in the DOM
     await page.waitForSelector('table tbody tr', { state: 'attached', timeout: 10000 });
@@ -521,7 +537,10 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
     return reportCard;
   } finally {
-    await browser.close();
+    // Only close browser if we created it (not reusing existing page)
+    if (shouldManageBrowser && browser) {
+      await browser.close();
+    }
   }
 }
 

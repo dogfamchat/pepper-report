@@ -1,0 +1,36 @@
+{
+  "date": "2025-09-05",
+  "completedDateTime": "2025-09-05T19:16:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Dawn Field"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "recall",
+    "trick training"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Had a very active day running around and playing with friends. Also we got to do some trick training. (Paw, spin, down...etc)",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Dawn Field",
+    "completedBy": "Dawn Field"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "date": "2025-08-08",
+  "completedDateTime": "2025-08-08T22:15:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Forest Oak"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "getting cuddles from the trainer.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "engagement games"
+  ],
+  "trainingSkills": [
+    "handling (exam style)",
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "loose-leash walking",
+    "sit (stay)",
+    "recall",
+    "recall with distractions",
+    "focus work",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "made good choices",
+    "respected other's space"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Pepper had an amazing first day!! She was so sweet and so gentle with the dogs and trainers🤍🤍 When she first got in she was a bit nervous but she soon became our Velcro dog she even tripped us a few times. She also showed us her barking skills!!",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Forest Oak",
+    "completedBy": "Forest Oak"
+  }
+}

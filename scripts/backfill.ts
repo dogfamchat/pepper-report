@@ -11,7 +11,9 @@
  *   bun run scripts/backfill.ts --schedule data/schedule/2025.json
  */
 
+import { chromium } from 'playwright';
 import { scrapeReportCard, reportExists, saveReport } from './scrapers/scrape-report';
+import { login, getCredentials } from './utils/auth-utils';
 import { readFileSync, existsSync } from 'fs';
 import type { Schedule } from './types';
 
@@ -149,9 +151,11 @@ function loadDatesFromSchedule(scheduleFile: string): string[] {
     const schedule: Schedule = JSON.parse(readFileSync(scheduleFile, 'utf-8'));
     const dates: string[] = [];
 
-    // Extract all dates from all months
+    // Extract all dates from all months (filter out non-array values like _comment)
     for (const monthDates of Object.values(schedule)) {
-      dates.push(...monthDates);
+      if (Array.isArray(monthDates)) {
+        dates.push(...monthDates);
+      }
     }
 
     return dates.sort();
@@ -196,101 +200,131 @@ async function backfillReports(options: BackfillOptions): Promise<void> {
   console.log(`Skip photos: ${skipPhotos ? 'Yes' : 'No'}`);
   console.log(`Dry run: ${dryRun ? 'Yes' : 'No'}\n`);
 
-  const results: { date: string; status: 'success' | 'skipped' | 'not_found' | 'failed'; error?: string }[] = [];
+  // Create single browser session for all scrapes
+  console.log('🌐 Launching browser and logging in...');
+  const daycareUrl = process.env.DAYCARE_REPORT_URL;
+  const credentials = getCredentials();
 
-  for (let i = 0; i < dates.length; i++) {
-    const date = dates[i];
+  if (!daycareUrl) {
+    throw new Error('Missing required environment variable: DAYCARE_REPORT_URL');
+  }
 
-    console.log(`\n[${i + 1}/${dates.length}] Processing ${date}...`);
+  const browser = await chromium.launch({ headless: true });
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
-    // Check if report already exists
-    if (skipExisting && reportExists(date)) {
-      console.log(`   ⏭️  Report already exists, skipping`);
-      results.push({ date, status: 'skipped' });
-      continue;
-    }
+  try {
+    // Login once
+    await page.goto(daycareUrl);
+    await login(page, credentials, verbose);
+    console.log('✓ Logged in successfully');
 
-    try {
-      // Scrape report card
-      const reportCard = await scrapeReportCard({
-        date,
-        headless: true,
-        verbose,
-        skipPhotos,
-      });
+    // Navigate to Forms page
+    console.log('📋 Navigating to Forms page...');
+    await page.click('a:has-text("Forms")');
+    await page.waitForLoadState('networkidle');
+    console.log('✓ Ready to scrape\n');
 
-      if (!reportCard) {
-        console.warn(`   ℹ️  No report card found for ${date}`);
-        results.push({ date, status: 'not_found' });
+    const results: { date: string; status: 'success' | 'skipped' | 'not_found' | 'failed'; error?: string }[] = [];
+
+    for (let i = 0; i < dates.length; i++) {
+      const date = dates[i];
+
+      console.log(`\n[${i + 1}/${dates.length}] Processing ${date}...`);
+
+      // Check if report already exists
+      if (skipExisting && reportExists(date)) {
+        console.log(`   ⏭️  Report already exists, skipping`);
+        results.push({ date, status: 'skipped' });
         continue;
       }
 
-      console.log(`   ✓ Scraped report card (Grade: ${reportCard.grade})`);
+      try {
+        // Scrape report card (reusing same page/session)
+        const reportCard = await scrapeReportCard({
+          date,
+          headless: true,
+          verbose,
+          skipPhotos,
+          page, // Pass existing page to reuse session
+        });
 
-      if (!dryRun) {
-        saveReport(reportCard);
-      }
-
-      results.push({ date, status: 'success' });
-
-      // Rate limiting: wait before next request (except for last date)
-      if (i < dates.length - 1) {
-        if (verbose) {
-          console.log(`   ⏱️  Waiting ${delayMs}ms before next request...`);
+        if (!reportCard) {
+          console.warn(`   ℹ️  No report card found for ${date}`);
+          results.push({ date, status: 'not_found' });
+          continue;
         }
-        await sleep(delayMs);
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      console.error(`   ❌ Failed to scrape ${date}:`, errorMessage);
-      results.push({ date, status: 'failed', error: errorMessage });
 
-      // Continue with next date despite error
-      if (i < dates.length - 1) {
-        console.log(`   ⏱️  Waiting ${delayMs}ms before continuing...`);
-        await sleep(delayMs);
+        console.log(`   ✓ Scraped report card (Grade: ${reportCard.grade})`);
+
+        if (!dryRun) {
+          saveReport(reportCard);
+        }
+
+        results.push({ date, status: 'success' });
+
+        // Rate limiting: wait before next request (except for last date)
+        if (i < dates.length - 1) {
+          if (verbose) {
+            console.log(`   ⏱️  Waiting ${delayMs}ms before next request...`);
+          }
+          await sleep(delayMs);
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        console.error(`   ❌ Failed to scrape ${date}:`, errorMessage);
+        results.push({ date, status: 'failed', error: errorMessage });
+
+        // Continue with next date despite error
+        if (i < dates.length - 1) {
+          console.log(`   ⏱️  Waiting ${delayMs}ms before continuing...`);
+          await sleep(delayMs);
+        }
       }
     }
-  }
 
-  // Summary
-  console.log('\n' + '='.repeat(60));
-  console.log('Backfill Summary\n');
+    // Summary
+    console.log('\n' + '='.repeat(60));
+    console.log('Backfill Summary\n');
 
-  const successCount = results.filter(r => r.status === 'success').length;
-  const skippedCount = results.filter(r => r.status === 'skipped').length;
-  const notFoundCount = results.filter(r => r.status === 'not_found').length;
-  const failedCount = results.filter(r => r.status === 'failed').length;
+    const successCount = results.filter(r => r.status === 'success').length;
+    const skippedCount = results.filter(r => r.status === 'skipped').length;
+    const notFoundCount = results.filter(r => r.status === 'not_found').length;
+    const failedCount = results.filter(r => r.status === 'failed').length;
 
-  console.log(`Total dates processed: ${results.length}`);
-  console.log(`Successfully scraped: ${successCount}`);
-  console.log(`Skipped (existing): ${skippedCount}`);
-  console.log(`Not found: ${notFoundCount}`);
-  console.log(`Failed: ${failedCount}\n`);
+    console.log(`Total dates processed: ${results.length}`);
+    console.log(`Successfully scraped: ${successCount}`);
+    console.log(`Skipped (existing): ${skippedCount}`);
+    console.log(`Not found: ${notFoundCount}`);
+    console.log(`Failed: ${failedCount}\n`);
 
-  if (dryRun) {
-    console.log('🔍 Dry run complete - no data was saved');
-    console.log('   Run without --dry-run to save reports\n');
-  } else {
-    console.log('✅ Backfill complete!\n');
-  }
+    if (dryRun) {
+      console.log('🔍 Dry run complete - no data was saved');
+      console.log('   Run without --dry-run to save reports\n');
+    } else {
+      console.log('✅ Backfill complete!\n');
+    }
 
-  // Show grade distribution for successful scrapes
-  if (successCount > 0 && verbose) {
-    console.log('Grade distribution:');
-    // Note: We would need to re-read the saved reports to show actual grades
-    // For now, just note that this could be added
-    console.log('  (View individual reports for grade details)\n');
-  }
+    // Show grade distribution for successful scrapes
+    if (successCount > 0 && verbose) {
+      console.log('Grade distribution:');
+      // Note: We would need to re-read the saved reports to show actual grades
+      // For now, just note that this could be added
+      console.log('  (View individual reports for grade details)\n');
+    }
 
-  // Show failed dates for easy retry
-  if (failedCount > 0) {
-    console.warn(`⚠️  ${failedCount} date(s) failed to scrape:`);
-    const failedDates = results.filter(r => r.status === 'failed').map(r => r.date);
-    console.log(`   ${failedDates.join(', ')}\n`);
-    console.log('   Consider re-running with:');
-    console.log(`   bun run scripts/backfill.ts --dates ${failedDates.join(',')}\n`);
-    process.exit(1);
+    // Show failed dates for easy retry
+    if (failedCount > 0) {
+      console.warn(`⚠️  ${failedCount} date(s) failed to scrape:`);
+      const failedDates = results.filter(r => r.status === 'failed').map(r => r.date);
+      console.log(`   ${failedDates.join(', ')}\n`);
+      console.log('   Consider re-running with:');
+      console.log(`   bun run scripts/backfill.ts --dates ${failedDates.join(',')}\n`);
+      process.exit(1);
+    }
+  } finally {
+    // Close browser session
+    await browser.close();
   }
 }
 

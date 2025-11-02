@@ -1,0 +1,40 @@
+{
+  "date": "2025-08-22",
+  "completedDateTime": "2025-08-22T21:40:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "hands-free work",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "Happy Friday! Today was fearless friday, the dogs practiced going down the slide obstacle into the pool! Pepper was very vocal\ntoday and was policing her friends a little bit. She required some time with the trainers to work on manners",
+  "photos": [
+    "2025-08-22-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Vale Elm",
+    "completedBy": "Vale Elm"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "date": "2025-10-14",
+  "completedDateTime": "2025-10-14T20:53:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Oak"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "collar grab games",
+    "down (stay)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [
+    "challenge with self regulation"
+  ],
+  "noteworthyComments": "Today I got to practice some downs today! I did so well and listend to my trainers. After my training I got to play with so many friends 🧡",
+  "photos": [
+    "2025-10-14-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Oak",
+    "completedBy": "Jasper Oak"
+  }
+}

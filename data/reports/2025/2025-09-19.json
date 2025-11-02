@@ -1,0 +1,41 @@
+{
+  "date": "2025-09-19",
+  "completedDateTime": "2025-09-19T18:35:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Cedar Field"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "hanging out with my bestie.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "had a pool party",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "agility",
+    "confidence building",
+    "balancing skills"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "respected thresholds",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Friday!!! I had a great day today. We started off our day relaxing with our classmates. Later we went outside to play and run around. I had the best time. Afterwards we had our training exercise working on agility and confidence building. I did great!! We ended our day with a nap and playing with some toys.",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}

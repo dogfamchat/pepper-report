@@ -1,0 +1,37 @@
+{
+  "date": "2025-08-12",
+  "completedDateTime": "2025-08-12T19:53:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Aspen Creek"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "making new friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "had a pool party"
+  ],
+  "trainingSkills": [
+    "handling (exam style)",
+    "recall",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Tuesday! Today we practiced confidence building in the coolest possible way… with a water slide! Pepper wasn’t quite brave enough to try it, but she still had fun running and playing with all her puppy buddies!",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}

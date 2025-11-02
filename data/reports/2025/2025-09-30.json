@@ -1,0 +1,38 @@
+{
+  "date": "2025-09-30",
+  "completedDateTime": "2025-09-30T20:01:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Aspen Creek"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "handling (exam style)",
+    "boundries, door-ways, and thresholds",
+    "impulse control",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Tuesday! This morning we focused on building confidence and trust with handling, and this afternoon we had a bubble party!!",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}

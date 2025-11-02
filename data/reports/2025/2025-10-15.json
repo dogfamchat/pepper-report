@@ -1,0 +1,41 @@
+{
+  "date": "2025-10-15",
+  "completedDateTime": "2025-10-15T19:24:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Ocean Willow"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "down (stay)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "Happy Wednesday! Today we worked on our down stays well associating the cue word \"down\" with it, I did an amazing job 🥰 After training I had a blast playing outside with my friends Joey & Barolo!!",
+  "photos": [
+    "2025-10-15-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Ocean Willow",
+    "completedBy": "Ocean Willow"
+  }
+}

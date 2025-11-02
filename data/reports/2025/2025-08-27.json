@@ -1,0 +1,38 @@
+{
+  "date": "2025-08-27",
+  "completedDateTime": "2025-08-27T20:11:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Aspen Creek"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "had a pool party"
+  ],
+  "trainingSkills": [
+    "collar grab games",
+    "sit (stay)",
+    "down (stay)",
+    "impulse control",
+    "sequence (3 different skills in varying order)"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Pepper had so much fun playing with her pals Todd and Letha, checking out the pool, and practicing puppy push-ups!",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}

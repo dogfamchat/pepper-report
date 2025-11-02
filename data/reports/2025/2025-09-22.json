@@ -1,0 +1,53 @@
+{
+  "date": "2025-09-22",
+  "completedDateTime": "2025-09-22T21:28:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Forest Oak"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "hands-free work",
+    "loose-leash walking",
+    "sit (stay)",
+    "recall",
+    "recall with distractions",
+    "impulse control",
+    "jazz up, settle down",
+    "focus work",
+    "trick training",
+    "agility"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "loved every dog I met",
+    "respected other's space",
+    "helped the new kids fit in"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "We practiced middle!! \n\nPepper had so much fun chasing her friends around the yard!! \nWe’re working on using our inside voices and not yelling at all our friends.",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Forest Oak",
+    "completedBy": "Forest Oak"
+  }
+}

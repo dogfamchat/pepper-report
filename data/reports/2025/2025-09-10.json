@@ -1,0 +1,41 @@
+{
+  "date": "2025-09-10",
+  "completedDateTime": "2025-09-10T20:49:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Stone Meadow"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "had a pool party",
+    "played on the agility equipment"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "We have a great time enjoying pool 🛝 and bubbles 🫧 As well playing with my friends 🐶🌼",
+  "photos": [
+    "2025-09-10-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Stone Meadow",
+    "completedBy": "Stone Meadow"
+  }
+}

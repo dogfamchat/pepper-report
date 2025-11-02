@@ -1,0 +1,40 @@
+{
+  "date": "2025-10-17",
+  "completedDateTime": "2025-10-17T23:14:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "engagement games",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Friday! My day was super fun, my trainers made a maze for me and my friends to go through! it was full of confidence building obstacles: I had to crawl, jump, walk over water and be ready to dodge hanging cloths, it was a-maze-ing!💪🤩",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Clay Valley",
+    "completedBy": "Clay Valley"
+  }
+}

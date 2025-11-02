@@ -1,0 +1,44 @@
+{
+  "date": "2025-09-15",
+  "completedDateTime": "2025-09-15T19:38:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Cedar"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "trick training"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "loved every dog I met"
+  ],
+  "ooops": [
+    "bullying or pestering another dog",
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "Today we celebrated National Online Learning Day at school! 🎓🐾 I worked on some training, practicing skills like sit, spin, and paw. I also got to play and chase bubbles, which was so much fun! It was the perfect mix of learning and playing with my friends!! 🐶🧡",
+  "photos": [
+    "2025-09-15-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Cedar",
+    "completedBy": "Jasper Cedar"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "date": "2025-08-19",
+  "completedDateTime": "2025-08-19T19:49:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Cedar"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "getting cuddles from the trainer.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "handling (exam style)",
+    "boundries, door-ways, and thresholds",
+    "loose-leash walking",
+    "sit (stay)",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I practiced handling and walking on leash! My trainers helped me get comfortable being gently guided and checked over, and I worked on walking nicely without pulling! I also had lots of fun playing with my friends and enjoyed good cuddles from my trainer!! 🐶🦮🧡",
+  "photos": [
+    "2025-08-19-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Cedar",
+    "completedBy": "Jasper Cedar"
+  }
+}

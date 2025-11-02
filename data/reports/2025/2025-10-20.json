@@ -1,0 +1,35 @@
+{
+  "date": "2025-10-20",
+  "completedDateTime": "2025-10-20T21:35:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Oak"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I got to work on thresholds and sit practice. I did so well and listened to my trainers! After my training I played with so many friends 🧡",
+  "photos": [
+    "2025-10-20-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Oak",
+    "completedBy": "Jasper Oak"
+  }
+}

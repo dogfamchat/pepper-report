@@ -1,0 +1,44 @@
+{
+  "date": "2025-10-24",
+  "completedDateTime": "2025-10-24T19:44:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Snow"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "focus work"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "loved every dog I met",
+    "made good choices",
+    "respected other's space",
+    "helped the new kids fit in"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today was so much fun. We got to run around outside all day and we even got to play a fun game of Simon says.",
+  "photos": [
+    "2025-10-24-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Forest Snow",
+    "completedBy": "Forest Snow"
+  }
+}
