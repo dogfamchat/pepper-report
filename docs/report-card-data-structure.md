@@ -201,27 +201,6 @@ interface ReportCard {
 - Activity descriptions
 - Notes/comments
 
-## Status
+## Project Status
 
-1. ✅ Document complete data structure
-2. ✅ Build TypeScript types for report data (scripts/types.ts)
-3. ✅ Implement scraper (scripts/scrapers/scrape-report.ts):
-   - Navigates to Forms page
-   - Iterates through all reports for a date/year
-   - Opens each modal
-   - Extracts all fields
-   - Anonymizes staff names
-   - Saves to JSON
-4. ✅ Remove IP address from metadata (privacy enhancement)
-   - Removed from TypeScript types
-   - Removed from scraper extraction
-   - Removed from existing report JSON files
-   - Updated documentation
-
-## Remaining Tasks
-
-1. ✅ ~~Verify photo extraction~~ (Complete - with stock photo filtering)
-2. ✅ ~~Test scraper with actual report data~~ (Complete)
-3. ⏭️ Implement photo upload to Cloudflare R2
-4. ⏭️ Update analysis scripts to work with new data structure
-5. ⏭️ Optional: Add image resizing with sharp library (1920px full, 400px thumbnails)
+See [TODO.md](../TODO.md) for current task tracking and project status.
