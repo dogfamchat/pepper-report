@@ -150,6 +150,7 @@ CLOUDFLARE_R2_ACCOUNT_ID    # Cloudflare account ID
 CLOUDFLARE_R2_ACCESS_KEY    # Photo storage credentials
 CLOUDFLARE_R2_SECRET_KEY
 CLOUDFLARE_R2_BUCKET        # Bucket name (e.g., "pepper-daycare-photos")
+CLOUDFLARE_R2_PUBLIC_DOMAIN # Public R2 domain (e.g., "pub-xxxxx.r2.dev")
 SLACK_WEBHOOK_URL           # Optional: Slack notifications
 ANTHROPIC_API_KEY           # Optional: AI insights
 ```
