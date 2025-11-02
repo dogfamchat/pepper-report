@@ -78,31 +78,6 @@ Focus on completing data ingestion and storage before building analysis and webs
   - Create `scripts/analysis/analyze-all.ts` entry point
   - Set up TypeScript types for analysis outputs
 
-- [ ] **Implement grade trends analysis**
-  - Calculate weekly/monthly grade averages
-  - Track grade distribution (A/B/C/D counts)
-  - Identify improving/declining trends
-  - Output: `data/analysis/grade-trends.json`
-
-- [ ] **Implement friend network analysis**
-  - Extract friend names from AI insights output (names mentioned in noteworthyComments)
-  - Count frequency of each friend name across all reports
-  - Calculate top friends list with statistics
-  - Output: `data/analysis/top-friends.json`
-  - **Depends on:** AI insights implementation
-
-- [ ] **Implement weekly summary analysis**
-  - Aggregate report cards by week
-  - Calculate weekly stats (attendance, avg grade, top activities)
-  - Include notable comments and highlights
-  - Output: `data/analysis/weekly-summary.json`
-
-- [ ] **Implement activity categorization**
-  - Parse whatIDidToday and trainingSkills arrays
-  - Group into categories (play, training, rest, outdoor)
-  - Calculate time spent in each category
-  - Output: `data/analysis/activity-breakdown.json`
-
 - [ ] **AI insights with Claude API**
   - Create `scripts/analysis/ai-insights.ts`
   - Send report cards to Claude API for structured analysis
@@ -110,7 +85,32 @@ Focus on completing data ingestion and storage before building analysis and webs
   - Generate natural language summaries of each report
   - Flag patterns or notable behaviors
   - Output: `data/analysis/ai-insights.json` (one file per report)
-  - **Note:** Friend extraction is critical for friend network analysis
+  - **Note:** Must run first - friend network analysis depends on this
+
+- [ ] **Implement grade trends analysis**
+  - Calculate weekly/monthly grade averages
+  - Track grade distribution (A/B/C/D counts)
+  - Identify improving/declining trends
+  - Output: `data/analysis/grade-trends.json`
+
+- [ ] **Implement activity categorization**
+  - Parse whatIDidToday and trainingSkills arrays
+  - Group into categories (play, training, rest, outdoor)
+  - Calculate time spent in each category
+  - Output: `data/analysis/activity-breakdown.json`
+
+- [ ] **Implement friend network analysis**
+  - Extract friend names from AI insights output (names mentioned in noteworthyComments)
+  - Count frequency of each friend name across all reports
+  - Calculate top friends list with statistics
+  - Output: `data/analysis/top-friends.json`
+  - **Depends on:** AI insights implementation (must run after)
+
+- [ ] **Implement weekly summary analysis**
+  - Aggregate report cards by week
+  - Calculate weekly stats (attendance, avg grade, top activities)
+  - Include notable comments and highlights
+  - Output: `data/analysis/weekly-summary.json`
 
 ### Visualization Data Preparation
 
