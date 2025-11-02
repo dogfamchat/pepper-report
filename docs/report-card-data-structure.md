@@ -25,7 +25,6 @@ The report list page shows a table with the following columns:
 | Completed On | Date and time completed | "Oct 31, 2025, 2:11pm" |
 | Completed By | Staff member who completed it | "[Staff Name]" |
 | Amended By | Staff member who amended (if any) | "[Staff Name]" or empty |
-| IP Address | IP address of submission | "70.77.40.201" |
 | Action | View button (eye icon) | Clickable icon |
 
 ### Selectors for Report List
@@ -156,12 +155,15 @@ The modal appears to load instantly with data already populated (disabled form f
 - Wait strategy: Look for modal title containing "Dayschool Report Card for"
 
 ### Photos
-**Status:** Not yet discovered in exploration
-**TODO:** Check for:
-- Photo gallery or attachment section
-- Image elements within modal
-- Links to photo URLs
-- May be in a separate tab or section of the modal
+**Status:** ✅ Implemented
+Photos are embedded as base64-encoded images in the modal HTML:
+- Located in `<img src="data:image/png;base64,...">` tags
+- Multiple images may be present (stock icons + actual photo)
+- Only the **last image** is extracted (the actual daycare photo)
+- **Stock photo detection:** Automatically filters out the placeholder photo the daycare uses when no real photo is taken
+- Stock photo is identified by SHA256 hash
+- Photos saved to `data/photos/YYYY-MM-DD-001.png` (only if not stock photo)
+- Empty `photos: []` array when only stock photo is present
 
 ## Data Schema (Proposed)
 
@@ -183,7 +185,6 @@ interface ReportCard {
     addedBy: string;               // Anonymized
     completedBy: string;           // Anonymized
     amendedBy?: string;            // Anonymized
-    ipAddress: string;
   };
 }
 ```
@@ -200,15 +201,27 @@ interface ReportCard {
 - Activity descriptions
 - Notes/comments
 
-## Next Steps
+## Status
 
 1. ✅ Document complete data structure
-2. 🔄 Verify photo extraction (not seen yet in modal)
-3. ⏭️ Build TypeScript types for report data
-4. ⏭️ Implement scraper that:
+2. ✅ Build TypeScript types for report data (scripts/types.ts)
+3. ✅ Implement scraper (scripts/scrapers/scrape-report.ts):
    - Navigates to Forms page
    - Iterates through all reports for a date/year
    - Opens each modal
    - Extracts all fields
    - Anonymizes staff names
    - Saves to JSON
+4. ✅ Remove IP address from metadata (privacy enhancement)
+   - Removed from TypeScript types
+   - Removed from scraper extraction
+   - Removed from existing report JSON files
+   - Updated documentation
+
+## Remaining Tasks
+
+1. ✅ ~~Verify photo extraction~~ (Complete - with stock photo filtering)
+2. ✅ ~~Test scraper with actual report data~~ (Complete)
+3. ⏭️ Implement photo upload to Cloudflare R2
+4. ⏭️ Update analysis scripts to work with new data structure
+5. ⏭️ Optional: Add image resizing with sharp library (1920px full, 400px thumbnails)

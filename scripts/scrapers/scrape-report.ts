@@ -17,6 +17,7 @@ import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { processStaffNames } from '../utils/staff-utils';
 import { login, getCredentials } from '../utils/auth-utils';
+import { extractPhotosFromModal, savePhotosLocally } from '../utils/photo-utils';
 // import { uploadPhotosToR2 } from '../storage/r2-uploader'; // TODO: Uncomment when R2 uploader is ready
 import type { ReportCard, Grade, ReportListRow } from '../types';
 
@@ -260,7 +261,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
       // Column mapping (from row 2 headers):
       // 0: (checkbox), 1: Form Name, 2: Source, 3: Added On, 4: Status,
-      // 5: Completed On, 6: Completed By, 7: Amended By, 8: IP Address, 9: Action
+      // 5: Completed On, 6: Completed By, 7: Amended By, 8: Action
       const completedOnText = cellTexts[5];
 
       // Debug: print first actual data row
@@ -276,7 +277,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
         // Extract metadata from this row using the cellTexts we already have
         // Column mapping: 0: (checkbox), 1: Form Name, 2: Source, 3: Added On, 4: Status,
-        // 5: Completed On, 6: Completed By, 7: Amended By, 8: IP Address, 9: Action
+        // 5: Completed On, 6: Completed By, 7: Amended By, 8: Action
         const sourceText = cellTexts[2];
         const amendedByText = cellTexts[7];
 
@@ -292,7 +293,6 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
           completedBy: cellTexts[6] || '',
           amendedBy: amendedByText && amendedByText.trim() ? amendedByText.trim() : undefined,
           addedBy: addedByReal,
-          ipAddress: cellTexts[8] || '',
         };
 
         break;
@@ -318,6 +318,12 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     const modal = page.locator('.css-popup-form-wrapper .css-wl-quiz-process-wrap').first();
     await modal.waitFor({ state: 'visible', timeout: 10000 });
 
+    // Wait for form data to load (look for trainer select or any form element to be populated)
+    await page.waitForSelector('.css-quiz-question:has-text("Trainer")', { timeout: 5000 }).catch(() => {});
+
+    // Give the form a moment to fully populate disabled fields
+    await page.waitForTimeout(1000);
+
     if (verbose) {
       console.log('📄 Extracting data from modal...');
     }
@@ -325,42 +331,126 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     // Extract modal title (contains dog name and owners)
     const titleText = await modal.locator('.js-wl-quiz-process-header').textContent();
     // Example: "Dayschool Report Card for Pepper (John & Nadine)"
-    const titleMatch = titleText?.match(/Dayschool Report Card for (.+?) \((.+?)\)/);
+    const titleMatch = titleText?.match(/for\s+(.+?)\s+\((.+?)\)/i);
     const dogName = titleMatch ? titleMatch[1].trim() : 'Pepper';
     const owners = titleMatch ? titleMatch[2].trim() : 'Unknown';
 
-    // Field 2: Trainers (multi-select)
-    const trainerOptions = modal.locator('.css-quiz-question:has-text("Trainer")').locator('+ .css-col-100 select option[selected]');
-    const trainerCount = await trainerOptions.count();
-    const realTrainerNames: string[] = [];
-    for (let i = 0; i < trainerCount; i++) {
-      const trainerName = await trainerOptions.nth(i).textContent();
-      if (trainerName) {
-        realTrainerNames.push(trainerName.trim());
-      }
+    if (verbose && titleText) {
+      console.log(`   Modal title: "${titleText}"`);
+      console.log(`   Extracted dog: "${dogName}", owners: "${owners}"`);
     }
 
-    // Field 3: Behavior grade (radio button)
-    const gradeInput = modal.locator('input[name="a_radio"]:checked');
-    const gradeLabel = await gradeInput.locator('..').textContent(); // Get parent label text
-    const gradeLabelText = gradeLabel?.trim() || '';
+    // Extract all form data using JavaScript evaluation (more reliable than complex selectors)
+    const formData = await page.evaluate(() => {
+      const modal = document.querySelector('.css-popup-form-wrapper .css-wl-quiz-process-wrap');
+      if (!modal) return null;
 
-    // Parse grade letter from the label text (e.g., "A = I excelled...")
+      // Helper to find answer container for a question
+      const getAnswer = (questionText: string) => {
+        const questions = Array.from(modal.querySelectorAll('.css-quiz-question'));
+        const q = questions.find(el => el.textContent?.includes(questionText));
+        if (!q) return null;
+        return q.closest('.css-core-quiz-element-wrap')?.querySelector('.js-core-quiz-response-component');
+      };
+
+      // Field 2: Trainers (select with multiple)
+      const trainersContainer = getAnswer('Trainer');
+      const trainers = trainersContainer
+        ? Array.from(trainersContainer.querySelectorAll('select option[selected]')).map(o => (o as HTMLOptionElement).textContent?.trim() || '').filter(t => t)
+        : [];
+
+      // Field 3: Behavior grade (radio button)
+      const gradeContainer = getAnswer('behaviour');
+      const gradeInput = gradeContainer?.querySelector('input[name="a_radio"][checked]') as HTMLInputElement;
+      const gradeLabel = gradeInput?.closest('label')?.textContent?.trim() || '';
+
+      // Field 4: Best part (select single)
+      const bestPartContainer = getAnswer('best part');
+      const bestPart = (bestPartContainer?.querySelector('select option[selected]') as HTMLOptionElement)?.textContent?.trim() || '';
+
+      // Field 5: What I did (checkboxes)
+      const whatIDidContainer = getAnswer('What I did today');
+      const whatIDid = whatIDidContainer
+        ? Array.from(whatIDidContainer.querySelectorAll('input[type="checkbox"][checked]')).map(cb =>
+            cb.closest('label')?.textContent?.trim() || ''
+          ).filter(t => t)
+        : [];
+
+      // Field 6: Training skills (checkboxes)
+      const trainingContainer = getAnswer('Training skills');
+      const training = trainingContainer
+        ? Array.from(trainingContainer.querySelectorAll('input[type="checkbox"][checked]')).map(cb =>
+            cb.closest('label')?.textContent?.trim() || ''
+          ).filter(t => t)
+        : [];
+
+      // Field 7: Caught being good (select multiple)
+      const caughtContainer = getAnswer('Caught being good');
+      const caught = caughtContainer
+        ? Array.from(caughtContainer.querySelectorAll('select option[selected]')).map(o => (o as HTMLOptionElement).textContent?.trim() || '').filter(t => t)
+        : [];
+
+      // Field 8: Ooops (select multiple)
+      const ooopsContainer = getAnswer('Ooops');
+      const ooops = ooopsContainer
+        ? Array.from(ooopsContainer.querySelectorAll('select option[selected]')).map(o => (o as HTMLOptionElement).textContent?.trim() || '').filter(t => t)
+        : [];
+
+      // Field 9: Noteworthy (text in .css-quiz-answer divs)
+      const noteworthyContainers = Array.from(modal.querySelectorAll('.css-quiz-question'))
+        .filter(q => q.textContent?.includes('Noteworthy') || q.textContent?.includes('continued'))
+        .map(q => q.closest('.css-core-quiz-element-wrap')?.querySelector('.css-quiz-answer')?.textContent?.trim() || '');
+      const noteworthy = noteworthyContainers.filter(t => t).join(' ').trim();
+
+      return {
+        trainers,
+        gradeLabel,
+        bestPart,
+        whatIDid,
+        training,
+        caught,
+        ooops,
+        noteworthy
+      };
+    });
+
+    if (!formData) {
+      throw new Error('Failed to extract form data from modal');
+    }
+
+    // Parse data from evaluation
+    const realTrainerNames = formData.trainers;
+    const gradeLabelText = formData.gradeLabel;
     const gradeMatch = gradeLabelText.match(/^([A-D])\s*=/);
     const grade = gradeMatch ? (gradeMatch[1] as Grade) : 'C';
+    const bestPartOfDay = formData.bestPart;
+    const whatIDidToday = formData.whatIDid;
+    const trainingSkills = formData.training;
+    const caughtBeingGood = formData.caught;
+    const ooops = formData.ooops;
+    const noteworthyComments = formData.noteworthy;
 
-    // Field 4: Best part of day (dropdown)
-    // Use case-insensitive search
-    const bestPartOption = modal.locator('.css-quiz-question').filter({ hasText: /best part/i }).locator('+ .css-col-100 select option[selected]');
-    const bestPartOfDay = (await bestPartOption.textContent({ timeout: 5000 }).catch(() => '')) || '';
+    if (verbose) {
+      console.log(`   Trainers: ${realTrainerNames.join(', ') || '(none)'}`);
+      console.log(`   Best part: ${bestPartOfDay || '(none)'}`);
+      console.log(`   What I did: ${whatIDidToday.length} items`);
+      console.log(`   Training: ${trainingSkills.length} items`);
+      console.log(`   Caught being good: ${caughtBeingGood.join(', ') || '(none)'}`);
+      console.log(`   Ooops: ${ooops.join(', ') || '(none)'}`);
+      console.log(`   Noteworthy: ${noteworthyComments.substring(0, 50)}${noteworthyComments.length > 50 ? '...' : ''}`);
+    }
 
-    // Field 5: What I did today (textarea)
-    const whatIDidTextarea = modal.locator('.css-quiz-question').filter({ hasText: /What I did/i }).locator('+ .css-col-100 textarea');
-    const notes = (await whatIDidTextarea.inputValue({ timeout: 5000 }).catch(() => '')) || '';
+    // Extract photos from modal
+    if (verbose) {
+      console.log('📸 Extracting photos from modal...');
+    }
+    const photoData = await extractPhotosFromModal(page, targetDate);
+    const photos = photoData.map(p => p.filename);
 
-    // Photos (TODO: implement photo extraction)
-    const photos: string[] = [];
-    // TODO: Check for photo gallery or attachment section in modal
+    // Save photos locally if not in dry-run mode and not skipping photos
+    if (!options.skipPhotos && !options.dryRun && photoData.length > 0) {
+      savePhotosLocally(photoData);
+    }
 
     // Anonymize all staff names
     const allRealStaffNames = [
@@ -394,13 +484,16 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       grade,
       gradeDescription: gradeLabelText,
       bestPartOfDay: bestPartOfDay.trim(),
-      notes: notes.trim(),
+      whatIDidToday,
+      trainingSkills,
+      caughtBeingGood,
+      ooops,
+      noteworthyComments,
       photos,
       metadata: {
         addedBy: anonymizedAddedBy,
         completedBy: anonymizedCompletedBy,
         amendedBy: anonymizedAmendedBy,
-        ipAddress: rowMetadata.ipAddress.trim(),
       },
     };
 
@@ -409,9 +502,10 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       console.log(`   Date: ${reportCard.date}`);
       console.log(`   Dog: ${reportCard.dog.name} (${reportCard.dog.owners})`);
       console.log(`   Grade: ${reportCard.grade}`);
-      console.log(`   Staff: ${anonymizedTrainers.join(', ')}`);
-      console.log(`   Best Part: ${reportCard.bestPartOfDay}`);
-      console.log(`   Notes: ${reportCard.notes.substring(0, 50)}...`);
+      console.log(`   Staff: ${anonymizedTrainers.join(', ') || '(none)'}`);
+      console.log(`   Best Part: ${reportCard.bestPartOfDay || '(none)'}`);
+      console.log(`   What I Did: ${reportCard.whatIDidToday.join(', ') || '(none)'}`);
+      console.log(`   Training: ${reportCard.trainingSkills.join(', ') || '(none)'}`);
       console.log(`   Photos: ${reportCard.photos.length}`);
     }
 

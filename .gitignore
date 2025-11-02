@@ -151,6 +151,9 @@ staff.public.json
 credentials.json
 secrets.json
 
+# Photos (stored in Cloudflare R2, not in Git)
+data/photos/
+
 # Bun
 .bun
 

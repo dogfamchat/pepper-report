@@ -35,8 +35,20 @@ export interface ReportCard {
   /** Selected option from "best part of my day" dropdown */
   bestPartOfDay: string;
 
-  /** Free text from "What I did today" field */
-  notes: string;
+  /** Selected checkboxes from "What I did today" field */
+  whatIDidToday: string[];
+
+  /** Selected checkboxes from "Training skills I practiced today" field */
+  trainingSkills: string[];
+
+  /** Selected items from "Caught being good!" multi-select */
+  caughtBeingGood: string[];
+
+  /** Selected items from "Ooops...!" multi-select */
+  ooops: string[];
+
+  /** Combined noteworthy comments from main field and continuation fields */
+  noteworthyComments: string;
 
   /** Photo filenames or R2 URLs */
   photos: string[];
@@ -49,8 +61,6 @@ export interface ReportCard {
     completedBy: string;
     /** Anonymized name of staff who amended (if any) */
     amendedBy?: string;
-    /** IP address from report list */
-    ipAddress: string;
   };
 }
 
@@ -94,8 +104,6 @@ export interface ReportListRow {
   amendedBy?: string;
   /** Real staff name who added from "Source" column (before anonymization) */
   addedBy: string;
-  /** IP address of submission */
-  ipAddress: string;
 }
 
 /**
