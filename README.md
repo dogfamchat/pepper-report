@@ -49,9 +49,49 @@ src/             # Astro website
 
 ## Getting Started
 
-### Initial Setup
+### Prerequisites
 
-Dependencies are already installed! Staff names are discovered automatically during scraping - no manual setup required.
+1. **Install Bun** (if not already installed):
+   ```bash
+   curl -fsSL https://bun.sh/install | bash
+   ```
+
+2. **Install 1Password CLI** (for secret management):
+   ```bash
+   brew install 1password-cli
+   ```
+
+3. **Install dependencies**:
+   ```bash
+   bun install
+   ```
+
+### Setting Up Secrets
+
+This project uses 1Password CLI to manage secrets securely. All credentials are stored in the "Shared/Clever Canines" vault in 1Password.
+
+**Generate .env file from 1Password:**
+```bash
+op inject -i .env.template -o .env
+```
+
+This will automatically populate your `.env` file with all required credentials from 1Password:
+- Daycare website credentials
+- Cloudflare R2 configuration
+- Slack webhook URL (optional)
+- Anthropic API key (optional)
+
+**⚠️ Important:** Never commit `.env` to Git! It's already in `.gitignore`.
+
+**Field naming in 1Password:**
+All field names in the "Clever Canines" 1Password item should be lowercase versions of the environment variable names:
+- `DAYCARE_USERNAME` → `username`
+- `CLOUDFLARE_R2_BUCKET` → `cloudflare_r2_bucket`
+- etc.
+
+### Staff Name Anonymization
+
+Staff names are discovered automatically during scraping - no manual setup required.
 
 **How it works:**
 - When scrapers find staff names in report cards, they automatically register them in `staff.private.json`

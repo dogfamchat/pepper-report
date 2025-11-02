@@ -37,9 +37,43 @@ scripts/
   backfill.ts                 # One-time historical data import
 ```
 
+## Local Development Setup
+
+### Prerequisites
+- Bun (TypeScript runtime)
+- 1Password CLI (secret management)
+- Playwright browsers
+
+### Setting Up Secrets
+
+This project uses 1Password CLI to inject secrets into the local environment:
+
+```bash
+# Generate .env from 1Password
+op inject -i .env.template -o .env
+```
+
+All credentials are stored in the **"Shared/Clever Canines"** vault in 1Password. Field names are lowercase versions of environment variable names:
+- `DAYCARE_USERNAME` → `username`
+- `CLOUDFLARE_R2_BUCKET` → `cloudflare_r2_bucket`
+- `DAYCARE_SCHEDULE_URL` → `daycare_schedule_url`
+- etc.
+
+**⚠️ Never commit `.env` to Git!** It's already in `.gitignore`.
+
+### Install Dependencies & Browsers
+
+```bash
+bun install
+bunx playwright install chromium --with-deps
+```
+
 ## Common Development Commands
 
 ```bash
+# Generate .env from 1Password (first time setup)
+op inject -i .env.template -o .env
+
 # Install dependencies
 bun install
 
@@ -104,18 +138,23 @@ Always respect the daycare website:
 
 ## GitHub Actions Secrets Required
 
+All secrets should be added to GitHub repository settings. The values should match what's stored in 1Password "Shared/Clever Canines" vault:
+
 ```
-DAYCARE_SCHEDULE_URL      # URL to schedule page
-DAYCARE_REPORT_URL        # URL to report cards page
-DAYCARE_USERNAME          # Login credentials
+DAYCARE_SCHEDULE_URL        # URL to schedule page
+DAYCARE_REPORT_URL          # URL to report cards page
+DAYCARE_USERNAME            # Login credentials
 DAYCARE_PASSWORD
-STAFF_PRIVATE_JSON        # Real staff names mapping
-CLOUDFLARE_R2_ACCESS_KEY  # Photo storage
+STAFF_PRIVATE_JSON          # Real staff names mapping
+CLOUDFLARE_R2_ACCOUNT_ID    # Cloudflare account ID
+CLOUDFLARE_R2_ACCESS_KEY    # Photo storage credentials
 CLOUDFLARE_R2_SECRET_KEY
-CLOUDFLARE_R2_BUCKET
-SLACK_WEBHOOK_URL         # Optional notifications
-ANTHROPIC_API_KEY         # Optional AI insights
+CLOUDFLARE_R2_BUCKET        # Bucket name (e.g., "pepper-daycare-photos")
+SLACK_WEBHOOK_URL           # Optional: Slack notifications
+ANTHROPIC_API_KEY           # Optional: AI insights
 ```
+
+**Note:** GitHub Secrets use UPPERCASE_WITH_UNDERSCORES, while 1Password fields use lowercase_with_underscores. The values are the same, just the naming convention differs.
 
 ## Data Schemas
 
