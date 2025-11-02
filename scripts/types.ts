@@ -4,28 +4,122 @@
 
 // ===== Report Card Types =====
 
+/**
+ * Report card data structure as scraped from the daycare website
+ * Based on documentation in docs/report-card-data-structure.md
+ */
 export interface ReportCard {
-  date: string; // ISO date format: YYYY-MM-DD
+  /** ISO date format: YYYY-MM-DD */
+  date: string;
+
+  /** Full timestamp when report was completed: ISO 8601 format */
+  completedDateTime: string;
+
+  /** Dog information from report title */
+  dog: {
+    /** Dog's name (always "Pepper") */
+    name: string;
+    /** Owner names from report title (e.g., "John & Nadine") */
+    owners: string;
+  };
+
+  /** Anonymized staff trainer names (from multi-select field) */
+  staffNames: string[];
+
+  /** Letter grade from behavior field */
   grade: Grade;
-  staffNotes: string;
-  activities: Activity[];
-  staffNames: string[]; // Anonymized names
-  friends: string[]; // Other dogs' first names
-  photos: string[]; // Photo filenames or R2 URLs
+
+  /** Full text description of the selected grade */
+  gradeDescription: string;
+
+  /** Selected option from "best part of my day" dropdown */
+  bestPartOfDay: string;
+
+  /** Free text from "What I did today" field */
+  notes: string;
+
+  /** Photo filenames or R2 URLs */
+  photos: string[];
+
+  /** Administrative metadata from report list table */
+  metadata: {
+    /** Anonymized name of staff who added the report */
+    addedBy: string;
+    /** Anonymized name of staff who completed the report */
+    completedBy: string;
+    /** Anonymized name of staff who amended (if any) */
+    amendedBy?: string;
+    /** IP address from report list */
+    ipAddress: string;
+  };
 }
 
-export type Grade = 'A' | 'B' | 'C' | 'D' | 'F';
+/** Letter grades for behavior assessment (no F grade in actual system) */
+export type Grade = 'A' | 'B' | 'C' | 'D';
 
-export type Activity =
-  | 'playtime'
-  | 'nap'
-  | 'outdoor'
-  | 'training'
-  | 'grooming'
-  | 'feeding'
-  | 'socialization'
-  | 'enrichment'
-  | 'special-event';
+/**
+ * Options for "best part of my day" dropdown field
+ */
+export type BestPartOption =
+  | 'making new friends.'
+  | 'playing with familiar friends.'
+  | 'hanging out with my bestie.'
+  | 'cuddling with friends.'
+  | 'getting cuddles from the trainer.'
+  | 'eating cookies!'
+  | 'learning something new.'
+  | 'having a pool party!'
+  | 'soaking up the sun.'
+  | 'playing outside!'
+  | 'mastering the agility equipment!';
+
+// ===== Scraper Data Types =====
+
+/**
+ * Raw data extracted from report list table row
+ * Before processing and anonymization
+ */
+export interface ReportListRow {
+  /** Form name (always "Dayschool Report Card") */
+  formName: string;
+  /** Date and time the report was added */
+  addedOn: string;
+  /** Completion status (e.g., "Completed") */
+  status: string;
+  /** Date and time the report was completed */
+  completedOn: string;
+  /** Real staff name who completed (before anonymization) */
+  completedBy: string;
+  /** Real staff name who amended, if any (before anonymization) */
+  amendedBy?: string;
+  /** Real staff name who added from "Source" column (before anonymization) */
+  addedBy: string;
+  /** IP address of submission */
+  ipAddress: string;
+}
+
+/**
+ * Raw data extracted from report card modal
+ * Before processing and anonymization
+ */
+export interface ReportModalData {
+  /** Dog name from "My name" field */
+  dogName: string;
+  /** Owner names extracted from modal title */
+  owners: string;
+  /** Real staff trainer names (before anonymization) */
+  trainers: string[];
+  /** Letter grade (A/B/C/D) */
+  grade: Grade;
+  /** Full description text of selected grade */
+  gradeDescription: string;
+  /** Selected "best part of day" option */
+  bestPartOfDay: string;
+  /** Free text from "What I did today" */
+  whatIDidToday: string;
+  /** Photo URLs or references (if found) */
+  photos: string[];
+}
 
 // ===== Schedule Types =====
 
@@ -42,9 +136,7 @@ export interface WeeklySummary {
   daysAttended: number;
   averageGrade: number; // Numeric grade (A=4.0, B=3.0, etc.)
   gradeDistribution: Record<Grade, number>;
-  totalFriendMentions: number;
   topFriends: string[];
-  activities: Record<Activity, number>;
   highlights: string[];
 }
 
@@ -106,7 +198,7 @@ export interface FriendNetwork {
 export interface WeeklyActivity {
   labels: string[]; // Week labels
   datasets: {
-    label: Activity;
+    label: string;
     data: number[];
     backgroundColor: string;
   }[];
@@ -145,15 +237,13 @@ export function gradeToNumber(grade: Grade): number {
     'B': 3.0,
     'C': 2.0,
     'D': 1.0,
-    'F': 0.0,
   };
-  return gradeMap[grade] || 0;
+  return gradeMap[grade] || 1.0; // Default to D if unknown
 }
 
 export function numberToGrade(num: number): Grade {
   if (num >= 3.5) return 'A';
   if (num >= 2.5) return 'B';
   if (num >= 1.5) return 'C';
-  if (num >= 0.5) return 'D';
-  return 'F';
+  return 'D'; // Lowest grade in the system
 }

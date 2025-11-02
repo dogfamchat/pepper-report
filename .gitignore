@@ -145,6 +145,7 @@ vite.config.ts.timestamp-*
 
 # Private staff data (NEVER commit this!)
 staff.private.json
+staff.public.json
 
 # Credentials and secrets
 credentials.json
@@ -176,3 +177,11 @@ temp/
 # OS files
 .DS_Store
 Thumbs.db
+
+# Debugging artifacts
+debug-*.png
+error-*.png
+profile-*.png
+report-*.png
+report-*.html
+scripts/explore-*.ts

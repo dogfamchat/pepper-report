@@ -18,7 +18,7 @@ import { join } from 'path';
 import { processStaffNames } from '../utils/staff-utils';
 import { login, getCredentials } from '../utils/auth-utils';
 // import { uploadPhotosToR2 } from '../storage/r2-uploader'; // TODO: Uncomment when R2 uploader is ready
-import type { ReportCard, Grade, Activity } from '../types';
+import type { ReportCard, Grade, ReportListRow } from '../types';
 
 interface ScraperOptions {
   date?: string; // YYYY-MM-DD format
@@ -124,49 +124,49 @@ function parseGrade(gradeText: string): Grade {
   if (cleaned.includes('B') || cleaned.includes('GOOD')) return 'B';
   if (cleaned.includes('C') || cleaned.includes('AVERAGE')) return 'C';
   if (cleaned.includes('D') || cleaned.includes('BELOW')) return 'D';
-  if (cleaned.includes('F') || cleaned.includes('POOR')) return 'F';
 
   console.warn(`⚠️  Unknown grade format: "${gradeText}", defaulting to C`);
   return 'C';
 }
 
 /**
- * Map scraped activity text to Activity types
+ * Parse "Completed On" date/time to ISO format
+ * Input: "Oct 31, 2025, 2:11pm"
+ * Output: "2025-10-31T14:11:00.000Z"
  */
-function parseActivities(activityTexts: string[]): Activity[] {
-  const activities: Activity[] = [];
-  const activityMap: Record<string, Activity> = {
-    'play': 'playtime',
-    'nap': 'nap',
-    'sleep': 'nap',
-    'rest': 'nap',
-    'outdoor': 'outdoor',
-    'outside': 'outdoor',
-    'walk': 'outdoor',
-    'training': 'training',
-    'groom': 'grooming',
-    'bath': 'grooming',
-    'feed': 'feeding',
-    'meal': 'feeding',
-    'social': 'socialization',
-    'enrich': 'enrichment',
-    'puzzle': 'enrichment',
-    'special': 'special-event',
-    'event': 'special-event',
-  };
-
-  for (const text of activityTexts) {
-    const cleaned = text.toLowerCase().trim();
-    for (const [keyword, activity] of Object.entries(activityMap)) {
-      if (cleaned.includes(keyword) && !activities.includes(activity)) {
-        activities.push(activity);
-        break;
-      }
+function parseCompletedDateTime(completedOnText: string, fallbackDate: string): string {
+  try {
+    // Parse "Oct 31, 2025, 2:11pm" format
+    const match = completedOnText.match(/(\w+)\s+(\d+),\s+(\d+),\s+(\d+):(\d+)(am|pm)/i);
+    if (!match) {
+      console.warn(`⚠️  Could not parse completed date: "${completedOnText}"`);
+      return new Date(fallbackDate).toISOString();
     }
-  }
 
-  return activities;
+    const [, monthStr, day, year, hour, minute, meridiem] = match;
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = monthNames.indexOf(monthStr);
+
+    if (month === -1) {
+      console.warn(`⚠️  Unknown month: "${monthStr}"`);
+      return new Date(fallbackDate).toISOString();
+    }
+
+    let hour24 = parseInt(hour, 10);
+    if (meridiem.toLowerCase() === 'pm' && hour24 !== 12) {
+      hour24 += 12;
+    } else if (meridiem.toLowerCase() === 'am' && hour24 === 12) {
+      hour24 = 0;
+    }
+
+    const dateObj = new Date(parseInt(year), month, parseInt(day), hour24, parseInt(minute));
+    return dateObj.toISOString();
+  } catch (error) {
+    console.warn(`⚠️  Error parsing date: ${error}`);
+    return new Date(fallbackDate).toISOString();
+  }
 }
+
 
 /**
  * Scrape report card for a specific date
@@ -206,84 +206,212 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     // Login using shared utility
     await login(page, credentials, verbose);
 
-    // TODO: Navigate to report card for target date
-    // await page.goto(`${daycareUrl}/reports/${targetDate}`);
-    // OR: await page.click(`.date-selector[data-date="${targetDate}"]`);
+    if (verbose) {
+      console.log('📋 Navigating to Forms page...');
+    }
 
-    // TODO: Wait for report card to load
-    // await page.waitForSelector('.report-card'); // TODO: Update selector
+    // Click on "Forms" tab
+    await page.click('a:has-text("Forms")');
+    await page.waitForLoadState('networkidle');
 
-    // TODO: Check if report exists for this date
-    // const noReportMessage = await page.$('.no-report-message');
-    // if (noReportMessage) {
-    //   if (verbose) {
-    //     console.log(`ℹ️  No report card found for ${targetDate}`);
-    //   }
-    //   return null;
-    // }
+    // Wait for the table to exist in the DOM
+    await page.waitForSelector('table tbody tr', { state: 'attached', timeout: 10000 });
 
-    // TODO: Extract grade
-    // const gradeElement = await page.$('.grade'); // TODO: Update selector
-    // const gradeText = await gradeElement?.textContent() || 'C';
-    // const grade = parseGrade(gradeText);
+    // Find the report in the table for the target date
+    if (verbose) {
+      console.log(`🔎 Looking for report card dated ${targetDate}...`);
+    }
 
-    // TODO: Extract staff notes
-    // const notesElement = await page.$('.staff-notes'); // TODO: Update selector
-    // const staffNotes = await notesElement?.textContent() || '';
+    // Parse target date for comparison (use string splitting to avoid timezone issues)
+    const [year, month, day] = targetDate.split('-').map(Number);
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const expectedMonth = monthNames[month - 1]; // month is 1-indexed in YYYY-MM-DD format
+    const expectedDay = day;
+    const expectedYear = year;
 
-    // TODO: Extract activities
-    // const activityElements = await page.$$('.activity'); // TODO: Update selector
-    // const activityTexts = await Promise.all(
-    //   activityElements.map(el => el.textContent())
-    // );
-    // const activities = parseActivities(activityTexts.filter(Boolean) as string[]);
+    // Format: "Oct 31, 2025"
+    const expectedDateStr = `${expectedMonth} ${expectedDay}, ${expectedYear}`;
 
-    // TODO: Extract staff names (REAL names from website)
-    // const staffElements = await page.$$('.staff-member'); // TODO: Update selector
-    // const realStaffNames = await Promise.all(
-    //   staffElements.map(el => el.textContent())
-    // );
+    // Find all report rows
+    const reportRows = page.locator('table tbody tr');
+    const rowCount = await reportRows.count();
 
-    // TODO: Extract friend names
-    // const friendElements = await page.$$('.friend-name'); // TODO: Update selector
-    // const friends = await Promise.all(
-    //   friendElements.map(el => el.textContent())
-    // );
+    if (verbose) {
+      console.log(`   Found ${rowCount} report rows in table`);
+      console.log(`   Looking for date string: "${expectedDateStr}"`);
+    }
 
-    // TODO: Download photos
-    // let photoFilenames: string[] = [];
-    // if (!skipPhotos) {
-    //   const photoElements = await page.$$('.photo img'); // TODO: Update selector
-    //   const photoUrls = await Promise.all(
-    //     photoElements.map(el => el.getAttribute('src'))
-    //   );
-    //   photoFilenames = await uploadPhotosToR2(photoUrls.filter(Boolean) as string[], targetDate);
-    // }
+    let reportRow = null;
+    let rowMetadata: ReportListRow | null = null;
 
-    // TEMPORARY: Mock data for testing structure
-    // Remove this when implementing actual scraping
-    console.warn('⚠️  Using mock report card data - implement actual scraping logic!');
+    // Search for the report by matching the "Completed On" date
+    // Skip first 4 rows (filters, year selector, and headers)
+    for (let i = 4; i < rowCount; i++) {
+      const row = reportRows.nth(i);
 
-    const mockRealStaffNames = ['Jane Smith', 'John Doe']; // TODO: Extract from page
-    const anonymizedStaffNames = processStaffNames(mockRealStaffNames);
+      // Get all cells in this row at once
+      const cells = row.locator('td');
+      const cellTexts = await cells.allTextContents();
+
+      // Skip rows that don't have the expected number of columns
+      if (cellTexts.length < 10) {
+        continue;
+      }
+
+      // Column mapping (from row 2 headers):
+      // 0: (checkbox), 1: Form Name, 2: Source, 3: Added On, 4: Status,
+      // 5: Completed On, 6: Completed By, 7: Amended By, 8: IP Address, 9: Action
+      const completedOnText = cellTexts[5];
+
+      // Debug: print first actual data row
+      if (verbose && i === 4) {
+        console.log(`   First data row cells:`, cellTexts.map(c => c.substring(0, 30)));
+      }
+
+      if (completedOnText && completedOnText.includes(expectedDateStr)) {
+        if (verbose) {
+          console.log(`   ✓ Found report for ${targetDate} at row ${i}`);
+        }
+        reportRow = row;
+
+        // Extract metadata from this row using the cellTexts we already have
+        // Column mapping: 0: (checkbox), 1: Form Name, 2: Source, 3: Added On, 4: Status,
+        // 5: Completed On, 6: Completed By, 7: Amended By, 8: IP Address, 9: Action
+        const sourceText = cellTexts[2];
+        const amendedByText = cellTexts[7];
+
+        // Parse "Added by staff [Name]" from Source column
+        const addedByMatch = sourceText?.match(/Added by staff (.+)/);
+        const addedByReal = addedByMatch ? addedByMatch[1].trim() : '';
+
+        rowMetadata = {
+          formName: cellTexts[1] || '',
+          addedOn: cellTexts[3] || '',
+          status: cellTexts[4] || '',
+          completedOn: completedOnText || '',
+          completedBy: cellTexts[6] || '',
+          amendedBy: amendedByText && amendedByText.trim() ? amendedByText.trim() : undefined,
+          addedBy: addedByReal,
+          ipAddress: cellTexts[8] || '',
+        };
+
+        break;
+      }
+    }
+
+    if (!reportRow || !rowMetadata) {
+      if (verbose) {
+        console.log(`ℹ️  No report card found for ${targetDate}`);
+      }
+      return null;
+    }
+
+    // Click on the "Dayschool Report Card" link in this row
+    if (verbose) {
+      console.log('🖱️  Opening report card modal...');
+    }
+
+    const reportLink = reportRow.locator('a:has-text("Dayschool Report Card")');
+    await reportLink.click();
+
+    // Wait for modal to appear
+    const modal = page.locator('.css-popup-form-wrapper .css-wl-quiz-process-wrap').first();
+    await modal.waitFor({ state: 'visible', timeout: 10000 });
+
+    if (verbose) {
+      console.log('📄 Extracting data from modal...');
+    }
+
+    // Extract modal title (contains dog name and owners)
+    const titleText = await modal.locator('.js-wl-quiz-process-header').textContent();
+    // Example: "Dayschool Report Card for Pepper (John & Nadine)"
+    const titleMatch = titleText?.match(/Dayschool Report Card for (.+?) \((.+?)\)/);
+    const dogName = titleMatch ? titleMatch[1].trim() : 'Pepper';
+    const owners = titleMatch ? titleMatch[2].trim() : 'Unknown';
+
+    // Field 2: Trainers (multi-select)
+    const trainerOptions = modal.locator('.css-quiz-question:has-text("Trainer")').locator('+ .css-col-100 select option[selected]');
+    const trainerCount = await trainerOptions.count();
+    const realTrainerNames: string[] = [];
+    for (let i = 0; i < trainerCount; i++) {
+      const trainerName = await trainerOptions.nth(i).textContent();
+      if (trainerName) {
+        realTrainerNames.push(trainerName.trim());
+      }
+    }
+
+    // Field 3: Behavior grade (radio button)
+    const gradeInput = modal.locator('input[name="a_radio"]:checked');
+    const gradeLabel = await gradeInput.locator('..').textContent(); // Get parent label text
+    const gradeLabelText = gradeLabel?.trim() || '';
+
+    // Parse grade letter from the label text (e.g., "A = I excelled...")
+    const gradeMatch = gradeLabelText.match(/^([A-D])\s*=/);
+    const grade = gradeMatch ? (gradeMatch[1] as Grade) : 'C';
+
+    // Field 4: Best part of day (dropdown)
+    // Use case-insensitive search
+    const bestPartOption = modal.locator('.css-quiz-question').filter({ hasText: /best part/i }).locator('+ .css-col-100 select option[selected]');
+    const bestPartOfDay = (await bestPartOption.textContent({ timeout: 5000 }).catch(() => '')) || '';
+
+    // Field 5: What I did today (textarea)
+    const whatIDidTextarea = modal.locator('.css-quiz-question').filter({ hasText: /What I did/i }).locator('+ .css-col-100 textarea');
+    const notes = (await whatIDidTextarea.inputValue({ timeout: 5000 }).catch(() => '')) || '';
+
+    // Photos (TODO: implement photo extraction)
+    const photos: string[] = [];
+    // TODO: Check for photo gallery or attachment section in modal
+
+    // Anonymize all staff names
+    const allRealStaffNames = [
+      ...realTrainerNames,
+      rowMetadata.completedBy,
+      rowMetadata.addedBy,
+      ...(rowMetadata.amendedBy ? [rowMetadata.amendedBy] : []),
+    ].filter(name => name && name.trim());
+
+    const anonymizedMapping = processStaffNames(allRealStaffNames);
+
+    // Get anonymized versions for each field
+    const anonymizedTrainers = realTrainerNames.map(name => anonymizedMapping[allRealStaffNames.indexOf(name)]);
+    const anonymizedCompletedBy = anonymizedMapping[allRealStaffNames.indexOf(rowMetadata.completedBy)];
+    const anonymizedAddedBy = anonymizedMapping[allRealStaffNames.indexOf(rowMetadata.addedBy)];
+    const anonymizedAmendedBy = rowMetadata.amendedBy
+      ? anonymizedMapping[allRealStaffNames.indexOf(rowMetadata.amendedBy)]
+      : undefined;
+
+    // Parse completedDateTime from "Oct 31, 2025, 2:11pm"
+    const completedDateTime = parseCompletedDateTime(rowMetadata.completedOn, targetDate);
 
     const reportCard: ReportCard = {
       date: targetDate,
-      grade: 'A', // TODO: Extract from page
-      staffNotes: 'Pepper had a great day today! She played with her friends and took a good nap.', // TODO: Extract
-      activities: ['playtime', 'nap', 'outdoor'], // TODO: Extract
-      staffNames: anonymizedStaffNames, // ← Already anonymized!
-      friends: ['Max', 'Luna'], // TODO: Extract
-      photos: [], // TODO: Download and upload to R2
+      completedDateTime,
+      dog: {
+        name: dogName,
+        owners: owners,
+      },
+      staffNames: anonymizedTrainers,
+      grade,
+      gradeDescription: gradeLabelText,
+      bestPartOfDay: bestPartOfDay.trim(),
+      notes: notes.trim(),
+      photos,
+      metadata: {
+        addedBy: anonymizedAddedBy,
+        completedBy: anonymizedCompletedBy,
+        amendedBy: anonymizedAmendedBy,
+        ipAddress: rowMetadata.ipAddress.trim(),
+      },
     };
 
     if (verbose) {
       console.log(`\n📋 Report Card Summary:`);
       console.log(`   Date: ${reportCard.date}`);
+      console.log(`   Dog: ${reportCard.dog.name} (${reportCard.dog.owners})`);
       console.log(`   Grade: ${reportCard.grade}`);
-      console.log(`   Staff: ${anonymizedStaffNames.join(', ')}`);
-      console.log(`   Friends: ${reportCard.friends.join(', ')}`);
-      console.log(`   Activities: ${reportCard.activities.join(', ')}`);
+      console.log(`   Staff: ${anonymizedTrainers.join(', ')}`);
+      console.log(`   Best Part: ${reportCard.bestPartOfDay}`);
+      console.log(`   Notes: ${reportCard.notes.substring(0, 50)}...`);
       console.log(`   Photos: ${reportCard.photos.length}`);
     }
 
@@ -342,4 +470,4 @@ if (import.meta.main) {
   main();
 }
 
-export { scrapeReportCard, parseGrade, parseActivities, reportExists, saveReport };
+export { scrapeReportCard, parseGrade, reportExists, saveReport };

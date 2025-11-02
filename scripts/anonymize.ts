@@ -34,7 +34,6 @@ const LAST_NAMES = [
 
 const rootDir = process.cwd();
 const privateFile = join(rootDir, 'staff.private.json');
-const publicFile = join(rootDir, 'staff.public.json');
 
 /**
  * Generate a deterministic pseudonym from a real name
@@ -89,7 +88,8 @@ function registerStaffNames(names: string[]): boolean {
   for (const name of names) {
     const trimmedName = name.trim();
     if (trimmedName && !mapping[trimmedName]) {
-      mapping[trimmedName] = trimmedName; // Store as identity mapping
+      // Map real name to pseudonym
+      mapping[trimmedName] = generatePseudonym(trimmedName);
       newNamesAdded = true;
       console.log(`   ➕ Discovered new staff member: ${trimmedName}`);
     }
@@ -97,44 +97,39 @@ function registerStaffNames(names: string[]): boolean {
 
   if (newNamesAdded) {
     saveStaffMapping(mapping);
-    // Regenerate pseudonyms
-    regeneratePseudonyms(mapping);
   }
 
   return newNamesAdded;
 }
 
 /**
- * Get pseudonym for a staff name (or return original if not mapped)
+ * Get pseudonym for a staff name
+ * Looks up in private mapping, or generates deterministically if not found
  */
 function getPseudonym(realName: string): string {
-  const publicMapping = existsSync(publicFile)
-    ? JSON.parse(readFileSync(publicFile, 'utf-8'))
-    : {};
-
-  return publicMapping[realName] || generatePseudonym(realName);
+  const mapping = loadStaffMapping();
+  return mapping[realName] || generatePseudonym(realName);
 }
 
 /**
- * Regenerate public pseudonyms from private mapping
+ * Regenerate pseudonyms in private mapping
+ * Useful if you want to update the pseudonym algorithm
  */
-function regeneratePseudonyms(privateData?: StaffMapping): void {
-  const mapping = privateData || loadStaffMapping();
-  const publicData: StaffMapping = {};
+function regeneratePseudonyms(): void {
+  const mapping = loadStaffMapping();
+  const updated: StaffMapping = {};
 
   for (const realName of Object.keys(mapping)) {
-    publicData[realName] = generatePseudonym(realName);
+    updated[realName] = generatePseudonym(realName);
   }
 
-  writeFileSync(
-    publicFile,
-    JSON.stringify(publicData, null, 2) + '\n',
-    'utf-8'
-  );
+  saveStaffMapping(updated);
+  console.log(`✅ Regenerated ${Object.keys(updated).length} pseudonyms in staff.private.json`);
 }
 
 /**
  * Main anonymization function (for CLI usage)
+ * Shows the current mapping for verification
  */
 async function anonymize() {
   const mapping = loadStaffMapping();
@@ -144,29 +139,19 @@ async function anonymize() {
     console.log('ℹ️  No staff names registered yet.');
     console.log('   Staff names will be automatically discovered during scraping.\n');
 
-    // Create empty files
+    // Create empty file
     saveStaffMapping({});
-    regeneratePseudonyms({});
     return;
   }
 
-  console.log('🔒 Generating pseudonyms...\n');
+  console.log('🔒 Current Staff Name Mappings:\n');
 
-  const publicData: StaffMapping = {};
-  for (const realName of Object.keys(mapping)) {
-    const pseudonym = generatePseudonym(realName);
-    publicData[realName] = pseudonym;
+  for (const [realName, pseudonym] of Object.entries(mapping)) {
     console.log(`   ${realName} → ${pseudonym}`);
   }
 
-  writeFileSync(
-    publicFile,
-    JSON.stringify(publicData, null, 2) + '\n',
-    'utf-8'
-  );
-
-  console.log(`\n✅ Generated ${count} pseudonyms`);
-  console.log(`📄 Saved to: staff.public.json\n`);
+  console.log(`\n✅ ${count} staff member${count === 1 ? '' : 's'} registered`);
+  console.log(`📄 Stored in: staff.private.json (gitignored)\n`);
   console.log('⚠️  Remember: NEVER commit staff.private.json to Git!\n');
 }
 
