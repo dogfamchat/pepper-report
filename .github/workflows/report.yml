@@ -111,6 +111,26 @@ jobs:
 
           git push
 
+      - name: Send Slack notification
+        if: steps.changes.outputs.has_new_report == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          # Get the date from the most recent report
+          REPORT_DATE=$(ls -t data/reports/*/*.json | head -n 1 | xargs basename .json)
+          echo "Sending Slack notification for report: ${REPORT_DATE}"
+          bun run scripts/notifications/slack-notify.ts --date "${REPORT_DATE}"
+
+      - name: Create GitHub Issue
+        if: steps.changes.outputs.has_new_report == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # Get the date from the most recent report
+          REPORT_DATE=$(ls -t data/reports/*/*.json | head -n 1 | xargs basename .json)
+          echo "Creating GitHub Issue for report: ${REPORT_DATE}"
+          bun run scripts/notifications/github-issue-notify.ts --date "${REPORT_DATE}"
+
       - name: No new report
         if: steps.changes.outputs.has_new_report == 'false'
         run: echo "No new report card found for today"
