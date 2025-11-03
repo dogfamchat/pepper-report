@@ -17,6 +17,9 @@ on:
 jobs:
   scrape-report:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
     outputs:
       report_found: ${{ steps.scrape.outputs.report_found }}
       report_date: ${{ steps.scrape.outputs.report_date }}
