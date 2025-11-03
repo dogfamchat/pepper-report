@@ -38,37 +38,41 @@ Focus on completing data ingestion and storage before building analysis and webs
 
 ### Phase 2: Complete Automation
 
-- [ ] **Verify GitHub Actions secrets are configured**
-  - DAYCARE_SCHEDULE_URL
-  - DAYCARE_REPORT_URL
-  - DAYCARE_USERNAME
-  - DAYCARE_PASSWORD
-  - STAFF_PRIVATE_JSON
-  - CLOUDFLARE_R2_ACCOUNT_ID
-  - CLOUDFLARE_R2_ACCESS_KEY
-  - CLOUDFLARE_R2_SECRET_KEY
-  - CLOUDFLARE_R2_BUCKET
-  - SLACK_WEBHOOK_URL (optional)
-  - ANTHROPIC_API_KEY (optional for AI insights)
+- [x] **Verify GitHub Actions secrets are configured**
+  - ✓ DAYCARE_SCHEDULE_URL
+  - ✓ DAYCARE_REPORT_URL
+  - ✓ DAYCARE_USERNAME
+  - ✓ DAYCARE_PASSWORD
+  - ✓ STAFF_PRIVATE_JSON
+  - ✓ CLOUDFLARE_R2_ACCOUNT_ID
+  - ✓ CLOUDFLARE_R2_ACCESS_KEY
+  - ✓ CLOUDFLARE_R2_SECRET_KEY
+  - ✓ CLOUDFLARE_R2_BUCKET
+  - ✓ CLOUDFLARE_R2_PUBLIC_DOMAIN
+  - ✓ SLACK_WEBHOOK_URL
+  - ✓ ANTHROPIC_API_KEY
 
-- [ ] **Add Slack notification support**
-  - Set up incoming webhook in Slack workspace
-  - Create notification template with report card summary
-  - Add to workflow after successful scrape
-  - Test with next report card
+- [x] **Add Slack notification support**
+  - ✓ Created `scripts/notifications/slack-notify.ts`
+  - ✓ Implemented Slack Block Kit formatting with rich sections
+  - ✓ Added inline photo display from R2 URLs
+  - ✓ Integrated into GitHub Actions workflow
+  - ✓ Tested locally with existing report card
 
-- [ ] **Add GitHub Issue notification support**
-  - Create issue template with report card details
-  - Add to workflow after successful scrape
-  - Auto-close previous report card issue (optional)
-  - Test with next report card
+- [x] **Add GitHub Issue notification support**
+  - ✓ Created `scripts/notifications/github-issue-notify.ts`
+  - ✓ Implemented markdown formatting with embedded photos
+  - ✓ Graceful handling of missing labels
+  - ✓ Integrated into GitHub Actions workflow
+  - ✓ Tested locally with existing report card
 
-- [ ] **Test end-to-end automation**
-  - Trigger manual workflow run
-  - Verify scraper runs successfully
-  - Confirm photo upload to R2
-  - Check notifications are sent
-  - Verify commits are pushed to Git
+- [x] **Test end-to-end automation**
+  - ✓ Triggered manual workflow run
+  - ✓ Verified scraper runs successfully
+  - ✓ Confirmed photo upload to R2
+  - ✓ Tested notification scripts locally
+  - ✓ Verified commits are pushed to Git
+  - ✓ Ready for next real report card
 
 ## Phase 3: Analysis & Visualization
 
