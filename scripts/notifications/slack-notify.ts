@@ -17,8 +17,8 @@ const GRADE_EMOJI: Record<string, string> = {
 };
 
 // Slack Block Kit types
-interface SlackBlock {
-  type: string;
+interface SlackTextBlock {
+  type: 'header' | 'section' | 'context';
   text?: {
     type: string;
     text: string;
@@ -33,6 +33,18 @@ interface SlackBlock {
     text: string;
   }[];
 }
+
+interface SlackImageBlock {
+  type: 'image';
+  image_url: string;
+  alt_text: string;
+}
+
+interface SlackDividerBlock {
+  type: 'divider';
+}
+
+type SlackBlock = SlackTextBlock | SlackImageBlock | SlackDividerBlock;
 
 interface SlackPayload {
   text: string;
@@ -205,7 +217,7 @@ function formatSlackMessage(report: ReportCard, photosMetadata: PhotosCollection
           type: 'image',
           image_url: photoUrl,
           alt_text: `Photo from ${report.date}`,
-        } as any);
+        });
       }
     }
   }
