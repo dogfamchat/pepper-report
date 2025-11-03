@@ -119,6 +119,12 @@ function saveSchedule(year: string, schedule: Schedule): void {
 function parseScheduleDate(dateText: string): string | null {
   const cleaned = dateText.trim();
 
+  // Skip header rows or common non-date text
+  const headerPatterns = /^(date|time|status|day|month|year|schedule|location|teacher|staff)$/i;
+  if (headerPatterns.test(cleaned) || cleaned.length < 3) {
+    return null;
+  }
+
   // Try ISO format first: 2024-11-15
   if (/^\d{4}-\d{2}-\d{2}$/.test(cleaned)) {
     return cleaned;
@@ -181,7 +187,10 @@ function parseScheduleDate(dateText: string): string | null {
     return dataDateMatch[1];
   }
 
-  console.warn(`   ⚠️  Could not parse date: "${dateText}"`);
+  // Only warn if it looks like it should be a date (contains numbers)
+  if (/\d/.test(cleaned)) {
+    console.warn(`   ⚠️  Could not parse date: "${dateText}"`);
+  }
   return null;
 }
 
