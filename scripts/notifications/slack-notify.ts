@@ -4,16 +4,16 @@
  * Usage: bun run scripts/notifications/slack-notify.ts --date 2024-11-15
  */
 
-import { readFileSync, existsSync } from 'fs';
-import { resolve } from 'path';
-import type { ReportCard, PhotosCollection } from '../types';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import type { PhotosCollection, ReportCard } from '../types';
 
 // Grade emoji mapping
 const GRADE_EMOJI: Record<string, string> = {
-  'A': '🌟',
-  'B': '⭐',
-  'C': '💫',
-  'D': '✨',
+  A: '🌟',
+  B: '⭐',
+  C: '💫',
+  D: '✨',
 };
 
 // Slack Block Kit types
@@ -68,26 +68,31 @@ function loadPhotosMetadata(): PhotosCollection | null {
  */
 function getPhotoUrl(filename: string, photosMetadata: PhotosCollection | null): string | null {
   if (!photosMetadata) return null;
-  const photo = photosMetadata.photos.find(p => p.filename === filename);
+  const photo = photosMetadata.photos.find((p) => p.filename === filename);
   return photo?.r2Url || null;
 }
 
 /**
  * Format report card data into a Slack message
  */
-function formatSlackMessage(report: ReportCard, photosMetadata: PhotosCollection | null): SlackPayload {
+function formatSlackMessage(
+  report: ReportCard,
+  photosMetadata: PhotosCollection | null,
+): SlackPayload {
   const gradeEmoji = GRADE_EMOJI[report.grade] || '📝';
 
   // Format activities into readable list
   const activities = report.whatIDidToday.slice(0, 5).join(', ');
-  const activitiesText = report.whatIDidToday.length > 0
-    ? (report.whatIDidToday.length > 5 ? `${activities}, and more...` : activities)
-    : 'None today';
+  const activitiesText =
+    report.whatIDidToday.length > 0
+      ? report.whatIDidToday.length > 5
+        ? `${activities}, and more...`
+        : activities
+      : 'None today';
 
   // Format training skills
-  const trainingText = report.trainingSkills.length > 0
-    ? report.trainingSkills.slice(0, 3).join(', ')
-    : 'None today';
+  const trainingText =
+    report.trainingSkills.length > 0 ? report.trainingSkills.slice(0, 3).join(', ') : 'None today';
 
   // Best part of day
   const bestPart = report.bestPartOfDay;
@@ -175,11 +180,12 @@ function formatSlackMessage(report: ReportCard, photosMetadata: PhotosCollection
   }
 
   // Add noteworthy comments if present
-  if (report.noteworthyComments && report.noteworthyComments.trim()) {
+  if (report.noteworthyComments?.trim()) {
     // Limit to 500 chars for Slack
-    const comments = report.noteworthyComments.length > 500
-      ? report.noteworthyComments.substring(0, 497) + '...'
-      : report.noteworthyComments;
+    const comments =
+      report.noteworthyComments.length > 500
+        ? `${report.noteworthyComments.substring(0, 497)}...`
+        : report.noteworthyComments;
 
     blocks.push({
       type: 'section',
@@ -242,7 +248,9 @@ async function sendSlackNotification(webhookUrl: string, payload: SlackPayload):
 
   if (!response.ok) {
     const errorText = await response.text();
-    throw new Error(`Failed to send Slack notification: ${response.status} ${response.statusText}\n${errorText}`);
+    throw new Error(
+      `Failed to send Slack notification: ${response.status} ${response.statusText}\n${errorText}`,
+    );
   }
 
   console.log('✅ Slack notification sent successfully');
@@ -254,9 +262,10 @@ async function sendSlackNotification(webhookUrl: string, payload: SlackPayload):
 async function main() {
   // Parse command line arguments
   const args = process.argv.slice(2);
-  const dateArg = args.find(arg => arg.startsWith('--date='))?.split('=')[1];
+  const dateArg = args.find((arg) => arg.startsWith('--date='))?.split('=')[1];
   const dateIndex = args.indexOf('--date');
-  const date = dateArg || (dateIndex !== -1 && args[dateIndex + 1]) || new Date().toISOString().split('T')[0];
+  const date =
+    dateArg || (dateIndex !== -1 && args[dateIndex + 1]) || new Date().toISOString().split('T')[0];
 
   console.log(`📨 Preparing Slack notification for report card: ${date}`);
 

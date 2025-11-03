@@ -5,9 +5,9 @@
  * staff names from report cards.
  */
 
-import { registerStaffNames, getPseudonym, loadStaffMapping } from '../anonymize';
-import { writeFileSync } from 'fs';
-import { join } from 'path';
+import { writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { getPseudonym, loadStaffMapping, registerStaffNames } from '../anonymize';
 
 /**
  * Process staff names from a scraped report card
@@ -29,14 +29,12 @@ export function processStaffNames(
   options?: {
     autoRegister?: boolean; // Default: true
     verbose?: boolean; // Default: false
-  }
+  },
 ): string[] {
   const { autoRegister = true, verbose = false } = options || {};
 
   // Clean and normalize names
-  const cleanedNames = realNames
-    .map(name => name.trim())
-    .filter(name => name.length > 0);
+  const cleanedNames = realNames.map((name) => name.trim()).filter((name) => name.length > 0);
 
   if (cleanedNames.length === 0) {
     return [];
@@ -51,7 +49,7 @@ export function processStaffNames(
   }
 
   // Return anonymized versions
-  return cleanedNames.map(name => getPseudonym(name));
+  return cleanedNames.map((name) => getPseudonym(name));
 }
 
 /**
@@ -104,7 +102,7 @@ export function processAndValidateStaffNames(
     autoRegister?: boolean;
     verbose?: boolean;
     throwOnInvalid?: boolean; // Default: false (filter out invalid)
-  }
+  },
 ): string[] {
   const { throwOnInvalid = false, ...processOptions } = options || {};
 
@@ -156,7 +154,7 @@ export function initializeStaffMappingFromSecret(staffPrivateJson: string): void
 
     // Write to staff.private.json
     const privateFile = join(process.cwd(), 'staff.private.json');
-    writeFileSync(privateFile, JSON.stringify(mapping, null, 2) + '\n', 'utf-8');
+    writeFileSync(privateFile, `${JSON.stringify(mapping, null, 2)}\n`, 'utf-8');
 
     console.log('✅ Loaded staff mapping from GitHub Secret');
   } catch (error) {

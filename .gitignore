@@ -171,7 +171,6 @@ temp/
 *.tmp
 
 # Editor
-.vscode/
 .idea/
 *.swp
 *.swo

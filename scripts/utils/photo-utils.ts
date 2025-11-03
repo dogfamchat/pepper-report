@@ -5,9 +5,9 @@
  * decoding, and preparation for storage (local or R2).
  */
 
-import { writeFileSync, mkdirSync, existsSync } from 'fs';
-import { join } from 'path';
-import { createHash } from 'crypto';
+import { createHash } from 'node:crypto';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import type { Page } from 'playwright';
 import { uploadLocalPhotosToR2 } from '../storage/r2-uploader';
 
@@ -127,7 +127,7 @@ export async function uploadPhotosToR2(
   date: string,
   options: {
     verbose?: boolean;
-  } = {}
+  } = {},
 ): Promise<string[]> {
   if (photos.length === 0) {
     return [];
@@ -159,14 +159,16 @@ export async function uploadPhotosToR2(
     console.log(`   📤 Uploading ${tempPaths.length} photo(s) to R2...`);
   }
 
-  const uploadedFiles = await uploadLocalPhotosToR2(tempPaths, date, { verbose });
+  const uploadedFiles = await uploadLocalPhotosToR2(tempPaths, date, {
+    verbose,
+  });
 
   // Clean up temp files
   for (const tempPath of tempPaths) {
     try {
-      const fs = await import('fs/promises');
+      const fs = await import('node:fs/promises');
       await fs.unlink(tempPath);
-    } catch (error) {
+    } catch (_error) {
       // Ignore cleanup errors
     }
   }

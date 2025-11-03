@@ -15,7 +15,10 @@
     "anonymize": "bun run scripts/anonymize.ts",
     "test": "bun test",
     "test:staff": "bun run scripts/test-staff-discovery.ts",
-    "test:r2": "bun run scripts/test-r2-upload.ts"
+    "test:r2": "bun run scripts/test-r2-upload.ts",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "format": "biome format --write ."
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.922.0",
@@ -25,6 +28,7 @@
     "sharp": "^0.34.4"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.3.2",
     "@types/bun": "latest",
     "typescript": "^5.9.3"
   }

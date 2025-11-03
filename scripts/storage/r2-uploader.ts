@@ -7,10 +7,10 @@
  * Cloudflare R2 is S3-compatible, so we use AWS SDK.
  */
 
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
-import { writeFileSync, existsSync, readFileSync } from 'fs';
-import { join } from 'path';
 import type { PhotoMetadata, PhotosCollection } from '../types';
 
 interface R2Config {
@@ -32,10 +32,10 @@ function getR2Config(): R2Config {
   if (!accountId || !accessKeyId || !secretAccessKey || !bucketName) {
     throw new Error(
       'Missing R2 configuration. Required environment variables:\n' +
-      '  - CLOUDFLARE_R2_ACCOUNT_ID\n' +
-      '  - CLOUDFLARE_R2_ACCESS_KEY\n' +
-      '  - CLOUDFLARE_R2_SECRET_KEY\n' +
-      '  - CLOUDFLARE_R2_BUCKET'
+        '  - CLOUDFLARE_R2_ACCOUNT_ID\n' +
+        '  - CLOUDFLARE_R2_ACCESS_KEY\n' +
+        '  - CLOUDFLARE_R2_SECRET_KEY\n' +
+        '  - CLOUDFLARE_R2_BUCKET',
     );
   }
 
@@ -102,7 +102,7 @@ async function uploadToR2(
   bucketName: string,
   key: string,
   data: Buffer,
-  contentType: string = 'image/jpeg'
+  contentType: string = 'image/jpeg',
 ): Promise<string> {
   const command = new PutObjectCommand({
     Bucket: bucketName,
@@ -151,7 +151,7 @@ export async function uploadPhotosToR2(
     fullWidth?: number; // Default: 1920px
     thumbnailWidth?: number; // Default: 400px
     verbose?: boolean;
-  } = {}
+  } = {},
 ): Promise<string[]> {
   const { fullWidth = 1920, thumbnailWidth = 400, verbose = false } = options;
 
@@ -193,7 +193,12 @@ export async function uploadPhotosToR2(
       const thumbnailKey = `photos/${date}/thumbnails/${filename}`;
 
       const fullUrl = await uploadToR2(client, config.bucketName, fullKey, fullBuffer);
-      const thumbnailUrl = await uploadToR2(client, config.bucketName, thumbnailKey, thumbnailBuffer);
+      const thumbnailUrl = await uploadToR2(
+        client,
+        config.bucketName,
+        thumbnailKey,
+        thumbnailBuffer,
+      );
 
       if (verbose) {
         console.log(`      ✓ Uploaded to R2: ${filename}`);
@@ -234,7 +239,7 @@ function updatePhotosCollection(photo: PhotoMetadata): void {
   if (existsSync(photosFile)) {
     try {
       collection = JSON.parse(readFileSync(photosFile, 'utf-8'));
-    } catch (error) {
+    } catch (_error) {
       console.warn('⚠️  Could not parse photos.json, creating new collection');
       collection = { photos: [], totalSize: 0, count: 0 };
     }
@@ -248,7 +253,7 @@ function updatePhotosCollection(photo: PhotoMetadata): void {
   collection.totalSize = collection.photos.reduce((sum, p) => sum + p.size, 0);
 
   // Save updated collection
-  writeFileSync(photosFile, JSON.stringify(collection, null, 2) + '\n', 'utf-8');
+  writeFileSync(photosFile, `${JSON.stringify(collection, null, 2)}\n`, 'utf-8');
 }
 
 /**
@@ -269,7 +274,7 @@ export async function uploadLocalPhotosToR2(
     fullWidth?: number; // Default: 1920px
     thumbnailWidth?: number; // Default: 400px
     verbose?: boolean;
-  } = {}
+  } = {},
 ): Promise<string[]> {
   const { fullWidth = 1920, thumbnailWidth = 400, verbose = false } = options;
 
@@ -317,7 +322,12 @@ export async function uploadLocalPhotosToR2(
       const thumbnailKey = `photos/${date}/thumbnails/${filename}`;
 
       const fullUrl = await uploadToR2(client, config.bucketName, fullKey, fullBuffer);
-      const thumbnailUrl = await uploadToR2(client, config.bucketName, thumbnailKey, thumbnailBuffer);
+      const thumbnailUrl = await uploadToR2(
+        client,
+        config.bucketName,
+        thumbnailKey,
+        thumbnailBuffer,
+      );
 
       if (verbose) {
         console.log(`      ✓ Uploaded to R2: ${filename}`);
@@ -362,7 +372,7 @@ export function getPhotosForDate(date: string): PhotoMetadata[] {
 
   try {
     const collection: PhotosCollection = JSON.parse(readFileSync(photosFile, 'utf-8'));
-    return collection.photos.filter(photo => photo.date === date);
+    return collection.photos.filter((photo) => photo.date === date);
   } catch (error) {
     console.error('Failed to read photos.json:', error);
     return [];

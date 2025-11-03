@@ -183,12 +183,14 @@ export interface AIInsights {
 
 export interface GradeTimeline {
   labels: string[]; // Dates
-  datasets: [{
-    label: string;
-    data: number[]; // Numeric grades
-    borderColor: string;
-    backgroundColor: string;
-  }];
+  datasets: [
+    {
+      label: string;
+      data: number[]; // Numeric grades
+      borderColor: string;
+      backgroundColor: string;
+    },
+  ];
 }
 
 export interface FriendNetwork {
@@ -242,10 +244,10 @@ export interface StaffMapping {
 
 export function gradeToNumber(grade: Grade): number {
   const gradeMap: Record<Grade, number> = {
-    'A': 4.0,
-    'B': 3.0,
-    'C': 2.0,
-    'D': 1.0,
+    A: 4.0,
+    B: 3.0,
+    C: 2.0,
+    D: 1.0,
   };
   return gradeMap[grade] || 1.0; // Default to D if unknown
 }

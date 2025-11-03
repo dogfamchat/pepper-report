@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+
 /**
  * Report Card Backfill Script
  *
@@ -11,11 +12,11 @@
  *   bun run scripts/backfill.ts --schedule data/schedule/2025.json
  */
 
+import { existsSync, readFileSync } from 'node:fs';
 import { chromium } from 'playwright';
-import { scrapeReportCard, reportExists, saveReport } from './scrapers/scrape-report';
-import { login, getCredentials } from './utils/auth-utils';
-import { readFileSync, existsSync } from 'fs';
+import { reportExists, saveReport, scrapeReportCard } from './scrapers/scrape-report';
 import type { Schedule } from './types';
+import { getCredentials, login } from './utils/auth-utils';
 
 interface BackfillOptions {
   startDate?: string; // YYYY-MM-DD
@@ -51,7 +52,7 @@ function parseArgs(): BackfillOptions {
         options.endDate = args[++i];
         break;
       case '--dates':
-        options.dates = args[++i].split(',').map(d => d.trim());
+        options.dates = args[++i].split(',').map((d) => d.trim());
         break;
       case '--schedule':
         options.scheduleFile = args[++i];
@@ -129,7 +130,7 @@ function generateDateRange(start: string, end: string): string[] {
   const startDate = new Date(start);
   const endDate = new Date(end);
 
-  let current = new Date(startDate);
+  const current = new Date(startDate);
 
   while (current <= endDate) {
     dates.push(current.toISOString().slice(0, 10));
@@ -168,14 +169,20 @@ function loadDatesFromSchedule(scheduleFile: string): string[] {
  * Sleep for specified milliseconds
  */
 function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
  * Backfill report cards for multiple dates
  */
 async function backfillReports(options: BackfillOptions): Promise<void> {
-  const { delayMs = 4000, verbose = true, dryRun = false, skipExisting = true, skipPhotos = false } = options;
+  const {
+    delayMs = 4000,
+    verbose = true,
+    dryRun = false,
+    skipExisting = true,
+    skipPhotos = false,
+  } = options;
 
   // Determine which dates to scrape
   let dates: string[];
@@ -225,7 +232,11 @@ async function backfillReports(options: BackfillOptions): Promise<void> {
     await page.waitForLoadState('networkidle');
     console.log('✓ Ready to scrape\n');
 
-    const results: { date: string; status: 'success' | 'skipped' | 'not_found' | 'failed'; error?: string }[] = [];
+    const results: {
+      date: string;
+      status: 'success' | 'skipped' | 'not_found' | 'failed';
+      error?: string;
+    }[] = [];
 
     for (let i = 0; i < dates.length; i++) {
       const date = dates[i];
@@ -284,13 +295,13 @@ async function backfillReports(options: BackfillOptions): Promise<void> {
     }
 
     // Summary
-    console.log('\n' + '='.repeat(60));
+    console.log(`\n${'='.repeat(60)}`);
     console.log('Backfill Summary\n');
 
-    const successCount = results.filter(r => r.status === 'success').length;
-    const skippedCount = results.filter(r => r.status === 'skipped').length;
-    const notFoundCount = results.filter(r => r.status === 'not_found').length;
-    const failedCount = results.filter(r => r.status === 'failed').length;
+    const successCount = results.filter((r) => r.status === 'success').length;
+    const skippedCount = results.filter((r) => r.status === 'skipped').length;
+    const notFoundCount = results.filter((r) => r.status === 'not_found').length;
+    const failedCount = results.filter((r) => r.status === 'failed').length;
 
     console.log(`Total dates processed: ${results.length}`);
     console.log(`Successfully scraped: ${successCount}`);
@@ -316,7 +327,7 @@ async function backfillReports(options: BackfillOptions): Promise<void> {
     // Show failed dates for easy retry
     if (failedCount > 0) {
       console.warn(`⚠️  ${failedCount} date(s) failed to scrape:`);
-      const failedDates = results.filter(r => r.status === 'failed').map(r => r.date);
+      const failedDates = results.filter((r) => r.status === 'failed').map((r) => r.date);
       console.log(`   ${failedDates.join(', ')}\n`);
       console.log('   Consider re-running with:');
       console.log(`   bun run scripts/backfill.ts --dates ${failedDates.join(',')}\n`);

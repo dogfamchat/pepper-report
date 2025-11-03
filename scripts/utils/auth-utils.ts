@@ -22,7 +22,7 @@ export interface LoginCredentials {
 export async function login(
   page: Page,
   credentials: LoginCredentials,
-  verbose = false
+  verbose = false,
 ): Promise<void> {
   const { username, password } = credentials;
 
@@ -61,8 +61,8 @@ export function getCredentials(): LoginCredentials {
   if (!username || !password) {
     throw new Error(
       'Missing required environment variables:\n' +
-      '  - DAYCARE_USERNAME\n' +
-      '  - DAYCARE_PASSWORD'
+        '  - DAYCARE_USERNAME\n' +
+        '  - DAYCARE_PASSWORD',
     );
   }
 

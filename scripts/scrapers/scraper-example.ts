@@ -5,8 +5,8 @@
  * to automatically register and anonymize staff names.
  */
 
+import type { Activity, ReportCard } from '../types';
 import { processStaffNames } from '../utils/staff-utils';
-import type { ReportCard, Activity } from '../types';
 
 /**
  * Example: Process a scraped report card

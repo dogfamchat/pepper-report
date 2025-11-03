@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+
 /**
  * Report Card Scraper
  *
@@ -12,13 +13,13 @@
  *   bun run scripts/scrapers/scrape-report.ts --date 2024-11-15 --dry-run
  */
 
-import { chromium, type Page } from 'playwright';
-import { writeFileSync, existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
-import { processStaffNames } from '../utils/staff-utils';
-import { login, getCredentials } from '../utils/auth-utils';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import { type Browser, chromium, type Page } from 'playwright';
+import type { Grade, ReportCard, ReportListRow } from '../types';
+import { getCredentials, login } from '../utils/auth-utils';
 import { extractPhotosFromModal, uploadPhotosToR2 } from '../utils/photo-utils';
-import type { ReportCard, Grade, ReportListRow } from '../types';
+import { processStaffNames } from '../utils/staff-utils';
 
 interface ScraperOptions {
   date?: string; // YYYY-MM-DD format
@@ -110,7 +111,7 @@ function saveReport(reportCard: ReportCard): void {
     mkdirSync(reportDir, { recursive: true });
   }
 
-  writeFileSync(reportFile, JSON.stringify(reportCard, null, 2) + '\n', 'utf-8');
+  writeFileSync(reportFile, `${JSON.stringify(reportCard, null, 2)}\n`, 'utf-8');
   console.log(`✅ Saved report card to ${reportFile}`);
 }
 
@@ -145,7 +146,20 @@ function parseCompletedDateTime(completedOnText: string, fallbackDate: string): 
     }
 
     const [, monthStr, day, year, hour, minute, meridiem] = match;
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     const month = monthNames.indexOf(monthStr);
 
     if (month === -1) {
@@ -160,14 +174,19 @@ function parseCompletedDateTime(completedOnText: string, fallbackDate: string): 
       hour24 = 0;
     }
 
-    const dateObj = new Date(parseInt(year), month, parseInt(day), hour24, parseInt(minute));
+    const dateObj = new Date(
+      parseInt(year, 10),
+      month,
+      parseInt(day, 10),
+      hour24,
+      parseInt(minute, 10),
+    );
     return dateObj.toISOString();
   } catch (error) {
     console.warn(`⚠️  Error parsing date: ${error}`);
     return new Date(fallbackDate).toISOString();
   }
 }
-
 
 /**
  * Scrape report card for a specific date
@@ -184,7 +203,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
   // Determine if we need to manage our own browser or use provided page
   const shouldManageBrowser = !existingPage;
-  let browser;
+  let browser: Browser | undefined;
   let page: Page;
 
   if (shouldManageBrowser) {
@@ -193,10 +212,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     const credentials = getCredentials();
 
     if (!daycareUrl) {
-      throw new Error(
-        'Missing required environment variable:\n' +
-        '  - DAYCARE_REPORT_URL'
-      );
+      throw new Error('Missing required environment variable:\n' + '  - DAYCARE_REPORT_URL');
     }
 
     browser = await chromium.launch({ headless });
@@ -231,7 +247,10 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     }
 
     // Wait for the table to exist in the DOM
-    await page.waitForSelector('table tbody tr', { state: 'attached', timeout: 10000 });
+    await page.waitForSelector('table tbody tr', {
+      state: 'attached',
+      timeout: 10000,
+    });
 
     // Find the report in the table for the target date
     if (verbose) {
@@ -240,7 +259,20 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
     // Parse target date for comparison (use string splitting to avoid timezone issues)
     const [year, month, day] = targetDate.split('-').map(Number);
-    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
     const expectedMonth = monthNames[month - 1]; // month is 1-indexed in YYYY-MM-DD format
     const expectedDay = day;
     const expectedYear = year;
@@ -281,10 +313,13 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
 
       // Debug: print first actual data row
       if (verbose && i === 4) {
-        console.log(`   First data row cells:`, cellTexts.map(c => c.substring(0, 30)));
+        console.log(
+          `   First data row cells:`,
+          cellTexts.map((c) => c.substring(0, 30)),
+        );
       }
 
-      if (completedOnText && completedOnText.includes(expectedDateStr)) {
+      if (completedOnText?.includes(expectedDateStr)) {
         if (verbose) {
           console.log(`   ✓ Found report for ${targetDate} at row ${i}`);
         }
@@ -306,7 +341,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
           status: cellTexts[4] || '',
           completedOn: completedOnText || '',
           completedBy: cellTexts[6] || '',
-          amendedBy: amendedByText && amendedByText.trim() ? amendedByText.trim() : undefined,
+          amendedBy: amendedByText?.trim() ? amendedByText.trim() : undefined,
           addedBy: addedByReal,
         };
 
@@ -334,7 +369,11 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     await modal.waitFor({ state: 'visible', timeout: 10000 });
 
     // Wait for form data to load (look for trainer select or any form element to be populated)
-    await page.waitForSelector('.css-quiz-question:has-text("Trainer")', { timeout: 5000 }).catch(() => {});
+    await page
+      .waitForSelector('.css-quiz-question:has-text("Trainer")', {
+        timeout: 5000,
+      })
+      .catch(() => {});
 
     // Give the form a moment to fully populate disabled fields
     await page.waitForTimeout(1000);
@@ -363,59 +402,83 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       // Helper to find answer container for a question
       const getAnswer = (questionText: string) => {
         const questions = Array.from(modal.querySelectorAll('.css-quiz-question'));
-        const q = questions.find(el => el.textContent?.includes(questionText));
+        const q = questions.find((el) => el.textContent?.includes(questionText));
         if (!q) return null;
-        return q.closest('.css-core-quiz-element-wrap')?.querySelector('.js-core-quiz-response-component');
+        return q
+          .closest('.css-core-quiz-element-wrap')
+          ?.querySelector('.js-core-quiz-response-component');
       };
 
       // Field 2: Trainers (select with multiple)
       const trainersContainer = getAnswer('Trainer');
       const trainers = trainersContainer
-        ? Array.from(trainersContainer.querySelectorAll('select option[selected]')).map(o => (o as HTMLOptionElement).textContent?.trim() || '').filter(t => t)
+        ? Array.from(trainersContainer.querySelectorAll('select option[selected]'))
+            .map((o) => (o as HTMLOptionElement).textContent?.trim() || '')
+            .filter((t) => t)
         : [];
 
       // Field 3: Behavior grade (radio button)
       const gradeContainer = getAnswer('behaviour');
-      const gradeInput = gradeContainer?.querySelector('input[name="a_radio"][checked]') as HTMLInputElement;
+      const gradeInput = gradeContainer?.querySelector(
+        'input[name="a_radio"][checked]',
+      ) as HTMLInputElement;
       const gradeLabel = gradeInput?.closest('label')?.textContent?.trim() || '';
 
       // Field 4: Best part (select single)
       const bestPartContainer = getAnswer('best part');
-      const bestPart = (bestPartContainer?.querySelector('select option[selected]') as HTMLOptionElement)?.textContent?.trim() || '';
+      const bestPart =
+        (
+          bestPartContainer?.querySelector('select option[selected]') as HTMLOptionElement
+        )?.textContent?.trim() || '';
 
       // Field 5: What I did (checkboxes)
       const whatIDidContainer = getAnswer('What I did today');
       const whatIDid = whatIDidContainer
-        ? Array.from(whatIDidContainer.querySelectorAll('input[type="checkbox"][checked]')).map(cb =>
-            cb.closest('label')?.textContent?.trim() || ''
-          ).filter(t => t)
+        ? Array.from(whatIDidContainer.querySelectorAll('input[type="checkbox"][checked]'))
+            .map((cb) => cb.closest('label')?.textContent?.trim() || '')
+            .filter((t) => t)
         : [];
 
       // Field 6: Training skills (checkboxes)
       const trainingContainer = getAnswer('Training skills');
       const training = trainingContainer
-        ? Array.from(trainingContainer.querySelectorAll('input[type="checkbox"][checked]')).map(cb =>
-            cb.closest('label')?.textContent?.trim() || ''
-          ).filter(t => t)
+        ? Array.from(trainingContainer.querySelectorAll('input[type="checkbox"][checked]'))
+            .map((cb) => cb.closest('label')?.textContent?.trim() || '')
+            .filter((t) => t)
         : [];
 
       // Field 7: Caught being good (select multiple)
       const caughtContainer = getAnswer('Caught being good');
       const caught = caughtContainer
-        ? Array.from(caughtContainer.querySelectorAll('select option[selected]')).map(o => (o as HTMLOptionElement).textContent?.trim() || '').filter(t => t)
+        ? Array.from(caughtContainer.querySelectorAll('select option[selected]'))
+            .map((o) => (o as HTMLOptionElement).textContent?.trim() || '')
+            .filter((t) => t)
         : [];
 
       // Field 8: Ooops (select multiple)
       const ooopsContainer = getAnswer('Ooops');
       const ooops = ooopsContainer
-        ? Array.from(ooopsContainer.querySelectorAll('select option[selected]')).map(o => (o as HTMLOptionElement).textContent?.trim() || '').filter(t => t)
+        ? Array.from(ooopsContainer.querySelectorAll('select option[selected]'))
+            .map((o) => (o as HTMLOptionElement).textContent?.trim() || '')
+            .filter((t) => t)
         : [];
 
       // Field 9: Noteworthy (text in .css-quiz-answer divs)
       const noteworthyContainers = Array.from(modal.querySelectorAll('.css-quiz-question'))
-        .filter(q => q.textContent?.includes('Noteworthy') || q.textContent?.includes('continued'))
-        .map(q => q.closest('.css-core-quiz-element-wrap')?.querySelector('.css-quiz-answer')?.textContent?.trim() || '');
-      const noteworthy = noteworthyContainers.filter(t => t).join(' ').trim();
+        .filter(
+          (q) => q.textContent?.includes('Noteworthy') || q.textContent?.includes('continued'),
+        )
+        .map(
+          (q) =>
+            q
+              .closest('.css-core-quiz-element-wrap')
+              ?.querySelector('.css-quiz-answer')
+              ?.textContent?.trim() || '',
+        );
+      const noteworthy = noteworthyContainers
+        .filter((t) => t)
+        .join(' ')
+        .trim();
 
       return {
         trainers,
@@ -425,7 +488,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
         training,
         caught,
         ooops,
-        noteworthy
+        noteworthy,
       };
     });
 
@@ -452,7 +515,9 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       console.log(`   Training: ${trainingSkills.length} items`);
       console.log(`   Caught being good: ${caughtBeingGood.join(', ') || '(none)'}`);
       console.log(`   Ooops: ${ooops.join(', ') || '(none)'}`);
-      console.log(`   Noteworthy: ${noteworthyComments.substring(0, 50)}${noteworthyComments.length > 50 ? '...' : ''}`);
+      console.log(
+        `   Noteworthy: ${noteworthyComments.substring(0, 50)}${noteworthyComments.length > 50 ? '...' : ''}`,
+      );
     }
 
     // Extract photos from modal
@@ -472,10 +537,10 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       } catch (error) {
         console.error('   ❌ Failed to upload photos to R2:', error);
         // Fall back to just using filenames
-        photos = photoData.map(p => p.filename);
+        photos = photoData.map((p) => p.filename);
       }
     } else {
-      photos = photoData.map(p => p.filename);
+      photos = photoData.map((p) => p.filename);
     }
 
     // Anonymize all staff names
@@ -484,13 +549,16 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       rowMetadata.completedBy,
       rowMetadata.addedBy,
       ...(rowMetadata.amendedBy ? [rowMetadata.amendedBy] : []),
-    ].filter(name => name && name.trim());
+    ].filter((name) => name?.trim());
 
     const anonymizedMapping = processStaffNames(allRealStaffNames);
 
     // Get anonymized versions for each field
-    const anonymizedTrainers = realTrainerNames.map(name => anonymizedMapping[allRealStaffNames.indexOf(name)]);
-    const anonymizedCompletedBy = anonymizedMapping[allRealStaffNames.indexOf(rowMetadata.completedBy)];
+    const anonymizedTrainers = realTrainerNames.map(
+      (name) => anonymizedMapping[allRealStaffNames.indexOf(name)],
+    );
+    const anonymizedCompletedBy =
+      anonymizedMapping[allRealStaffNames.indexOf(rowMetadata.completedBy)];
     const anonymizedAddedBy = anonymizedMapping[allRealStaffNames.indexOf(rowMetadata.addedBy)];
     const anonymizedAmendedBy = rowMetadata.amendedBy
       ? anonymizedMapping[allRealStaffNames.indexOf(rowMetadata.amendedBy)]

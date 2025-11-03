@@ -4,16 +4,16 @@
  * Usage: bun run scripts/notifications/github-issue-notify.ts --date 2024-11-15
  */
 
-import { readFileSync, existsSync } from 'fs';
-import { resolve } from 'path';
-import type { ReportCard, PhotosCollection } from '../types';
+import { existsSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import type { PhotosCollection, ReportCard } from '../types';
 
 // Grade emoji mapping
 const GRADE_EMOJI: Record<string, string> = {
-  'A': '🌟',
-  'B': '⭐',
-  'C': '💫',
-  'D': '✨',
+  A: '🌟',
+  B: '⭐',
+  C: '💫',
+  D: '✨',
 };
 
 /**
@@ -33,7 +33,7 @@ function loadPhotosMetadata(): PhotosCollection | null {
  */
 function getPhotoUrl(filename: string, photosMetadata: PhotosCollection | null): string | null {
   if (!photosMetadata) return null;
-  const photo = photosMetadata.photos.find(p => p.filename === filename);
+  const photo = photosMetadata.photos.find((p) => p.filename === filename);
   return photo?.r2Url || null;
 }
 
@@ -54,7 +54,7 @@ function formatIssueBody(report: ReportCard, photosMetadata: PhotosCollection | 
   // Activities
   if (report.whatIDidToday.length > 0) {
     body += `### 🎾 Activities\n\n`;
-    report.whatIDidToday.forEach(activity => {
+    report.whatIDidToday.forEach((activity) => {
       body += `- ${activity}\n`;
     });
     body += `\n`;
@@ -63,7 +63,7 @@ function formatIssueBody(report: ReportCard, photosMetadata: PhotosCollection | 
   // Training skills
   if (report.trainingSkills.length > 0) {
     body += `### 🎓 Training Skills\n\n`;
-    report.trainingSkills.forEach(skill => {
+    report.trainingSkills.forEach((skill) => {
       body += `- ${skill}\n`;
     });
     body += `\n`;
@@ -72,7 +72,7 @@ function formatIssueBody(report: ReportCard, photosMetadata: PhotosCollection | 
   // Caught being good
   if (report.caughtBeingGood.length > 0) {
     body += `### ✅ Caught Being Good\n\n`;
-    report.caughtBeingGood.forEach(behavior => {
+    report.caughtBeingGood.forEach((behavior) => {
       body += `- ${behavior}\n`;
     });
     body += `\n`;
@@ -81,14 +81,14 @@ function formatIssueBody(report: ReportCard, photosMetadata: PhotosCollection | 
   // Ooops
   if (report.ooops.length > 0) {
     body += `### ⚠️ Ooops\n\n`;
-    report.ooops.forEach(oops => {
+    report.ooops.forEach((oops) => {
       body += `- ${oops}\n`;
     });
     body += `\n`;
   }
 
   // Noteworthy comments
-  if (report.noteworthyComments && report.noteworthyComments.trim()) {
+  if (report.noteworthyComments?.trim()) {
     body += `### 📝 Noteworthy Comments\n\n`;
     body += `${report.noteworthyComments}\n\n`;
   }
@@ -115,7 +115,7 @@ function formatIssueBody(report: ReportCard, photosMetadata: PhotosCollection | 
  * Check if a label exists in the repository
  */
 async function labelExists(labelName: string): Promise<boolean> {
-  const { spawn } = await import('child_process');
+  const { spawn } = await import('node:child_process');
 
   return new Promise((resolve) => {
     const gh = spawn('gh', ['label', 'list', '--json', 'name']);
@@ -129,8 +129,8 @@ async function labelExists(labelName: string): Promise<boolean> {
     gh.on('close', (code) => {
       if (code === 0) {
         try {
-          const labels = JSON.parse(stdout);
-          const exists = labels.some((label: any) => label.name === labelName);
+          const labels = JSON.parse(stdout) as Array<{ name: string }>;
+          const exists = labels.some((label) => label.name === labelName);
           resolve(exists);
         } catch {
           resolve(false);
@@ -146,17 +146,12 @@ async function labelExists(labelName: string): Promise<boolean> {
  * Create GitHub Issue using gh CLI
  */
 async function createGitHubIssue(title: string, body: string): Promise<void> {
-  const { spawn } = await import('child_process');
+  const { spawn } = await import('node:child_process');
 
   // Check if label exists
   const hasLabel = await labelExists('report-card');
 
-  const args = [
-    'issue',
-    'create',
-    '--title', title,
-    '--body', body
-  ];
+  const args = ['issue', 'create', '--title', title, '--body', body];
 
   if (hasLabel) {
     args.push('--label', 'report-card');
@@ -197,9 +192,10 @@ async function createGitHubIssue(title: string, body: string): Promise<void> {
 async function main() {
   // Parse command line arguments
   const args = process.argv.slice(2);
-  const dateArg = args.find(arg => arg.startsWith('--date='))?.split('=')[1];
+  const dateArg = args.find((arg) => arg.startsWith('--date='))?.split('=')[1];
   const dateIndex = args.indexOf('--date');
-  const date = dateArg || (dateIndex !== -1 && args[dateIndex + 1]) || new Date().toISOString().split('T')[0];
+  const date =
+    dateArg || (dateIndex !== -1 && args[dateIndex + 1]) || new Date().toISOString().split('T')[0];
 
   console.log(`📋 Preparing GitHub Issue for report card: ${date}`);
 

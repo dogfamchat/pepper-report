@@ -9,8 +9,8 @@ export default defineConfig({
     resolve: {
       alias: {
         '@': '/src',
-        '@data': '/data'
-      }
-    }
-  }
+        '@data': '/data',
+      },
+    },
+  },
 });

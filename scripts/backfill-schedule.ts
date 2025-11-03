@@ -11,7 +11,7 @@
  *   bun run scripts/backfill-schedule.ts --months 2025-08,2025-09,2025-10
  */
 
-import { scrapeSchedule, loadSchedule, saveSchedule } from './scrapers/scrape-schedule';
+import { loadSchedule, saveSchedule, scrapeSchedule } from './scrapers/scrape-schedule';
 
 interface BackfillOptions {
   startDate?: string; // YYYY-MM or YYYY-MM-DD
@@ -42,7 +42,7 @@ function parseArgs(): BackfillOptions {
         options.endDate = args[++i];
         break;
       case '--months':
-        options.months = args[++i].split(',').map(m => m.trim());
+        options.months = args[++i].split(',').map((m) => m.trim());
         break;
       case '--delay':
         options.delayMs = parseInt(args[++i], 10);
@@ -124,7 +124,7 @@ function generateMonthRange(start: string, end: string): string[] {
  * Sleep for specified milliseconds
  */
 function sleep(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 /**
@@ -206,11 +206,11 @@ async function backfillSchedule(options: BackfillOptions): Promise<void> {
   }
 
   // Summary
-  console.log('\n' + '='.repeat(60));
+  console.log(`\n${'='.repeat(60)}`);
   console.log('Backfill Summary\n');
 
-  const successCount = results.filter(r => r.success).length;
-  const failureCount = results.filter(r => !r.success).length;
+  const successCount = results.filter((r) => r.success).length;
+  const failureCount = results.filter((r) => !r.success).length;
 
   console.log(`Total months processed: ${results.length}`);
   console.log(`Successful: ${successCount}`);

@@ -1,4 +1,5 @@
 #!/usr/bin/env bun
+
 /**
  * Test script for R2 photo upload
  *
@@ -9,9 +10,9 @@
  *   bun run scripts/test-r2-upload.ts --photo path/to/photo.jpg --date 2025-10-27
  */
 
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { uploadLocalPhotosToR2 } from './storage/r2-uploader';
-import { existsSync } from 'fs';
-import { join } from 'path';
 
 // Parse command line arguments
 const args = process.argv.slice(2);
@@ -64,14 +65,16 @@ async function main() {
       'CLOUDFLARE_R2_ACCOUNT_ID',
       'CLOUDFLARE_R2_ACCESS_KEY',
       'CLOUDFLARE_R2_SECRET_KEY',
-      'CLOUDFLARE_R2_BUCKET'
+      'CLOUDFLARE_R2_BUCKET',
     ];
 
-    const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
+    const missingVars = requiredEnvVars.filter((varName) => !process.env[varName]);
 
     if (missingVars.length > 0) {
       console.error('❌ Missing required environment variables:');
-      missingVars.forEach(varName => console.error(`   - ${varName}`));
+      missingVars.forEach((varName) => {
+        console.error(`   - ${varName}`);
+      });
       console.log('\n💡 Run: op inject -i .env.template -o .env');
       process.exit(1);
     }
@@ -80,23 +83,22 @@ async function main() {
     console.log('📤 Uploading photo to R2...\n');
 
     // Upload the photo
-    const uploadedFiles = await uploadLocalPhotosToR2(
-      [photoPath],
-      date,
-      { verbose: true }
-    );
+    const uploadedFiles = await uploadLocalPhotosToR2([photoPath], date, {
+      verbose: true,
+    });
 
     if (uploadedFiles.length > 0) {
       console.log('\n✅ Upload successful!');
       console.log(`\n📸 Uploaded ${uploadedFiles.length} photo(s):`);
-      uploadedFiles.forEach(filename => console.log(`   - ${filename}`));
+      uploadedFiles.forEach((filename) => {
+        console.log(`   - ${filename}`);
+      });
       console.log('\n📄 Updated photos.json with R2 URLs');
       console.log('\n💡 You can now view the photo metadata in photos.json');
     } else {
       console.error('\n❌ Upload failed - no files were uploaded');
       process.exit(1);
     }
-
   } catch (error) {
     console.error('\n❌ Upload failed:', error);
 

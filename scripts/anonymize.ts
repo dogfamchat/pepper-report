@@ -11,9 +11,9 @@
  *   registerStaffNames(['Jane', 'John'])      # Add new names (from scraper)
  */
 
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { createHash } from 'crypto';
-import { join } from 'path';
+import { createHash } from 'node:crypto';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 
 interface StaffMapping {
   [realName: string]: string;
@@ -21,15 +21,57 @@ interface StaffMapping {
 
 // Nature-based pseudonym word lists
 const FIRST_NAMES = [
-  'River', 'Meadow', 'Forest', 'Sky', 'Ocean', 'Lake', 'Brook', 'Storm',
-  'Dawn', 'Willow', 'Sage', 'Aspen', 'Birch', 'Cedar', 'Maple', 'Rowan',
-  'Cypress', 'Jasper', 'Flint', 'Clay', 'Stone', 'Ridge', 'Vale', 'Glen'
+  'River',
+  'Meadow',
+  'Forest',
+  'Sky',
+  'Ocean',
+  'Lake',
+  'Brook',
+  'Storm',
+  'Dawn',
+  'Willow',
+  'Sage',
+  'Aspen',
+  'Birch',
+  'Cedar',
+  'Maple',
+  'Rowan',
+  'Cypress',
+  'Jasper',
+  'Flint',
+  'Clay',
+  'Stone',
+  'Ridge',
+  'Vale',
+  'Glen',
 ];
 
 const LAST_NAMES = [
-  'Oak', 'Pine', 'Elm', 'Ash', 'Birch', 'Cedar', 'Maple', 'Willow',
-  'Mountain', 'Valley', 'Creek', 'Field', 'Meadow', 'Forest', 'Grove',
-  'Hill', 'Stone', 'Rock', 'Cloud', 'Rain', 'Wind', 'Snow', 'Frost', 'Bloom'
+  'Oak',
+  'Pine',
+  'Elm',
+  'Ash',
+  'Birch',
+  'Cedar',
+  'Maple',
+  'Willow',
+  'Mountain',
+  'Valley',
+  'Creek',
+  'Field',
+  'Meadow',
+  'Forest',
+  'Grove',
+  'Hill',
+  'Stone',
+  'Rock',
+  'Cloud',
+  'Rain',
+  'Wind',
+  'Snow',
+  'Frost',
+  'Bloom',
 ];
 
 const rootDir = process.cwd();
@@ -60,7 +102,7 @@ function loadStaffMapping(): StaffMapping {
 
   try {
     return JSON.parse(readFileSync(privateFile, 'utf-8'));
-  } catch (error) {
+  } catch (_error) {
     console.warn('⚠️  Could not parse staff.private.json, starting fresh');
     return {};
   }
@@ -70,11 +112,7 @@ function loadStaffMapping(): StaffMapping {
  * Save staff mapping to private file
  */
 function saveStaffMapping(mapping: StaffMapping): void {
-  writeFileSync(
-    privateFile,
-    JSON.stringify(mapping, null, 2) + '\n',
-    'utf-8'
-  );
+  writeFileSync(privateFile, `${JSON.stringify(mapping, null, 2)}\n`, 'utf-8');
 }
 
 /**
@@ -166,5 +204,5 @@ export {
   registerStaffNames,
   getPseudonym,
   loadStaffMapping,
-  regeneratePseudonyms
+  regeneratePseudonyms,
 };

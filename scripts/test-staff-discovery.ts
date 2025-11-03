@@ -5,12 +5,12 @@
  * Run: bun run scripts/test-staff-discovery.ts
  */
 
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { processStaffNames } from './utils/staff-utils';
-import { readFileSync } from 'fs';
-import { join } from 'path';
 
 console.log('🧪 Testing Staff Name Auto-Discovery\n');
-console.log('=' .repeat(60));
+console.log('='.repeat(60));
 
 // Simulate scraping three report cards with different staff
 const reportCards = [
@@ -41,7 +41,7 @@ for (const report of reportCards) {
 }
 
 // Show final state
-console.log('\n' + '='.repeat(60));
+console.log(`\n${'='.repeat(60)}`);
 console.log('\n📊 Final Staff Registry:\n');
 
 const privateFile = join(process.cwd(), 'staff.private.json');
@@ -51,7 +51,7 @@ const privateData = JSON.parse(readFileSync(privateFile, 'utf-8'));
 const publicData = JSON.parse(readFileSync(publicFile, 'utf-8'));
 
 console.log('Real names (staff.private.json):');
-Object.keys(privateData).forEach(name => {
+Object.keys(privateData).forEach((name) => {
   console.log(`   - ${name}`);
 });
 
