@@ -1,0 +1,13 @@
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "*.{js,ts,jsx,tsx,json,jsonc,astro}"
+      run: bunx biome check --staged --no-errors-on-unmatched {staged_files}
+      stage_fixed: true
+    typescript:
+      glob: "*.{ts,tsx}"
+      run: bunx tsc --noEmit
+    astro:
+      glob: "*.astro"
+      run: bunx astro check
