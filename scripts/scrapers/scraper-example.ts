@@ -5,7 +5,7 @@
  * to automatically register and anonymize staff names.
  */
 
-import type { Activity, ReportCard } from '../types';
+import type { ReportCard } from '../types';
 import { processStaffNames } from '../utils/staff-utils';
 
 /**
@@ -15,27 +15,51 @@ async function exampleScrapeReportCard(date: string): Promise<ReportCard> {
   // 1. Scrape the report card (pseudo-code)
   const scrapedData = {
     date: date,
+    completedDateTime: '2024-11-15T15:30:00Z',
+    dog: {
+      name: 'Pepper',
+      owners: 'John & Nadine',
+    },
     grade: 'A' as const,
-    staffNotes: 'Pepper had a great day!',
-    activities: ['playtime', 'nap', 'outdoor'] as Activity[],
+    gradeDescription: 'Excellent behavior!',
+    bestPartOfDay: 'playing with familiar friends.',
+    whatIDidToday: ['playtime', 'nap', 'outdoor'],
+    trainingSkills: ['recall', 'sit'],
+    caughtBeingGood: ['sharing toys'],
+    ooops: [],
+    noteworthyComments: 'Pepper had a great day!',
     // Real staff names from the website
     realStaffNames: ['Jane Smith', 'John Doe'],
-    friends: ['Max', 'Luna'],
     photos: ['2024-11-15-001.jpg'],
+    metadata: {
+      addedBy: 'Jane Smith',
+      completedBy: 'John Doe',
+    },
   };
 
   // 2. Process staff names (auto-registers + anonymizes)
   const anonymizedStaffNames = processStaffNames(scrapedData.realStaffNames);
+  const anonymizedMetadata = {
+    addedBy: processStaffNames([scrapedData.metadata.addedBy])[0],
+    completedBy: processStaffNames([scrapedData.metadata.completedBy])[0],
+  };
 
   // 3. Build report card with anonymized names
   const reportCard: ReportCard = {
     date: scrapedData.date,
+    completedDateTime: scrapedData.completedDateTime,
+    dog: scrapedData.dog,
     grade: scrapedData.grade,
-    staffNotes: scrapedData.staffNotes,
-    activities: scrapedData.activities,
+    gradeDescription: scrapedData.gradeDescription,
+    bestPartOfDay: scrapedData.bestPartOfDay,
+    whatIDidToday: scrapedData.whatIDidToday,
+    trainingSkills: scrapedData.trainingSkills,
+    caughtBeingGood: scrapedData.caughtBeingGood,
+    ooops: scrapedData.ooops,
+    noteworthyComments: scrapedData.noteworthyComments,
     staffNames: anonymizedStaffNames, // ← Anonymized!
-    friends: scrapedData.friends,
     photos: scrapedData.photos,
+    metadata: anonymizedMetadata, // ← Anonymized metadata!
   };
 
   console.log('✓ Report card processed');
