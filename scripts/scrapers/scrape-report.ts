@@ -508,6 +508,18 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     const ooops = formData.ooops;
     const noteworthyComments = formData.noteworthy;
 
+    if (verbose) {
+      console.log(`   Trainers: ${realTrainerNames.length > 0 ? '*****' : '(none)'}`);
+      console.log(`   Best part: ${bestPartOfDay || '(none)'}`);
+      console.log(`   What I did: ${whatIDidToday.length} items`);
+      console.log(`   Training: ${trainingSkills.length} items`);
+      console.log(`   Caught being good: ${caughtBeingGood.join(', ') || '(none)'}`);
+      console.log(`   Ooops: ${ooops.join(', ') || '(none)'}`);
+      console.log(
+        `   Noteworthy: ${noteworthyComments.substring(0, 50)}${noteworthyComments.length > 50 ? '...' : ''}`,
+      );
+    }
+
     // Extract photos from modal
     if (verbose) {
       console.log('📸 Extracting photos from modal...');
