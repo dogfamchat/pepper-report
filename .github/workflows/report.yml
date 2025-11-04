@@ -104,9 +104,16 @@ jobs:
           git add data/reports/
           git add photos.json
 
-          # Get the date from the most recent report
-          REPORT_DATE=$(ls -t data/reports/*/*.json | head -n 1 | xargs basename .json)
-          GRADE=$(jq -r '.grade' "data/reports/${REPORT_DATE:0:4}/${REPORT_DATE}.json")
+          # Get the date from the most recent report (sort by name for predictable ordering)
+          REPORT_FILE=$(ls data/reports/*/*.json | sort -r | head -n 1)
+
+          if [ -z "$REPORT_FILE" ]; then
+            echo "Error: No report files found"
+            exit 1
+          fi
+
+          REPORT_DATE=$(basename "$REPORT_FILE" .json)
+          GRADE=$(jq -r '.grade' "$REPORT_FILE")
 
           git commit -m "$(cat <<EOF
           Add report card for ${REPORT_DATE} (Grade: ${GRADE})
@@ -127,7 +134,8 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           # Get the date from the most recent report
-          REPORT_DATE=$(ls -t data/reports/*/*.json | head -n 1 | xargs basename .json)
+          REPORT_FILE=$(ls data/reports/*/*.json | sort -r | head -n 1)
+          REPORT_DATE=$(basename "$REPORT_FILE" .json)
           echo "Sending Slack notification for report: ${REPORT_DATE}"
           bun run scripts/notifications/slack-notify.ts --date "${REPORT_DATE}"
 
@@ -137,7 +145,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           # Get the date from the most recent report
-          REPORT_DATE=$(ls -t data/reports/*/*.json | head -n 1 | xargs basename .json)
+          REPORT_FILE=$(ls data/reports/*/*.json | sort -r | head -n 1)
+          REPORT_DATE=$(basename "$REPORT_FILE" .json)
           echo "Creating GitHub Issue for report: ${REPORT_DATE}"
           bun run scripts/notifications/github-issue-notify.ts --date "${REPORT_DATE}"
 
