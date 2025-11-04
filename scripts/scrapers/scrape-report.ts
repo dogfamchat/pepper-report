@@ -645,10 +645,6 @@ async function main() {
       console.log('\n(Use without --dry-run to save)');
     } else {
       saveReport(reportCard);
-
-      // Output success indicator for GitHub Actions
-      console.log('\n::set-output name=report_found::true');
-      console.log(`::set-output name=report_date::${targetDate}`);
     }
   } catch (error) {
     console.error('\n❌ Scraping failed:', error);
