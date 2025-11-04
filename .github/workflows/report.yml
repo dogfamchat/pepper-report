@@ -74,10 +74,13 @@ jobs:
       - name: Check for new report card
         id: changes
         run: |
-          if git diff --quiet data/reports/; then
+          # Check for both modified tracked files AND new untracked files
+          if [ -z "$(git status --porcelain data/reports/ photos.json staff.public.json 2>/dev/null)" ]; then
             echo "has_new_report=false" >> $GITHUB_OUTPUT
           else
             echo "has_new_report=true" >> $GITHUB_OUTPUT
+            echo "📝 Detected changes:"
+            git status --porcelain data/reports/ photos.json staff.public.json 2>/dev/null || true
           fi
 
       - name: Update staff mapping secret if needed
