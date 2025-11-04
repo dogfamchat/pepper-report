@@ -20,9 +20,6 @@ jobs:
     permissions:
       contents: write
       issues: write
-    outputs:
-      report_found: ${{ steps.scrape.outputs.report_found }}
-      report_date: ${{ steps.scrape.outputs.report_date }}
 
     steps:
       - name: Checkout repository
@@ -77,10 +74,13 @@ jobs:
       - name: Check for new report card
         id: changes
         run: |
-          if git diff --quiet data/reports/; then
+          # Check for both modified tracked files AND new untracked files
+          if [ -z "$(git status --porcelain data/reports/ photos.json 2>/dev/null)" ]; then
             echo "has_new_report=false" >> $GITHUB_OUTPUT
           else
             echo "has_new_report=true" >> $GITHUB_OUTPUT
+            echo "📝 Detected changes:"
+            git status --porcelain data/reports/ photos.json 2>/dev/null || true
           fi
 
       - name: Update staff mapping secret if needed
@@ -100,10 +100,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Add report cards, photos.json, and public staff mapping
+          # Add report cards and photos
           git add data/reports/
           git add photos.json
-          git add staff.public.json
 
           # Get the date from the most recent report
           REPORT_DATE=$(ls -t data/reports/*/*.json | head -n 1 | xargs basename .json)

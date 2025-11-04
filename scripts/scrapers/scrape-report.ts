@@ -509,7 +509,7 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
     const noteworthyComments = formData.noteworthy;
 
     if (verbose) {
-      console.log(`   Trainers: ${realTrainerNames.join(', ') || '(none)'}`);
+      console.log(`   Trainers: ${realTrainerNames.length > 0 ? '*****' : '(none)'}`);
       console.log(`   Best part: ${bestPartOfDay || '(none)'}`);
       console.log(`   What I did: ${whatIDidToday.length} items`);
       console.log(`   Training: ${trainingSkills.length} items`);
@@ -645,10 +645,6 @@ async function main() {
       console.log('\n(Use without --dry-run to save)');
     } else {
       saveReport(reportCard);
-
-      // Output success indicator for GitHub Actions
-      console.log('\n::set-output name=report_found::true');
-      console.log(`::set-output name=report_date::${targetDate}`);
     }
   } catch (error) {
     console.error('\n❌ Scraping failed:', error);
