@@ -1,0 +1,49 @@
+{
+  "date": "2025-11-03",
+  "completedDateTime": "2025-11-03T13:07:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Stone Meadow"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "making new friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "collar grab games",
+    "name recognition",
+    "hands-free work",
+    "loose-leash walking",
+    "sit (stay)",
+    "down (stay)",
+    "stand (stay)",
+    "recall",
+    "recall with distractions",
+    "impulse control",
+    "focus work",
+    "place work (go to matt/table)"
+  ],
+  "caughtBeingGood": [
+    "practiced balanced and fair play"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "🐾 We practiced placework using the cue word “mat” and everyone did awesome staying on their mats with just a few little reminders! 💛⭐🦴👏",
+  "photos": [
+    "2025-11-03-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Stone Meadow",
+    "completedBy": "Stone Meadow"
+  }
+}
