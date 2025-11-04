@@ -82,17 +82,14 @@ function formatSlackMessage(
   const gradeEmoji = GRADE_EMOJI[report.grade] || '📝';
 
   // Format activities into readable list
-  const activities = report.whatIDidToday.slice(0, 5).join(', ');
   const activitiesText =
     report.whatIDidToday.length > 0
-      ? report.whatIDidToday.length > 5
-        ? `${activities}, and more...`
-        : activities
+      ? report.whatIDidToday.join(', ')
       : 'None today';
 
   // Format training skills
   const trainingText =
-    report.trainingSkills.length > 0 ? report.trainingSkills.slice(0, 3).join(', ') : 'None today';
+    report.trainingSkills.length > 0 ? report.trainingSkills.join(', ') : 'None today';
 
   // Best part of day
   const bestPart = report.bestPartOfDay;
