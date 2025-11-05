@@ -1,0 +1,37 @@
+{
+  "date": "2025-11-05",
+  "completedDateTime": "2025-11-05T14:32:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "cuddling with friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer"
+  ],
+  "ooops": [],
+  "noteworthyComments": "I practiced my door manners today, and my trainer said I’m such a polite pup! I waited calmly before going through and listened beautifully. It’s so nice to show off my skills! 🚪 🐾",
+  "photos": [
+    "2025-11-05-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Clay Valley",
+    "completedBy": "Clay Valley"
+  }
+}
