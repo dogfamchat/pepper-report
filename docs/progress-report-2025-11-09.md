@@ -96,6 +96,107 @@ From 31 report cards (2025-08-08 to 2025-11-07):
 - All statistics and latest report card display correctly
 - Responsive design with gradient cards and smooth styling
 
+## Update: PR #8 - Interactive Visualization & Deployment (Merged)
+
+**Date:** November 9, 2025
+**PR:** [#8 - Add interactive trends and timeline pages with automated deployment](https://github.com/dogfamchat/pepper-report/pull/8)
+**Status:** ✅ Merged to main
+
+### What We Accomplished in PR #8
+
+All Priority 1 items from the original session have been completed! 🎉
+
+#### 1. Trends Page with Chart.js Visualization ✅
+
+**Created:** `src/pages/trends.astro` and `src/components/GradeCharts.astro`
+
+**Features Implemented:**
+- **Interactive Chart.js visualizations**:
+  - Line chart showing daily grades over time (all 31 data points from Aug-Nov 2025)
+  - Donut chart displaying A vs B grade distribution (18 A's vs 13 B's)
+- **Statistics dashboard**:
+  - Overall performance metrics (3.58/4.0 average, 89.5%)
+  - 4 monthly performance cards with detailed breakdowns
+  - 14 weekly performance entries with dates and grade badges
+- **Responsive design** matching homepage styling with gradient cards
+
+**Technical Solution for Chart.js:**
+- Initially encountered ES6 import issue with Astro's `define:vars`
+- **Solution:** Created self-contained `GradeCharts.astro` component
+- Pass data via `data-*` attributes on canvas elements
+- Use module script that imports Chart.js directly from npm
+- Read data from DOM using dataset API
+- All chart initialization in single component with proper TypeScript types
+
+#### 2. Timeline Page ✅
+
+**Created:** `src/pages/timeline.astro`
+
+**Features Implemented:**
+- **Chronological view** of all 31 report cards
+- **Grouped by month** with expandable cards
+- **Click to expand/collapse** for full report details:
+  - Date, grade badge, staff names
+  - Best part of day, activities, training
+  - Noteworthy comments section
+  - "Caught being good" and "Ooops" sections
+- **Mobile-responsive** card layout
+- Clean navigation back to dashboard
+
+#### 3. GitHub Actions Automation ✅
+
+**Updated:** `.github/workflows/report.yml`
+**Created:** `.github/workflows/deploy.yml`
+
+**Automation Pipeline:**
+1. **Analysis job** runs automatically after new report cards are scraped
+   - Checks for new reports via job outputs
+   - Runs `bun run analyze` to generate analysis data
+   - Commits analysis results back to Git automatically
+   - Uses github-actions bot for commits
+
+2. **GitHub Pages deployment** workflow
+   - Triggers on push to main branch
+   - Builds Astro site with static adapter
+   - Deploys to GitHub Pages automatically
+   - Site live at: `https://dogfamchat.github.io/pepper-report`
+
+#### 4. Homepage Navigation Fixes ✅
+
+**Updated:** `src/pages/index.astro`
+
+- Fixed links to trends and timeline pages to include `/pepper-report` base path
+- All navigation now working correctly in production
+
+#### 5. Bug Fixes ✅
+
+- Fixed Chart.js ES6 import issues in Astro inline scripts
+- Fixed parseInt radix warnings from Biome linter
+- Auto-formatted all code with Biome
+- All pre-commit hooks passing
+
+### Files Changed in PR #8
+
+**New Files:**
+- `src/components/GradeCharts.astro` - Reusable chart component
+- `src/pages/trends.astro` - Trends visualization page
+- `src/pages/timeline.astro` - Timeline view page
+- `.github/workflows/deploy.yml` - GitHub Pages deployment workflow
+
+**Modified Files:**
+- `.github/workflows/report.yml` - Added analysis job with outputs
+- `src/pages/index.astro` - Fixed navigation base paths
+
+### Testing & Deployment
+
+✅ All features tested and working:
+- Dev server running successfully on `localhost:4323/pepper-report`
+- Charts render correctly with all 31 data points
+- Timeline shows all report cards with expand/collapse functionality
+- All pre-commit hooks passing (Biome, TypeScript, Astro)
+- Mobile responsive design verified
+- **Production site deployed** to GitHub Pages
+
 ## Current Project State
 
 ### Data Pipeline Status
@@ -104,9 +205,9 @@ From 31 report cards (2025-08-08 to 2025-11-07):
 |-------|--------|-------|
 | **Phase 1: Foundation** | ✅ Complete | Project structure, types, utilities |
 | **Phase 1.5: Data Ingestion** | ✅ Complete | 31 report cards scraped, schedule tracked |
-| **Phase 2: Automation** | ✅ Complete | GitHub Actions workflows running |
+| **Phase 2: Automation** | ✅ Complete | GitHub Actions workflows + auto-deploy |
 | **Phase 3: Analysis** | 🟡 Partial | Grade trends ✅, Friends ❌, Activities ❌ |
-| **Phase 4: Visualization** | 🟡 Partial | Homepage ✅, Trends page ❌, Timeline ❌ |
+| **Phase 4: Visualization** | ✅ Complete | Homepage ✅, Trends page ✅, Timeline ✅ |
 
 ### File Structure
 
@@ -114,163 +215,46 @@ From 31 report cards (2025-08-08 to 2025-11-07):
 pepper-report/
 ├── data/
 │   ├── analysis/
-│   │   ├── grade-trends.json          ✅ NEW - Complete analysis
-│   │   ├── weekly-summary.json        ✅ NEW - Latest week
+│   │   ├── grade-trends.json          ✅ Complete analysis
+│   │   ├── weekly-summary.json        ✅ Latest week
 │   │   ├── top-friends.example.json   (example only)
 │   │   └── weekly-summary.example.json (example only)
 │   ├── reports/2025/                  ✅ 31 report cards
 │   ├── schedule/2025.json             ✅ Complete schedule
 │   └── viz/
-│       └── grade-timeline.json        ✅ NEW - Chart.js data
+│       └── grade-timeline.json        ✅ Chart.js data
 ├── scripts/
 │   ├── analysis/
-│   │   ├── analyze-all.ts             ✅ NEW - Main orchestrator
-│   │   ├── grade-trends.ts            ✅ NEW - Trends analyzer
-│   │   └── report-reader.ts           ✅ NEW - Shared utilities
+│   │   ├── analyze-all.ts             ✅ Main orchestrator
+│   │   ├── grade-trends.ts            ✅ Trends analyzer
+│   │   └── report-reader.ts           ✅ Shared utilities
 │   ├── scrapers/                      ✅ Working scrapers
 │   ├── notifications/                 ✅ Slack & GitHub Issues
 │   └── utils/                         ✅ Staff, photo, auth utilities
 ├── src/
+│   ├── components/
+│   │   └── GradeCharts.astro          ✅ NEW (PR #8) - Chart.js component
 │   └── pages/
-│       └── index.astro                ✅ UPDATED - Real data display
+│       ├── index.astro                ✅ Homepage with real data
+│       ├── trends.astro               ✅ NEW (PR #8) - Trends visualization
+│       └── timeline.astro             ✅ NEW (PR #8) - Timeline view
 └── .github/workflows/
     ├── schedule.yml                   ✅ Daily schedule scraper
-    └── report.yml                     ✅ Report card checker (3x daily)
+    ├── report.yml                     ✅ Report card checker + analysis
+    └── deploy.yml                     ✅ NEW (PR #8) - GitHub Pages deploy
 ```
 
 ## What's Left to Do
 
-### Immediate Next Steps (Priority 1)
+### ~~Priority 1: Core Visualization~~ ✅ COMPLETED IN PR #8
 
-#### 1. Create Trends Page with Chart.js Visualization
+All Priority 1 items have been completed and merged to main:
+- ✅ Trends page with Chart.js visualization
+- ✅ Timeline page with expandable report cards
+- ✅ GitHub Actions automation (analysis + deployment)
+- ✅ Production deployment to GitHub Pages
 
-**File:** `src/pages/trends.astro`
-
-**Requirements:**
-- Load `data/viz/grade-timeline.json`
-- Load `data/analysis/grade-trends.json`
-- Import Chart.js library (already in dependencies: `"chart.js": "^4.5.1"`)
-- Create line chart showing grades over time
-- Add weekly average overlay
-- Display monthly statistics in cards
-- Show grade distribution pie/donut chart
-- Responsive design matching homepage
-
-**Chart.js Implementation:**
-```typescript
-import Chart from 'chart.js/auto';
-
-// Line chart config for grade timeline
-const gradeTimelineChart = {
-  type: 'line',
-  data: {
-    labels: timelineData.map(d => d.date),
-    datasets: [{
-      label: 'Grade',
-      data: timelineData.map(d => d.gradeValue),
-      borderColor: '#667eea',
-      backgroundColor: 'rgba(102, 126, 234, 0.1)',
-      tension: 0.4
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        min: 0,
-        max: 4,
-        ticks: {
-          callback: (value) => ['F', 'D', 'C', 'B', 'A'][value]
-        }
-      }
-    }
-  }
-};
-```
-
-#### 2. Create Timeline Page
-
-**File:** `src/pages/timeline.astro`
-
-**Requirements:**
-- Load all report cards from `data/reports/2025/`
-- Sort chronologically (newest first)
-- Display as expandable cards
-- Each card shows:
-  - Date and grade badge
-  - Staff names
-  - Best part of day
-  - Expand/collapse for full details
-- Filter by month dropdown
-- Search functionality (optional)
-
-**Layout:**
-```
-┌─────────────────────────────────────────┐
-│  Timeline - All Report Cards           │
-│  [Filter: All Months ▼] [Search...]    │
-├─────────────────────────────────────────┤
-│  📅 Nov 7, 2025  [A]                    │
-│  Staff: Jasper Cedar                    │
-│  Best: playing with familiar friends    │
-│  [▼ View Full Report]                   │
-├─────────────────────────────────────────┤
-│  📅 Nov 5, 2025  [A]                    │
-│  ...                                    │
-└─────────────────────────────────────────┘
-```
-
-### Priority 2: Complete Automation Pipeline
-
-#### 3. Update GitHub Actions Workflow
-
-**File:** `.github/workflows/report.yml` (lines 157-174)
-
-**Currently:** Analysis and deployment jobs are commented out
-
-**Needed:**
-- Uncomment `analyze` job
-- Add conditional trigger (only after successful report scrape)
-- Run `bun run analyze`
-- Commit analysis results to Git
-- Add `deploy` job that:
-  - Builds Astro site (`bun run build`)
-  - Deploys to GitHub Pages
-  - Runs after analysis completes
-
-**Example Job:**
-```yaml
-analyze:
-  needs: scrape-report
-  if: needs.scrape-report.outputs.has_new_report == 'true'
-  runs-on: ubuntu-latest
-  steps:
-    - uses: actions/checkout@v4
-    - uses: oven-sh/setup-bun@v2
-    - run: bun install
-    - run: bun run analyze
-    - name: Commit analysis results
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add data/analysis/ data/viz/
-        git commit -m "Update analysis data" || exit 0
-        git push
-```
-
-#### 4. Add GitHub Pages Deployment
-
-**Create:** `.github/workflows/deploy.yml`
-
-**Triggers:**
-- On push to `main` branch (after analysis commits)
-- Manual workflow dispatch
-
-**Steps:**
-- Build Astro site with static adapter
-- Deploy to GitHub Pages
-- Configure repository settings for Pages
-
-### Priority 3: Friend Analysis (Future)
+### Priority 2: Friend Analysis (Next Steps)
 
 **Create:** `scripts/analysis/friends-analyzer.ts`
 
@@ -303,7 +287,7 @@ const extractFriends = async (comment: string) => {
 };
 ```
 
-### Priority 4: Activity Analysis (Future)
+### Priority 3: Activity Analysis (Future)
 
 **Create:** `scripts/analysis/activity-analyzer.ts`
 
@@ -408,9 +392,9 @@ Chose 4 key metrics for at-a-glance view:
 
 1. **Friend Analysis Missing:** Currently no extraction of friend mentions from noteworthy comments. This is a critical gap since the design proposal emphasizes friend network analysis.
 
-2. **No Historical Trends View:** Can't yet see how grades have changed over time visually.
+2. ~~**No Historical Trends View:**~~ ✅ FIXED IN PR #8 - Now have interactive Chart.js visualizations showing grade trends over time.
 
-3. **Manual Deployment:** Website updates require manual build/deploy. Not yet integrated into GitHub Actions pipeline.
+3. ~~**Manual Deployment:**~~ ✅ FIXED IN PR #8 - Automated GitHub Actions deployment to GitHub Pages.
 
 4. **Single Year Handling:** Code assumes 2025; will need updates for 2026 data.
 
@@ -418,43 +402,47 @@ Chose 4 key metrics for at-a-glance view:
 
 ## Branch Information
 
-**Current Branch:** `create-grade-trend-analyzer`
+**Original Branch:** `create-grade-trend-analyzer` ✅ Merged via PR #8
+**Current Branch:** `main`
 
-**Commits Made:**
-1. Added grade trends analyzer and analysis pipeline
-   - Created report-reader.ts, grade-trends.ts, analyze-all.ts
-   - Generated analysis outputs from 31 report cards
-   - Fixed tsconfig.json for DOM types
-   - Fixed Biome linting issues
+**All Commits from Both Sessions:**
 
-2. Updated homepage to display real data
-   - Shows statistics dashboard
-   - Displays latest report card
-   - Responsive design with gradients
-   - Quick links to trends/timeline pages
+**Session 1 (Initial Implementation):**
+1. `6aaf4e9` - Add grade trends analyzer and analysis pipeline
+2. `977f9d3` - Update homepage with real data and add progress report
 
-**Ready to Merge:** Yes, all tests passing
+**Session 2 (PR #8 - Visualization & Deployment):**
+3. `4f81083` - Add trends and timeline pages with automated deployment
+4. `27b6265` - Fix chart display with simplified component approach
+5. `f9b6629` - Merge PR #8 to main
+
+**Status:** ✅ All work merged and deployed to production
 
 ## Next Session Checklist
 
-When continuing this work:
+When continuing this work, the main priorities are:
 
-1. **Pull latest changes** from `create-grade-trend-analyzer` branch
-2. **Start dev server:** `bun run dev`
-3. **Create trends.astro page:**
-   - Import Chart.js
-   - Load visualization data
-   - Implement line chart for grades over time
-   - Add weekly/monthly stats
-4. **Create timeline.astro page:**
-   - Load all report cards
-   - Chronological display with cards
-   - Expand/collapse functionality
-5. **Test both pages locally**
-6. **Update GitHub Actions workflow:**
-   - Enable analysis job
-   - Add deployment job
-7. **Commit and merge to main**
+1. **Friend Analysis Implementation:**
+   - Create `scripts/analysis/friends-analyzer.ts`
+   - Set up Claude API integration (Haiku model)
+   - Extract dog names from noteworthy comments
+   - Generate friend network data and co-occurrence tracking
+   - Add friend visualization to website
+
+2. **Activity Analysis:**
+   - Create `scripts/analysis/activity-analyzer.ts`
+   - Categorize activities from `whatIDidToday` arrays
+   - Generate activity breakdown visualizations
+   - Add activity trends to website
+
+3. **Photo Display:**
+   - Integrate Cloudflare R2 photo display on website
+   - Show photos on report cards
+   - Add photo gallery/carousel functionality
+
+4. **Year Handling:**
+   - Update code to handle year transitions (2025 → 2026)
+   - Ensure analysis works across multiple years
 
 ## Resources & References
 
@@ -475,21 +463,25 @@ When continuing this work:
 
 ## Success Metrics
 
-✅ **Completed:**
+✅ **Completed (Session 1 + PR #8):**
 - Analysis pipeline processing 31 reports in <10ms
 - Homepage loading with real data
+- **Trends page with interactive Chart.js visualizations** ✅ NEW
+- **Timeline page with all 31 reports** ✅ NEW
+- **Automated deployment pipeline to GitHub Pages** ✅ NEW
 - All pre-commit hooks passing
-- Dev server running successfully
+- **Production site live** ✅ NEW
 
 🎯 **Remaining:**
-- Trends page with interactive charts
-- Timeline page with all reports
-- Automated deployment pipeline
-- Friend extraction with AI
+- Friend extraction with AI (Priority 2)
+- Activity analysis and visualization (Priority 3)
+- Photo display from Cloudflare R2
+- Multi-year support
 
 ---
 
-**Last Updated:** November 9, 2025
-**Total Session Time:** ~2 hours
-**Lines of Code Added:** ~800
-**Files Created:** 4 new, 2 updated
+**Last Updated:** November 9, 2025 (Updated with PR #8 completion)
+**Total Session Time:** ~4 hours (Session 1: ~2 hours, Session 2/PR #8: ~2 hours)
+**Lines of Code Added:** ~1,500 total
+**Files Created:** 7 new (3 in Session 1, 4 in PR #8), 3 updated
+**Production URL:** https://dogfamchat.github.io/pepper-report
