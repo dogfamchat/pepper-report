@@ -20,6 +20,8 @@ jobs:
     permissions:
       contents: write
       issues: write
+    outputs:
+      has_new_report: ${{ steps.changes.outputs.has_new_report }}
 
     steps:
       - name: Checkout repository
@@ -154,20 +156,54 @@ jobs:
         if: steps.changes.outputs.has_new_report == 'false'
         run: echo "No new report card found for today"
 
-  # Phase 3: Add analysis and deployment jobs here
-  # These will trigger conditionally after successful report card scrape
-  #
-  # analyze:
-  #   needs: scrape-report
-  #   if: needs.scrape-report.outputs.report_found == 'true'
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Run analysis
-  #       run: bun run scripts/analysis/analyze-all.ts
-  #
-  # deploy:
-  #   needs: analyze
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Build and deploy to GitHub Pages
-  #       run: bun run build
+  analyze:
+    needs: scrape-report
+    if: needs.scrape-report.outputs.has_new_report == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Run analysis pipeline
+        run: bun run analyze
+
+      - name: Commit analysis results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Check if there are changes to analysis files
+          if [ -n "$(git status --porcelain data/analysis/ data/viz/ 2>/dev/null)" ]; then
+            git add data/analysis/
+            git add data/viz/
+
+            git commit -m "$(cat <<EOF
+          Update analysis data
+
+          Regenerated analysis and visualization data after new report card.
+
+          🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+          Co-Authored-By: Claude <noreply@anthropic.com>
+          EOF
+          )"
+
+            git push
+            echo "✅ Analysis data committed"
+          else
+            echo "ℹ️  No changes to analysis data"
+          fi

@@ -83,9 +83,7 @@ function formatSlackMessage(
 
   // Format activities into readable list
   const activitiesText =
-    report.whatIDidToday.length > 0
-      ? report.whatIDidToday.join(', ')
-      : 'None today';
+    report.whatIDidToday.length > 0 ? report.whatIDidToday.join(', ') : 'None today';
 
   // Format training skills
   const trainingText =

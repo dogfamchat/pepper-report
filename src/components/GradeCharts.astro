@@ -1,0 +1,238 @@
+---
+interface TimelineData {
+  date: string;
+  grade: string;
+  gradeValue: number;
+}
+
+interface GradeDistribution {
+  A: number;
+  B: number;
+  C: number;
+  D: number;
+  F: number;
+}
+
+interface TrendsSummary {
+  totalReports: number;
+  overallGradeDistribution: GradeDistribution;
+  dateRange: {
+    start: string;
+    end: string;
+  };
+  overallAverageGrade: number;
+}
+
+interface Props {
+  timeline: TimelineData[];
+  trends: {
+    summary: TrendsSummary;
+  };
+}
+
+const { timeline, trends } = Astro.props;
+---
+
+<div class="charts-wrapper">
+  <div class="chart-card">
+    <h2>Grade Timeline</h2>
+    <div class="chart-container">
+      <canvas id="gradeTimelineChart" data-timeline={JSON.stringify(timeline)}></canvas>
+    </div>
+  </div>
+
+  <div class="chart-card">
+    <h2>Grade Distribution</h2>
+    <div class="chart-container" style="max-width: 400px; margin: 0 auto;">
+      <canvas id="gradeDistributionChart" data-trends={JSON.stringify(trends)}></canvas>
+    </div>
+    <div class="distribution-stats">
+      <div class="dist-stat grade-a-stat">
+        <span class="dist-label">A Grades</span>
+        <span class="dist-value">{trends.summary.overallGradeDistribution.A}</span>
+        <span class="dist-percent">{((trends.summary.overallGradeDistribution.A / trends.summary.totalReports) * 100).toFixed(0)}%</span>
+      </div>
+      <div class="dist-stat grade-b-stat">
+        <span class="dist-label">B Grades</span>
+        <span class="dist-value">{trends.summary.overallGradeDistribution.B}</span>
+        <span class="dist-percent">{((trends.summary.overallGradeDistribution.B / trends.summary.totalReports) * 100).toFixed(0)}%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { Chart, registerables } from 'chart.js';
+
+  interface TimelineData {
+    date: string;
+    grade: string;
+    gradeValue: number;
+  }
+
+  Chart.register(...registerables);
+
+  // Grade Timeline Chart
+  const timelineCanvas = document.getElementById('gradeTimelineChart') as HTMLCanvasElement;
+  if (timelineCanvas) {
+    const timeline = JSON.parse(timelineCanvas.dataset.timeline || '[]') as TimelineData[];
+
+    new Chart(timelineCanvas, {
+      type: 'line',
+      data: {
+        labels: timeline.map((d) => {
+          const date = new Date(d.date);
+          return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }),
+        datasets: [{
+          label: 'Daily Grade',
+          data: timeline.map((d) => d.gradeValue),
+          borderColor: '#667eea',
+          backgroundColor: 'rgba(102, 126, 234, 0.1)',
+          borderWidth: 2,
+          pointRadius: 4,
+          pointHoverRadius: 6,
+          pointBackgroundColor: '#667eea',
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 2.5,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const grades = ['F', 'D', 'C', 'B', 'A'];
+                const gradeValue = context.parsed.y ?? 0;
+                const gradeIndex = Math.round(gradeValue);
+                return `Grade: ${grades[gradeIndex]} (${gradeValue}/4)`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 4,
+            ticks: {
+              stepSize: 1,
+              callback: (value) => ['F', 'D', 'C', 'B', 'A'][Number(value)]
+            },
+            grid: { color: 'rgba(0, 0, 0, 0.05)' }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { maxRotation: 45, minRotation: 45 }
+          }
+        }
+      }
+    });
+  }
+
+  // Grade Distribution Chart
+  const distributionCanvas = document.getElementById('gradeDistributionChart') as HTMLCanvasElement;
+  if (distributionCanvas) {
+    const trends = JSON.parse(distributionCanvas.dataset.trends || '{}');
+    const dist = trends.summary.overallGradeDistribution;
+
+    new Chart(distributionCanvas, {
+      type: 'doughnut',
+      data: {
+        labels: ['A', 'B'],
+        datasets: [{
+          data: [dist.A, dist.B],
+          backgroundColor: ['#667eea', '#f093fb'],
+          borderWidth: 0
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        aspectRatio: 1,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (context) => {
+                const total = dist.A + dist.B;
+                const percent = ((context.parsed / total) * 100).toFixed(0);
+                return `${context.label}: ${context.parsed} days (${percent}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+</script>
+
+<style>
+  .charts-wrapper {
+    display: contents;
+  }
+
+  .chart-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .chart-card h2 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+    font-size: 1.3rem;
+  }
+
+  .chart-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .distribution-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .dist-stat {
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .grade-a-stat {
+    background: rgba(102, 126, 234, 0.1);
+    border: 2px solid #667eea;
+  }
+
+  .grade-b-stat {
+    background: rgba(240, 147, 251, 0.1);
+    border: 2px solid #f093fb;
+  }
+
+  .dist-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .dist-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .dist-percent {
+    font-size: 0.9rem;
+    color: #666;
+  }
+</style>
