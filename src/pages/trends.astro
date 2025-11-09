@@ -2,8 +2,13 @@
 
 
 
+
+
+
+
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import GradeCharts from '../components/GradeCharts.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Load analysis data
@@ -58,33 +63,8 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
       </div>
     </div>
 
-    <!-- Grade Timeline Chart -->
-    <div class="chart-card">
-      <h2>Grade Timeline</h2>
-      <div class="chart-container">
-        <canvas id="gradeTimelineChart"></canvas>
-      </div>
-    </div>
-
-    <!-- Grade Distribution Chart -->
-    <div class="chart-card">
-      <h2>Grade Distribution</h2>
-      <div class="chart-container" style="max-width: 400px; margin: 0 auto;">
-        <canvas id="gradeDistributionChart"></canvas>
-      </div>
-      <div class="distribution-stats">
-        <div class="dist-stat grade-a-stat">
-          <span class="dist-label">A Grades</span>
-          <span class="dist-value">{trends.summary.overallGradeDistribution.A}</span>
-          <span class="dist-percent">{((trends.summary.overallGradeDistribution.A / trends.summary.totalReports) * 100).toFixed(0)}%</span>
-        </div>
-        <div class="dist-stat grade-b-stat">
-          <span class="dist-label">B Grades</span>
-          <span class="dist-value">{trends.summary.overallGradeDistribution.B}</span>
-          <span class="dist-percent">{((trends.summary.overallGradeDistribution.B / trends.summary.totalReports) * 100).toFixed(0)}%</span>
-        </div>
-      </div>
-    </div>
+    <!-- Charts -->
+    <GradeCharts timeline={timeline} trends={trends} />
 
     <!-- Monthly Breakdown -->
     <div class="section-header">
@@ -128,125 +108,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     </div>
   </main>
 </Layout>
-
-<script define:vars={{ timeline, trends }}>
-  // Import Chart.js from CDN
-  import('https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js').then((module) => {
-    const Chart = module.default;
-
-    // Grade Timeline Chart
-    const timelineCtx = document.getElementById('gradeTimelineChart');
-    if (timelineCtx) {
-      new Chart(timelineCtx, {
-        type: 'line',
-        data: {
-          labels: timeline.map(d => {
-            const date = new Date(d.date);
-            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-          }),
-          datasets: [
-            {
-              label: 'Daily Grade',
-              data: timeline.map(d => d.gradeValue),
-              borderColor: '#667eea',
-              backgroundColor: 'rgba(102, 126, 234, 0.1)',
-              borderWidth: 2,
-              pointRadius: 4,
-              pointHoverRadius: 6,
-              pointBackgroundColor: '#667eea',
-              tension: 0.3,
-              fill: true
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          aspectRatio: 2.5,
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              callbacks: {
-                label: (context) => {
-                  const grades = ['F', 'D', 'C', 'B', 'A'];
-                  const gradeValue = context.parsed.y;
-                  const gradeLetter = grades[gradeValue];
-                  return `Grade: ${gradeLetter} (${gradeValue}/4)`;
-                }
-              }
-            }
-          },
-          scales: {
-            y: {
-              min: 0,
-              max: 4,
-              ticks: {
-                stepSize: 1,
-                callback: (value) => {
-                  const grades = ['F', 'D', 'C', 'B', 'A'];
-                  return grades[value];
-                }
-              },
-              grid: {
-                color: 'rgba(0, 0, 0, 0.05)'
-              }
-            },
-            x: {
-              grid: {
-                display: false
-              },
-              ticks: {
-                maxRotation: 45,
-                minRotation: 45
-              }
-            }
-          }
-        }
-      });
-    }
-
-    // Grade Distribution Donut Chart
-    const distributionCtx = document.getElementById('gradeDistributionChart');
-    if (distributionCtx) {
-      const distribution = trends.summary.overallGradeDistribution;
-      new Chart(distributionCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['A', 'B'],
-          datasets: [{
-            data: [distribution.A, distribution.B],
-            backgroundColor: [
-              '#667eea',
-              '#f093fb'
-            ],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: true,
-          aspectRatio: 1,
-          plugins: {
-            legend: {
-              display: false
-            },
-            tooltip: {
-              callbacks: {
-                label: (context) => {
-                  const total = distribution.A + distribution.B;
-                  const percent = ((context.parsed / total) * 100).toFixed(0);
-                  return `${context.label}: ${context.parsed} days (${percent}%)`;
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-  });
-</script>
 
 <style>
   main {
@@ -324,67 +185,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
   .stat-percent {
     font-size: 1rem;
     opacity: 0.8;
-  }
-
-  .chart-card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  .chart-card h2 {
-    margin: 0 0 1.5rem 0;
-    color: #333;
-    font-size: 1.3rem;
-  }
-
-  .chart-container {
-    position: relative;
-    width: 100%;
-  }
-
-  .distribution-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-
-  .dist-stat {
-    padding: 1rem;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .grade-a-stat {
-    background: rgba(102, 126, 234, 0.1);
-    border: 2px solid #667eea;
-  }
-
-  .grade-b-stat {
-    background: rgba(240, 147, 251, 0.1);
-    border: 2px solid #f093fb;
-  }
-
-  .dist-label {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 0.5rem;
-  }
-
-  .dist-value {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-  }
-
-  .dist-percent {
-    font-size: 0.9rem;
-    color: #666;
   }
 
   .section-header {
