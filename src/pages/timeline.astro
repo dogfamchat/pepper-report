@@ -256,6 +256,7 @@
 
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Read all report cards
@@ -270,17 +271,10 @@ const reports = reportFiles.map(filename => {
   return JSON.parse(readFileSync(filepath, 'utf-8'));
 });
 
-// Format date nicely
-const formatDate = (dateStr: string) => {
+
   const [year, month, day] = dateStr.split('-').map(Number);
   const date = new Date(year, month - 1, day);
   return date.toLocaleDateString('en-CA', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-};
 
 // Format short date
 const formatShortDate = (dateStr: string) => {
@@ -388,6 +382,10 @@ const formatMonth = (monthStr: string) => {
                       <p class="noteworthy">{report.noteworthyComments}</p>
                     </div>
                   )}
+
+                  <div class="detail-section">
+                    <PhotoGallery date={report.date} showTitle={true} size="medium" />
+                  </div>
 
                   <div class="detail-section">
                     <h3>What I Did Today</h3>

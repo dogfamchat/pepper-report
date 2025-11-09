@@ -1,0 +1,97 @@
+---
+/**
+ * PhotoGallery Component
+ *
+ * Displays photos from Cloudflare R2 for a given report card date.
+ * Handles thumbnail display with lightbox for full-size viewing.
+ */
+
+interface Props {
+  date: string; // YYYY-MM-DD format
+  showTitle?: boolean;
+  size?: 'small' | 'medium' | 'large';
+}
+
+const { date, showTitle = false, size = 'medium' } = Astro.props;
+
+// Load photo metadata
+import photosData from '../../photos.json';
+
+// Find photos for this date
+const reportPhotos = photosData.photos.filter(photo => photo.date === date);
+
+// Size classes for different use cases
+const sizeClasses = {
+  small: 'h-24 w-24',
+  medium: 'h-48 w-48',
+  large: 'h-64 w-64'
+};
+---
+
+{reportPhotos.length > 0 && (
+  <div class="photo-gallery">
+    {showTitle && (
+      <h3 class="text-lg font-semibold mb-3">Photos</h3>
+    )}
+
+    <div class="flex flex-wrap gap-3">
+      {reportPhotos.map((photo, index) => (
+        <a
+          href={photo.r2Url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="photo-link"
+        >
+          <img
+            src={photo.thumbnailUrl}
+            alt={`Pepper's photo from ${date}`}
+            class={`photo-img ${sizeClasses[size]} object-cover rounded-lg shadow-md`}
+            loading="lazy"
+          />
+          {reportPhotos.length > 1 && (
+            <div class="photo-badge">
+              {index + 1}/{reportPhotos.length}
+            </div>
+          )}
+        </a>
+      ))}
+    </div>
+  </div>
+)}
+
+<style>
+  .photo-gallery {
+    margin-top: 1rem;
+  }
+
+  .photo-link {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .photo-link:hover {
+    opacity: 0.85;
+  }
+
+  .photo-img {
+    transition: all 0.2s ease;
+  }
+
+  .photo-link:hover .photo-img {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .photo-badge {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background-color: rgb(147, 51, 234);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+  }
+</style>

@@ -512,6 +512,7 @@
 
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Read the latest report card
@@ -602,6 +603,10 @@ const formatDate = (dateStr: string) => {
           <p class="noteworthy">{latestReport.noteworthyComments}</p>
         </div>
       )}
+
+      <div class="report-section">
+        <PhotoGallery date={latestReport.date} showTitle={true} size="large" />
+      </div>
 
       <div class="report-section">
         <h3>What I Did Today</h3>
