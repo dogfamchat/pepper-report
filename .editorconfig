@@ -1,0 +1,42 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+max_line_length = 100
+
+# TypeScript, JavaScript, JSON
+[*.{ts,js,mjs,cjs,json,jsonc}]
+indent_style = space
+indent_size = 2
+max_line_length = 100
+
+# Astro files
+[*.astro]
+indent_style = space
+indent_size = 2
+max_line_length = 100
+
+# HTML, CSS
+[*.{html,css,scss}]
+indent_style = space
+indent_size = 2
+max_line_length = 100
+
+# Markdown files
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+# YAML files
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
