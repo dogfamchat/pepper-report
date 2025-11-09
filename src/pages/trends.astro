@@ -1,0 +1,553 @@
+---
+
+
+
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+import Layout from '../layouts/Layout.astro';
+
+// Load analysis data
+const timelinePath = join(process.cwd(), 'data', 'viz', 'grade-timeline.json');
+const timeline = JSON.parse(readFileSync(timelinePath, 'utf-8'));
+
+const trendsPath = join(process.cwd(), 'data', 'analysis', 'grade-trends.json');
+const trends = JSON.parse(readFileSync(trendsPath, 'utf-8'));
+
+// Format date for display
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+};
+
+// Format month name
+const formatMonth = (monthStr: string) => {
+  const [year, month] = monthStr.split('-');
+  const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+};
+
+// Calculate grade percentage
+const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
+---
+
+<Layout title="Grade Trends - Pepper's Daycare">
+  <main>
+    <div class="header">
+      <a href="/pepper-report" class="back-link">← Back to Dashboard</a>
+      <h1>📊 Grade Trends</h1>
+      <p class="subtitle">Tracking performance over time</p>
+    </div>
+
+    <!-- Overall Statistics -->
+    <div class="summary-card">
+      <h2>Overall Performance</h2>
+      <div class="summary-stats">
+        <div class="summary-stat">
+          <span class="stat-label">Average Grade</span>
+          <span class="stat-value">{trends.summary.overallAverageGrade.toFixed(2)}/4.0</span>
+          <span class="stat-percent">{gradeToPercent(trends.summary.overallAverageGrade)}%</span>
+        </div>
+        <div class="summary-stat">
+          <span class="stat-label">Total Days</span>
+          <span class="stat-value">{trends.summary.totalReports}</span>
+        </div>
+        <div class="summary-stat">
+          <span class="stat-label">Date Range</span>
+          <span class="stat-value">{formatDate(trends.summary.dateRange.start)} - {formatDate(trends.summary.dateRange.end)}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grade Timeline Chart -->
+    <div class="chart-card">
+      <h2>Grade Timeline</h2>
+      <div class="chart-container">
+        <canvas id="gradeTimelineChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Grade Distribution Chart -->
+    <div class="chart-card">
+      <h2>Grade Distribution</h2>
+      <div class="chart-container" style="max-width: 400px; margin: 0 auto;">
+        <canvas id="gradeDistributionChart"></canvas>
+      </div>
+      <div class="distribution-stats">
+        <div class="dist-stat grade-a-stat">
+          <span class="dist-label">A Grades</span>
+          <span class="dist-value">{trends.summary.overallGradeDistribution.A}</span>
+          <span class="dist-percent">{((trends.summary.overallGradeDistribution.A / trends.summary.totalReports) * 100).toFixed(0)}%</span>
+        </div>
+        <div class="dist-stat grade-b-stat">
+          <span class="dist-label">B Grades</span>
+          <span class="dist-value">{trends.summary.overallGradeDistribution.B}</span>
+          <span class="dist-percent">{((trends.summary.overallGradeDistribution.B / trends.summary.totalReports) * 100).toFixed(0)}%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Monthly Breakdown -->
+    <div class="section-header">
+      <h2>Monthly Performance</h2>
+    </div>
+    <div class="monthly-grid">
+      {trends.monthly.map((month: any) => (
+        <div class="month-card">
+          <h3>{formatMonth(month.month)}</h3>
+          <div class="month-stat">
+            <span class="month-label">Average Grade</span>
+            <span class="month-value">{month.averageGrade.toFixed(2)}/4.0</span>
+            <span class="month-percent">{gradeToPercent(month.averageGrade)}%</span>
+          </div>
+          <div class="month-detail">
+            <span>{month.daysAttended} days</span>
+            <span>{month.gradeDistribution.A} A's, {month.gradeDistribution.B} B's</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Weekly Breakdown -->
+    <div class="section-header">
+      <h2>Weekly Performance</h2>
+    </div>
+    <div class="weekly-list">
+      {trends.weekly.slice().reverse().map((week: any) => (
+        <div class="week-card">
+          <div class="week-header">
+            <span class="week-label">{week.week}</span>
+            <span class="week-dates">{formatDate(week.startDate)} - {formatDate(week.endDate)}</span>
+            <span class="week-grade grade-badge-{week.averageGrade === 4 ? 'a' : 'b'}">{week.averageGrade.toFixed(2)}</span>
+          </div>
+          <div class="week-details">
+            <span>{week.daysAttended} {week.daysAttended === 1 ? 'day' : 'days'}</span>
+            <span class="week-distribution">{week.gradeDistribution.A} A's, {week.gradeDistribution.B} B's</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </main>
+</Layout>
+
+<script define:vars={{ timeline, trends }}>
+  // Import Chart.js from CDN
+  import('https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js').then((module) => {
+    const Chart = module.default;
+
+    // Grade Timeline Chart
+    const timelineCtx = document.getElementById('gradeTimelineChart');
+    if (timelineCtx) {
+      new Chart(timelineCtx, {
+        type: 'line',
+        data: {
+          labels: timeline.map(d => {
+            const date = new Date(d.date);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+          }),
+          datasets: [
+            {
+              label: 'Daily Grade',
+              data: timeline.map(d => d.gradeValue),
+              borderColor: '#667eea',
+              backgroundColor: 'rgba(102, 126, 234, 0.1)',
+              borderWidth: 2,
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              pointBackgroundColor: '#667eea',
+              tension: 0.3,
+              fill: true
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 2.5,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const grades = ['F', 'D', 'C', 'B', 'A'];
+                  const gradeValue = context.parsed.y;
+                  const gradeLetter = grades[gradeValue];
+                  return `Grade: ${gradeLetter} (${gradeValue}/4)`;
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              min: 0,
+              max: 4,
+              ticks: {
+                stepSize: 1,
+                callback: (value) => {
+                  const grades = ['F', 'D', 'C', 'B', 'A'];
+                  return grades[value];
+                }
+              },
+              grid: {
+                color: 'rgba(0, 0, 0, 0.05)'
+              }
+            },
+            x: {
+              grid: {
+                display: false
+              },
+              ticks: {
+                maxRotation: 45,
+                minRotation: 45
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // Grade Distribution Donut Chart
+    const distributionCtx = document.getElementById('gradeDistributionChart');
+    if (distributionCtx) {
+      const distribution = trends.summary.overallGradeDistribution;
+      new Chart(distributionCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['A', 'B'],
+          datasets: [{
+            data: [distribution.A, distribution.B],
+            backgroundColor: [
+              '#667eea',
+              '#f093fb'
+            ],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          aspectRatio: 1,
+          plugins: {
+            legend: {
+              display: false
+            },
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const total = distribution.A + distribution.B;
+                  const percent = ((context.parsed / total) * 100).toFixed(0);
+                  return `${context.label}: ${context.parsed} days (${percent}%)`;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: #667eea;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+  }
+
+  .summary-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .summary-card h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+  }
+
+  .summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+  }
+
+  .summary-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-percent {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  .chart-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .chart-card h2 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+    font-size: 1.3rem;
+  }
+
+  .chart-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .distribution-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .dist-stat {
+    padding: 1rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .grade-a-stat {
+    background: rgba(102, 126, 234, 0.1);
+    border: 2px solid #667eea;
+  }
+
+  .grade-b-stat {
+    background: rgba(240, 147, 251, 0.1);
+    border: 2px solid #f093fb;
+  }
+
+  .dist-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .dist-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .dist-percent {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .section-header {
+    margin: 3rem 0 1.5rem 0;
+  }
+
+  .section-header h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .monthly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .month-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .month-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .month-card h3 {
+    margin: 0 0 1rem 0;
+    color: #667eea;
+    font-size: 1.2rem;
+  }
+
+  .month-stat {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .month-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+  }
+
+  .month-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.25rem;
+  }
+
+  .month-percent {
+    font-size: 0.9rem;
+    color: #667eea;
+    font-weight: 500;
+  }
+
+  .month-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .weekly-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .week-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 1rem 1.5rem;
+    transition: box-shadow 0.2s;
+  }
+
+  .week-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .week-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .week-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 0.95rem;
+  }
+
+  .week-dates {
+    flex: 1;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  .week-grade {
+    font-weight: bold;
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .grade-badge-a {
+    background: #667eea;
+    color: white;
+  }
+
+  .grade-badge-b {
+    background: #f093fb;
+    color: white;
+  }
+
+  .week-details {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .week-distribution {
+    color: #667eea;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+    }
+
+    .summary-stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .monthly-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .week-header {
+      flex-wrap: wrap;
+    }
+
+    .week-dates {
+      flex: none;
+      width: 100%;
+      order: -1;
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>

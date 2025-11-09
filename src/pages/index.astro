@@ -1,5 +1,11 @@
 ---
 
+
+
+
+
+
+
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Layout from '../layouts/Layout.astro';
@@ -137,11 +143,11 @@ const formatDate = (dateStr: string) => {
 
     <!-- Quick Links -->
     <div class="quick-links">
-      <a href="/trends" class="link-card">
+      <a href="/pepper-report/trends" class="link-card">
         <span class="link-icon">📊</span>
         <span class="link-text">View Trends</span>
       </a>
-      <a href="/timeline" class="link-card">
+      <a href="/pepper-report/timeline" class="link-card">
         <span class="link-icon">📅</span>
         <span class="link-text">Full Timeline</span>
       </a>
