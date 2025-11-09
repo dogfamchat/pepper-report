@@ -1,40 +1,60 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-11-02
-**Current Phase:** Data Pipeline Completion (Phase 1.5 + Phase 2)
+**Last Updated:** 2025-11-09
+**Current Phase:** Analysis & Visualization (Phase 3 - Partial Complete)
 
 ## Overview
 
 This tracks remaining work to complete the Pepper Report project. See [docs/design-proposal.md](docs/design-proposal.md) for full architecture and [docs/report-card-data-structure.md](docs/report-card-data-structure.md) for data schema details.
 
-## Current Priority: Data Pipeline
+## Recent Progress (Nov 9, 2025)
 
-Focus on completing data ingestion and storage before building analysis and website.
+**✅ Completed:**
+- Grade trends analysis pipeline (analyze-all.ts, grade-trends.ts, report-reader.ts)
+- Homepage with real data and statistics dashboard
+- Trends page with interactive Chart.js visualizations
+- Timeline page with all 31 report cards
+- GitHub Actions automation (analysis + deployment)
+- Production deployment to GitHub Pages: https://dogfamchat.github.io/pepper-report
 
-### Immediate Tasks (This Week)
+**📊 Current Stats:**
+- 31 report cards scraped (Aug-Nov 2025)
+- Overall average: 3.58/4.0 (89.5%)
+- 14 weeks tracked, 4 months of data
+- 12 photos uploaded to Cloudflare R2
 
-- [x] **Implement photo upload to Cloudflare R2**
-  - ✓ Update `scripts/storage/r2-uploader.ts` to upload photos
-  - ✓ Add image resizing with sharp (1920px full, 400px thumbnails)
-  - ✓ Filter out stock photos (already implemented in scraper)
-  - ✓ Update `photos.json` with R2 URLs
-  - ✓ Test upload with existing local photo
+## Current Priority: Friend & Activity Analysis
 
-- [x] **Test R2 upload integration**
-  - ✓ Verify R2 bucket is configured in secrets
-  - ✓ Test upload script with one photo
-  - ✓ Verify photo is accessible via R2 URL
-  - ✓ Update scraper to call R2 upload after extracting photos
+The core data pipeline and visualization infrastructure is complete. Next priority is implementing AI-powered friend extraction and activity categorization to complete the analysis suite.
 
-- [x] **Run historical backfill for all report cards**
-  - ✓ Verify daycare credentials are working
-  - ✓ Fix bug: Schedule date parsing to handle _comment field
-  - ✓ Fix bug: Refactor scraper to reuse browser session (30x faster)
-  - ✓ Run: `bun run backfill:reports --schedule data/schedule/2025.json`
-  - ✓ Scraped 28/31 report cards (3 dates had no report filed)
-  - ✓ Uploaded 12 photos to R2 successfully
-  - ✓ Auto-discovered 7 new staff members with anonymization
-  - ✓ Commit all backfilled data to Git
+### Immediate Tasks (Next Session)
+
+- [ ] **Implement friend analysis with Claude API (PRIORITY)**
+  - Create `scripts/analysis/friends-analyzer.ts`
+  - Set up Anthropic SDK with Haiku model for cost efficiency
+  - Extract dog names from `noteworthyComments` field across all reports
+  - Track friend co-occurrence and frequency
+  - Generate `data/analysis/top-friends.json`
+  - Add friend network chart to trends page
+
+- [ ] **Implement activity categorization**
+  - Create `scripts/analysis/activity-analyzer.ts`
+  - Parse `whatIDidToday` and `trainingSkills` arrays
+  - Categorize into: playtime, training, enrichment, outdoor, socialization, rest
+  - Generate `data/viz/activity-breakdown.json`
+  - Add activity charts to trends page
+
+- [ ] **Display photos on website**
+  - Add photo display to homepage (latest report's photos)
+  - Create photo gallery component
+  - Load photos from R2 URLs stored in `photos.json`
+  - Add lightbox/modal for full-size viewing
+
+- [ ] **Build friends page**
+  - Create `src/pages/friends.astro`
+  - Display friend network visualization
+  - List all friends with frequency stats
+  - **Depends on:** Friend analysis completion
 
 ### Phase 2: Complete Automation
 
@@ -78,129 +98,132 @@ Focus on completing data ingestion and storage before building analysis and webs
 
 ### Analysis Scripts
 
-- [ ] **Create analysis script structure**
-  - Create `scripts/analysis/analyze-all.ts` entry point
-  - Set up TypeScript types for analysis outputs
+- [x] **Create analysis script structure**
+  - ✓ Created `scripts/analysis/analyze-all.ts` entry point
+  - ✓ Created `scripts/analysis/report-reader.ts` with shared utilities
+  - ✓ Set up TypeScript types for analysis outputs
 
-- [ ] **AI insights with Claude API**
-  - Create `scripts/analysis/ai-insights.ts`
-  - Send report cards to Claude API for structured analysis
+- [x] **Implement grade trends analysis**
+  - ✓ Created `scripts/analysis/grade-trends.ts`
+  - ✓ Calculate weekly/monthly grade averages
+  - ✓ Track grade distribution (A/B/C/D counts)
+  - ✓ Identify improving/declining trends
+  - ✓ Output: `data/analysis/grade-trends.json`
+  - ✓ Output: `data/analysis/weekly-summary.json`
+
+- [ ] **AI insights with Claude API (PRIORITY)**
+  - Create `scripts/analysis/friends-analyzer.ts`
+  - Use Claude Haiku API for cost efficiency (~$0.20/year)
   - Extract friend names mentioned in noteworthyComments field
-  - Generate natural language summaries of each report
-  - Flag patterns or notable behaviors
-  - Output: `data/analysis/ai-insights.json` (one file per report)
-  - **Note:** Must run first - friend network analysis depends on this
-
-- [ ] **Implement grade trends analysis**
-  - Calculate weekly/monthly grade averages
-  - Track grade distribution (A/B/C/D counts)
-  - Identify improving/declining trends
-  - Output: `data/analysis/grade-trends.json`
+  - Track friend co-occurrence over time
+  - Generate friend network data
+  - Output: `data/analysis/top-friends.json`
+  - **Note:** Currently the biggest gap in analysis
 
 - [ ] **Implement activity categorization**
+  - Create `scripts/analysis/activity-analyzer.ts`
   - Parse whatIDidToday and trainingSkills arrays
-  - Group into categories (play, training, rest, outdoor)
+  - Group into categories (play, training, rest, outdoor, enrichment, socialization)
   - Calculate time spent in each category
   - Output: `data/analysis/activity-breakdown.json`
-
-- [ ] **Implement friend network analysis**
-  - Extract friend names from AI insights output (names mentioned in noteworthyComments)
-  - Count frequency of each friend name across all reports
-  - Calculate top friends list with statistics
-  - Output: `data/analysis/top-friends.json`
-  - **Depends on:** AI insights implementation (must run after)
-
-- [ ] **Implement weekly summary analysis**
-  - Aggregate report cards by week
-  - Calculate weekly stats (attendance, avg grade, top activities)
-  - Include notable comments and highlights
-  - Output: `data/analysis/weekly-summary.json`
+  - Output: `data/viz/activity-breakdown.json`
 
 ### Visualization Data Preparation
 
-- [ ] **Create Chart.js data transformations**
-  - Create `scripts/analysis/prepare-viz-data.ts`
-  - Transform analysis outputs to Chart.js format
+- [x] **Create Chart.js data transformations**
+  - ✓ Implemented in `scripts/analysis/grade-trends.ts`
+  - ✓ Transform analysis outputs to Chart.js format
 
-- [ ] **Grade timeline visualization data**
-  - Format grade trends for line/bar chart
-  - Include weekly averages and individual grades
-  - Output: `data/viz/grade-timeline.json`
+- [x] **Grade timeline visualization data**
+  - ✓ Format grade trends for line/bar chart
+  - ✓ Include weekly averages and individual grades
+  - ✓ Output: `data/viz/grade-timeline.json`
 
 - [ ] **Friend network visualization data**
   - Format friend mentions for bar chart
   - Include top 10 friends with counts
   - Output: `data/viz/friend-network.json`
+  - **Depends on:** AI insights implementation
 
 - [ ] **Activity breakdown visualization data**
   - Format activity categories for pie/doughnut chart
   - Include percentages and counts
   - Output: `data/viz/activity-breakdown.json`
+  - **Depends on:** Activity analyzer implementation
 
-- [ ] **Update GitHub Actions workflow**
-  - Add analysis job that runs after successful scrape
-  - Add deploy job that triggers after analysis
-  - Test full pipeline
+- [x] **Update GitHub Actions workflow**
+  - ✓ Added analysis job that runs after successful scrape
+  - ✓ Added deploy job that triggers after analysis
+  - ✓ Tested full pipeline
+  - ✓ Auto-commits analysis results to Git
 
 ## Phase 4: Website Development
 
 ### Astro Site Structure
 
-- [ ] **Build core layouts**
-  - Create main layout with navigation
-  - Add header/footer components
-  - Set up styling (Tailwind or CSS)
+- [x] **Build core layouts**
+  - ✓ Created main layout with navigation
+  - ✓ Set up styling with CSS gradients and responsive design
+  - ✓ Mobile-responsive layout
 
-- [ ] **Build homepage**
-  - Display latest report card
-  - Show quick stats (current grade, attendance streak)
-  - Link to other pages
-  - Recent photos carousel
+- [x] **Build homepage** (`src/pages/index.astro`)
+  - ✓ Display latest report card with full details
+  - ✓ Show quick stats (total days, average grade, A grades, weeks tracked)
+  - ✓ Links to trends and timeline pages
+  - ✓ Grade-based color coding (purple for A, pink for B)
+  - Note: Photo carousel not yet implemented
 
-- [ ] **Build timeline page**
-  - List all report cards chronologically
-  - Filter by month/date range
-  - Search functionality
-  - Link to individual report cards
+- [x] **Build timeline page** (`src/pages/timeline.astro`)
+  - ✓ List all 31 report cards chronologically
+  - ✓ Grouped by month with expandable cards
+  - ✓ Click to expand/collapse for full report details
+  - ✓ Mobile-responsive card layout
+  - Note: Advanced filtering/search not yet implemented
 
 - [ ] **Build individual report card page**
   - Display full report card details
   - Show photos in gallery
   - Include staff notes
   - Show friends mentioned
+  - Note: Currently report cards shown inline on timeline page
 
-- [ ] **Build trends/analytics page**
-  - Embed Chart.js visualizations
-  - Grade timeline chart
-  - Friend network chart
-  - Activity breakdown chart
-  - Weekly summary cards
+- [x] **Build trends/analytics page** (`src/pages/trends.astro`)
+  - ✓ Created `src/components/GradeCharts.astro` for Chart.js visualizations
+  - ✓ Grade timeline chart (line chart with 31 data points)
+  - ✓ Grade distribution chart (donut chart showing A vs B)
+  - ✓ Statistics dashboard with overall metrics
+  - ✓ 4 monthly performance cards with detailed breakdowns
+  - ✓ 14 weekly performance entries with dates and grade badges
+  - Note: Friend network and activity charts pending friend/activity analysis
 
 - [ ] **Build friends page**
   - List all friends Pepper has played with
   - Show frequency of mentions
   - Filter/search by name
   - Photos with each friend (if available)
+  - **Depends on:** Friend analysis implementation
 
 - [ ] **Build photo gallery**
   - Grid view of all photos
   - Filter by date/month
   - Lightbox for full-size viewing
   - Load from R2 URLs
+  - Note: Photos uploaded to R2 but not yet displayed on site
 
 ### Deployment
 
-- [ ] **Configure GitHub Pages deployment**
-  - Set up deployment workflow
-  - Build Astro site
-  - Deploy to gh-pages branch
-  - Test site is accessible
+- [x] **Configure GitHub Pages deployment**
+  - ✓ Created `.github/workflows/deploy.yml`
+  - ✓ Set up deployment workflow
+  - ✓ Build Astro site with static adapter
+  - ✓ Deploy to GitHub Pages
+  - ✓ Site accessible at `https://dogfamchat.github.io/pepper-report`
 
-- [ ] **Test site on GitHub Pages**
-  - Verify all pages load correctly
-  - Check images load from R2
-  - Test charts render properly
-  - Validate mobile responsiveness
+- [x] **Test site on GitHub Pages**
+  - ✓ Verified all pages load correctly
+  - ✓ Test charts render properly
+  - ✓ Validated mobile responsiveness
+  - Note: R2 images not yet integrated into site
 
 - [ ] **Optional: Custom domain**
   - Purchase domain (if desired)
@@ -209,8 +232,12 @@ Focus on completing data ingestion and storage before building analysis and webs
 
 ## Phase 5: Polish & Enhancements (Optional)
 
+- [ ] **Multi-year support**
+  - Update code to handle year transitions (2025 → 2026)
+  - Ensure analysis works across multiple years
+  - Update scrapers and workflows for multi-year data
+
 - [ ] **Improve chart designs**
-  - Add color coding (green for A, yellow for B, etc.)
   - Add tooltips with details
   - Make charts interactive/filterable
   - Add animations
@@ -234,10 +261,17 @@ Focus on completing data ingestion and storage before building analysis and webs
   - Show friendship timeline
 
 - [ ] **Photo enhancements**
+  - Photo carousel on homepage
   - Automatic tagging (if Claude API can identify dogs)
   - Photo collages or montages
   - Download all photos as ZIP
   - Slideshow view
+
+- [ ] **Advanced timeline features**
+  - Filter by date range
+  - Search functionality
+  - Filter by grade
+  - Export reports to PDF
 
 ## Completed Tasks
 
@@ -272,6 +306,31 @@ Focus on completing data ingestion and storage before building analysis and webs
 - [x] Configure public access for R2 bucket
 - [x] Test end-to-end photo upload pipeline
 
+### Phase 3: Analysis Pipeline (Nov 9, 2025)
+- [x] Created `scripts/analysis/analyze-all.ts` orchestrator
+- [x] Created `scripts/analysis/report-reader.ts` with shared utilities
+- [x] Created `scripts/analysis/grade-trends.ts` analyzer
+- [x] Generated `data/analysis/grade-trends.json` with weekly/monthly stats
+- [x] Generated `data/analysis/weekly-summary.json`
+- [x] Generated `data/viz/grade-timeline.json` for Chart.js
+- [x] Fixed TypeScript configuration (added DOM types)
+- [x] Fixed all linting issues with Biome
+
+### Phase 4: Website Implementation (Nov 9, 2025)
+- [x] Updated homepage (`src/pages/index.astro`) with real data
+- [x] Created trends page (`src/pages/trends.astro`) with Chart.js visualizations
+- [x] Created timeline page (`src/pages/timeline.astro`) with expandable report cards
+- [x] Created `src/components/GradeCharts.astro` component
+- [x] Implemented grade timeline chart (line chart)
+- [x] Implemented grade distribution chart (donut chart)
+- [x] Added statistics dashboard with 4 key metrics
+- [x] Added monthly performance cards
+- [x] Added weekly performance entries
+- [x] Fixed Chart.js ES6 import issues
+- [x] Created `.github/workflows/deploy.yml` for GitHub Pages
+- [x] Updated `.github/workflows/report.yml` with analysis job
+- [x] Deployed production site to https://dogfamchat.github.io/pepper-report
+
 ## Notes
 
 - **Privacy:** Always anonymize staff names using `processStaffNames()` utility
@@ -280,6 +339,56 @@ Focus on completing data ingestion and storage before building analysis and webs
 - **Backfill:** Run locally first time to monitor progress, then automation takes over
 - **Testing:** Always test on single dates before batch operations
 - **Notifications:** Skip for backfilled historical data (only for new daily reports)
+
+## Production Site Status
+
+**Live URL:** https://dogfamchat.github.io/pepper-report
+
+**Working Features:**
+- Homepage with latest report card and statistics
+- Trends page with interactive Chart.js visualizations (grade timeline, distribution)
+- Timeline page with all 31 report cards (expandable cards)
+- Automated daily scraping and analysis via GitHub Actions
+- Automated deployment on every push to main
+
+**Missing Features:**
+- Friend analysis and visualization (no AI extraction yet)
+- Activity categorization and charts
+- Photo display on website (photos exist in R2 but not shown)
+- Friends page
+- Photo gallery page
+- Individual report card pages
+
+## Key Technical Decisions
+
+### Week Calculation
+Using **ISO 8601 week numbers** for consistency:
+- Week starts Monday, ends Sunday
+- Week containing January 4th is week 1
+- Implemented in `scripts/analysis/report-reader.ts:getWeekNumber()`
+
+### Grade Storage Format
+Storing both letter and numeric values:
+```json
+{
+  "date": "2025-11-07",
+  "grade": "A",
+  "gradeValue": 4.0
+}
+```
+
+### Data Organization
+Separate directories for different purposes:
+- `data/analysis/` - Human-readable summaries
+- `data/viz/` - Chart.js-optimized data
+- `data/reports/2025/` - Raw report card JSONs
+- `data/schedule/` - Schedule data
+
+### Chart.js Integration
+- Self-contained `GradeCharts.astro` component
+- Pass data via `data-*` attributes on canvas elements
+- Use module script that imports Chart.js directly from npm
+- Read data from DOM using dataset API
 
 ## References
 
