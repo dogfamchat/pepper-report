@@ -1,0 +1,14 @@
+{
+  "week": "2025-W45",
+  "startDate": "2025-11-03",
+  "endDate": "2025-11-09",
+  "daysAttended": 2,
+  "averageGrade": 4,
+  "gradeDistribution": {
+    "A": 2,
+    "B": 0,
+    "C": 0,
+    "D": 0,
+    "F": 0
+  }
+}
