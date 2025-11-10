@@ -4,13 +4,13 @@ on:
   schedule:
     # Run 3x daily: 3:30 PM, 4:30 PM, 5:30 PM MST (school days)
     # These times are when report cards are typically posted
-    - cron: '30 22 * * 1-5' # 3:30 PM MST (10:30 PM UTC), Mon-Fri
-    - cron: '30 23 * * 1-5' # 4:30 PM MST (11:30 PM UTC), Mon-Fri
-    - cron: '30 0 * * 2-6'  # 5:30 PM MST (12:30 AM UTC), Tue-Sat (runs for Mon-Fri in MST)
+    - cron: "30 22 * * 1-5" # 3:30 PM MST (10:30 PM UTC), Mon-Fri
+    - cron: "30 23 * * 1-5" # 4:30 PM MST (11:30 PM UTC), Mon-Fri
+    - cron: "30 0 * * 2-6" # 5:30 PM MST (12:30 AM UTC), Tue-Sat (runs for Mon-Fri in MST)
   workflow_dispatch: # Allow manual trigger
     inputs:
       date:
-        description: 'Date to scrape (YYYY-MM-DD, defaults to today)'
+        description: "Date to scrape (YYYY-MM-DD, defaults to today)"
         required: false
         type: string
 
@@ -168,6 +168,8 @@ jobs:
 
       - name: Run analysis pipeline
         run: bun run analyze
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
 
       - name: Commit analysis results
         run: |
