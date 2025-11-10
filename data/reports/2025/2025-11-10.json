@@ -1,0 +1,42 @@
+{
+  "date": "2025-11-10",
+  "completedDateTime": "2025-11-10T22:08:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Stone Meadow"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall",
+    "agility",
+    "balancing skills"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "Today we honored Gander. 🇨🇦🐾\nOur event was a mini obstacle course, and the dogs practiced going through the course and interacting with the “grenade” (ball on a rope). They stayed focused, worked as a team, and showed confidence and bravery — just like Gander. ✨\n🦴🐕🌺",
+  "photos": [
+    "2025-11-10-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Stone Meadow",
+    "completedBy": "Stone Meadow"
+  }
+}
