@@ -133,8 +133,8 @@ function parseGrade(gradeText: string): Grade {
 
 /**
  * Parse "Completed On" date/time to ISO format
- * Input: "Oct 31, 2025, 2:11pm"
- * Output: "2025-10-31T14:11:00.000Z"
+ * Input: "Oct 31, 2025, 2:11pm" (Mountain Time)
+ * Output: "2025-10-31T20:11:00.000Z" (properly converted to UTC)
  */
 function parseCompletedDateTime(completedOnText: string, fallbackDate: string): string {
   try {
@@ -174,13 +174,39 @@ function parseCompletedDateTime(completedOnText: string, fallbackDate: string): 
       hour24 = 0;
     }
 
-    const dateObj = new Date(
-      parseInt(year, 10),
-      month,
-      parseInt(day, 10),
-      hour24,
-      parseInt(minute, 10),
-    );
+    const yearNum = parseInt(year, 10);
+    const dayNum = parseInt(day, 10);
+    const minuteNum = parseInt(minute, 10);
+
+    // Determine if this date is in MDT (Mountain Daylight Time, UTC-6) or MST (Mountain Standard Time, UTC-7)
+    // DST in Mountain Time: 2nd Sunday in March at 2am through 1st Sunday in November at 2am
+    const isDST = (date: Date): boolean => {
+      const year = date.getFullYear();
+
+      // Find 2nd Sunday in March
+      const marchFirst = new Date(Date.UTC(year, 2, 1)); // March 1
+      const marchFirstDay = marchFirst.getUTCDay();
+      const secondSundayMarch = 8 + ((7 - marchFirstDay) % 7); // 2nd Sunday
+      const dstStart = new Date(Date.UTC(year, 2, secondSundayMarch, 2 + 6)); // 2am MT = 8am UTC
+
+      // Find 1st Sunday in November
+      const novFirst = new Date(Date.UTC(year, 10, 1)); // November 1
+      const novFirstDay = novFirst.getUTCDay();
+      const firstSundayNov = 1 + ((7 - novFirstDay) % 7); // 1st Sunday
+      const dstEnd = new Date(Date.UTC(year, 10, firstSundayNov, 2 + 6)); // 2am MT = 8am UTC
+
+      return date >= dstStart && date < dstEnd;
+    };
+
+    // Create a UTC date to check DST status (we'll use noon on the target date to avoid edge cases)
+    const checkDate = new Date(Date.UTC(yearNum, month, dayNum, 12));
+    const utcOffset = isDST(checkDate) ? 6 : 7; // MDT is UTC-6, MST is UTC-7
+
+    // Create the date in Mountain Time by building a UTC string with the offset applied
+    // If it's 2:11 PM MT and offset is 6 hours, the UTC time should be 20:11 (2:11 + 6)
+    const utcHour = hour24 + utcOffset;
+    const dateObj = new Date(Date.UTC(yearNum, month, dayNum, utcHour, minuteNum));
+
     return dateObj.toISOString();
   } catch (error) {
     console.warn(`⚠️  Error parsing date: ${error}`);
