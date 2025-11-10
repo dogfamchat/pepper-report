@@ -505,7 +505,7 @@ import Layout from '../layouts/Layout.astro';
 // Read the latest report card
 const reportsDir = join(process.cwd(), 'data', 'reports', '2025');
 const reportFiles = readdirSync(reportsDir)
-  .filter(f => f.endsWith('.json'))
+  .filter((f) => f.endsWith('.json'))
   .sort()
   .reverse();
 
@@ -532,7 +532,7 @@ const formatDate = (dateStr: string) => {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   });
 };
 ---
