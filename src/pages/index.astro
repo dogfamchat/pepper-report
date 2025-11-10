@@ -534,8 +534,9 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
 
 // Format date nicely
 const formatDate = (dateStr: string) => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  return date.toLocaleDateString('en-CA', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
