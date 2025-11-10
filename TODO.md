@@ -10,9 +10,9 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 
 ## Recent Progress
 
-### Nov 10, 2025 - Photo Display Feature ✅
+### Nov 10, 2025 - Photo Display Feature ✅ COMPLETE
 
-**Branch:** `add-photo-display` (rebased on main successfully)
+**Branch:** `add-photo-display` (ready for PR)
 
 **Completed:**
 - ✅ **PhotoGallery Component** (`src/components/PhotoGallery.astro`)
@@ -22,12 +22,15 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - Graceful handling when no photos exist
   - Responsive grid layout
 
-- ✅ **Gallery Page** (`src/pages/gallery.astro`)
+- ✅ **Gallery Page with Lightbox Modal** (`src/pages/gallery.astro`)
   - Dedicated photo gallery page at `/pepper-report/gallery`
   - Displays all 14 photos from R2 storage
   - Masonry-style responsive grid layout
   - Date labels for each photo
-  - Thumbnail display with links to full-size images
+  - **Full-screen lightbox modal for photo viewing**
+  - Navigation: arrow buttons, keyboard (←/→), ESC to close
+  - Click outside to close, body scroll locked
+  - Mobile responsive with touch-friendly controls
   - Beautiful gradient header and styling
 
 - ✅ **Homepage Photo Integration** (`src/pages/index.astro`)
@@ -36,23 +39,26 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - Photo display within latest report card
   - Responsive layout for mobile/desktop
 
-- ✅ **Timeline Photo Integration** (`src/pages/timeline.astro`)
+- ✅ **Timeline Photo Integration & Indicators** (`src/pages/timeline.astro`)
   - PhotoGallery component added to each report card detail view
   - Medium-sized photo display within expandable cards
-  - Fixed formatting issues from rebase
+  - **📷 Photo indicator badges** next to dates that have photos
+  - Visual indicators help identify which reports have photos
+  - Subtle styling with hover effects
+  - Fixed frontmatter formatting issues
 
 - ✅ **Branch Health**
-  - Successfully rebased on main branch (88ce20c)
+  - Fixed critical compiler bug (missing frontmatter delimiters)
   - Build verified and passing
   - Dev server tested and functional
-  - Clean commit history with 3 commits
+  - Clean commit history with 5 commits
+  - All features tested and working
 
 **Files Modified:**
-- `src/components/PhotoGallery.astro` (new, 97 lines)
-- `src/pages/gallery.astro` (new, 199 lines)
+- `src/components/PhotoGallery.astro` (new, 122 lines)
+- `src/pages/gallery.astro` (new, 400 lines with lightbox)
 - `src/pages/index.astro` (enhanced with photo display)
-- `src/pages/timeline.astro` (enhanced with photo gallery component)
-- `biome.json` (formatter configuration update)
+- `src/pages/timeline.astro` (enhanced with gallery + indicators)
 
 ### Nov 9, 2025 - Friend Analysis & Incremental Architecture
 
@@ -113,7 +119,8 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - ✓ Load photos from R2 URLs stored in `photos.json`
   - ✓ Created dedicated gallery page
   - ✓ Integrated into timeline page report cards
-  - Note: Lightbox/modal for full-size viewing not yet added (photos open in new tab)
+  - ✓ **Lightbox modal with keyboard navigation** (completed Nov 10)
+  - ✓ **Photo indicator badges on timeline** (completed Nov 10)
 
 - [ ] **Build friends page** (Optional - leaderboard now on trends page)
   - Create `src/pages/friends.astro`
