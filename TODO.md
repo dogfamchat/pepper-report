@@ -400,6 +400,42 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - Download all photos as ZIP
   - Slideshow view
 
+- [ ] **Automated photobook & advanced photo analysis**
+  - **Photo quality analyzer using Claude Vision API**
+    - Analyze each photo for composition, clarity, cuteness
+    - Score photos automatically (0-10 scale)
+    - Generate metadata: activity detection ("Pepper playing with a ball"), mood, setting
+    - Cost: ~$0.01-0.02 per image analysis
+    - Output: `data/analysis/photo-quality.json`
+
+  - **"Best of" photo generator**
+    - Select top photos based on quality scores
+    - Auto-generate monthly or semi-annual highlights
+    - Overlay stats on images (grade averages, friend counts)
+    - Generate themed collections: "Pepper's Best Friends", "Playtime Highlights"
+
+  - **Semi-annual photobook automation via Blurb API**
+    - Use Claude Vision to score all photos from the 6-month period
+    - Select top 20-30 photos automatically
+    - Generate captions using Claude
+    - Create photobook layout via Blurb API
+    - Consider integrating report card highlights and stats
+    - Auto-order and ship twice yearly (Dec 1, Jun 1)
+    - Cost estimate: ~$15-30 per book + ~$0.20-0.60 for AI analysis
+    - Triggered via GitHub Action on semi-annual schedule
+    - **Implementation steps:**
+      1. Research Blurb API authentication and book creation endpoints
+      2. Create `scripts/photobook/photo-scorer.ts` using Claude Vision API
+      3. Create `scripts/photobook/book-generator.ts` for layout and ordering
+      4. Design template with photos + stats integration
+      5. Add `.github/workflows/quarterly-photobook.yml`
+
+  - **Other physical product ideas** (Printful/Gelato APIs)
+    - Annual calendars (12 best photos)
+    - Canvas prints of highest-rated photos
+    - Custom trading cards with stats
+    - Seasonal ornaments
+
 - [ ] **Advanced timeline features**
   - Filter by date range
   - Search functionality
