@@ -106,12 +106,59 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - ✓ Integrated into analyze-all.ts automated pipeline
   - ✓ **Restructured for incremental updates (cost-efficient)**
 
-- [ ] **Implement activity categorization (PRIORITY)**
-  - Create `scripts/analysis/activity-analyzer.ts`
-  - Parse `whatIDidToday` and `trainingSkills` arrays
-  - Categorize into: playtime, training, enrichment, outdoor, socialization, rest
-  - Generate `data/viz/activity-breakdown.json`
-  - Add activity charts to trends page
+- [ ] **Implement activity categorization (PRIORITY)** - IN PROGRESS
+  - **Branch:** `activity-categorization`
+  - **Approach:** Rules-based mapping (no AI needed)
+  - **Rationale:** Activities come from fixed checkboxes on daycare's app - no new activities unless app changes
+
+  **Implementation Steps:**
+  1. [ ] Extract all unique activities from 31 existing reports
+     - Scan `whatIDidToday` arrays for all unique strings
+     - Scan `trainingSkills` arrays for all unique strings
+     - Document complete list of possible checkbox values
+
+  2. [ ] Create activity category mapping
+     - Define categories: playtime, training, enrichment, outdoor, socialization, rest
+     - Map each checkbox option to one or more categories
+     - Create `scripts/analysis/activity-categories.ts` with complete mapping
+     - Handle multi-category activities (e.g., "played with buddies" = playtime + socialization)
+
+  3. [ ] Create activity categorization logic
+     - Create `scripts/analysis/activity-categorizer.ts`
+     - Implement simple lookup function (no AI needed)
+     - Export `categorizeActivities(report)` function
+     - Return category counts for a single report
+
+  4. [ ] Integrate into incremental analysis pipeline
+     - Update `scripts/analysis/extract-daily.ts` to include activity extraction
+     - Add `activities` field to daily analysis JSON structure
+     - Store categorized activities in `data/analysis/daily/YYYY-MM-DD.json`
+
+  5. [ ] Create aggregation logic
+     - Update `scripts/analysis/aggregate.ts` to sum activity counts
+     - Calculate percentages across all reports
+     - Generate `data/analysis/aggregates/activity-breakdown.json`
+     - Generate `data/viz/activity-breakdown.json` (Chart.js format for pie/doughnut chart)
+
+  6. [ ] Add activity charts to trends page
+     - Update `src/pages/trends.astro` or `src/components/GradeCharts.astro`
+     - Add pie or doughnut chart showing activity distribution
+     - Display category percentages and counts
+
+  7. [ ] Test and verify
+     - Run analysis on all 31 reports
+     - Verify categorizations make sense
+     - Check chart displays correctly
+     - Commit changes and create PR
+
+  **Files to Create/Modify:**
+  - New: `scripts/analysis/activity-categories.ts` (mapping file)
+  - New: `scripts/analysis/activity-categorizer.ts` (categorization logic)
+  - Modify: `scripts/analysis/extract-daily.ts` (add activity extraction)
+  - Modify: `scripts/analysis/aggregate.ts` (add activity aggregation)
+  - New: `data/analysis/aggregates/activity-breakdown.json` (output)
+  - New: `data/viz/activity-breakdown.json` (Chart.js format)
+  - Modify: `src/pages/trends.astro` or `src/components/GradeCharts.astro` (add chart)
 
 - [x] **Display photos on website** ✅ COMPLETED Nov 10
   - ✓ Added photo display to homepage (latest report's photos)
