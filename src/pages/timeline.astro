@@ -1,6 +1,7 @@
 ---
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import photosData from '../../photos.json';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -15,6 +16,9 @@ const reports = reportFiles.map((filename) => {
   const filepath = join(reportsDir, filename);
   return JSON.parse(readFileSync(filepath, 'utf-8'));
 });
+
+// Create a Set of dates that have photos
+const datesWithPhotos = new Set(photosData.photos.map((photo) => photo.date));
 
 // Format date nicely
 const formatDate = (dateStr: string) => {
@@ -94,7 +98,12 @@ const formatMonth = (monthStr: string) => {
                 <summary class="report-summary">
                   <div class="summary-content">
                     <div class="report-date-line">
-                      <span class="report-date">{formatShortDate(report.date)}</span>
+                      <span class="report-date">
+                        {formatShortDate(report.date)}
+                        {datesWithPhotos.has(report.date) && (
+                          <span class="photo-indicator" title="Has photo">📷</span>
+                        )}
+                      </span>
                       <span class="day-of-week">{(() => {
                         const [year, month, day] = report.date.split('-').map(Number);
                         return new Date(year, month - 1, day).toLocaleDateString('en-CA', { weekday: 'long' });
@@ -298,6 +307,20 @@ const formatMonth = (monthStr: string) => {
     font-size: 1.1rem;
     font-weight: 600;
     color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .photo-indicator {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    transform: translateY(-2px);
+  }
+
+  .report-summary:hover .photo-indicator {
+    opacity: 1;
   }
 
   .day-of-week {
