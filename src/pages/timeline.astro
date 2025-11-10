@@ -271,10 +271,17 @@ const reports = reportFiles.map(filename => {
   return JSON.parse(readFileSync(filepath, 'utf-8'));
 });
 
-
+// Format date nicely
+const formatDate = (dateStr: string) => {
   const [year, month, day] = dateStr.split('-').map(Number);
   const date = new Date(year, month - 1, day);
   return date.toLocaleDateString('en-CA', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+};
 
 // Format short date
 const formatShortDate = (dateStr: string) => {
