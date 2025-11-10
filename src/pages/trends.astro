@@ -6,6 +6,510 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import GradeCharts from '../components/GradeCharts.astro';
@@ -15,8 +519,17 @@ import Layout from '../layouts/Layout.astro';
 const timelinePath = join(process.cwd(), 'data', 'viz', 'grade-timeline.json');
 const timeline = JSON.parse(readFileSync(timelinePath, 'utf-8'));
 
-const trendsPath = join(process.cwd(), 'data', 'analysis', 'grade-trends.json');
+const trendsPath = join(process.cwd(), 'data', 'analysis', 'aggregates', 'grade-trends.json');
 const trends = JSON.parse(readFileSync(trendsPath, 'utf-8'));
+
+// Load friend network data (may not exist if API key not configured)
+let friendsData = null;
+try {
+  const friendsPath = join(process.cwd(), 'data', 'analysis', 'aggregates', 'top-friends.json');
+  friendsData = JSON.parse(readFileSync(friendsPath, 'utf-8'));
+} catch (error) {
+  // Friend data not available
+}
 
 // Format date for display
 const formatDate = (dateStr: string) => {
@@ -65,6 +578,30 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
 
     <!-- Charts -->
     <GradeCharts timeline={timeline} trends={trends} />
+
+    <!-- Friend Leaderboard -->
+    {friendsData && friendsData.friends.length > 0 && (
+      <div class="chart-card">
+        <h2>🐾 Friend Leaderboard</h2>
+        <div class="friends-summary">
+          <p>
+            Pepper has played with <strong>{friendsData.summary.uniqueFriends} different friends</strong> across {friendsData.summary.totalReportCards} report cards.
+          </p>
+        </div>
+        <div class="friends-list">
+          {friendsData.friends.map((friend: any, i: number) => (
+            <div class="friend-item">
+              <span class="friend-rank">{i + 1}</span>
+              <div class="friend-info">
+                <span class="friend-name">{friend.name}</span>
+                <span class="friend-last-seen">Last seen {formatDate(friend.lastSeen)}</span>
+              </div>
+              <span class="friend-mentions">{friend.mentions} {friend.mentions === 1 ? 'mention' : 'mentions'}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
 
     <!-- Monthly Breakdown -->
     <div class="section-header">
@@ -350,4 +887,95 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
       margin-bottom: 0.5rem;
     }
   }
+
+  .friends-summary {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(147, 51, 234, 0.05);
+    border-radius: 8px;
+  }
+
+  .friends-summary p {
+    margin: 0;
+    color: #666;
+    line-height: 1.6;
+  }
+
+  .friends-summary strong {
+    color: #333;
+  }
+
+  .friends-list {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .friend-item {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 8px;
+    transition: background 0.2s;
+  }
+
+  .friend-item:hover {
+    background: rgba(147, 51, 234, 0.05);
+  }
+
+  .friend-rank {
+    font-weight: bold;
+    color: #9333ea;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  .friend-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .friend-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 1rem;
+  }
+
+  .friend-last-seen {
+    font-size: 0.85rem;
+    color: #666;
+  }
+
+  .friend-mentions {
+    color: #9333ea;
+    font-weight: 500;
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .chart-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .chart-card h2 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+    font-size: 1.3rem;
+  }
+
+  .chart-container {
+    position: relative;
+    width: 100%;
+    max-height: 400px;
+  }
 </style>
+

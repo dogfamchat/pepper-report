@@ -16,28 +16,44 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - Timeline page with all 31 report cards
 - GitHub Actions automation (analysis + deployment)
 - Production deployment to GitHub Pages: https://dogfamchat.github.io/pepper-report
+- **Friend analysis with Claude Haiku 4.5 API (Nov 9)**
+  - AI-powered friend name extraction from report comments
+  - Structured outputs using tool_choice for guaranteed JSON
+  - Friend leaderboard with last-seen dates
+  - Integrated into analyze-all.ts pipeline
+- **🚀 Incremental Analysis Architecture (Nov 9)**
+  - Restructured analysis for cost efficiency and performance
+  - Split into daily extraction + aggregation steps
+  - API calls only for NEW reports (not every analysis run)
+  - Backfilled all 31 existing reports (~34s, $0.0012 one-time)
+  - **Performance:** New reports process in ~1s (vs ~34s for full batch)
+  - **Cost:** $0.00004 per new report (vs $0.0012 per full run)
 
 **📊 Current Stats:**
 - 31 report cards scraped (Aug-Nov 2025)
 - Overall average: 3.58/4.0 (89.5%)
 - 14 weeks tracked, 4 months of data
 - 12 photos uploaded to Cloudflare R2
+- **12 unique friends identified** (filtered, sorted by recency)
 
-## Current Priority: Friend & Activity Analysis
+## Current Priority: Activity Analysis & Photo Display
 
-The core data pipeline and visualization infrastructure is complete. Next priority is implementing AI-powered friend extraction and activity categorization to complete the analysis suite.
+Friend analysis is now complete! Next priorities are implementing activity categorization and displaying photos on the website.
 
 ### Immediate Tasks (Next Session)
 
-- [ ] **Implement friend analysis with Claude API (PRIORITY)**
-  - Create `scripts/analysis/friends-analyzer.ts`
-  - Set up Anthropic SDK with Haiku model for cost efficiency
-  - Extract dog names from `noteworthyComments` field across all reports
-  - Track friend co-occurrence and frequency
-  - Generate `data/analysis/top-friends.json`
-  - Add friend network chart to trends page
+- [x] **Implement friend analysis with Claude API** ✅ COMPLETED Nov 9
+  - ✓ Created incremental analysis architecture (extract-daily.ts, aggregate.ts)
+  - ✓ Set up Anthropic SDK with Claude Haiku 4.5 model
+  - ✓ Extract dog names from `noteworthyComments` using structured outputs
+  - ✓ Track friend co-occurrence and frequency
+  - ✓ Generate `data/analysis/aggregates/top-friends.json`
+  - ✓ Added friend leaderboard to trends page (sorted by recency)
+  - ✓ Filter out "Pepper" from results (can't be friends with herself)
+  - ✓ Integrated into analyze-all.ts automated pipeline
+  - ✓ **Restructured for incremental updates (cost-efficient)**
 
-- [ ] **Implement activity categorization**
+- [ ] **Implement activity categorization (PRIORITY)**
   - Create `scripts/analysis/activity-analyzer.ts`
   - Parse `whatIDidToday` and `trainingSkills` arrays
   - Categorize into: playtime, training, enrichment, outdoor, socialization, rest
@@ -50,11 +66,11 @@ The core data pipeline and visualization infrastructure is complete. Next priori
   - Load photos from R2 URLs stored in `photos.json`
   - Add lightbox/modal for full-size viewing
 
-- [ ] **Build friends page**
+- [ ] **Build friends page** (Optional - leaderboard now on trends page)
   - Create `src/pages/friends.astro`
   - Display friend network visualization
   - List all friends with frequency stats
-  - **Depends on:** Friend analysis completion
+  - Note: Friend leaderboard already visible on trends page
 
 ### Phase 2: Complete Automation
 
@@ -98,27 +114,34 @@ The core data pipeline and visualization infrastructure is complete. Next priori
 
 ### Analysis Scripts
 
-- [x] **Create analysis script structure**
-  - ✓ Created `scripts/analysis/analyze-all.ts` entry point
+- [x] **Create incremental analysis architecture** ✅ RESTRUCTURED Nov 9
+  - ✓ Created `scripts/analysis/analyze-all.ts` orchestrator (incremental by default)
+  - ✓ Created `scripts/analysis/extract-daily.ts` for per-report extraction
+  - ✓ Created `scripts/analysis/aggregate.ts` for fast aggregation
   - ✓ Created `scripts/analysis/report-reader.ts` with shared utilities
   - ✓ Set up TypeScript types for analysis outputs
+  - ✓ **New data structure:** `data/analysis/daily/` + `data/analysis/aggregates/`
+  - ✓ **Removed legacy batch scripts:** friends-analyzer.ts, grade-trends.ts
 
 - [x] **Implement grade trends analysis**
-  - ✓ Created `scripts/analysis/grade-trends.ts`
   - ✓ Calculate weekly/monthly grade averages
   - ✓ Track grade distribution (A/B/C/D counts)
   - ✓ Identify improving/declining trends
-  - ✓ Output: `data/analysis/grade-trends.json`
-  - ✓ Output: `data/analysis/weekly-summary.json`
+  - ✓ Output: `data/analysis/aggregates/grade-trends.json`
+  - ✓ Output: `data/analysis/aggregates/weekly-summary.json`
+  - ✓ **Now uses incremental aggregation (no API calls needed)**
 
-- [ ] **AI insights with Claude API (PRIORITY)**
-  - Create `scripts/analysis/friends-analyzer.ts`
-  - Use Claude Haiku API for cost efficiency (~$0.20/year)
-  - Extract friend names mentioned in noteworthyComments field
-  - Track friend co-occurrence over time
-  - Generate friend network data
-  - Output: `data/analysis/top-friends.json`
-  - **Note:** Currently the biggest gap in analysis
+- [x] **AI insights with Claude API** ✅ COMPLETED Nov 9
+  - ✓ Uses Claude Haiku 4.5 API with incremental extraction
+  - ✓ Extract friend names from noteworthyComments using structured outputs
+  - ✓ Track friend mentions and recency
+  - ✓ Generate friend leaderboard data
+  - ✓ Output: `data/analysis/daily/YYYY-MM-DD.json` (per report)
+  - ✓ Output: `data/analysis/aggregates/top-friends.json` (aggregated)
+  - ✓ Output: `data/viz/friend-network.json`
+  - ✓ Filters out "Pepper" (can't be friends with herself)
+  - ✓ Sorted by mention count, then by most recent date
+  - ✓ **Cost-efficient:** Only processes NEW reports (~$0.00004 each)
 
 - [ ] **Implement activity categorization**
   - Create `scripts/analysis/activity-analyzer.ts`
@@ -139,11 +162,11 @@ The core data pipeline and visualization infrastructure is complete. Next priori
   - ✓ Include weekly averages and individual grades
   - ✓ Output: `data/viz/grade-timeline.json`
 
-- [ ] **Friend network visualization data**
-  - Format friend mentions for bar chart
-  - Include top 10 friends with counts
-  - Output: `data/viz/friend-network.json`
-  - **Depends on:** AI insights implementation
+- [x] **Friend network visualization data** ✅ COMPLETED Nov 9
+  - ✓ Generated friend leaderboard data structure
+  - ✓ Includes all friends with mention counts and last-seen dates
+  - ✓ Output: `data/viz/friend-network.json`
+  - ✓ Displayed as leaderboard on trends page (not chart)
 
 - [ ] **Activity breakdown visualization data**
   - Format activity categories for pie/doughnut chart
@@ -194,7 +217,8 @@ The core data pipeline and visualization infrastructure is complete. Next priori
   - ✓ Statistics dashboard with overall metrics
   - ✓ 4 monthly performance cards with detailed breakdowns
   - ✓ 14 weekly performance entries with dates and grade badges
-  - Note: Friend network and activity charts pending friend/activity analysis
+  - ✓ Friend leaderboard with 12 friends sorted by recency (Nov 9)
+  - Note: Activity charts pending activity analysis implementation
 
 - [ ] **Build friends page**
   - List all friends Pepper has played with
@@ -379,16 +403,33 @@ Storing both letter and numeric values:
 
 ### Data Organization
 Separate directories for different purposes:
-- `data/analysis/` - Human-readable summaries
+- `data/analysis/daily/` - Per-report analysis (cached AI extractions)
+- `data/analysis/aggregates/` - Aggregated trends and statistics
 - `data/viz/` - Chart.js-optimized data
 - `data/reports/2025/` - Raw report card JSONs
 - `data/schedule/` - Schedule data
+
+**Incremental Architecture (Nov 9):**
+- Daily analysis files stored once, never recalculated
+- Aggregation reads daily files (no API calls)
+- New reports only trigger extraction for that specific date
+- Scales efficiently as dataset grows
 
 ### Chart.js Integration
 - Self-contained `GradeCharts.astro` component
 - Pass data via `data-*` attributes on canvas elements
 - Use module script that imports Chart.js directly from npm
 - Read data from DOM using dataset API
+
+### Claude API Structured Outputs (Friend Analysis)
+Using **tool_choice** for guaranteed JSON schema compliance:
+- Model: `claude-haiku-4-5` (alias for latest Haiku)
+- Define a `record_friends` tool with strict JSON schema
+- Use `tool_choice: { type: 'tool', name: 'record_friends' }` to force structured output
+- No markdown parsing needed - response guarantees valid JSON
+- Cost: ~$0.0012 per full analysis run (31 reports × ~150 tokens)
+- Filters: Exclude "Pepper" (can't be friends with herself)
+- Sorting: By mention count (desc), then by most recent date (desc)
 
 ## References
 

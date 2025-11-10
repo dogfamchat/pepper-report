@@ -1,0 +1,108 @@
+{
+  "summary": {
+    "totalReportCards": 31,
+    "uniqueFriends": 12,
+    "dateRange": {
+      "start": "2025-08-08",
+      "end": "2025-11-07"
+    }
+  },
+  "friends": [
+    {
+      "name": "Sage",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-29",
+      "lastSeen": "2025-10-29",
+      "trend": "stable"
+    },
+    {
+      "name": "Niko",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-29",
+      "lastSeen": "2025-10-29",
+      "trend": "stable"
+    },
+    {
+      "name": "Joey",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-15",
+      "lastSeen": "2025-10-15",
+      "trend": "stable"
+    },
+    {
+      "name": "Barolo",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-15",
+      "lastSeen": "2025-10-15",
+      "trend": "stable"
+    },
+    {
+      "name": "Freyja",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-10",
+      "lastSeen": "2025-10-10",
+      "trend": "stable"
+    },
+    {
+      "name": "June",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-10",
+      "lastSeen": "2025-10-10",
+      "trend": "stable"
+    },
+    {
+      "name": "Archie",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-07",
+      "lastSeen": "2025-10-07",
+      "trend": "stable"
+    },
+    {
+      "name": "Eleanor",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-10-03",
+      "lastSeen": "2025-10-03",
+      "trend": "stable"
+    },
+    {
+      "name": "Natty",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-09-29",
+      "lastSeen": "2025-09-29",
+      "trend": "stable"
+    },
+    {
+      "name": "Wesker",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-09-29",
+      "lastSeen": "2025-09-29",
+      "trend": "stable"
+    },
+    {
+      "name": "Todd",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-08-27",
+      "lastSeen": "2025-08-27",
+      "trend": "stable"
+    },
+    {
+      "name": "Letha",
+      "mentions": 1,
+      "percentage": 3.225806451612903,
+      "firstSeen": "2025-08-27",
+      "lastSeen": "2025-08-27",
+      "trend": "stable"
+    }
+  ]
+}

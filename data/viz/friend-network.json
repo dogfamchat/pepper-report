@@ -1,0 +1,61 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "Sage",
+      "Niko",
+      "Joey",
+      "Barolo",
+      "Freyja",
+      "June",
+      "Archie",
+      "Eleanor",
+      "Natty",
+      "Wesker"
+    ],
+    "datasets": [
+      {
+        "label": "Mentions",
+        "data": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "backgroundColor": "rgba(147, 51, 234, 0.8)",
+        "borderColor": "rgba(147, 51, 234, 1)",
+        "borderWidth": 1
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Pepper's Top Friends"
+      },
+      "legend": {
+        "display": false
+      }
+    },
+    "scales": {
+      "y": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 1
+        },
+        "title": {
+          "display": true,
+          "text": "Number of Mentions"
+        }
+      }
+    }
+  }
+}
