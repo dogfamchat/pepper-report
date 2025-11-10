@@ -496,22 +496,9 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import photosData from '../../photos.json';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -525,6 +512,10 @@ const reportFiles = readdirSync(reportsDir)
 const latestReportFile = reportFiles[0];
 const latestReportPath = join(reportsDir, latestReportFile);
 const latestReport = JSON.parse(readFileSync(latestReportPath, 'utf-8'));
+
+// Load photos data to find most recent photo
+const sortedPhotos = [...photosData.photos].sort((a, b) => b.date.localeCompare(a.date));
+const latestPhoto = sortedPhotos[0];
 
 // Read grade trends summary
 const gradeTrendsPath = join(process.cwd(), 'data', 'analysis', 'aggregates', 'grade-trends.json');
@@ -578,7 +569,10 @@ const formatDate = (dateStr: string) => {
     <!-- Latest Report Card -->
     <div class="latest-report">
       <div class="report-header">
-        <h2>Latest Report Card</h2>
+        <div class="header-left">
+          <h2>Latest Report Card</h2>
+          <a href="/pepper-report/timeline" class="view-all-link">View all reports →</a>
+        </div>
         <span class="report-date">{formatDate(latestReport.date)}</span>
       </div>
 
@@ -651,6 +645,35 @@ const formatDate = (dateStr: string) => {
       )}
     </div>
 
+    <!-- Latest Photo -->
+    {latestPhoto && (
+      <div class="latest-photo-section">
+        <div class="section-header">
+          <div class="header-left">
+            <h2>📷 Latest Photo</h2>
+            <a href="/pepper-report/gallery" class="view-all-link">View all photos →</a>
+          </div>
+          <span class="photo-date">{formatDate(latestPhoto.date)}</span>
+        </div>
+        <a
+          href={latestPhoto.r2Url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="latest-photo-link"
+        >
+          <img
+            src={latestPhoto.thumbnailUrl}
+            alt={`Pepper's latest photo from ${latestPhoto.date}`}
+            class="latest-photo-img"
+            loading="lazy"
+          />
+          <div class="photo-overlay">
+            <span class="view-full-size">Click to view full size</span>
+          </div>
+        </a>
+      </div>
+    )}
+
     <!-- Quick Links -->
     <div class="quick-links">
       <a href="/pepper-report/trends" class="link-card">
@@ -660,6 +683,10 @@ const formatDate = (dateStr: string) => {
       <a href="/pepper-report/timeline" class="link-card">
         <span class="link-icon">📅</span>
         <span class="link-text">Full Timeline</span>
+      </a>
+      <a href="/pepper-report/gallery" class="link-card">
+        <span class="link-icon">📷</span>
+        <span class="link-text">Photo Gallery</span>
       </a>
     </div>
   </main>
@@ -721,6 +748,78 @@ const formatDate = (dateStr: string) => {
     opacity: 0.8;
   }
 
+  .latest-photo-section {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .section-header h2 {
+    margin: 0;
+    color: #333;
+  }
+
+  .photo-date {
+    color: #666;
+    font-size: 0.95rem;
+  }
+
+  .latest-photo-link {
+    display: block;
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .latest-photo-link:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .latest-photo-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    padding: 2rem 1.5rem 1.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .latest-photo-link:hover .photo-overlay {
+    opacity: 1;
+  }
+
+  .view-full-size {
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    display: block;
+  }
+
   .latest-report {
     background: white;
     border-radius: 12px;
@@ -738,9 +837,34 @@ const formatDate = (dateStr: string) => {
     border-bottom: 2px solid #f0f0f0;
   }
 
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-header .header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .report-header h2 {
     margin: 0;
     color: #333;
+  }
+
+  .view-all-link {
+    color: #667eea;
+    font-size: 0.9rem;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .view-all-link:hover {
+    color: #764ba2;
+    text-decoration: underline;
   }
 
   .report-date {
