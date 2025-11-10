@@ -44,7 +44,21 @@ interface SlackDividerBlock {
   type: 'divider';
 }
 
-type SlackBlock = SlackTextBlock | SlackImageBlock | SlackDividerBlock;
+interface SlackActionsBlock {
+  type: 'actions';
+  elements: {
+    type: string;
+    text: {
+      type: string;
+      text: string;
+      emoji?: boolean;
+    };
+    url: string;
+    style?: string;
+  }[];
+}
+
+type SlackBlock = SlackTextBlock | SlackImageBlock | SlackDividerBlock | SlackActionsBlock;
 
 interface SlackPayload {
   text: string;
@@ -222,6 +236,23 @@ function formatSlackMessage(
       }
     }
   }
+
+  // Add button to view full website
+  blocks.push({
+    type: 'actions',
+    elements: [
+      {
+        type: 'button',
+        text: {
+          type: 'plain_text',
+          text: '📊 View Full Dashboard',
+          emoji: true,
+        },
+        url: 'https://dogfamchat.github.io/pepper-report',
+        style: 'primary',
+      },
+    ],
+  });
 
   return {
     text: `New Report Card for ${report.date}: Grade ${report.grade}`,
