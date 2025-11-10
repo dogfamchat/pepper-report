@@ -1,13 +1,66 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-11-09
-**Current Phase:** Analysis & Visualization (Phase 3 - Partial Complete)
+**Last Updated:** 2025-11-10
+**Current Phase:** Analysis & Visualization (Phase 3 - Near Complete)
+**Current Branch:** add-photo-display (rebased on main, ready for review)
 
 ## Overview
 
 This tracks remaining work to complete the Pepper Report project. See [docs/design-proposal.md](docs/design-proposal.md) for full architecture and [docs/report-card-data-structure.md](docs/report-card-data-structure.md) for data schema details.
 
-## Recent Progress (Nov 9, 2025)
+## Recent Progress
+
+### Nov 10, 2025 - Photo Display Feature ✅ COMPLETE
+
+**Branch:** `add-photo-display` (ready for PR)
+
+**Completed:**
+- ✅ **PhotoGallery Component** (`src/components/PhotoGallery.astro`)
+  - Reusable component for displaying photos from R2
+  - Supports multiple sizes: small, medium, large
+  - Optional title display
+  - Graceful handling when no photos exist
+  - Responsive grid layout
+
+- ✅ **Gallery Page with Lightbox Modal** (`src/pages/gallery.astro`)
+  - Dedicated photo gallery page at `/pepper-report/gallery`
+  - Displays all 14 photos from R2 storage
+  - Masonry-style responsive grid layout
+  - Date labels for each photo
+  - **Full-screen lightbox modal for photo viewing**
+  - Navigation: arrow buttons, keyboard (←/→), ESC to close
+  - Click outside to close, body scroll locked
+  - Mobile responsive with touch-friendly controls
+  - Beautiful gradient header and styling
+
+- ✅ **Homepage Photo Integration** (`src/pages/index.astro`)
+  - Latest photo section with link to full gallery
+  - "Latest Photo" card with date and navigation
+  - Photo display within latest report card
+  - Responsive layout for mobile/desktop
+
+- ✅ **Timeline Photo Integration & Indicators** (`src/pages/timeline.astro`)
+  - PhotoGallery component added to each report card detail view
+  - Medium-sized photo display within expandable cards
+  - **📷 Photo indicator badges** next to dates that have photos
+  - Visual indicators help identify which reports have photos
+  - Subtle styling with hover effects
+  - Fixed frontmatter formatting issues
+
+- ✅ **Branch Health**
+  - Fixed critical compiler bug (missing frontmatter delimiters)
+  - Build verified and passing
+  - Dev server tested and functional
+  - Clean commit history with 5 commits
+  - All features tested and working
+
+**Files Modified:**
+- `src/components/PhotoGallery.astro` (new, 122 lines)
+- `src/pages/gallery.astro` (new, 400 lines with lightbox)
+- `src/pages/index.astro` (enhanced with photo display)
+- `src/pages/timeline.astro` (enhanced with gallery + indicators)
+
+### Nov 9, 2025 - Friend Analysis & Incremental Architecture
 
 **✅ Completed:**
 - Grade trends analysis pipeline (analyze-all.ts, grade-trends.ts, report-reader.ts)
@@ -16,12 +69,12 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - Timeline page with all 31 report cards
 - GitHub Actions automation (analysis + deployment)
 - Production deployment to GitHub Pages: https://dogfamchat.github.io/pepper-report
-- **Friend analysis with Claude Haiku 4.5 API (Nov 9)**
+- **Friend analysis with Claude Haiku 4.5 API**
   - AI-powered friend name extraction from report comments
   - Structured outputs using tool_choice for guaranteed JSON
   - Friend leaderboard with last-seen dates
   - Integrated into analyze-all.ts pipeline
-- **🚀 Incremental Analysis Architecture (Nov 9)**
+- **🚀 Incremental Analysis Architecture**
   - Restructured analysis for cost efficiency and performance
   - Split into daily extraction + aggregation steps
   - API calls only for NEW reports (not every analysis run)
@@ -33,12 +86,12 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - 31 report cards scraped (Aug-Nov 2025)
 - Overall average: 3.58/4.0 (89.5%)
 - 14 weeks tracked, 4 months of data
-- 12 photos uploaded to Cloudflare R2
+- **14 photos uploaded to Cloudflare R2 (Nov 10: now visible on website!)**
 - **12 unique friends identified** (filtered, sorted by recency)
 
-## Current Priority: Activity Analysis & Photo Display
+## Current Priority: Activity Analysis
 
-Friend analysis is now complete! Next priorities are implementing activity categorization and displaying photos on the website.
+**Photo display is now complete!** ✅ Friend analysis is complete! Next priority is implementing activity categorization.
 
 ### Immediate Tasks (Next Session)
 
@@ -60,11 +113,14 @@ Friend analysis is now complete! Next priorities are implementing activity categ
   - Generate `data/viz/activity-breakdown.json`
   - Add activity charts to trends page
 
-- [ ] **Display photos on website**
-  - Add photo display to homepage (latest report's photos)
-  - Create photo gallery component
-  - Load photos from R2 URLs stored in `photos.json`
-  - Add lightbox/modal for full-size viewing
+- [x] **Display photos on website** ✅ COMPLETED Nov 10
+  - ✓ Added photo display to homepage (latest report's photos)
+  - ✓ Created PhotoGallery component
+  - ✓ Load photos from R2 URLs stored in `photos.json`
+  - ✓ Created dedicated gallery page
+  - ✓ Integrated into timeline page report cards
+  - ✓ **Lightbox modal with keyboard navigation** (completed Nov 10)
+  - ✓ **Photo indicator badges on timeline** (completed Nov 10)
 
 - [ ] **Build friends page** (Optional - leaderboard now on trends page)
   - Create `src/pages/friends.astro`
@@ -195,14 +251,17 @@ Friend analysis is now complete! Next priorities are implementing activity categ
   - ✓ Show quick stats (total days, average grade, A grades, weeks tracked)
   - ✓ Links to trends and timeline pages
   - ✓ Grade-based color coding (purple for A, pink for B)
-  - Note: Photo carousel not yet implemented
+  - ✓ **Photo display integrated (Nov 10)**
+  - ✓ Latest photo section with gallery link
+  - [ ] Photo carousel (future enhancement)
 
 - [x] **Build timeline page** (`src/pages/timeline.astro`)
   - ✓ List all 31 report cards chronologically
   - ✓ Grouped by month with expandable cards
   - ✓ Click to expand/collapse for full report details
   - ✓ Mobile-responsive card layout
-  - Note: Advanced filtering/search not yet implemented
+  - ✓ **PhotoGallery component integrated (Nov 10)**
+  - [ ] Advanced filtering/search (future enhancement)
 
 - [ ] **Build individual report card page**
   - Display full report card details
@@ -228,12 +287,14 @@ Friend analysis is now complete! Next priorities are implementing activity categ
   - Photos with each friend (if available)
   - **Depends on:** Friend analysis implementation
 
-- [ ] **Build photo gallery**
-  - Grid view of all photos
-  - Filter by date/month
-  - Lightbox for full-size viewing
-  - Load from R2 URLs
-  - Note: Photos uploaded to R2 but not yet displayed on site
+- [x] **Build photo gallery** ✅ COMPLETED Nov 10
+  - ✓ Grid view of all photos (`src/pages/gallery.astro`)
+  - ✓ Load from R2 URLs (photos.json)
+  - ✓ Masonry-style responsive layout
+  - ✓ Date labels on each photo
+  - ✓ Links to full-size images
+  - [ ] Filter by date/month (future enhancement)
+  - [ ] Lightbox for full-size viewing (future enhancement - currently opens in new tab)
 
 ### Deployment
 
@@ -376,13 +437,17 @@ Friend analysis is now complete! Next priorities are implementing activity categ
 - Automated daily scraping and analysis via GitHub Actions
 - Automated deployment on every push to main
 
+**Recently Added Features (Nov 10):**
+- ✅ Photo display on homepage, timeline, and gallery pages
+- ✅ PhotoGallery reusable component
+- ✅ Dedicated gallery page with 14 photos
+
 **Missing Features:**
-- Friend analysis and visualization (no AI extraction yet)
 - Activity categorization and charts
-- Photo display on website (photos exist in R2 but not shown)
-- Friends page
-- Photo gallery page
-- Individual report card pages
+- Friends page (optional - leaderboard exists on trends page)
+- Individual report card pages (optional - details shown on timeline)
+- Photo lightbox/modal (currently opens in new tab)
+- Gallery filtering by date/month
 
 ## Key Technical Decisions
 

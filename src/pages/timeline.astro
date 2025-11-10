@@ -1,274 +1,24 @@
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import photosData from '../../photos.json';
+import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Read all report cards
 const reportsDir = join(process.cwd(), 'data', 'reports', '2025');
 const reportFiles = readdirSync(reportsDir)
-  .filter(f => f.endsWith('.json'))
+  .filter((f) => f.endsWith('.json'))
   .sort()
   .reverse(); // Newest first
 
-const reports = reportFiles.map(filename => {
+const reports = reportFiles.map((filename) => {
   const filepath = join(reportsDir, filename);
   return JSON.parse(readFileSync(filepath, 'utf-8'));
 });
+
+// Create a Set of dates that have photos
+const datesWithPhotos = new Set(photosData.photos.map((photo) => photo.date));
 
 // Format date nicely
 const formatDate = (dateStr: string) => {
@@ -278,7 +28,7 @@ const formatDate = (dateStr: string) => {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   });
 };
 
@@ -289,7 +39,7 @@ const formatShortDate = (dateStr: string) => {
   return date.toLocaleDateString('en-CA', {
     month: 'short',
     day: 'numeric',
-    year: 'numeric'
+    year: 'numeric',
   });
 };
 
@@ -307,14 +57,17 @@ interface ReportCard {
   ooops: string[];
 }
 
-const reportsByMonth = reports.reduce((acc, report) => {
-  const month = report.date.substring(0, 7); // YYYY-MM
-  if (!acc[month]) {
-    acc[month] = [];
-  }
-  acc[month].push(report);
-  return acc;
-}, {} as Record<string, ReportCard[]>);
+const reportsByMonth = reports.reduce(
+  (acc, report) => {
+    const month = report.date.substring(0, 7); // YYYY-MM
+    if (!acc[month]) {
+      acc[month] = [];
+    }
+    acc[month].push(report);
+    return acc;
+  },
+  {} as Record<string, ReportCard[]>,
+);
 
 const months = Object.keys(reportsByMonth);
 
@@ -345,7 +98,12 @@ const formatMonth = (monthStr: string) => {
                 <summary class="report-summary">
                   <div class="summary-content">
                     <div class="report-date-line">
-                      <span class="report-date">{formatShortDate(report.date)}</span>
+                      <span class="report-date">
+                        {formatShortDate(report.date)}
+                        {datesWithPhotos.has(report.date) && (
+                          <span class="photo-indicator" title="Has photo">📷</span>
+                        )}
+                      </span>
                       <span class="day-of-week">{(() => {
                         const [year, month, day] = report.date.split('-').map(Number);
                         return new Date(year, month - 1, day).toLocaleDateString('en-CA', { weekday: 'long' });
@@ -388,6 +146,10 @@ const formatMonth = (monthStr: string) => {
                       <p class="noteworthy">{report.noteworthyComments}</p>
                     </div>
                   )}
+
+                  <div class="detail-section">
+                    <PhotoGallery date={report.date} showTitle={true} size="medium" />
+                  </div>
 
                   <div class="detail-section">
                     <h3>What I Did Today</h3>
@@ -545,6 +307,20 @@ const formatMonth = (monthStr: string) => {
     font-size: 1.1rem;
     font-weight: 600;
     color: #333;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .photo-indicator {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    transition: opacity 0.2s ease;
+    transform: translateY(-2px);
+  }
+
+  .report-summary:hover .photo-indicator {
+    opacity: 1;
   }
 
   .day-of-week {

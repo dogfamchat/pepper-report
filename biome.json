@@ -43,7 +43,7 @@
     }
   },
   "html": {
-    "experimentalFullSupportEnabled": true,
+    "experimentalFullSupportEnabled": false,
     "formatter": {
       "indentScriptAndStyle": false
     }

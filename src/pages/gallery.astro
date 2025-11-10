@@ -1,0 +1,401 @@
+---
+import photosData from '../../photos.json';
+import Layout from '../layouts/Layout.astro';
+
+// Sort photos by date (newest first)
+const photos = [...photosData.photos].sort((a, b) => b.date.localeCompare(a.date));
+
+// Format date
+const formatDate = (dateStr: string) => {
+  const date = new Date(dateStr);
+  return date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  });
+};
+
+// Group photos by month for section headers
+interface PhotosByMonth {
+  [key: string]: typeof photos;
+}
+
+const photosByMonth = photos.reduce((acc, photo) => {
+  const month = photo.date.substring(0, 7); // YYYY-MM
+  if (!acc[month]) {
+    acc[month] = [];
+  }
+  acc[month].push(photo);
+  return acc;
+}, {} as PhotosByMonth);
+
+const months = Object.keys(photosByMonth);
+
+// Format month name
+const formatMonth = (monthStr: string) => {
+  const [year, month] = monthStr.split('-');
+  const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
+  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+};
+---
+
+<Layout title="Photo Gallery - Pepper's Daycare">
+  <main>
+    <div class="header">
+      <a href="/pepper-report" class="back-link">← Back to Dashboard</a>
+      <h1>📷 Photo Gallery</h1>
+      <p class="subtitle">{photos.length} photos from daycare</p>
+    </div>
+
+    {months.map(month => (
+      <div class="month-section">
+        <h2 class="month-header">{formatMonth(month)}</h2>
+        <div class="photo-grid">
+          {photosByMonth[month].map((photo, index) => (
+            <div class="photo-card">
+              <button
+                type="button"
+                class="photo-link"
+                data-photo-url={photo.r2Url}
+                data-photo-index={photos.findIndex(p => p.date === photo.date)}
+                aria-label={`View photo from ${photo.date}`}
+              >
+                <img
+                  src={photo.thumbnailUrl}
+                  alt={`Pepper's photo from ${photo.date}`}
+                  class="photo-img"
+                  loading="lazy"
+                />
+                <div class="photo-overlay">
+                  <span class="photo-date">{formatDate(photo.date)}</span>
+                </div>
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox" aria-hidden="true">
+      <button type="button" class="lightbox-close" aria-label="Close lightbox">&times;</button>
+      <button type="button" class="lightbox-prev" aria-label="Previous photo">‹</button>
+      <button type="button" class="lightbox-next" aria-label="Next photo">›</button>
+      <div class="lightbox-content">
+        <img id="lightbox-img" src="" alt="" />
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: #667eea;
+    text-decoration: none;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    transition: color 0.2s ease;
+  }
+
+  .back-link:hover {
+    color: #764ba2;
+    text-decoration: underline;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+    color: #333;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+  }
+
+  .month-section {
+    margin-bottom: 3rem;
+  }
+
+  .month-header {
+    font-size: 1.5rem;
+    color: #667eea;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #f0f0f0;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .photo-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .photo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .photo-link {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .photo-img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .photo-link:hover .photo-img {
+    transform: scale(1.05);
+  }
+
+  .photo-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    padding: 2rem 1rem 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .photo-link:hover .photo-overlay {
+    opacity: 1;
+  }
+
+  .photo-date {
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .photo-grid {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .photo-img {
+      height: 200px;
+    }
+  }
+
+  /* Lightbox Styles */
+  .lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox.active {
+    display: flex;
+  }
+
+  .lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #lightbox-img {
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+
+  .lightbox-caption {
+    color: white;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .lightbox-close,
+  .lightbox-prev,
+  .lightbox-next {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 3rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: background 0.2s ease;
+    border-radius: 4px;
+  }
+
+  .lightbox-close:hover,
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .lightbox-close {
+    top: 1.5rem;
+    right: 1.5rem;
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .lightbox-prev {
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .lightbox-next {
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @media (max-width: 768px) {
+    .lightbox-prev,
+    .lightbox-next {
+      font-size: 2rem;
+      padding: 0.25rem 0.75rem;
+    }
+
+    .lightbox-prev {
+      left: 0.5rem;
+    }
+
+    .lightbox-next {
+      right: 0.5rem;
+    }
+
+    .lightbox-close {
+      top: 0.5rem;
+      right: 0.5rem;
+    }
+  }
+</style>
+
+<script define:vars={{ photosData: photos }}>
+  // Photo data from server
+  const photos = photosData;
+
+  let currentPhotoIndex = 0;
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+  const closeBtn = document.querySelector('.lightbox-close');
+  const prevBtn = document.querySelector('.lightbox-prev');
+  const nextBtn = document.querySelector('.lightbox-next');
+
+  function openLightbox(index) {
+    currentPhotoIndex = index;
+    showPhoto(index);
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function showPhoto(index) {
+    const photo = photos[index];
+    lightboxImg.src = photo.r2Url;
+    lightboxImg.alt = `Pepper's photo from ${photo.date}`;
+
+    const date = new Date(photo.date);
+    const formattedDate = date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+    lightboxCaption.textContent = formattedDate;
+  }
+
+  function nextPhoto() {
+    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+    showPhoto(currentPhotoIndex);
+  }
+
+  function prevPhoto() {
+    currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+    showPhoto(currentPhotoIndex);
+  }
+
+  // Event listeners
+  document.querySelectorAll('.photo-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const index = parseInt(link.dataset.photoIndex);
+      openLightbox(index);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeLightbox);
+  prevBtn.addEventListener('click', prevPhoto);
+  nextBtn.addEventListener('click', nextPhoto);
+
+  // Close on background click
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === 'ArrowRight') {
+      nextPhoto();
+    } else if (e.key === 'ArrowLeft') {
+      prevPhoto();
+    }
+  });
+</script>
