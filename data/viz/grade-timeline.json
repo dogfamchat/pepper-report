@@ -153,5 +153,10 @@
     "date": "2025-11-07",
     "grade": "A",
     "gradeValue": 4
+  },
+  {
+    "date": "2025-11-10",
+    "grade": "B",
+    "gradeValue": 3
   }
 ]
