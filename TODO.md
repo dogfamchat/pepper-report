@@ -95,12 +95,13 @@ Friend analysis is now complete! Next priorities are implementing activity categ
   - ✓ Integrated into GitHub Actions workflow
   - ✓ Tested locally with existing report card
 
-- [x] **Add GitHub Issue notification support**
+- [x] **~~Add GitHub Issue notification support~~** ❌ REMOVED (Nov 9)
   - ✓ Created `scripts/notifications/github-issue-notify.ts`
   - ✓ Implemented markdown formatting with embedded photos
   - ✓ Graceful handling of missing labels
   - ✓ Integrated into GitHub Actions workflow
   - ✓ Tested locally with existing report card
+  - **Update (Nov 9):** Removed GitHub Issue notifications - not providing value
 
 - [x] **Test end-to-end automation**
   - ✓ Triggered manual workflow run

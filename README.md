@@ -7,7 +7,7 @@ A data pipeline that automatically scrapes, analyzes, and visualizes our dog Pep
 - **Scrapes** Pepper's daycare website daily for schedules and report cards
 - **Analyzes** trends in grades, behavior, friendships, and activities
 - **Visualizes** everything on a beautiful static website
-- **Notifies** us via Slack and GitHub Issues when new report cards arrive
+- **Notifies** us via Slack when new report cards arrive
 - **Stores** complete history in Git (August 2025 onwards)
 
 ## Tech Stack
@@ -133,7 +133,7 @@ Everything runs serverless via GitHub Actions:
 2. Report card checking (3 PM, 5 PM, 7 PM on school days)
 3. Analysis and visualization generation
 4. Automatic deployment to GitHub Pages
-5. Notifications via Slack and GitHub Issues
+5. Notifications via Slack
 
 Historical data from August-October 2025 was backfilled before automation started.
 

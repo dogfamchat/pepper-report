@@ -20,8 +20,8 @@ We'll build a data pipeline that runs automatically in GitHub Actions:
 └─────────────┘      └──────────────┘      └──────────────┘      └──────────────┘
       │                     │                      │                      │
       v                     v                      v                      v
-  Raw JSON            Analysis JSON          GitHub Pages          GitHub Issue
-  + Photos            (aggregates)          (Static Site)           and Slack
+  Raw JSON            Analysis JSON          GitHub Pages             Slack
+  + Photos            (aggregates)          (Static Site)
 ```
 
 Everything gets stored in Git, so we have a complete history of Pepper's daycare career!
@@ -368,45 +368,9 @@ Then the backfill script only attempts those specific dates.
 
 ## Notifications
 
-We need to know when Pepper gets a new report card! Here are a few options:
+We need to know when Pepper gets a new report card!
 
-### Option 1: GitHub Issues (Recommended)
-
-**How it works:**
-- When a new report card is found, create a GitHub issue
-- Title: "📋 New Report Card: Nov 15, 2024 - Grade A"
-- Body includes: grade, staff notes snippet, link to updated website, photo thumbnail
-- Tag both of us: `@username1 @username2`
-- Auto-close previous report card issue (keep inbox clean)
-
-**Pros:**
-- Zero setup, zero cost
-- GitHub notifies us by email automatically
-- Keeps a searchable history
-- Can comment/discuss directly on the issue
-- Mobile notifications via GitHub app
-
-**Cons:**
-- Requires GitHub app for instant notifications
-- Clutters issue tracker (though we can filter by label)
-
-**Implementation:**
-```yaml
-- name: Create notification issue
-  uses: actions/github-script@v7
-  with:
-    script: |
-      await github.rest.issues.create({
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        title: '📋 New Report Card: ${{ env.DATE }} - Grade ${{ env.GRADE }}',
-        body: `Pepper's new report card is available!\n\n**Grade:** ${{ env.GRADE }}\n**Staff Notes:** ${{ env.NOTES }}\n\n[View Website](https://dogfamchat.github.io/pepper-report)`,
-        labels: ['report-card', 'automated'],
-        assignees: ['your-username', 'nadine-username']
-      });
-```
-
-### Option 2: Slack Webhook
+### Slack Webhook
 
 **How it works:**
 - Create an incoming webhook in your Slack workspace
@@ -477,14 +441,6 @@ We need to know when Pepper gets a new report card! Here are a few options:
                   "text": "📊 View Dashboard"
                 },
                 "url": "https://dogfamchat.github.io/pepper-report"
-              },
-              {
-                "type": "button",
-                "text": {
-                  "type": "plain_text",
-                  "text": "💬 Discuss"
-                },
-                "url": "${{ env.ISSUE_URL }}"
               }
             ]
           }
@@ -507,7 +463,7 @@ A               Max, Luna
 Staff Notes:
 Pepper had a great day! She played well with her friends...
 
-[📊 View Dashboard]  [💬 Discuss]
+[📊 View Dashboard]
 ```
 
 **Pro tip:** Use [Slack's Block Kit Builder](https://app.slack.com/block-kit-builder) to design custom message layouts. You can add:
@@ -516,41 +472,10 @@ Pepper had a great day! She played well with her friends...
 - Multiple action buttons
 - Expandable sections for full staff notes
 
-### Recommendation: Slack + GitHub Issues
-
-**Use both!** They complement each other perfectly:
-
-**Slack for instant awareness:**
-- Real-time notification while you're chatting during the day
-- Quick "Pepper got her report card!" moment
-- Can react with emojis (🐕 ⭐ 🎉)
-- Link directly to the website and GitHub issue
-
-**GitHub Issues for the permanent record:**
-- Searchable history of all report cards
-- Discussion thread for each day
-- Can add notes later ("Oh, she was tired because we had friends over")
-- Keeps everything in one place with the code
-
-**Example notification flow:**
-```
-New Report Card Found
-    ↓
-┌─────────────────────┬─────────────────────┐
-│   Post to Slack     │  Create GitHub      │
-│   (immediate)       │  Issue (record)     │
-└─────────────────────┴─────────────────────┘
-         ↓                       ↓
-    See it in your         Email notification
-    Slack channel         + permanent thread
-         ↓
-    Click link → Website
-```
-
 **Setup:**
 1. Create a Slack incoming webhook (takes 2 minutes)
 2. Store webhook URL as GitHub secret
-3. Workflow posts to both Slack and GitHub Issues
+3. Workflow posts to Slack when new report cards arrive
 
 **Real-world example:**
 ```
@@ -558,12 +483,8 @@ New Report Card Found
 3:17 PM - GitHub Actions scrapes it
 3:18 PM - Slack message: "🐕 Pepper got an A today!"
 3:18 PM - Both of you see it on Slack, react with 🎉
-3:18 PM - GitHub Issue created (you get email too)
 3:30 PM - You click through from Slack to website
-Evening - You add a comment on the GitHub Issue about her day
 ```
-
-This gives you the best of both: instant awareness via Slack where you're already chatting, plus a permanent record in GitHub that you can search and discuss later.
 
 ## Cost Analysis
 
@@ -572,7 +493,6 @@ This gives you the best of both: instant awareness via Slack where you're alread
 - GitHub Pages hosting
 - Cloudflare R2 storage (10GB free = ~3-4 years of photos)
 - Bun, Astro, Chart.js, Playwright (all open source)
-- GitHub Issues notifications (built-in)
 - Slack incoming webhooks (free, unlimited)
 - Initial backfill (run locally, ~3-4 minutes, zero cost)
 - SendGrid email (100 emails/day = plenty for our use case)
@@ -608,7 +528,7 @@ This gives you the best of both: instant awareness via Slack where you're alread
 - [ ] Configure secrets (daycare credentials, Slack webhook URL)
 - [ ] Set up Cloudflare R2 bucket
 - [ ] Add photo upload to pipeline
-- [ ] Add Slack + GitHub Issue notifications
+- [ ] Add Slack notifications
 - [ ] Test end-to-end automation
 
 ### Phase 3: Analysis & Visualization (Fun Part!)

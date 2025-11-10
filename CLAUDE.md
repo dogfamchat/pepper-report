@@ -37,7 +37,7 @@ Guardrails for Claude Code when working with this daycare report scraping pipeli
 - For debugging: `chromium.launch({ headless: false })`
 
 ### Notifications
-- Send to Slack + GitHub Issues for new reports only
+- Send to Slack for new reports only
 - Skip notifications for backfilled historical data
 
 ## Common Patterns

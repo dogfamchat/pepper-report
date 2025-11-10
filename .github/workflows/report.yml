@@ -19,7 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      issues: write
     outputs:
       has_new_report: ${{ steps.changes.outputs.has_new_report }}
 
@@ -140,17 +139,6 @@ jobs:
           REPORT_DATE=$(basename "$REPORT_FILE" .json)
           echo "Sending Slack notification for report: ${REPORT_DATE}"
           bun run scripts/notifications/slack-notify.ts --date "${REPORT_DATE}"
-
-      - name: Create GitHub Issue
-        if: steps.changes.outputs.has_new_report == 'true'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          # Get the date from the most recent report
-          REPORT_FILE=$(ls data/reports/*/*.json | sort -r | head -n 1)
-          REPORT_DATE=$(basename "$REPORT_FILE" .json)
-          echo "Creating GitHub Issue for report: ${REPORT_DATE}"
-          bun run scripts/notifications/github-issue-notify.ts --date "${REPORT_DATE}"
 
       - name: No new report
         if: steps.changes.outputs.has_new_report == 'false'
