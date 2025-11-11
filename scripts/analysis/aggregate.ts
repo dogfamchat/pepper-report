@@ -18,9 +18,11 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import {
+  ACTIVITY_CATEGORY_MAP,
   ACTIVITY_COLORS,
   ACTIVITY_LABELS,
   type ActivityCategory,
+  TRAINING_CATEGORY_MAP,
   TRAINING_COLORS,
   TRAINING_LABELS,
   type TrainingCategory,
@@ -615,6 +617,17 @@ function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
     ([category]) => ACTIVITY_COLORS[category as ActivityCategory],
   );
 
+  // Build reverse mapping: category -> list of activities
+  const categoryActivities: Record<string, string[]> = {};
+  for (const [activityName, categories] of Object.entries(ACTIVITY_CATEGORY_MAP)) {
+    for (const category of categories) {
+      if (!categoryActivities[category]) {
+        categoryActivities[category] = [];
+      }
+      categoryActivities[category].push(activityName);
+    }
+  }
+
   return {
     type: 'doughnut',
     data: {
@@ -637,6 +650,16 @@ function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
         },
         legend: {
           position: 'right',
+        },
+        tooltip: {
+          callbacks: {
+            afterLabel: (context: { dataIndex: number }) => {
+              const categoryIndex = context.dataIndex;
+              const categoryKey = sortedCategories[categoryIndex][0];
+              const activitiesInCategory = categoryActivities[categoryKey] || [];
+              return activitiesInCategory.map((a) => `• ${a}`);
+            },
+          },
         },
       },
     },
@@ -662,6 +685,15 @@ function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
     ([category]) => TRAINING_COLORS[category as TrainingCategory],
   );
 
+  // Build reverse mapping: category -> list of training skills
+  const categoryTraining: Record<string, string[]> = {};
+  for (const [skillName, category] of Object.entries(TRAINING_CATEGORY_MAP)) {
+    if (!categoryTraining[category]) {
+      categoryTraining[category] = [];
+    }
+    categoryTraining[category].push(skillName);
+  }
+
   return {
     type: 'doughnut',
     data: {
@@ -684,6 +716,16 @@ function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
         },
         legend: {
           position: 'right',
+        },
+        tooltip: {
+          callbacks: {
+            afterLabel: (context: { dataIndex: number }) => {
+              const categoryIndex = context.dataIndex;
+              const categoryKey = sortedCategories[categoryIndex][0];
+              const skillsInCategory = categoryTraining[categoryKey] || [];
+              return skillsInCategory.map((s) => `• ${s}`);
+            },
+          },
         },
       },
     },
