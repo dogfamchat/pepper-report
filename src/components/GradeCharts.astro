@@ -126,6 +126,7 @@ const { timeline, trends } = Astro.props;
 
 <script>
   import { Chart, registerables } from 'chart.js';
+  import { formatDateNoYear } from '../../scripts/utils/date-utils';
 
   interface TimelineData {
     date: string;
@@ -143,11 +144,7 @@ const { timeline, trends } = Astro.props;
     new Chart(timelineCanvas, {
       type: 'line',
       data: {
-        labels: timeline.map((d) => {
-          const [year, month, day] = d.date.split('-').map(Number);
-          const date = new Date(year, month - 1, day);
-          return date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
-        }),
+        labels: timeline.map((d) => formatDateNoYear(d.date)),
         datasets: [{
           label: 'Daily Grade',
           data: timeline.map((d) => d.gradeValue),

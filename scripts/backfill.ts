@@ -17,6 +17,7 @@ import { chromium } from 'playwright';
 import { reportExists, saveReport, scrapeReportCard } from './scrapers/scrape-report';
 import type { Schedule } from './types';
 import { getCredentials, login } from './utils/auth-utils';
+import { generateDateRange } from './utils/date-utils';
 
 interface BackfillOptions {
   startDate?: string; // YYYY-MM-DD
@@ -120,24 +121,6 @@ Examples:
   }
 
   return options;
-}
-
-/**
- * Generate list of dates between start and end
- */
-function generateDateRange(start: string, end: string): string[] {
-  const dates: string[] = [];
-  const startDate = new Date(start);
-  const endDate = new Date(end);
-
-  const current = new Date(startDate);
-
-  while (current <= endDate) {
-    dates.push(current.toISOString().slice(0, 10));
-    current.setDate(current.getDate() + 1);
-  }
-
-  return dates;
 }
 
 /**

@@ -20,6 +20,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import type { Grade, ReportCard } from '../types';
+import { getCurrentTimestamp } from '../utils/date-utils';
 import { gradeToNumber, readReportCard } from './report-reader';
 
 /**
@@ -211,7 +212,7 @@ async function extractDaily(
     gradeNumeric: gradeToNumber(report.grade),
     friends,
     comment: report.noteworthyComments,
-    analyzedAt: new Date().toISOString(),
+    analyzedAt: getCurrentTimestamp(),
   };
 }
 

@@ -17,8 +17,8 @@
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getISOWeekString, getWeekBounds } from '../utils/date-utils';
 import type { DailyAnalysis } from './extract-daily';
-import { getISOWeekString, getWeekBounds } from './report-reader';
 
 interface WeeklySummary {
   week: string; // ISO week format: YYYY-WXX

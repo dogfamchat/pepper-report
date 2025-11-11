@@ -12,6 +12,7 @@
  */
 
 import { loadSchedule, saveSchedule, scrapeSchedule } from './scrapers/scrape-schedule';
+import { generateMonthRange } from './utils/date-utils';
 
 interface BackfillOptions {
   startDate?: string; // YYYY-MM or YYYY-MM-DD
@@ -91,33 +92,6 @@ Examples:
   }
 
   return options;
-}
-
-/**
- * Generate list of months between start and end dates
- */
-function generateMonthRange(start: string, end: string): string[] {
-  const months: string[] = [];
-  const startMonth = start.slice(0, 7); // YYYY-MM
-  const endMonth = end.slice(0, 7);
-
-  const [startYear, startMonthNum] = startMonth.split('-').map(Number);
-  const [endYear, endMonthNum] = endMonth.split('-').map(Number);
-
-  let currentYear = startYear;
-  let currentMonth = startMonthNum;
-
-  while (currentYear < endYear || (currentYear === endYear && currentMonth <= endMonthNum)) {
-    months.push(`${currentYear}-${String(currentMonth).padStart(2, '0')}`);
-
-    currentMonth++;
-    if (currentMonth > 12) {
-      currentMonth = 1;
-      currentYear++;
-    }
-  }
-
-  return months;
 }
 
 /**

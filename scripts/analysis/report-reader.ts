@@ -5,6 +5,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { ReportCard } from '../types';
+import { getISOWeekString } from '../utils/date-utils';
 
 /**
  * Read a single report card from disk
@@ -73,47 +74,6 @@ export function readAllReportCards(): ReportCard[] {
   }
 
   return allReports.sort((a, b) => a.date.localeCompare(b.date));
-}
-
-/**
- * Get the week number for a date (ISO 8601 week)
- */
-export function getWeekNumber(date: Date): number {
-  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
-  const dayNum = d.getUTCDay() || 7;
-  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
-}
-
-/**
- * Format date as ISO week string (e.g., "2025-W45")
- */
-export function getISOWeekString(date: Date): string {
-  const weekNum = getWeekNumber(date);
-  return `${date.getFullYear()}-W${weekNum.toString().padStart(2, '0')}`;
-}
-
-/**
- * Get start and end dates for a given ISO week
- */
-export function getWeekBounds(isoWeek: string): { start: Date; end: Date } {
-  const [year, week] = isoWeek.split('-W').map(Number);
-
-  // Find the first Thursday of the year
-  const jan4 = new Date(year, 0, 4);
-  const firstThursday = new Date(jan4);
-  firstThursday.setDate(jan4.getDate() - ((jan4.getDay() + 6) % 7) + 3);
-
-  // Calculate the start of the target week (Monday)
-  const weekStart = new Date(firstThursday);
-  weekStart.setDate(firstThursday.getDate() - 3 + (week - 1) * 7);
-
-  // Calculate the end of the week (Sunday)
-  const weekEnd = new Date(weekStart);
-  weekEnd.setDate(weekStart.getDate() + 6);
-
-  return { start: weekStart, end: weekEnd };
 }
 
 /**
