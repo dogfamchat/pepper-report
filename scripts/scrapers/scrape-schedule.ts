@@ -114,12 +114,6 @@ function saveSchedule(year: string, schedule: Schedule): void {
 }
 
 /**
- * Parse a date from schedule text into YYYY-MM-DD format
- * Handles common date formats found on daycare websites
- */
-// parseScheduleDate moved to date-utils.ts
-
-/**
  * Scrape schedule for a specific month
  */
 async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
