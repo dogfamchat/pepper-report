@@ -4,5 +4,35 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Today I practiced my touch skill! 👋\nI followed the luring perfectly and touched with confidence and I felt so smart and proud! After training, I wagged my tail and played with my friends!! 🐶🧡",
-  "analyzedAt": "2025-11-10T00:00:28.841Z"
+  "activityCounts": {
+    "playtime": 3,
+    "socialization": 1,
+    "rest": 0,
+    "outdoor": 1,
+    "enrichment": 1,
+    "training": 2,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 2,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 1
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "played with my favorite toy",
+    "nose work games and challenges"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "trick training"
+  ],
+  "analyzedAt": "2025-11-11T02:30:36.198Z"
 }

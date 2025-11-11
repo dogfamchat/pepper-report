@@ -4,5 +4,30 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Happy Howl-ween! 🐶👻\nToday was spook-tacular! We had a special Halloween party at day school and I had sooo much fun! I did a ghost race and posed for cute costume photos! 🎃📸 There will be a costume contest on Clever Canines’ Facebook page, so go check it out and vote! 🧡🐾",
-  "analyzedAt": "2025-11-10T00:00:31.244Z"
+  "activityCounts": {
+    "playtime": 1,
+    "socialization": 1,
+    "rest": 0,
+    "outdoor": 0,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 1
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "special event"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)"
+  ],
+  "analyzedAt": "2025-11-11T02:30:38.582Z"
 }

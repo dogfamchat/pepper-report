@@ -4,5 +4,40 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Pepper had an amazing first day!! She was so sweet and so gentle with the dogs and trainers🤍🤍 When she first got in she was a bit nervous but she soon became our Velcro dog she even tripped us a few times. She also showed us her barking skills!!",
-  "analyzedAt": "2025-11-10T00:00:01.091Z"
+  "activityCounts": {
+    "playtime": 1,
+    "socialization": 1,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 1,
+    "training": 1,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 3,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 3,
+    "advanced_training": 1,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "engagement games"
+  ],
+  "rawTrainingSkills": [
+    "handling (exam style)",
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "loose-leash walking",
+    "sit (stay)",
+    "recall",
+    "recall with distractions",
+    "focus work",
+    "confidence building"
+  ],
+  "analyzedAt": "2025-11-11T02:30:03.060Z"
 }

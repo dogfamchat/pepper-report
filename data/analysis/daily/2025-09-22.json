@@ -4,5 +4,46 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "We practiced middle!! \n\nPepper had so much fun chasing her friends around the yard!! \nWe’re working on using our inside voices and not yelling at all our friends.",
-  "analyzedAt": "2025-11-10T00:00:13.916Z"
+  "activityCounts": {
+    "playtime": 4,
+    "socialization": 3,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 1,
+    "training": 1,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 3,
+    "impulse_control_focus": 3,
+    "physical_skills": 1,
+    "handling_manners": 2,
+    "advanced_training": 2,
+    "fun_skills": 1
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "hands-free work",
+    "loose-leash walking",
+    "sit (stay)",
+    "recall",
+    "recall with distractions",
+    "impulse control",
+    "jazz up, settle down",
+    "focus work",
+    "trick training",
+    "agility"
+  ],
+  "analyzedAt": "2025-11-11T02:30:20.301Z"
 }

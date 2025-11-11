@@ -7,5 +7,34 @@
     "Letha"
   ],
   "comment": "Pepper had so much fun playing with her pals Todd and Letha, checking out the pool, and practicing puppy push-ups!",
-  "analyzedAt": "2025-11-10T00:00:05.615Z"
+  "activityCounts": {
+    "playtime": 1,
+    "socialization": 2,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 2,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 1,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "had a pool party"
+  ],
+  "rawTrainingSkills": [
+    "collar grab games",
+    "sit (stay)",
+    "down (stay)",
+    "impulse control",
+    "sequence (3 different skills in varying order)"
+  ],
+  "analyzedAt": "2025-11-11T02:30:08.145Z"
 }

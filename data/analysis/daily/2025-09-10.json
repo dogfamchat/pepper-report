@@ -4,5 +4,35 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "We have a great time enjoying pool 🛝 and bubbles 🫧 As well playing with my friends 🐶🌼",
-  "analyzedAt": "2025-11-10T00:00:09.856Z"
+  "activityCounts": {
+    "playtime": 5,
+    "socialization": 4,
+    "rest": 1,
+    "outdoor": 2,
+    "enrichment": 0,
+    "training": 1,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 2,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 0,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "had a pool party",
+    "played on the agility equipment"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)"
+  ],
+  "analyzedAt": "2025-11-11T02:30:14.574Z"
 }

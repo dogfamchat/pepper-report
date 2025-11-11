@@ -531,6 +531,40 @@ try {
   // Friend data not available
 }
 
+// Load activity breakdown data
+let activityData = null;
+try {
+  const activityPath = join(
+    process.cwd(),
+    'data',
+    'analysis',
+    'aggregates',
+    'activity-breakdown.json',
+  );
+  activityData = JSON.parse(readFileSync(activityPath, 'utf-8'));
+} catch (error) {
+  // Activity data not available
+}
+
+// Load activity visualization data for charts
+let activityCategoriesViz = null;
+let trainingCategoriesViz = null;
+let activityFrequencyViz = null;
+let trainingFrequencyViz = null;
+try {
+  const vizDir = join(process.cwd(), 'data', 'viz');
+  activityCategoriesViz = JSON.parse(
+    readFileSync(join(vizDir, 'activity-categories.json'), 'utf-8'),
+  );
+  trainingCategoriesViz = JSON.parse(
+    readFileSync(join(vizDir, 'training-categories.json'), 'utf-8'),
+  );
+  activityFrequencyViz = JSON.parse(readFileSync(join(vizDir, 'activity-frequency.json'), 'utf-8'));
+  trainingFrequencyViz = JSON.parse(readFileSync(join(vizDir, 'training-frequency.json'), 'utf-8'));
+} catch (error) {
+  // Activity viz data not available
+}
+
 // Format date for display
 const formatDate = (dateStr: string) => {
   const [year, month, day] = dateStr.split('-').map(Number);
@@ -604,6 +638,67 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
       </div>
     )}
 
+    <!-- Activity Breakdown -->
+    {activityData && (
+      <div class="section-header">
+        <h2>🎾 Activity Breakdown</h2>
+        <p class="section-subtitle">
+          Total activities: {activityData.summary.totalActivityInstances} •
+          Total training: {activityData.summary.totalTrainingInstances}
+        </p>
+      </div>
+    )}
+
+    {activityCategoriesViz && trainingCategoriesViz && (
+      <div class="activity-charts-grid">
+        <!-- Activity Categories Pie Chart -->
+        <div class="chart-card">
+          <h3>
+            Activity Categories
+            <button class="info-icon" data-modal="activityModal" title="View activity details">ℹ️</button>
+          </h3>
+          <canvas
+            id="activityCategoriesChart"
+            data-chart-config={JSON.stringify(activityCategoriesViz)}
+          ></canvas>
+        </div>
+
+        <!-- Training Categories Pie Chart -->
+        <div class="chart-card">
+          <h3>
+            Training Categories
+            <button class="info-icon" data-modal="trainingModal" title="View training details">ℹ️</button>
+          </h3>
+          <canvas
+            id="trainingCategoriesChart"
+            data-chart-config={JSON.stringify(trainingCategoriesViz)}
+          ></canvas>
+        </div>
+      </div>
+    )}
+
+    {activityFrequencyViz && trainingFrequencyViz && (
+      <div class="activity-charts-grid">
+        <!-- Top Activities Bar Chart -->
+        <div class="chart-card">
+          <h3>Top Activities</h3>
+          <canvas
+            id="activityFrequencyChart"
+            data-chart-config={JSON.stringify(activityFrequencyViz)}
+          ></canvas>
+        </div>
+
+        <!-- Top Training Skills Bar Chart -->
+        <div class="chart-card">
+          <h3>Top Training Skills</h3>
+          <canvas
+            id="trainingFrequencyChart"
+            data-chart-config={JSON.stringify(trainingFrequencyViz)}
+          ></canvas>
+        </div>
+      </div>
+    )}
+
     <!-- Monthly Breakdown -->
     <div class="section-header">
       <h2>Monthly Performance</h2>
@@ -645,6 +740,134 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
       ))}
     </div>
   </main>
+
+  <!-- Activity Categories Modal -->
+  <div id="activityModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Activity Categories</h2>
+      <div class="modal-body">
+        <div class="category-section">
+          <h3>🎾 Playtime</h3>
+          <ul>
+            <li>played with as many buddies as possible</li>
+            <li>played outdoors</li>
+            <li>party animal</li>
+            <li>played with my favorite toy</li>
+            <li>had a pool party</li>
+            <li>played on the agility equipment</li>
+            <li>caught bubbles</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🐕 Socialization</h3>
+          <ul>
+            <li>played with as many buddies as possible</li>
+            <li>party animal</li>
+            <li>hung out with my bestie</li>
+            <li>had a pool party</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🌳 Outdoor</h3>
+          <ul>
+            <li>played outdoors</li>
+            <li>had a pool party</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>😴 Rest</h3>
+          <ul>
+            <li>napped with friends</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🎓 Training</h3>
+          <ul>
+            <li>one-on-one time with the trainer</li>
+            <li>played on the agility equipment</li>
+            <li>nose work games and challenges</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🧩 Enrichment</h3>
+          <ul>
+            <li>caught bubbles</li>
+            <li>engagement games</li>
+            <li>brain building games and challenges</li>
+            <li>nose work games and challenges</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🎉 Special Event</h3>
+          <ul>
+            <li>special event</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Training Categories Modal -->
+  <div id="trainingModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>Training Categories</h2>
+      <div class="modal-body">
+        <div class="category-section">
+          <h3>🎯 Obedience Commands</h3>
+          <ul>
+            <li>sit (stay)</li>
+            <li>down (stay)</li>
+            <li>stand (stay)</li>
+            <li>recall</li>
+            <li>name recognition</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🧠 Impulse Control & Focus</h3>
+          <ul>
+            <li>impulse control</li>
+            <li>focus work</li>
+            <li>jazz up, settle down</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>💪 Physical Skills</h3>
+          <ul>
+            <li>agility</li>
+            <li>balancing skills</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🤝 Handling & Manners</h3>
+          <ul>
+            <li>collar grab games</li>
+            <li>handling (exam style)</li>
+            <li>loose-leash walking</li>
+            <li>boundries, door-ways, and thresholds</li>
+            <li>place work (go to matt/table)</li>
+            <li>crate training</li>
+            <li>confidence building</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🏆 Advanced Training</h3>
+          <ul>
+            <li>sequence (3 different skills in varying order)</li>
+            <li>recall with distractions</li>
+            <li>hands-free work</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🎭 Fun Skills</h3>
+          <ul>
+            <li>trick training</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </Layout>
 
 <style>
@@ -978,5 +1201,255 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     width: 100%;
     max-height: 400px;
   }
+
+  /* Activity charts grid */
+  .activity-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0.5rem 0 0 0;
+    font-weight: normal;
+  }
+
+  /* Give horizontal bar charts more height for readability */
+  .activity-charts-grid .chart-card {
+    min-height: 400px;
+  }
+
+  /* Make doughnut chart cards more compact */
+  .chart-card:has(#activityCategoriesChart) h3,
+  .chart-card:has(#trainingCategoriesChart) h3 {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .chart-card:has(#activityCategoriesChart) canvas,
+  .chart-card:has(#trainingCategoriesChart) canvas {
+    max-height: 300px;
+  }
+
+  /* Info icon button */
+  .info-icon {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+  }
+
+  .info-icon:hover {
+    opacity: 1;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+  }
+
+  .modal.active {
+    display: block;
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .modal-close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .modal-close:hover {
+    color: #333;
+  }
+
+  .modal-content h2 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+  }
+
+  .modal-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-section {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .category-section h3 {
+    margin: 0 0 0.75rem 0;
+    color: #555;
+    font-size: 1rem;
+  }
+
+  .category-section ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style: disc;
+  }
+
+  .category-section li {
+    color: #666;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  /* Responsive grid for mobile */
+  @media (max-width: 768px) {
+    .activity-charts-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
 </style>
+
+<script>
+  import { Chart, registerables } from 'chart.js';
+
+  // Register Chart.js components
+  Chart.register(...registerables);
+
+  // Activity category to items mapping
+  const activityCategoryItems = {
+    'Playtime': ['played with as many buddies as possible', 'played outdoors', 'party animal', 'played with my favorite toy', 'had a pool party', 'played on the agility equipment', 'caught bubbles'],
+    'Socialization': ['played with as many buddies as possible', 'party animal', 'hung out with my bestie', 'had a pool party'],
+    'Outdoor': ['played outdoors', 'had a pool party'],
+    'Rest': ['napped with friends'],
+    'Training': ['one-on-one time with the trainer', 'played on the agility equipment', 'nose work games and challenges'],
+    'Enrichment': ['caught bubbles', 'engagement games', 'brain building games and challenges', 'nose work games and challenges'],
+    'Special Event': ['special event']
+  };
+
+  // Training category to skills mapping
+  const trainingCategoryItems = {
+    'Obedience Commands': ['sit (stay)', 'down (stay)', 'stand (stay)', 'recall', 'name recognition'],
+    'Impulse Control & Focus': ['impulse control', 'focus work', 'jazz up, settle down'],
+    'Physical Skills': ['agility', 'balancing skills'],
+    'Handling & Manners': ['collar grab games', 'handling (exam style)', 'loose-leash walking', 'boundries, door-ways, and thresholds', 'place work (go to matt/table)', 'crate training', 'confidence building'],
+    'Advanced Training': ['sequence (3 different skills in varying order)', 'recall with distractions', 'hands-free work'],
+    'Fun Skills': ['trick training']
+  };
+
+  // Initialize activity category chart
+  const activityCategoriesCanvas = document.getElementById('activityCategoriesChart');
+  if (activityCategoriesCanvas) {
+    const config = JSON.parse(activityCategoriesCanvas.dataset.chartConfig);
+    config.options.plugins.tooltip.callbacks.afterLabel = function(context) {
+      const label = context.label;
+      const items = activityCategoryItems[label] || [];
+      return items.map(item => '• ' + item);
+    };
+    new Chart(activityCategoriesCanvas, config);
+  }
+
+  // Initialize training category chart
+  const trainingCategoriesCanvas = document.getElementById('trainingCategoriesChart');
+  if (trainingCategoriesCanvas) {
+    const config = JSON.parse(trainingCategoriesCanvas.dataset.chartConfig);
+    config.options.plugins.tooltip.callbacks.afterLabel = function(context) {
+      const label = context.label;
+      const items = trainingCategoryItems[label] || [];
+      return items.map(item => '• ' + item);
+    };
+    new Chart(trainingCategoriesCanvas, config);
+  }
+
+  // Initialize activity frequency chart
+  const activityFrequencyCanvas = document.getElementById('activityFrequencyChart');
+  if (activityFrequencyCanvas) {
+    const config = JSON.parse(activityFrequencyCanvas.dataset.chartConfig);
+    new Chart(activityFrequencyCanvas, config);
+  }
+
+  // Initialize training frequency chart
+  const trainingFrequencyCanvas = document.getElementById('trainingFrequencyChart');
+  if (trainingFrequencyCanvas) {
+    const config = JSON.parse(trainingFrequencyCanvas.dataset.chartConfig);
+    new Chart(trainingFrequencyCanvas, config);
+  }
+
+  // Modal functionality
+  const infoButtons = document.querySelectorAll('.info-icon');
+  const modals = document.querySelectorAll('.modal');
+  const closeButtons = document.querySelectorAll('.modal-close');
+
+  // Open modal
+  infoButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const modalId = button.dataset.modal;
+      const modal = document.getElementById(modalId);
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      }
+    });
+  });
+
+  // Close modal
+  closeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const modal = button.closest('.modal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    });
+  });
+
+  // Close modal when clicking outside
+  modals.forEach(modal => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    });
+  });
+
+  // Close modal on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modals.forEach(modal => {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      });
+    }
+  });
+</script>
 

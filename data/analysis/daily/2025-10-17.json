@@ -4,5 +4,37 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "Happy Friday! My day was super fun, my trainers made a maze for me and my friends to go through! it was full of confidence building obstacles: I had to crawl, jump, walk over water and be ready to dodge hanging cloths, it was a-maze-ing!💪🤩",
-  "analyzedAt": "2025-11-10T00:00:24.597Z"
+  "activityCounts": {
+    "playtime": 4,
+    "socialization": 2,
+    "rest": 1,
+    "outdoor": 0,
+    "enrichment": 2,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 2,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "engagement games",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control",
+    "confidence building"
+  ],
+  "analyzedAt": "2025-11-11T02:30:31.513Z"
 }

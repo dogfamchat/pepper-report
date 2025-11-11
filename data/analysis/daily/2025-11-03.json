@@ -4,5 +4,43 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "🐾 We practiced placework using the cue word “mat” and everyone did awesome staying on their mats with just a few little reminders! 💛⭐🦴👏",
-  "analyzedAt": "2025-11-10T00:00:32.138Z"
+  "activityCounts": {
+    "playtime": 3,
+    "socialization": 3,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 5,
+    "impulse_control_focus": 2,
+    "physical_skills": 0,
+    "handling_manners": 3,
+    "advanced_training": 2,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "collar grab games",
+    "name recognition",
+    "hands-free work",
+    "loose-leash walking",
+    "sit (stay)",
+    "down (stay)",
+    "stand (stay)",
+    "recall",
+    "recall with distractions",
+    "impulse control",
+    "focus work",
+    "place work (go to matt/table)"
+  ],
+  "analyzedAt": "2025-11-11T02:30:39.688Z"
 }

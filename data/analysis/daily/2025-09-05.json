@@ -4,5 +4,34 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "Had a very active day running around and playing with friends. Also we got to do some trick training. (Paw, spin, down...etc)",
-  "analyzedAt": "2025-11-10T00:00:07.729Z"
+  "activityCounts": {
+    "playtime": 3,
+    "socialization": 3,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 2,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 0,
+    "advanced_training": 0,
+    "fun_skills": 1
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "recall",
+    "trick training"
+  ],
+  "analyzedAt": "2025-11-11T02:30:11.174Z"
 }

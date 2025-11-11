@@ -1,0 +1,66 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "Playtime",
+      "Socialization",
+      "Outdoor",
+      "Rest",
+      "Training",
+      "Enrichment",
+      "Special Event"
+    ],
+    "datasets": [
+      {
+        "label": "Count",
+        "data": [
+          99,
+          67,
+          33,
+          22,
+          18,
+          14,
+          2
+        ],
+        "backgroundColor": [
+          "#FF6B9D",
+          "#9B59B6",
+          "#26A69A",
+          "#5DADE2",
+          "#FF9800",
+          "#FFD93D",
+          "#FF9FF3"
+        ],
+        "borderWidth": 0
+      }
+    ]
+  },
+  "options": {
+    "indexAxis": "y",
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": false
+      },
+      "legend": {
+        "display": false
+      },
+      "tooltip": {
+        "callbacks": {}
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 10
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
+      }
+    }
+  }
+}

@@ -7,5 +7,32 @@
     "Barolo"
   ],
   "comment": "Happy Wednesday! Today we worked on our down stays well associating the cue word \"down\" with it, I did an amazing job 🥰 After training I had a blast playing outside with my friends Joey & Barolo!!",
-  "analyzedAt": "2025-11-10T00:00:23.517Z"
+  "activityCounts": {
+    "playtime": 3,
+    "socialization": 1,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 2,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 0,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "down (stay)"
+  ],
+  "analyzedAt": "2025-11-11T02:30:30.499Z"
 }

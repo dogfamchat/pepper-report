@@ -1,0 +1,66 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "played with as many buddies as possible",
+      "played outdoors",
+      "napped with friends",
+      "party animal",
+      "hung out with my bestie",
+      "one-on-one time with the trainer",
+      "played with my favorite toy",
+      "had a pool party",
+      "engagement games",
+      "caught bubbles"
+    ],
+    "datasets": [
+      {
+        "label": "Frequency",
+        "data": [
+          27,
+          26,
+          22,
+          17,
+          16,
+          12,
+          11,
+          7,
+          6,
+          6
+        ],
+        "backgroundColor": "rgba(59, 130, 246, 0.8)",
+        "borderColor": "rgba(59, 130, 246, 1)",
+        "borderWidth": 1
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "indexAxis": "y",
+    "plugins": {
+      "title": {
+        "display": false
+      },
+      "legend": {
+        "display": false
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 1
+        },
+        "title": {
+          "display": true,
+          "text": "Number of Days"
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
+      }
+    }
+  }
+}

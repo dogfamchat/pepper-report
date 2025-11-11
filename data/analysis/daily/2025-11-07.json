@@ -4,5 +4,33 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Today I practiced my impulse control with a fun game of Red Light, Green Light! 🚦 I had to stop and freeze when I heard “red light,” and then go when I heard “green light.” It was so much fun and made my brain work hard! After the game, I got lots of playtime and cuddles - best way to end the week! 🐶🧡",
-  "analyzedAt": "2025-11-10T00:00:34.086Z"
+  "activityCounts": {
+    "playtime": 1,
+    "socialization": 1,
+    "rest": 0,
+    "outdoor": 0,
+    "enrichment": 2,
+    "training": 1,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "brain building games and challenges"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control"
+  ],
+  "analyzedAt": "2025-11-11T02:30:42.073Z"
 }
