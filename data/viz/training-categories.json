@@ -37,8 +37,7 @@
     "responsive": true,
     "plugins": {
       "title": {
-        "display": true,
-        "text": "Training Categories"
+        "display": false
       },
       "legend": {
         "position": "right"

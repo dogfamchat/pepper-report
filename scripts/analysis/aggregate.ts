@@ -633,8 +633,7 @@ function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
       responsive: true,
       plugins: {
         title: {
-          display: true,
-          text: 'Activity Categories',
+          display: false,
         },
         legend: {
           position: 'right',
@@ -681,8 +680,7 @@ function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
       responsive: true,
       plugins: {
         title: {
-          display: true,
-          text: 'Training Categories',
+          display: false,
         },
         legend: {
           position: 'right',
@@ -718,8 +716,7 @@ function generateActivityFrequencyViz(breakdown: ActivityBreakdown): object {
       indexAxis: 'y',
       plugins: {
         title: {
-          display: true,
-          text: 'Top Activities',
+          display: false,
         },
         legend: {
           display: false,
@@ -734,6 +731,11 @@ function generateActivityFrequencyViz(breakdown: ActivityBreakdown): object {
           title: {
             display: true,
             text: 'Number of Days',
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
           },
         },
       },
@@ -767,8 +769,7 @@ function generateTrainingFrequencyViz(breakdown: ActivityBreakdown): object {
       indexAxis: 'y',
       plugins: {
         title: {
-          display: true,
-          text: 'Top Training Skills',
+          display: false,
         },
         legend: {
           display: false,
@@ -783,6 +784,11 @@ function generateTrainingFrequencyViz(breakdown: ActivityBreakdown): object {
           title: {
             display: true,
             text: 'Number of Days',
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
           },
         },
       },

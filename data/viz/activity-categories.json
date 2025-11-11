@@ -24,10 +24,10 @@
         ],
         "backgroundColor": [
           "#FF6B9D",
-          "#4ECDC4",
-          "#A8E6CF",
-          "#95E1D3",
-          "#C7CEEA",
+          "#9B59B6",
+          "#26A69A",
+          "#5DADE2",
+          "#FF9800",
           "#FFD93D",
           "#FF9FF3"
         ],
@@ -40,8 +40,7 @@
     "responsive": true,
     "plugins": {
       "title": {
-        "display": true,
-        "text": "Activity Categories"
+        "display": false
       },
       "legend": {
         "position": "right"

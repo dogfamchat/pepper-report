@@ -116,11 +116,11 @@ export const CATEGORY_LABELS: Record<Category, string> = {
 export const CATEGORY_COLORS: Record<Category, string> = {
   // Activity categories - warm/vibrant colors
   playtime: '#FF6B9D', // Pink
-  socialization: '#4ECDC4', // Teal
-  rest: '#95E1D3', // Mint
-  outdoor: '#A8E6CF', // Light green
+  socialization: '#9B59B6', // Purple
+  rest: '#5DADE2', // Sky blue
+  outdoor: '#26A69A', // Teal/Green
   enrichment: '#FFD93D', // Yellow
-  training: '#C7CEEA', // Lavender
+  training: '#FF9800', // Orange
   special_event: '#FF9FF3', // Fuchsia
 
   // Training categories - cool/professional colors
@@ -162,11 +162,11 @@ export const TRAINING_LABELS: Record<TrainingCategory, string> = {
  */
 export const ACTIVITY_COLORS: Record<ActivityCategory, string> = {
   playtime: '#FF6B9D',
-  socialization: '#4ECDC4',
-  rest: '#95E1D3',
-  outdoor: '#A8E6CF',
+  socialization: '#9B59B6',
+  rest: '#5DADE2',
+  outdoor: '#26A69A',
   enrichment: '#FFD93D',
-  training: '#C7CEEA',
+  training: '#FF9800',
   special_event: '#FF9FF3',
 };
 

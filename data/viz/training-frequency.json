@@ -39,8 +39,7 @@
     "indexAxis": "y",
     "plugins": {
       "title": {
-        "display": true,
-        "text": "Top Training Skills"
+        "display": false
       },
       "legend": {
         "display": false
@@ -55,6 +54,11 @@
         "title": {
           "display": true,
           "text": "Number of Days"
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
         }
       }
     }

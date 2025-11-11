@@ -1083,6 +1083,21 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     font-weight: normal;
   }
 
+  /* Give horizontal bar charts more height for readability */
+  .activity-charts-grid .chart-card {
+    min-height: 400px;
+  }
+
+  /* Make doughnut chart cards more compact */
+  .chart-card:has(#activityCategoriesChart) h3,
+  .chart-card:has(#trainingCategoriesChart) h3 {
+  }
+
+  .chart-card:has(#activityCategoriesChart) canvas,
+  .chart-card:has(#trainingCategoriesChart) canvas {
+    max-height: 300px;
+  }
+
   /* Responsive grid for mobile */
   @media (max-width: 768px) {
     .activity-charts-grid {
