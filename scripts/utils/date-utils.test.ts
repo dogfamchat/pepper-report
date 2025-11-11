@@ -213,22 +213,22 @@ describe('parseScheduleDate', () => {
 describe('parseCompletedDateTime', () => {
   describe('standard parsing', () => {
     test('parses PM time correctly', () => {
-      const result = parseCompletedDateTime('Oct 31, 2025, 2:11pm', '2025-10-31');
+      const result = parseCompletedDateTime('Oct 31, 2025, 2:11pm');
       expect(result).toBe('2025-10-31T20:11:00.000Z'); // MDT is UTC-6
     });
 
     test('parses AM time correctly', () => {
-      const result = parseCompletedDateTime('Aug 15, 2025, 9:30am', '2025-08-15');
+      const result = parseCompletedDateTime('Aug 15, 2025, 9:30am');
       expect(result).toBe('2025-08-15T15:30:00.000Z'); // MDT is UTC-6
     });
 
     test('handles noon correctly', () => {
-      const result = parseCompletedDateTime('Aug 15, 2025, 12:00pm', '2025-08-15');
+      const result = parseCompletedDateTime('Aug 15, 2025, 12:00pm');
       expect(result).toBe('2025-08-15T18:00:00.000Z'); // MDT is UTC-6, 12pm + 6 = 18:00
     });
 
     test('handles midnight correctly', () => {
-      const result = parseCompletedDateTime('Aug 15, 2025, 12:00am', '2025-08-15');
+      const result = parseCompletedDateTime('Aug 15, 2025, 12:00am');
       expect(result).toBe('2025-08-15T06:00:00.000Z'); // MDT is UTC-6, 12am (0:00) + 6 = 06:00
     });
   });
@@ -236,65 +236,65 @@ describe('parseCompletedDateTime', () => {
   describe('DST transitions', () => {
     test('uses MDT (UTC-6) during summer', () => {
       // August is always MDT
-      const result = parseCompletedDateTime('Aug 15, 2025, 3:00pm', '2025-08-15');
+      const result = parseCompletedDateTime('Aug 15, 2025, 3:00pm');
       expect(result).toBe('2025-08-15T21:00:00.000Z'); // 3pm + 6 hours
     });
 
     test('uses MST (UTC-7) during winter', () => {
       // December is always MST
-      const result = parseCompletedDateTime('Dec 15, 2025, 3:00pm', '2025-12-15');
+      const result = parseCompletedDateTime('Dec 15, 2025, 3:00pm');
       expect(result).toBe('2025-12-15T22:00:00.000Z'); // 3pm + 7 hours
     });
 
     test('handles March DST transition month', () => {
       // March 2025 transitions on 2nd Sunday (March 9)
       // Before transition (March 8): MST (UTC-7)
-      const beforeDST = parseCompletedDateTime('Mar 8, 2025, 3:00pm', '2025-03-08');
+      const beforeDST = parseCompletedDateTime('Mar 8, 2025, 3:00pm');
       expect(beforeDST).toBe('2025-03-08T22:00:00.000Z'); // 3pm + 7 hours
 
       // After transition (March 10): MDT (UTC-6)
-      const afterDST = parseCompletedDateTime('Mar 10, 2025, 3:00pm', '2025-03-10');
+      const afterDST = parseCompletedDateTime('Mar 10, 2025, 3:00pm');
       expect(afterDST).toBe('2025-03-10T21:00:00.000Z'); // 3pm + 6 hours
     });
 
     test('handles November DST transition month', () => {
       // November 2025 transitions on 1st Sunday (November 2)
       // Before transition (November 1): MDT (UTC-6)
-      const beforeDST = parseCompletedDateTime('Nov 1, 2025, 3:00pm', '2025-11-01');
+      const beforeDST = parseCompletedDateTime('Nov 1, 2025, 3:00pm');
       expect(beforeDST).toBe('2025-11-01T21:00:00.000Z'); // 3pm + 6 hours
 
       // After transition (November 3): MST (UTC-7)
-      const afterDST = parseCompletedDateTime('Nov 3, 2025, 3:00pm', '2025-11-03');
+      const afterDST = parseCompletedDateTime('Nov 3, 2025, 3:00pm');
       expect(afterDST).toBe('2025-11-03T22:00:00.000Z'); // 3pm + 7 hours
     });
   });
 
   describe('month abbreviations', () => {
     test('parses all months correctly', () => {
-      expect(parseCompletedDateTime('Jan 1, 2025, 12:00pm', '2025-01-01')).toContain('2025-01-01');
-      expect(parseCompletedDateTime('Feb 1, 2025, 12:00pm', '2025-02-01')).toContain('2025-02-01');
-      expect(parseCompletedDateTime('Mar 1, 2025, 12:00pm', '2025-03-01')).toContain('2025-03-01');
-      expect(parseCompletedDateTime('Apr 1, 2025, 12:00pm', '2025-04-01')).toContain('2025-04-01');
-      expect(parseCompletedDateTime('May 1, 2025, 12:00pm', '2025-05-01')).toContain('2025-05-01');
-      expect(parseCompletedDateTime('Jun 1, 2025, 12:00pm', '2025-06-01')).toContain('2025-06-01');
-      expect(parseCompletedDateTime('Jul 1, 2025, 12:00pm', '2025-07-01')).toContain('2025-07-01');
-      expect(parseCompletedDateTime('Aug 1, 2025, 12:00pm', '2025-08-01')).toContain('2025-08-01');
-      expect(parseCompletedDateTime('Sep 1, 2025, 12:00pm', '2025-09-01')).toContain('2025-09-01');
-      expect(parseCompletedDateTime('Oct 1, 2025, 12:00pm', '2025-10-01')).toContain('2025-10-01');
-      expect(parseCompletedDateTime('Nov 1, 2025, 12:00pm', '2025-11-01')).toContain('2025-11-01');
-      expect(parseCompletedDateTime('Dec 1, 2025, 12:00pm', '2025-12-01')).toContain('2025-12-01');
+      expect(parseCompletedDateTime('Jan 1, 2025, 12:00pm')).toContain('2025-01-01');
+      expect(parseCompletedDateTime('Feb 1, 2025, 12:00pm')).toContain('2025-02-01');
+      expect(parseCompletedDateTime('Mar 1, 2025, 12:00pm')).toContain('2025-03-01');
+      expect(parseCompletedDateTime('Apr 1, 2025, 12:00pm')).toContain('2025-04-01');
+      expect(parseCompletedDateTime('May 1, 2025, 12:00pm')).toContain('2025-05-01');
+      expect(parseCompletedDateTime('Jun 1, 2025, 12:00pm')).toContain('2025-06-01');
+      expect(parseCompletedDateTime('Jul 1, 2025, 12:00pm')).toContain('2025-07-01');
+      expect(parseCompletedDateTime('Aug 1, 2025, 12:00pm')).toContain('2025-08-01');
+      expect(parseCompletedDateTime('Sep 1, 2025, 12:00pm')).toContain('2025-09-01');
+      expect(parseCompletedDateTime('Oct 1, 2025, 12:00pm')).toContain('2025-10-01');
+      expect(parseCompletedDateTime('Nov 1, 2025, 12:00pm')).toContain('2025-11-01');
+      expect(parseCompletedDateTime('Dec 1, 2025, 12:00pm')).toContain('2025-12-01');
     });
   });
 
   describe('error handling', () => {
-    test('returns fallback for invalid format', () => {
-      const result = parseCompletedDateTime('invalid text', '2025-08-15');
-      expect(result).toContain('2025-08-15');
+    test('returns undefined for invalid format', () => {
+      const result = parseCompletedDateTime('invalid text');
+      expect(result).toBeUndefined();
     });
 
-    test('returns fallback for unknown month', () => {
-      const result = parseCompletedDateTime('Xyz 15, 2025, 3:00pm', '2025-08-15');
-      expect(result).toContain('2025-08-15');
+    test('returns undefined for unknown month', () => {
+      const result = parseCompletedDateTime('Xyz 15, 2025, 3:00pm');
+      expect(result).toBeUndefined();
     });
   });
 });
@@ -475,7 +475,7 @@ describe('Edge Cases', () => {
     });
 
     test('parseCompletedDateTime handles leap year', () => {
-      const result = parseCompletedDateTime('Feb 29, 2024, 12:00pm', '2024-02-29');
+      const result = parseCompletedDateTime('Feb 29, 2024, 12:00pm');
       expect(result).toContain('2024-02-29');
     });
   });

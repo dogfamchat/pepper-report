@@ -44,8 +44,8 @@ console.log(`  parseScheduleDate('Nov 15, 2024'):      ${parseScheduleDate('Nov 
 
 // Test MT to UTC conversion
 console.log('\n🌍 Timezone Conversion (Mountain Time → UTC):');
-const summer = parseCompletedDateTime('Aug 15, 2025, 2:11pm', '2025-08-15');
-const winter = parseCompletedDateTime('Dec 15, 2025, 2:11pm', '2025-12-15');
+const summer = parseCompletedDateTime('Aug 15, 2025, 2:11pm');
+const winter = parseCompletedDateTime('Dec 15, 2025, 2:11pm');
 console.log(`  Aug 15, 2025 2:11pm MT → ${summer} (MDT, UTC-6)`);
 console.log(`  Dec 15, 2025 2:11pm MT → ${winter} (MST, UTC-7)`);
 

@@ -15,6 +15,7 @@
 
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import dayjs from 'dayjs';
 import { type Browser, chromium, type Page } from 'playwright';
 import type { Grade, ReportCard, ReportListRow } from '../types';
 import { getCredentials, login } from '../utils/auth-utils';
@@ -540,7 +541,8 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       : undefined;
 
     // Parse completedDateTime from "Oct 31, 2025, 2:11pm"
-    const completedDateTime = parseCompletedDateTime(rowMetadata.completedOn, targetDate);
+    const completedDateTime =
+      parseCompletedDateTime(rowMetadata.completedOn) ?? dayjs(targetDate).toISOString();
 
     const reportCard: ReportCard = {
       date: targetDate,

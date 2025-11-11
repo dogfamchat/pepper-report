@@ -156,13 +156,13 @@ export function parseScheduleDate(dateText: string): string | null {
  * Input: "Oct 31, 2025, 2:11pm" (Mountain Time)
  * Output: "2025-10-31T20:11:00.000Z" (properly converted to UTC)
  */
-export function parseCompletedDateTime(completedOnText: string, fallbackDate: string): string {
+export function parseCompletedDateTime(completedOnText: string): string | undefined {
   try {
     // Parse "Oct 31, 2025, 2:11pm" format
     const match = completedOnText.match(/(\w+)\s+(\d+),\s+(\d+),\s+(\d+):(\d+)(am|pm)/i);
     if (!match) {
       console.warn(`⚠️  Could not parse completed date: "${completedOnText}"`);
-      return dayjs(fallbackDate).toISOString();
+      return;
     }
 
     const [, monthStr, day, year, hour, minute, meridiem] = match;
@@ -173,14 +173,14 @@ export function parseCompletedDateTime(completedOnText: string, fallbackDate: st
 
     if (!mtDate.isValid()) {
       console.warn(`⚠️  Invalid date parsed: "${completedOnText}"`);
-      return dayjs(fallbackDate).toISOString();
+      return;
     }
 
     // Convert to UTC and return ISO string
     return mtDate.utc().toISOString();
   } catch (error) {
     console.warn(`⚠️  Error parsing date: ${error}`);
-    return dayjs(fallbackDate).toISOString();
+    return;
   }
 }
 
