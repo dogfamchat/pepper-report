@@ -1,0 +1,236 @@
+{
+  "summary": {
+    "totalReports": 32,
+    "dateRange": {
+      "start": "2025-08-08",
+      "end": "2025-11-10"
+    },
+    "totalPositiveBehaviors": 95,
+    "totalNegativeBehaviors": 13,
+    "reportsWithPositive": 32,
+    "reportsWithNegative": 11,
+    "positivePercentage": 100,
+    "negativePercentage": 34.375
+  },
+  "timeline": [
+    {
+      "date": "2025-08-08",
+      "positiveCount": 5,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-08-12",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-08-19",
+      "positiveCount": 5,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-08-22",
+      "positiveCount": 2,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-08-27",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-08-29",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-09-05",
+      "positiveCount": 1,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-09-08",
+      "positiveCount": 1,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-09-10",
+      "positiveCount": 1,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-09-12",
+      "positiveCount": 3,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-09-15",
+      "positiveCount": 3,
+      "negativeCount": 2
+    },
+    {
+      "date": "2025-09-19",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-09-22",
+      "positiveCount": 4,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-09-26",
+      "positiveCount": 6,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-09-29",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-09-30",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-03",
+      "positiveCount": 4,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-07",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-10",
+      "positiveCount": 3,
+      "negativeCount": 2
+    },
+    {
+      "date": "2025-10-14",
+      "positiveCount": 1,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-10-15",
+      "positiveCount": 4,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-10-17",
+      "positiveCount": 2,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-20",
+      "positiveCount": 1,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-22",
+      "positiveCount": 2,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-24",
+      "positiveCount": 8,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-27",
+      "positiveCount": 3,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-10-29",
+      "positiveCount": 3,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-10-31",
+      "positiveCount": 4,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-11-03",
+      "positiveCount": 1,
+      "negativeCount": 1
+    },
+    {
+      "date": "2025-11-05",
+      "positiveCount": 2,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-11-07",
+      "positiveCount": 4,
+      "negativeCount": 0
+    },
+    {
+      "date": "2025-11-10",
+      "positiveCount": 1,
+      "negativeCount": 1
+    }
+  ],
+  "positiveBehaviors": [
+    {
+      "name": "listened and respected my trainer",
+      "count": 24,
+      "percentage": 25.263157894736842
+    },
+    {
+      "name": "sharing nicely (water bowl, toys, food)",
+      "count": 20,
+      "percentage": 21.052631578947366
+    },
+    {
+      "name": "practiced balanced and fair play",
+      "count": 16,
+      "percentage": 16.842105263157894
+    },
+    {
+      "name": "loved every dog I met",
+      "count": 16,
+      "percentage": 16.842105263157894
+    },
+    {
+      "name": "made good choices",
+      "count": 7,
+      "percentage": 7.368421052631578
+    },
+    {
+      "name": "respected thresholds",
+      "count": 6,
+      "percentage": 6.315789473684211
+    },
+    {
+      "name": "respected other's space",
+      "count": 3,
+      "percentage": 3.1578947368421053
+    },
+    {
+      "name": "helped the new kids fit in",
+      "count": 3,
+      "percentage": 3.1578947368421053
+    }
+  ],
+  "negativeBehaviors": [
+    {
+      "name": "verbally expressed myself",
+      "count": 9,
+      "percentage": 69.23076923076923
+    },
+    {
+      "name": "bullying or pestering another dog",
+      "count": 3,
+      "percentage": 23.076923076923077
+    },
+    {
+      "name": "challenge with self regulation",
+      "count": 1,
+      "percentage": 7.6923076923076925
+    }
+  ]
+}

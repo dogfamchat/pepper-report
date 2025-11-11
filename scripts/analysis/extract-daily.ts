@@ -50,6 +50,10 @@ export interface DailyAnalysis {
   rawActivities: string[];
   /** Raw training skills (detailed view) */
   rawTrainingSkills: string[];
+  /** Positive behaviors from caughtBeingGood array */
+  caughtBeingGood: string[];
+  /** Negative behaviors from ooops array */
+  ooops: string[];
   /** Timestamp when this analysis was generated */
   analyzedAt: string;
 }
@@ -226,6 +230,15 @@ async function extractDaily(
     console.log(`   Training skills: ${categorization.totalTrainingSkills}`);
   }
 
+  // Extract behavior data directly from report card
+  const caughtBeingGood = report.caughtBeingGood || [];
+  const ooops = report.ooops || [];
+
+  if (verbose) {
+    console.log(`   Caught Being Good: ${caughtBeingGood.length}`);
+    console.log(`   Ooops: ${ooops.length}`);
+  }
+
   return {
     date: report.date,
     grade: report.grade,
@@ -237,6 +250,9 @@ async function extractDaily(
     rawActivities: categorization.rawActivities,
     rawTrainingSkills: categorization.rawTrainingSkills,
     analyzedAt: getCurrentTimestamp(),
+    caughtBeingGood,
+    ooops,
+
   };
 }
 
