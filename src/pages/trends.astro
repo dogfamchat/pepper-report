@@ -1092,8 +1092,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
   }
 </style>
 
-<script type="module">
-  import Chart from 'chart.js/auto';
+<script>
+  import { Chart, registerables } from 'chart.js';
+
+  // Register Chart.js components
+  Chart.register(...registerables);
 
   // Initialize activity category chart
   const activityCategoriesCanvas = document.getElementById('activityCategoriesChart');
