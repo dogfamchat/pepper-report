@@ -4,5 +4,35 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "Fun Friday! Today I had the best time playing with my friends!! We enjoyed the slide, splashed in the pool, chased bubbles, played fetch, and of course, got lots of cuddles from the trainers! What a pawsome day! 🐶🫧💦🧡",
-  "analyzedAt": "2025-11-10T00:00:10.790Z"
+  "activityCounts": {
+    "playtime": 5,
+    "socialization": 2,
+    "rest": 0,
+    "outdoor": 2,
+    "enrichment": 1,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 2,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "played outdoors",
+    "had a pool party",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "crate training",
+    "sit (stay)",
+    "recall",
+    "impulse control"
+  ],
+  "analyzedAt": "2025-11-11T02:30:15.985Z"
 }

@@ -82,9 +82,14 @@ export function categorizeReport(report: ReportCard): ActivityCategorization {
 }
 
 /**
+ * Type that has the minimum fields needed for aggregation
+ */
+type Categorizable = Pick<ActivityCategorization, 'activityCounts' | 'trainingCounts'>;
+
+/**
  * Aggregate category counts across multiple reports
  */
-export function aggregateCategoryCounts(categorizations: ActivityCategorization[]): {
+export function aggregateCategoryCounts(categorizations: Categorizable[]): {
   activityTotals: Record<ActivityCategory, number>;
   trainingTotals: Record<TrainingCategory, number>;
   totalReports: number;
@@ -109,14 +114,18 @@ export function aggregateCategoryCounts(categorizations: ActivityCategorization[
   };
 
   for (const categorization of categorizations) {
-    // Sum up activity counts
-    for (const [category, count] of Object.entries(categorization.activityCounts)) {
-      activityTotals[category as ActivityCategory] += count;
+    // Sum up activity counts (if they exist)
+    if (categorization.activityCounts) {
+      for (const [category, count] of Object.entries(categorization.activityCounts)) {
+        activityTotals[category as ActivityCategory] += count;
+      }
     }
 
-    // Sum up training counts
-    for (const [category, count] of Object.entries(categorization.trainingCounts)) {
-      trainingTotals[category as TrainingCategory] += count;
+    // Sum up training counts (if they exist)
+    if (categorization.trainingCounts) {
+      for (const [category, count] of Object.entries(categorization.trainingCounts)) {
+        trainingTotals[category as TrainingCategory] += count;
+      }
     }
   }
 
@@ -128,9 +137,14 @@ export function aggregateCategoryCounts(categorizations: ActivityCategorization[
 }
 
 /**
+ * Type that has the minimum fields needed for frequency calculation
+ */
+type FrequencyCalculable = Pick<ActivityCategorization, 'rawActivities' | 'rawTrainingSkills'>;
+
+/**
  * Calculate frequency of individual activities/skills across multiple reports
  */
-export function calculateFrequencies(categorizations: ActivityCategorization[]): {
+export function calculateFrequencies(categorizations: FrequencyCalculable[]): {
   activityFrequency: Record<string, number>;
   trainingFrequency: Record<string, number>;
 } {
@@ -138,14 +152,18 @@ export function calculateFrequencies(categorizations: ActivityCategorization[]):
   const trainingFrequency: Record<string, number> = {};
 
   for (const categorization of categorizations) {
-    // Count each activity
-    for (const activity of categorization.rawActivities) {
-      activityFrequency[activity] = (activityFrequency[activity] || 0) + 1;
+    // Count each activity (if they exist)
+    if (categorization.rawActivities) {
+      for (const activity of categorization.rawActivities) {
+        activityFrequency[activity] = (activityFrequency[activity] || 0) + 1;
+      }
     }
 
-    // Count each training skill
-    for (const skill of categorization.rawTrainingSkills) {
-      trainingFrequency[skill] = (trainingFrequency[skill] || 0) + 1;
+    // Count each training skill (if they exist)
+    if (categorization.rawTrainingSkills) {
+      for (const skill of categorization.rawTrainingSkills) {
+        trainingFrequency[skill] = (trainingFrequency[skill] || 0) + 1;
+      }
     }
   }
 

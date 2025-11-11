@@ -1,0 +1,51 @@
+{
+  "type": "doughnut",
+  "data": {
+    "labels": [
+      "Playtime",
+      "Socialization",
+      "Outdoor",
+      "Rest",
+      "Training",
+      "Enrichment",
+      "Special Event"
+    ],
+    "datasets": [
+      {
+        "label": "Activity Categories",
+        "data": [
+          99,
+          67,
+          33,
+          22,
+          18,
+          14,
+          2
+        ],
+        "backgroundColor": [
+          "#FF6B9D",
+          "#4ECDC4",
+          "#A8E6CF",
+          "#95E1D3",
+          "#C7CEEA",
+          "#FFD93D",
+          "#FF9FF3"
+        ],
+        "borderWidth": 2,
+        "borderColor": "#fff"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Activity Categories"
+      },
+      "legend": {
+        "position": "right"
+      }
+    }
+  }
+}

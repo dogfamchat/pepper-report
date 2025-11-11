@@ -1,0 +1,48 @@
+{
+  "type": "doughnut",
+  "data": {
+    "labels": [
+      "Obedience Commands",
+      "Handling & Manners",
+      "Impulse Control & Focus",
+      "Advanced Training",
+      "Physical Skills",
+      "Fun Skills"
+    ],
+    "datasets": [
+      {
+        "label": "Training Categories",
+        "data": [
+          51,
+          40,
+          24,
+          11,
+          5,
+          4
+        ],
+        "backgroundColor": [
+          "#6C5CE7",
+          "#FDCB6E",
+          "#0984E3",
+          "#E17055",
+          "#00B894",
+          "#FD79A8"
+        ],
+        "borderWidth": 2,
+        "borderColor": "#fff"
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "plugins": {
+      "title": {
+        "display": true,
+        "text": "Training Categories"
+      },
+      "legend": {
+        "position": "right"
+      }
+    }
+  }
+}

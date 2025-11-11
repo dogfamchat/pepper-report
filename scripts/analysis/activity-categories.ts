@@ -131,3 +131,53 @@ export const CATEGORY_COLORS: Record<Category, string> = {
   advanced_training: '#E17055', // Coral
   fun_skills: '#FD79A8', // Hot pink
 };
+
+/**
+ * Activity category labels (subset of CATEGORY_LABELS)
+ */
+export const ACTIVITY_LABELS: Record<ActivityCategory, string> = {
+  playtime: 'Playtime',
+  socialization: 'Socialization',
+  rest: 'Rest',
+  outdoor: 'Outdoor',
+  enrichment: 'Enrichment',
+  training: 'Training',
+  special_event: 'Special Event',
+};
+
+/**
+ * Training category labels (subset of CATEGORY_LABELS)
+ */
+export const TRAINING_LABELS: Record<TrainingCategory, string> = {
+  obedience_commands: 'Obedience Commands',
+  impulse_control_focus: 'Impulse Control & Focus',
+  physical_skills: 'Physical Skills',
+  handling_manners: 'Handling & Manners',
+  advanced_training: 'Advanced Training',
+  fun_skills: 'Fun Skills',
+};
+
+/**
+ * Activity category colors (subset of CATEGORY_COLORS)
+ */
+export const ACTIVITY_COLORS: Record<ActivityCategory, string> = {
+  playtime: '#FF6B9D',
+  socialization: '#4ECDC4',
+  rest: '#95E1D3',
+  outdoor: '#A8E6CF',
+  enrichment: '#FFD93D',
+  training: '#C7CEEA',
+  special_event: '#FF9FF3',
+};
+
+/**
+ * Training category colors (subset of CATEGORY_COLORS)
+ */
+export const TRAINING_COLORS: Record<TrainingCategory, string> = {
+  obedience_commands: '#6C5CE7',
+  impulse_control_focus: '#0984E3',
+  physical_skills: '#00B894',
+  handling_manners: '#FDCB6E',
+  advanced_training: '#E17055',
+  fun_skills: '#FD79A8',
+};

@@ -7,5 +7,45 @@
     "June"
   ],
   "comment": "Today was such a fun day!!! We played with toys, bubbles and we did thanksgiving arts and crafts!!!🦃 Pepper had so much fun playing with her besties Freyja and June🤍\nSometimes when her friends were tired and didn’t want to play pepper would bark at them until they chased her.",
-  "analyzedAt": "2025-11-10T00:00:21.054Z"
+  "activityCounts": {
+    "playtime": 5,
+    "socialization": 3,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 2,
+    "special_event": 1
+  },
+  "trainingCounts": {
+    "obedience_commands": 4,
+    "impulse_control_focus": 2,
+    "physical_skills": 0,
+    "handling_manners": 2,
+    "advanced_training": 2,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "played with my favorite toy",
+    "special event"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "hands-free work",
+    "loose-leash walking",
+    "sit (stay)",
+    "down (stay)",
+    "recall",
+    "recall with distractions",
+    "impulse control",
+    "focus work"
+  ],
+  "analyzedAt": "2025-11-11T02:30:27.286Z"
 }

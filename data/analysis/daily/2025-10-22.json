@@ -4,5 +4,37 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Today I had a great time training and working on my patience and impulse control by doing sit stays next to my friends! I played outside and got lots of cuddles✨",
-  "analyzedAt": "2025-11-10T00:00:26.707Z"
+  "activityCounts": {
+    "playtime": 5,
+    "socialization": 2,
+    "rest": 0,
+    "outdoor": 1,
+    "enrichment": 2,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 2,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "engagement games",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control",
+    "confidence building"
+  ],
+  "analyzedAt": "2025-11-11T02:30:33.448Z"
 }

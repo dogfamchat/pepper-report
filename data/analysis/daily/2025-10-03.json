@@ -6,5 +6,35 @@
     "Eleanor"
   ],
   "comment": "Happy fun Friday! Today I had a blast running around playing with all my friends! My trainers brought out the bubbles which was a good distraction to get my brain working 🫶🏻🥰 My bestie of the day was Eleanor!",
-  "analyzedAt": "2025-11-10T00:00:18.991Z"
+  "activityCounts": {
+    "playtime": 5,
+    "socialization": 1,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 1,
+    "training": 2,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 0,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "handling (exam style)",
+    "jazz up, settle down"
+  ],
+  "analyzedAt": "2025-11-11T02:30:24.782Z"
 }

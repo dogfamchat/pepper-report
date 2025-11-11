@@ -4,5 +4,33 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "I had a great day! I got to play with so many friends. I worked on my thresholds and did amazing! I also got to practice my air stays which I also did pretty good at! After all that hard work I took a well deserved nap in the sun!",
-  "analyzedAt": "2025-11-10T00:00:14.765Z"
+  "activityCounts": {
+    "playtime": 2,
+    "socialization": 2,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control"
+  ],
+  "analyzedAt": "2025-11-11T02:30:21.217Z"
 }

@@ -6,5 +6,34 @@
     "Archie"
   ],
   "comment": "Today Pepper made best friends with new kid Archie the doodle! She had so much fun playing with him, and practicing her recall!",
-  "analyzedAt": "2025-11-10T00:00:19.960Z"
+  "activityCounts": {
+    "playtime": 2,
+    "socialization": 2,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 1,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "handling (exam style)",
+    "recall",
+    "recall with distractions",
+    "confidence building"
+  ],
+  "analyzedAt": "2025-11-11T02:30:26.048Z"
 }

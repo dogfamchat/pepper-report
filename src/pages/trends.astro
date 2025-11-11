@@ -531,6 +531,40 @@ try {
   // Friend data not available
 }
 
+// Load activity breakdown data
+let activityData = null;
+try {
+  const activityPath = join(
+    process.cwd(),
+    'data',
+    'analysis',
+    'aggregates',
+    'activity-breakdown.json',
+  );
+  activityData = JSON.parse(readFileSync(activityPath, 'utf-8'));
+} catch (error) {
+  // Activity data not available
+}
+
+// Load activity visualization data for charts
+let activityCategoriesViz = null;
+let trainingCategoriesViz = null;
+let activityFrequencyViz = null;
+let trainingFrequencyViz = null;
+try {
+  const vizDir = join(process.cwd(), 'data', 'viz');
+  activityCategoriesViz = JSON.parse(
+    readFileSync(join(vizDir, 'activity-categories.json'), 'utf-8'),
+  );
+  trainingCategoriesViz = JSON.parse(
+    readFileSync(join(vizDir, 'training-categories.json'), 'utf-8'),
+  );
+  activityFrequencyViz = JSON.parse(readFileSync(join(vizDir, 'activity-frequency.json'), 'utf-8'));
+  trainingFrequencyViz = JSON.parse(readFileSync(join(vizDir, 'training-frequency.json'), 'utf-8'));
+} catch (error) {
+  // Activity viz data not available
+}
+
 // Format date for display
 const formatDate = (dateStr: string) => {
   const [year, month, day] = dateStr.split('-').map(Number);
@@ -600,6 +634,61 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
               <span class="friend-mentions">{friend.mentions} {friend.mentions === 1 ? 'mention' : 'mentions'}</span>
             </div>
           ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Activity Breakdown -->
+    {activityData && (
+      <div class="section-header">
+        <h2>🎾 Activity Breakdown</h2>
+        <p class="section-subtitle">
+          Total activities: {activityData.summary.totalActivityInstances} •
+          Total training: {activityData.summary.totalTrainingInstances}
+        </p>
+      </div>
+    )}
+
+    {activityCategoriesViz && trainingCategoriesViz && (
+      <div class="activity-charts-grid">
+        <!-- Activity Categories Pie Chart -->
+        <div class="chart-card">
+          <h3>Activity Categories</h3>
+          <canvas
+            id="activityCategoriesChart"
+            data-chart-config={JSON.stringify(activityCategoriesViz)}
+          ></canvas>
+        </div>
+
+        <!-- Training Categories Pie Chart -->
+        <div class="chart-card">
+          <h3>Training Categories</h3>
+          <canvas
+            id="trainingCategoriesChart"
+            data-chart-config={JSON.stringify(trainingCategoriesViz)}
+          ></canvas>
+        </div>
+      </div>
+    )}
+
+    {activityFrequencyViz && trainingFrequencyViz && (
+      <div class="activity-charts-grid">
+        <!-- Top Activities Bar Chart -->
+        <div class="chart-card">
+          <h3>Top Activities</h3>
+          <canvas
+            id="activityFrequencyChart"
+            data-chart-config={JSON.stringify(activityFrequencyViz)}
+          ></canvas>
+        </div>
+
+        <!-- Top Training Skills Bar Chart -->
+        <div class="chart-card">
+          <h3>Top Training Skills</h3>
+          <canvas
+            id="trainingFrequencyChart"
+            data-chart-config={JSON.stringify(trainingFrequencyViz)}
+          ></canvas>
         </div>
       </div>
     )}
@@ -978,5 +1067,60 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     width: 100%;
     max-height: 400px;
   }
+
+  /* Activity charts grid */
+  .activity-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0.5rem 0 0 0;
+    font-weight: normal;
+  }
+
+  /* Responsive grid for mobile */
+  @media (max-width: 768px) {
+    .activity-charts-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
 </style>
+
+<script type="module">
+  import Chart from 'chart.js/auto';
+
+  // Initialize activity category chart
+  const activityCategoriesCanvas = document.getElementById('activityCategoriesChart');
+  if (activityCategoriesCanvas) {
+    const config = JSON.parse(activityCategoriesCanvas.dataset.chartConfig);
+    new Chart(activityCategoriesCanvas, config);
+  }
+
+  // Initialize training category chart
+  const trainingCategoriesCanvas = document.getElementById('trainingCategoriesChart');
+  if (trainingCategoriesCanvas) {
+    const config = JSON.parse(trainingCategoriesCanvas.dataset.chartConfig);
+    new Chart(trainingCategoriesCanvas, config);
+  }
+
+  // Initialize activity frequency chart
+  const activityFrequencyCanvas = document.getElementById('activityFrequencyChart');
+  if (activityFrequencyCanvas) {
+    const config = JSON.parse(activityFrequencyCanvas.dataset.chartConfig);
+    new Chart(activityFrequencyCanvas, config);
+  }
+
+  // Initialize training frequency chart
+  const trainingFrequencyCanvas = document.getElementById('trainingFrequencyChart');
+  if (trainingFrequencyCanvas) {
+    const config = JSON.parse(trainingFrequencyCanvas.dataset.chartConfig);
+    new Chart(trainingFrequencyCanvas, config);
+  }
+</script>
 
