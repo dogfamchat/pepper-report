@@ -40,7 +40,11 @@
         "display": false
       },
       "legend": {
-        "position": "right"
+        "position": "right",
+        "labels": {
+          "boxWidth": 15,
+          "padding": 10
+        }
       },
       "tooltip": {
         "callbacks": {}

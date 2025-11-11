@@ -650,6 +650,10 @@ function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
         },
         legend: {
           position: 'right',
+          labels: {
+            boxWidth: 15,
+            padding: 10,
+          },
         },
         tooltip: {
           callbacks: {
@@ -716,6 +720,10 @@ function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
         },
         legend: {
           position: 'right',
+          labels: {
+            boxWidth: 15,
+            padding: 10,
+          },
         },
         tooltip: {
           callbacks: {
