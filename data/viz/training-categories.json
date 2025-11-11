@@ -1,5 +1,5 @@
 {
-  "type": "doughnut",
+  "type": "bar",
   "data": {
     "labels": [
       "Obedience Commands",
@@ -11,7 +11,7 @@
     ],
     "datasets": [
       {
-        "label": "Training Categories",
+        "label": "Count",
         "data": [
           51,
           40,
@@ -28,26 +28,35 @@
           "#00B894",
           "#FD79A8"
         ],
-        "borderWidth": 2,
-        "borderColor": "#fff"
+        "borderWidth": 0
       }
     ]
   },
   "options": {
+    "indexAxis": "y",
     "responsive": true,
     "plugins": {
       "title": {
         "display": false
       },
       "legend": {
-        "position": "right",
-        "labels": {
-          "boxWidth": 15,
-          "padding": 10
-        }
+        "display": false
       },
       "tooltip": {
         "callbacks": {}
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 10
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
       }
     }
   }

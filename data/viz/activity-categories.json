@@ -1,5 +1,5 @@
 {
-  "type": "doughnut",
+  "type": "bar",
   "data": {
     "labels": [
       "Playtime",
@@ -12,7 +12,7 @@
     ],
     "datasets": [
       {
-        "label": "Activity Categories",
+        "label": "Count",
         "data": [
           99,
           67,
@@ -31,26 +31,35 @@
           "#FFD93D",
           "#FF9FF3"
         ],
-        "borderWidth": 2,
-        "borderColor": "#fff"
+        "borderWidth": 0
       }
     ]
   },
   "options": {
+    "indexAxis": "y",
     "responsive": true,
     "plugins": {
       "title": {
         "display": false
       },
       "legend": {
-        "position": "right",
-        "labels": {
-          "boxWidth": 15,
-          "padding": 10
-        }
+        "display": false
       },
       "tooltip": {
         "callbacks": {}
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 10
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
       }
     }
   }

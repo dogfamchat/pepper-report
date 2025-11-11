@@ -629,31 +629,27 @@ function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
   }
 
   return {
-    type: 'doughnut',
+    type: 'bar',
     data: {
       labels,
       datasets: [
         {
-          label: 'Activity Categories',
+          label: 'Count',
           data,
           backgroundColor: colors,
-          borderWidth: 2,
-          borderColor: '#fff',
+          borderWidth: 0,
         },
       ],
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       plugins: {
         title: {
           display: false,
         },
         legend: {
-          position: 'right',
-          labels: {
-            boxWidth: 15,
-            padding: 10,
-          },
+          display: false,
         },
         tooltip: {
           callbacks: {
@@ -663,6 +659,19 @@ function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
               const activitiesInCategory = categoryActivities[categoryKey] || [];
               return activitiesInCategory.map((a) => `• ${a}`);
             },
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 10,
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
           },
         },
       },
@@ -699,31 +708,27 @@ function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
   }
 
   return {
-    type: 'doughnut',
+    type: 'bar',
     data: {
       labels,
       datasets: [
         {
-          label: 'Training Categories',
+          label: 'Count',
           data,
           backgroundColor: colors,
-          borderWidth: 2,
-          borderColor: '#fff',
+          borderWidth: 0,
         },
       ],
     },
     options: {
+      indexAxis: 'y',
       responsive: true,
       plugins: {
         title: {
           display: false,
         },
         legend: {
-          position: 'right',
-          labels: {
-            boxWidth: 15,
-            padding: 10,
-          },
+          display: false,
         },
         tooltip: {
           callbacks: {
@@ -733,6 +738,19 @@ function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
               const skillsInCategory = categoryTraining[categoryKey] || [];
               return skillsInCategory.map((s) => `• ${s}`);
             },
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 10,
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
           },
         },
       },
