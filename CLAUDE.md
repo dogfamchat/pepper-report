@@ -7,6 +7,13 @@ Guardrails for Claude Code when working with this daycare report scraping pipeli
 
 ## Critical Guardrails
 
+### Platform: Windows-Specific Playwright Bug
+- **IMPORTANT:** Due to a Bun/Playwright bug on Windows, all Playwright-based scripts must use `bun tsx --env-file=.env [script path]`
+- This affects: scrapers (`scrape-report.ts`, `scrape-schedule.ts`) and backfill scripts (`backfill.ts`, `backfill-schedule.ts`)
+- GitHub Actions (Linux) uses `bun run` normally - this workaround is Windows-only
+- All `package.json` scripts already use the correct invocation
+- When running scripts directly (not via npm scripts), always use: `bun tsx --env-file=.env [path]`
+
 ### Privacy: Staff Name Anonymization
 - Always use `processStaffNames()` from `scripts/utils/staff-utils.ts` when handling staff names
 - `staff.private.json` stores real name → pseudonym mapping (gitignored, NEVER commit)
@@ -16,7 +23,7 @@ Guardrails for Claude Code when working with this daycare report scraping pipeli
 
 ### Scraping: Rate Limiting
 - Use 3-5 second delays between requests (respect daycare website)
-- Test on single dates before batch operations: `bun run scripts/scrape-report.ts --date 2025-08-08 --dry-run`
+- Test on single dates before batch operations: `bun run scrape:report --date 2025-08-08 --dry-run`
 - Avoid `page.waitForTimeout()` - use `page.waitForSelector()` or other deterministic waits instead
 - Log failures and continue, don't retry immediately on errors
 

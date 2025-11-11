@@ -113,14 +113,22 @@ bun run dev              # Start Astro dev server (http://localhost:4321)
 bun run build            # Build for production
 bun run preview          # Preview production build
 
-# Staff anonymization
-bun run anonymize        # Generate pseudonyms from staff.private.json
+# Scraping (uses tsx for Windows/Playwright compatibility)
+bun run scrape:schedule                    # Scrape weekly schedule
+bun run scrape:report                      # Scrape today's report card
+bun run scrape:report --date 2025-08-08    # Scrape specific date
+bun run scrape:report --dry-run            # Test without saving
 
-# To be implemented:
-bun run scrape:schedule  # Scrape weekly schedule
-bun run scrape:report    # Scrape report card
+# Backfilling historical data
+bun run backfill:schedule         # Backfill schedule data
+bun run backfill:reports          # Backfill report cards
+
+# Analysis and utilities
 bun run analyze          # Run all analysis scripts
+bun run anonymize        # Generate pseudonyms from staff.private.json
 ```
+
+**Note for Windows users:** Due to a Bun/Playwright bug on Windows, scraper and backfill scripts use `bun tsx --env-file=.env` internally. The `bun run` scripts handle this automatically.
 
 ## Privacy
 

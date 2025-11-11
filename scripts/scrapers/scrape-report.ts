@@ -67,7 +67,7 @@ function parseArgs(): ScraperOptions {
 Report Card Scraper - Extract Pepper's daily report card
 
 Usage:
-  bun run scripts/scrapers/scrape-report.ts [options]
+  bun run scrape:report [options]
 
 Options:
   --date YYYY-MM-DD   Scrape report for specific date (default: today)
@@ -78,10 +78,13 @@ Options:
   --help, -h          Show this help message
 
 Examples:
-  bun run scripts/scrapers/scrape-report.ts
-  bun run scripts/scrapers/scrape-report.ts --date 2024-11-15
-  bun run scripts/scrapers/scrape-report.ts --headed --verbose
-  bun run scripts/scrapers/scrape-report.ts --date 2024-11-15 --dry-run
+  bun run scrape:report
+  bun run scrape:report --date 2024-11-15
+  bun run scrape:report --headed --verbose
+  bun run scrape:report --date 2024-11-15 --dry-run
+
+Note: On Windows, this uses 'bun tsx --env-file=.env' internally due to a Bun/Playwright bug.
+      On Linux/macOS (including GitHub Actions), it uses 'bun run' normally.
         `);
         process.exit(0);
     }
@@ -338,119 +341,147 @@ async function scrapeReportCard(options: ScraperOptions): Promise<ReportCard | n
       console.log(`   Extracted dog: "${dogName}", owners: "${owners}"`);
     }
 
-    // Extract all form data using JavaScript evaluation (more reliable than complex selectors)
-    const formData = await page.evaluate(() => {
-      const modal = document.querySelector('.css-popup-form-wrapper .css-wl-quiz-process-wrap');
-      if (!modal) return null;
+    // Helper function to get answer container locator for a question
+    const getAnswerContainer = (questionText: string) => {
+      return modal
+        .locator('.css-quiz-question', { hasText: questionText })
+        .locator('..')
+        .locator('..')
+        .locator('.js-core-quiz-response-component')
+        .first();
+    };
 
-      // Helper to find answer container for a question
-      const getAnswer = (questionText: string) => {
-        const questions = Array.from(modal.querySelectorAll('.css-quiz-question'));
-        const q = questions.find((el) => el.textContent?.includes(questionText));
-        if (!q) return null;
-        return q
-          .closest('.css-core-quiz-element-wrap')
-          ?.querySelector('.js-core-quiz-response-component');
-      };
-
-      // Field 2: Trainers (select with multiple)
-      const trainersContainer = getAnswer('Trainer');
-      const trainers = trainersContainer
-        ? Array.from(trainersContainer.querySelectorAll('select option[selected]'))
-            .map((o) => (o as HTMLOptionElement).textContent?.trim() || '')
-            .filter((t) => t)
-        : [];
-
-      // Field 3: Behavior grade (radio button)
-      const gradeContainer = getAnswer('behaviour');
-      const gradeInput = gradeContainer?.querySelector(
-        'input[name="a_radio"][checked]',
-      ) as HTMLInputElement;
-      const gradeLabel = gradeInput?.closest('label')?.textContent?.trim() || '';
-
-      // Field 4: Best part (select single)
-      const bestPartContainer = getAnswer('best part');
-      const bestPart =
-        (
-          bestPartContainer?.querySelector('select option[selected]') as HTMLOptionElement
-        )?.textContent?.trim() || '';
-
-      // Field 5: What I did (checkboxes)
-      const whatIDidContainer = getAnswer('What I did today');
-      const whatIDid = whatIDidContainer
-        ? Array.from(whatIDidContainer.querySelectorAll('input[type="checkbox"][checked]'))
-            .map((cb) => cb.closest('label')?.textContent?.trim() || '')
-            .filter((t) => t)
-        : [];
-
-      // Field 6: Training skills (checkboxes)
-      const trainingContainer = getAnswer('Training skills');
-      const training = trainingContainer
-        ? Array.from(trainingContainer.querySelectorAll('input[type="checkbox"][checked]'))
-            .map((cb) => cb.closest('label')?.textContent?.trim() || '')
-            .filter((t) => t)
-        : [];
-
-      // Field 7: Caught being good (select multiple)
-      const caughtContainer = getAnswer('Caught being good');
-      const caught = caughtContainer
-        ? Array.from(caughtContainer.querySelectorAll('select option[selected]'))
-            .map((o) => (o as HTMLOptionElement).textContent?.trim() || '')
-            .filter((t) => t)
-        : [];
-
-      // Field 8: Ooops (select multiple)
-      const ooopsContainer = getAnswer('Ooops');
-      const ooops = ooopsContainer
-        ? Array.from(ooopsContainer.querySelectorAll('select option[selected]'))
-            .map((o) => (o as HTMLOptionElement).textContent?.trim() || '')
-            .filter((t) => t)
-        : [];
-
-      // Field 9: Noteworthy (text in .css-quiz-answer divs)
-      const noteworthyContainers = Array.from(modal.querySelectorAll('.css-quiz-question'))
-        .filter(
-          (q) => q.textContent?.includes('Noteworthy') || q.textContent?.includes('continued'),
-        )
-        .map(
-          (q) =>
-            q
-              .closest('.css-core-quiz-element-wrap')
-              ?.querySelector('.css-quiz-answer')
-              ?.textContent?.trim() || '',
-        );
-      const noteworthy = noteworthyContainers
-        .filter((t) => t)
-        .join(' ')
-        .trim();
-
-      return {
-        trainers,
-        gradeLabel,
-        bestPart,
-        whatIDid,
-        training,
-        caught,
-        ooops,
-        noteworthy,
-      };
-    });
-
-    if (!formData) {
-      throw new Error('Failed to extract form data from modal');
+    // Field 2: Trainers (select with multiple)
+    const trainersContainer = getAnswerContainer('Trainer');
+    const trainerSelect = trainersContainer.locator('select').first();
+    const trainerOptions = trainerSelect.locator('option');
+    const trainerOptionsCount = await trainerOptions.count();
+    const realTrainerNames: string[] = [];
+    for (let i = 0; i < trainerOptionsCount; i++) {
+      const option = trainerOptions.nth(i);
+      const isSelected = await option.evaluate((el: HTMLOptionElement) => el.selected);
+      if (isSelected) {
+        const text = await option.textContent();
+        if (text?.trim()) {
+          realTrainerNames.push(text.trim());
+        }
+      }
     }
 
-    // Parse data from evaluation
-    const realTrainerNames = formData.trainers;
-    const gradeLabelText = formData.gradeLabel;
+    // Field 3: Behavior grade (radio button)
+    const gradeContainer = getAnswerContainer('behaviour');
+    const gradeRadios = gradeContainer.locator('input[name="a_radio"]');
+    const radioCount = await gradeRadios.count();
+    let gradeLabelText = '';
+    for (let i = 0; i < radioCount; i++) {
+      const radio = gradeRadios.nth(i);
+      if (await radio.isChecked()) {
+        const label = radio.locator('..');
+        gradeLabelText = (await label.textContent())?.trim() || '';
+        break;
+      }
+    }
+
+    // Field 4: Best part (select single)
+    const bestPartContainer = getAnswerContainer('best part');
+    const bestPartSelect = bestPartContainer.locator('select').first();
+    const bestPartOptions = bestPartSelect.locator('option');
+    const bestPartOptionsCount = await bestPartOptions.count();
+    let bestPartOfDay = '';
+    for (let i = 0; i < bestPartOptionsCount; i++) {
+      const option = bestPartOptions.nth(i);
+      const isSelected = await option.evaluate((el: HTMLOptionElement) => el.selected);
+      if (isSelected) {
+        bestPartOfDay = (await option.textContent())?.trim() || '';
+        break;
+      }
+    }
+
+    // Field 5: What I did (checkboxes)
+    const whatIDidContainer = getAnswerContainer('What I did today');
+    const whatIDidCheckboxes = whatIDidContainer.locator('input[type="checkbox"]');
+    const whatIDidCount = await whatIDidCheckboxes.count();
+    const whatIDidToday: string[] = [];
+    for (let i = 0; i < whatIDidCount; i++) {
+      const checkbox = whatIDidCheckboxes.nth(i);
+      if (await checkbox.isChecked()) {
+        const label = checkbox.locator('..');
+        const text = await label.textContent();
+        if (text?.trim()) {
+          whatIDidToday.push(text.trim());
+        }
+      }
+    }
+
+    // Field 6: Training skills (checkboxes)
+    const trainingContainer = getAnswerContainer('Training skills');
+    const trainingCheckboxes = trainingContainer.locator('input[type="checkbox"]');
+    const trainingCount = await trainingCheckboxes.count();
+    const trainingSkills: string[] = [];
+    for (let i = 0; i < trainingCount; i++) {
+      const checkbox = trainingCheckboxes.nth(i);
+      if (await checkbox.isChecked()) {
+        const label = checkbox.locator('..');
+        const text = await label.textContent();
+        if (text?.trim()) {
+          trainingSkills.push(text.trim());
+        }
+      }
+    }
+
+    // Field 7: Caught being good (select multiple)
+    const caughtContainer = getAnswerContainer('Caught being good');
+    const caughtSelect = caughtContainer.locator('select').first();
+    const caughtOptions = caughtSelect.locator('option');
+    const caughtOptionsCount = await caughtOptions.count();
+    const caughtBeingGood: string[] = [];
+    for (let i = 0; i < caughtOptionsCount; i++) {
+      const option = caughtOptions.nth(i);
+      const isSelected = await option.evaluate((el: HTMLOptionElement) => el.selected);
+      if (isSelected) {
+        const text = await option.textContent();
+        if (text?.trim()) {
+          caughtBeingGood.push(text.trim());
+        }
+      }
+    }
+
+    // Field 8: Ooops (select multiple)
+    const ooopsContainer = getAnswerContainer('Ooops');
+    const ooopsSelect = ooopsContainer.locator('select').first();
+    const ooopsOptions = ooopsSelect.locator('option');
+    const ooopsOptionsCount = await ooopsOptions.count();
+    const ooops: string[] = [];
+    for (let i = 0; i < ooopsOptionsCount; i++) {
+      const option = ooopsOptions.nth(i);
+      const isSelected = await option.evaluate((el: HTMLOptionElement) => el.selected);
+      if (isSelected) {
+        const text = await option.textContent();
+        if (text?.trim()) {
+          ooops.push(text.trim());
+        }
+      }
+    }
+
+    // Field 9: Noteworthy (text in .css-quiz-answer divs)
+    const noteworthyQuestions = modal.locator('.css-quiz-question').filter({
+      hasText: /Noteworthy|continued/,
+    });
+    const noteworthyCount = await noteworthyQuestions.count();
+    const noteworthyParts: string[] = [];
+    for (let i = 0; i < noteworthyCount; i++) {
+      const question = noteworthyQuestions.nth(i);
+      const answerDiv = question.locator('..').locator('..').locator('.css-quiz-answer').first();
+      const text = await answerDiv.textContent();
+      if (text?.trim()) {
+        noteworthyParts.push(text.trim());
+      }
+    }
+    const noteworthyComments = noteworthyParts.join(' ').trim();
+
+    // Parse grade from label text
     const gradeMatch = gradeLabelText.match(/^([A-D])\s*=/);
     const grade = gradeMatch ? (gradeMatch[1] as Grade) : 'C';
-    const bestPartOfDay = formData.bestPart;
-    const whatIDidToday = formData.whatIDid;
-    const trainingSkills = formData.training;
-    const caughtBeingGood = formData.caught;
-    const ooops = formData.ooops;
-    const noteworthyComments = formData.noteworthy;
 
     if (verbose) {
       console.log(`   Trainers: ${realTrainerNames.length > 0 ? '*****' : '(none)'}`);
