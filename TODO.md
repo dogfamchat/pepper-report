@@ -112,33 +112,46 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - **Rationale:** Activities come from fixed checkboxes on daycare's app - no new activities unless app changes
 
   **Implementation Steps:**
-  1. [ ] Extract all unique activities from 31 existing reports
-     - Scan `whatIDidToday` arrays for all unique strings
-     - Scan `trainingSkills` arrays for all unique strings
-     - Document complete list of possible checkbox values
+  1. [x] Extract all unique activities from 31 existing reports ✅ COMPLETED Nov 10
+     - ✓ Scanned `whatIDidToday` arrays for all unique strings (14 unique)
+     - ✓ Scanned `trainingSkills` arrays for all unique strings (21 unique)
+     - ✓ Documented complete list of possible checkbox values
 
-  2. [ ] Create activity category mapping
-     - Define categories: playtime, training, enrichment, outdoor, socialization, rest
-     - Map each checkbox option to one or more categories
-     - Create `scripts/analysis/activity-categories.ts` with complete mapping
-     - Handle multi-category activities (e.g., "played with buddies" = playtime + socialization)
+  2. [x] Create activity category mapping ✅ COMPLETED Nov 10
+     - ✓ Defined categories: playtime, socialization, rest, outdoor, enrichment, training, special_event
+     - ✓ Defined training categories: obedience_commands, impulse_control_focus, physical_skills, handling_manners, advanced_training, fun_skills
+     - ✓ Created `scripts/analysis/activity-categories.ts` with complete mapping
+     - ✓ Handled multi-category activities (e.g., "had a pool party" = playtime + outdoor + socialization)
+     - ✓ Added color schemes for Chart.js visualization
+     - ✓ Committed in commit d953308
 
-  3. [ ] Create activity categorization logic
-     - Create `scripts/analysis/activity-categorizer.ts`
-     - Implement simple lookup function (no AI needed)
-     - Export `categorizeActivities(report)` function
-     - Return category counts for a single report
+  3. [x] Create activity categorization logic ✅ COMPLETED Nov 10
+     - ✓ Created `scripts/analysis/activity-categorizer.ts`
+     - ✓ Implemented simple lookup functions (no AI needed)
+     - ✓ Exported `categorizeReport(report)` function
+     - ✓ Returns category counts + raw activities for both views
+     - ✓ Added `calculateFrequencies()` for detailed activity/skill tracking
+     - ✓ Added `aggregateCategoryCounts()` for multi-report aggregation
+     - ✓ Committed in commits 2f50ebd, c81f916
 
-  4. [ ] Integrate into incremental analysis pipeline
-     - Update `scripts/analysis/extract-daily.ts` to include activity extraction
-     - Add `activities` field to daily analysis JSON structure
-     - Store categorized activities in `data/analysis/daily/YYYY-MM-DD.json`
+  4. [x] Integrate into incremental analysis pipeline ✅ COMPLETED Nov 10
+     - ✓ Updated `scripts/analysis/extract-daily.ts` to include activity extraction
+     - ✓ Extended `DailyAnalysis` interface with activity fields
+     - ✓ Added `activityCounts`, `trainingCounts`, `rawActivities`, `rawTrainingSkills` fields
+     - ✓ Categorization runs alongside friend extraction (no additional API cost)
+     - ✓ Committed in commit d797d4b
 
-  5. [ ] Create aggregation logic
-     - Update `scripts/analysis/aggregate.ts` to sum activity counts
-     - Calculate percentages across all reports
-     - Generate `data/analysis/aggregates/activity-breakdown.json`
-     - Generate `data/viz/activity-breakdown.json` (Chart.js format for pie/doughnut chart)
+  5. [ ] Create aggregation logic - IN PROGRESS
+     - **NEXT STEPS:**
+     - Add imports for activity categorizer functions to `aggregate.ts`
+     - Create `analyzeActivityBreakdown()` function to aggregate activities across all reports
+     - Create `generateActivityVizData()` function to format data for Chart.js (pie/doughnut charts)
+     - Update `main()` function to call activity analysis
+     - Update `saveResults()` to save:
+       - `data/analysis/aggregates/activity-breakdown.json` (category counts + detailed frequencies)
+       - `data/viz/activity-breakdown.json` (Chart.js format for category pie chart)
+       - `data/viz/activity-frequency.json` (Chart.js format for top activities bar chart)
+       - `data/viz/training-frequency.json` (Chart.js format for top training skills bar chart)
 
   6. [ ] Add activity charts to trends page
      - Update `src/pages/trends.astro` or `src/components/GradeCharts.astro`
@@ -151,14 +164,16 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
      - Check chart displays correctly
      - Commit changes and create PR
 
-  **Files to Create/Modify:**
-  - New: `scripts/analysis/activity-categories.ts` (mapping file)
-  - New: `scripts/analysis/activity-categorizer.ts` (categorization logic)
-  - Modify: `scripts/analysis/extract-daily.ts` (add activity extraction)
-  - Modify: `scripts/analysis/aggregate.ts` (add activity aggregation)
-  - New: `data/analysis/aggregates/activity-breakdown.json` (output)
-  - New: `data/viz/activity-breakdown.json` (Chart.js format)
-  - Modify: `src/pages/trends.astro` or `src/components/GradeCharts.astro` (add chart)
+  **Files Created/Modified:**
+  - ✅ New: `scripts/analysis/activity-categories.ts` (mapping file) - commit d953308
+  - ✅ New: `scripts/analysis/activity-categorizer.ts` (categorization logic) - commits 2f50ebd, c81f916
+  - ✅ Modified: `scripts/analysis/extract-daily.ts` (added activity extraction) - commit d797d4b
+  - ⏳ Modify: `scripts/analysis/aggregate.ts` (add activity aggregation) - IN PROGRESS
+  - ⏳ New: `data/analysis/aggregates/activity-breakdown.json` (output)
+  - ⏳ New: `data/viz/activity-breakdown.json` (Chart.js format for categories)
+  - ⏳ New: `data/viz/activity-frequency.json` (Chart.js format for top activities)
+  - ⏳ New: `data/viz/training-frequency.json` (Chart.js format for top training skills)
+  - 🔜 Modify: `src/pages/trends.astro` or `src/components/GradeCharts.astro` (add charts)
 
 - [x] **Display photos on website** ✅ COMPLETED Nov 10
   - ✓ Added photo display to homepage (latest report's photos)
