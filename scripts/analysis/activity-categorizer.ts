@@ -19,8 +19,12 @@ import {
  */
 export interface ActivityCategorization {
   date: string;
+  // Category counts (aggregated view)
   activityCounts: Record<ActivityCategory, number>;
   trainingCounts: Record<TrainingCategory, number>;
+  // Raw data (detailed view)
+  rawActivities: string[];
+  rawTrainingSkills: string[];
   totalActivities: number;
   totalTrainingSkills: number;
 }
@@ -70,6 +74,8 @@ export function categorizeReport(report: ReportCard): ActivityCategorization {
     date: report.date,
     activityCounts,
     trainingCounts,
+    rawActivities: report.whatIDidToday || [],
+    rawTrainingSkills: report.trainingSkills || [],
     totalActivities: report.whatIDidToday?.length || 0,
     totalTrainingSkills: report.trainingSkills?.length || 0,
   };
@@ -118,6 +124,34 @@ export function aggregateCategoryCounts(categorizations: ActivityCategorization[
     activityTotals,
     trainingTotals,
     totalReports: categorizations.length,
+  };
+}
+
+/**
+ * Calculate frequency of individual activities/skills across multiple reports
+ */
+export function calculateFrequencies(categorizations: ActivityCategorization[]): {
+  activityFrequency: Record<string, number>;
+  trainingFrequency: Record<string, number>;
+} {
+  const activityFrequency: Record<string, number> = {};
+  const trainingFrequency: Record<string, number> = {};
+
+  for (const categorization of categorizations) {
+    // Count each activity
+    for (const activity of categorization.rawActivities) {
+      activityFrequency[activity] = (activityFrequency[activity] || 0) + 1;
+    }
+
+    // Count each training skill
+    for (const skill of categorization.rawTrainingSkills) {
+      trainingFrequency[skill] = (trainingFrequency[skill] || 0) + 1;
+    }
+  }
+
+  return {
+    activityFrequency,
+    trainingFrequency,
   };
 }
 
