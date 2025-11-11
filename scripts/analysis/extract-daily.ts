@@ -9,6 +9,8 @@
  * Features:
  * - AI-powered friend name extraction (Claude API)
  * - Grade extraction and conversion
+ * - Activity categorization (rules-based, no AI)
+ * - Training skill categorization (rules-based, no AI)
  * - Idempotent: safe to re-run on existing dates
  *
  * Usage:
@@ -20,6 +22,8 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import type { Grade, ReportCard } from '../types';
+import type { ActivityCategory, TrainingCategory } from './activity-categories';
+import { categorizeReport } from './activity-categorizer';
 import { gradeToNumber, readReportCard } from './report-reader';
 
 /**
@@ -37,6 +41,14 @@ export interface DailyAnalysis {
   friends: string[];
   /** Raw comment text (for reference) */
   comment: string;
+  /** Activity category counts (aggregated view) */
+  activityCounts: Record<ActivityCategory, number>;
+  /** Training category counts (aggregated view) */
+  trainingCounts: Record<TrainingCategory, number>;
+  /** Raw activities (detailed view) */
+  rawActivities: string[];
+  /** Raw training skills (detailed view) */
+  rawTrainingSkills: string[];
   /** Timestamp when this analysis was generated */
   analyzedAt: string;
 }
@@ -205,12 +217,24 @@ async function extractDaily(
     console.log(`   Friends found: ${friends.join(', ')}`);
   }
 
+  // Categorize activities and training skills (no AI needed - pure logic)
+  const categorization = categorizeReport(report);
+
+  if (verbose) {
+    console.log(`   Activities: ${categorization.totalActivities}`);
+    console.log(`   Training skills: ${categorization.totalTrainingSkills}`);
+  }
+
   return {
     date: report.date,
     grade: report.grade,
     gradeNumeric: gradeToNumber(report.grade),
     friends,
     comment: report.noteworthyComments,
+    activityCounts: categorization.activityCounts,
+    trainingCounts: categorization.trainingCounts,
+    rawActivities: categorization.rawActivities,
+    rawTrainingSkills: categorization.rawTrainingSkills,
     analyzedAt: new Date().toISOString(),
   };
 }
