@@ -1,14 +1,47 @@
 # TODO - Pepper Report Project
 
 **Last Updated:** 2025-11-10
-**Current Phase:** Analysis & Visualization (Phase 3 - Near Complete)
-**Current Branch:** add-photo-display (rebased on main, ready for review)
+**Current Phase:** Analysis & Visualization (Phase 3 - Complete)
+**Current Branch:** activity-categorization (ready for review and merge)
 
 ## Overview
 
 This tracks remaining work to complete the Pepper Report project. See [docs/design-proposal.md](docs/design-proposal.md) for full architecture and [docs/report-card-data-structure.md](docs/report-card-data-structure.md) for data schema details.
 
 ## Recent Progress
+
+### Nov 10, 2025 - Activity Categorization ✅ COMPLETE
+
+**Branch:** `activity-categorization` (ready for merge)
+
+**Completed:**
+- ✅ **Activity Aggregation Logic** (`scripts/analysis/aggregate.ts`)
+  - Created `analyzeActivityBreakdown()` function
+  - Built 4 Chart.js visualization generators
+  - Integrated into automated analysis pipeline
+
+- ✅ **Activity Charts on Trends Page** (`src/pages/trends.astro`)
+  - Activity category doughnut chart (7 categories)
+  - Training category doughnut chart (6 categories)
+  - Top 10 activities horizontal bar chart
+  - Top 10 training skills horizontal bar chart
+  - Responsive grid layout with proper Chart.js initialization
+
+- ✅ **Data Processing**
+  - Regenerated all 32 daily analysis files with activity fields
+  - Created 5 new visualization data files in `data/viz/`
+  - All builds passing, TypeScript checks clean
+
+**Statistics:**
+- 255 total activity instances across 32 reports
+- 135 total training instances
+- Top categories: Playtime (39%), Socialization (26%), Outdoor (13%)
+- Top training: Obedience Commands (38%), Handling & Manners (30%)
+
+**Commits:**
+- `3942ca1` - Add activity categorization aggregation and visualization
+- `f740b26` - Update TODO.md with completed activity categorization
+- `00f2070` - Fix activity chart initialization
 
 ### Nov 10, 2025 - Photo Display Feature ✅ COMPLETE
 
@@ -89,9 +122,15 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - **14 photos uploaded to Cloudflare R2 (Nov 10: now visible on website!)**
 - **12 unique friends identified** (filtered, sorted by recency)
 
-## Current Priority: Activity Analysis
+## Current Status
 
-**Photo display is now complete!** ✅ Friend analysis is complete! Next priority is implementing activity categorization.
+**Activity categorization is now complete!** ✅ All major analysis features are implemented:
+- Grade trends ✅
+- Friend analysis ✅
+- Activity categorization ✅
+- Photo display ✅
+
+The `activity-categorization` branch is ready for review and merge into `main`.
 
 ### Immediate Tasks (Next Session)
 
@@ -106,7 +145,7 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - ✓ Integrated into analyze-all.ts automated pipeline
   - ✓ **Restructured for incremental updates (cost-efficient)**
 
-- [ ] **Implement activity categorization (PRIORITY)** - IN PROGRESS
+- [x] **Implement activity categorization** ✅ COMPLETED Nov 10
   - **Branch:** `activity-categorization`
   - **Approach:** Rules-based mapping (no AI needed)
   - **Rationale:** Activities come from fixed checkboxes on daycare's app - no new activities unless app changes
@@ -141,39 +180,49 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
      - ✓ Categorization runs alongside friend extraction (no additional API cost)
      - ✓ Committed in commit d797d4b
 
-  5. [ ] Create aggregation logic - IN PROGRESS
-     - **NEXT STEPS:**
-     - Add imports for activity categorizer functions to `aggregate.ts`
-     - Create `analyzeActivityBreakdown()` function to aggregate activities across all reports
-     - Create `generateActivityVizData()` function to format data for Chart.js (pie/doughnut charts)
-     - Update `main()` function to call activity analysis
-     - Update `saveResults()` to save:
-       - `data/analysis/aggregates/activity-breakdown.json` (category counts + detailed frequencies)
-       - `data/viz/activity-breakdown.json` (Chart.js format for category pie chart)
-       - `data/viz/activity-frequency.json` (Chart.js format for top activities bar chart)
-       - `data/viz/training-frequency.json` (Chart.js format for top training skills bar chart)
+  5. [x] Create aggregation logic ✅ COMPLETED Nov 10
+     - ✓ Added imports for activity categorizer functions to `aggregate.ts`
+     - ✓ Created `analyzeActivityBreakdown()` function to aggregate activities across all reports
+     - ✓ Created visualization data generators for Chart.js
+     - ✓ Updated `main()` function to call activity analysis
+     - ✓ Updated `saveResults()` to save all activity data files
+     - ✓ Integrated into `analyze-all.ts` pipeline
+     - ✓ Committed in commit 3942ca1
 
-  6. [ ] Add activity charts to trends page
-     - Update `src/pages/trends.astro` or `src/components/GradeCharts.astro`
-     - Add pie or doughnut chart showing activity distribution
-     - Display category percentages and counts
+  6. [x] Add activity charts to trends page ✅ COMPLETED Nov 10
+     - ✓ Updated `src/pages/trends.astro` with 4 new activity charts
+     - ✓ Added activity category doughnut chart (7 categories)
+     - ✓ Added training category doughnut chart (6 categories)
+     - ✓ Added top 10 activities horizontal bar chart
+     - ✓ Added top 10 training skills horizontal bar chart
+     - ✓ Implemented Chart.js initialization scripts
+     - ✓ Added responsive grid layout
+     - ✓ Committed in commit 3942ca1
 
-  7. [ ] Test and verify
-     - Run analysis on all 31 reports
-     - Verify categorizations make sense
-     - Check chart displays correctly
-     - Commit changes and create PR
+  7. [x] Test and verify ✅ COMPLETED Nov 10
+     - ✓ Regenerated all 32 daily analysis files with activity data
+     - ✓ Verified categorizations and data accuracy
+     - ✓ Build verified and passing (Astro check + biome)
+     - ✓ Committed in commit 3942ca1
+
+  **Results:**
+  - 255 total activity instances across 32 reports
+  - 135 total training instances
+  - Top activity categories: Playtime (39%), Socialization (26%), Outdoor (13%)
+  - Top training categories: Obedience Commands (38%), Handling & Manners (30%)
 
   **Files Created/Modified:**
-  - ✅ New: `scripts/analysis/activity-categories.ts` (mapping file) - commit d953308
-  - ✅ New: `scripts/analysis/activity-categorizer.ts` (categorization logic) - commits 2f50ebd, c81f916
-  - ✅ Modified: `scripts/analysis/extract-daily.ts` (added activity extraction) - commit d797d4b
-  - ⏳ Modify: `scripts/analysis/aggregate.ts` (add activity aggregation) - IN PROGRESS
-  - ⏳ New: `data/analysis/aggregates/activity-breakdown.json` (output)
-  - ⏳ New: `data/viz/activity-breakdown.json` (Chart.js format for categories)
-  - ⏳ New: `data/viz/activity-frequency.json` (Chart.js format for top activities)
-  - ⏳ New: `data/viz/training-frequency.json` (Chart.js format for top training skills)
-  - 🔜 Modify: `src/pages/trends.astro` or `src/components/GradeCharts.astro` (add charts)
+  - ✅ New: `scripts/analysis/activity-categories.ts` (mapping file)
+  - ✅ New: `scripts/analysis/activity-categorizer.ts` (categorization logic)
+  - ✅ Modified: `scripts/analysis/extract-daily.ts` (added activity extraction)
+  - ✅ Modified: `scripts/analysis/aggregate.ts` (added activity aggregation)
+  - ✅ Modified: `scripts/analysis/analyze-all.ts` (integrated into pipeline)
+  - ✅ New: `data/analysis/aggregates/activity-breakdown.json` (aggregate data)
+  - ✅ New: `data/viz/activity-categories.json` (Chart.js format for category pie)
+  - ✅ New: `data/viz/training-categories.json` (Chart.js format for training pie)
+  - ✅ New: `data/viz/activity-frequency.json` (Chart.js format for top activities bar)
+  - ✅ New: `data/viz/training-frequency.json` (Chart.js format for top training bar)
+  - ✅ Modified: `src/pages/trends.astro` (added 4 activity charts)
 
 - [x] **Display photos on website** ✅ COMPLETED Nov 10
   - ✓ Added photo display to homepage (latest report's photos)
