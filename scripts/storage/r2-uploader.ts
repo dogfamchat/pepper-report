@@ -12,6 +12,7 @@ import { join } from 'node:path';
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
 import type { PhotoMetadata, PhotosCollection } from '../types';
+import { getCurrentTimestamp } from '../utils/date-utils';
 
 interface R2Config {
   accountId: string;
@@ -213,7 +214,7 @@ export async function uploadPhotosToR2(
         size: fullBuffer.length,
         width: metadata.width,
         height: metadata.height,
-        uploaded: new Date().toISOString(),
+        uploaded: getCurrentTimestamp(),
       };
 
       // Update photos.json
@@ -344,7 +345,7 @@ export async function uploadLocalPhotosToR2(
         size: fullBuffer.length,
         width: metadata.width,
         height: metadata.height,
-        uploaded: new Date().toISOString(),
+        uploaded: getCurrentTimestamp(),
       };
 
       // Update photos.json

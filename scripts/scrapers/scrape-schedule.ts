@@ -17,6 +17,7 @@ import { join } from 'node:path';
 import { chromium } from 'playwright';
 import type { Schedule } from '../types';
 import { getCredentials, login } from '../utils/auth-utils';
+import { getCurrentMonth, parseScheduleDate } from '../utils/date-utils';
 
 interface ScraperOptions {
   month?: string; // YYYY-MM format
@@ -113,95 +114,13 @@ function saveSchedule(year: string, schedule: Schedule): void {
 }
 
 /**
- * Parse a date from schedule text into YYYY-MM-DD format
- * Handles common date formats found on daycare websites
- */
-function parseScheduleDate(dateText: string): string | null {
-  const cleaned = dateText.trim();
-
-  // Skip header rows or common non-date text
-  const headerPatterns = /^(date|time|status|day|month|year|schedule|location|teacher|staff)$/i;
-  if (headerPatterns.test(cleaned) || cleaned.length < 3) {
-    return null;
-  }
-
-  // Try ISO format first: 2024-11-15
-  if (/^\d{4}-\d{2}-\d{2}$/.test(cleaned)) {
-    return cleaned;
-  }
-
-  // Try slash format: 11/15/2024 or 2024/11/15
-  const slashMatch = cleaned.match(/(\d{1,4})[/-](\d{1,2})[/-](\d{1,4})/);
-  if (slashMatch) {
-    const [, first, second, third] = slashMatch;
-    // Determine which is year
-    if (first.length === 4) {
-      // 2024/11/15 or 2024-11-15
-      return `${first}-${second.padStart(2, '0')}-${third.padStart(2, '0')}`;
-    } else if (third.length === 4) {
-      // 11/15/2024 or 11-15-2024
-      return `${third}-${first.padStart(2, '0')}-${second.padStart(2, '0')}`;
-    }
-  }
-
-  // Try text format: "November 15, 2024" or "Nov 15, 2024"
-  const textMatch = cleaned.match(
-    /(January|February|March|April|May|June|July|August|September|October|November|December|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2}),?\s+(\d{4})/i,
-  );
-  if (textMatch) {
-    const [, monthName, day, year] = textMatch;
-    const monthMap: Record<string, string> = {
-      jan: '01',
-      january: '01',
-      feb: '02',
-      february: '02',
-      mar: '03',
-      march: '03',
-      apr: '04',
-      april: '04',
-      may: '05',
-      jun: '06',
-      june: '06',
-      jul: '07',
-      july: '07',
-      aug: '08',
-      august: '08',
-      sep: '09',
-      september: '09',
-      oct: '10',
-      october: '10',
-      nov: '11',
-      november: '11',
-      dec: '12',
-      december: '12',
-    };
-    const month = monthMap[monthName.toLowerCase()];
-    if (month) {
-      return `${year}-${month}-${day.padStart(2, '0')}`;
-    }
-  }
-
-  // Try data-date attribute format
-  const dataDateMatch = cleaned.match(/data-date="(\d{4}-\d{2}-\d{2})"/);
-  if (dataDateMatch) {
-    return dataDateMatch[1];
-  }
-
-  // Only warn if it looks like it should be a date (contains numbers)
-  if (/\d/.test(cleaned)) {
-    console.warn(`   ⚠️  Could not parse date: "${dateText}"`);
-  }
-  return null;
-}
-
-/**
  * Scrape schedule for a specific month
  */
 async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
   const { month, headless = true, verbose = false } = options;
 
   // Determine target month (default: current month)
-  const targetMonth = month || new Date().toISOString().slice(0, 7);
+  const targetMonth = month || getCurrentMonth();
 
   if (verbose) {
     console.log(`🔍 Scraping schedule for ${targetMonth}`);
@@ -241,8 +160,7 @@ async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
     await pastScheduleLink.waitFor();
 
     // Determine if we should use Upcoming or Past schedule
-    const now = new Date();
-    const currentMonth = now.toISOString().slice(0, 7);
+    const currentMonth = getCurrentMonth();
     const isPastMonth = targetMonth < currentMonth;
 
     if (verbose) {
@@ -454,7 +372,7 @@ async function scrapeSchedule(options: ScraperOptions): Promise<string[]> {
  */
 async function main() {
   const options = parseArgs();
-  const targetMonth = options.month || new Date().toISOString().slice(0, 7);
+  const targetMonth = options.month || getCurrentMonth();
   const [year] = targetMonth.split('-');
 
   console.log('📅 Pepper Schedule Scraper\n');

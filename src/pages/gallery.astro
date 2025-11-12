@@ -1,19 +1,10 @@
 ---
 import photosData from '../../photos.json';
+import { formatMonth, formatShortDate } from '../../scripts/utils/date-utils';
 import Layout from '../layouts/Layout.astro';
 
 // Sort photos by date (newest first)
 const photos = [...photosData.photos].sort((a, b) => b.date.localeCompare(a.date));
-
-// Format date
-const formatDate = (dateStr: string) => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-};
 
 // Group photos by month for section headers
 interface PhotosByMonth {
@@ -30,13 +21,6 @@ const photosByMonth = photos.reduce((acc, photo) => {
 }, {} as PhotosByMonth);
 
 const months = Object.keys(photosByMonth);
-
-// Format month name
-const formatMonth = (monthStr: string) => {
-  const [year, month] = monthStr.split('-');
-  const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
-  return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
-};
 ---
 
 <Layout title="Photo Gallery - Pepper's Daycare">
@@ -67,7 +51,7 @@ const formatMonth = (monthStr: string) => {
                   loading="lazy"
                 />
                 <div class="photo-overlay">
-                  <span class="photo-date">{formatDate(photo.date)}</span>
+                  <span class="photo-date">{formatShortDate(photo.date)}</span>
                 </div>
               </button>
             </div>

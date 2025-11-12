@@ -2,6 +2,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import photosData from '../../photos.json';
+import { formatMonth, formatShortDate } from '../../scripts/utils/date-utils';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -19,29 +20,6 @@ const reports = reportFiles.map((filename) => {
 
 // Create a Set of dates that have photos
 const datesWithPhotos = new Set(photosData.photos.map((photo) => photo.date));
-
-// Format date nicely
-const formatDate = (dateStr: string) => {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-  return date.toLocaleDateString('en-CA', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
-
-// Format short date
-const formatShortDate = (dateStr: string) => {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-  return date.toLocaleDateString('en-CA', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  });
-};
 
 // Group reports by month
 interface ReportCard {
@@ -70,13 +48,6 @@ const reportsByMonth = reports.reduce(
 );
 
 const months = Object.keys(reportsByMonth);
-
-// Format month name
-const formatMonth = (monthStr: string) => {
-  const [year, month] = monthStr.split('-');
-  const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
-  return date.toLocaleDateString('en-CA', { month: 'long', year: 'numeric' });
-};
 ---
 
 <Layout title="Timeline - Pepper's Daycare">

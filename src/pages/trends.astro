@@ -1,517 +1,7 @@
 ---
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { formatDateNoYear, formatMonth } from '../../scripts/utils/date-utils';
 import GradeCharts from '../components/GradeCharts.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -565,20 +55,6 @@ try {
   // Activity viz data not available
 }
 
-// Format date for display
-const formatDate = (dateStr: string) => {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-  return date.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
-};
-
-// Format month name
-const formatMonth = (monthStr: string) => {
-  const [year, month] = monthStr.split('-');
-  const date = new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1);
-  return date.toLocaleDateString('en-CA', { month: 'long', year: 'numeric' });
-};
-
 // Calculate grade percentage
 const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
 ---
@@ -606,7 +82,7 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
         </div>
         <div class="summary-stat">
           <span class="stat-label">Date Range</span>
-          <span class="stat-value">{formatDate(trends.summary.dateRange.start)} - {formatDate(trends.summary.dateRange.end)}</span>
+          <span class="stat-value">{formatDateNoYear(trends.summary.dateRange.start)} - {formatDateNoYear(trends.summary.dateRange.end)}</span>
         </div>
       </div>
     </div>
@@ -629,7 +105,7 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
               <span class="friend-rank">{i + 1}</span>
               <div class="friend-info">
                 <span class="friend-name">{friend.name}</span>
-                <span class="friend-last-seen">Last seen {formatDate(friend.lastSeen)}</span>
+                <span class="friend-last-seen">Last seen {formatDateNoYear(friend.lastSeen)}</span>
               </div>
               <span class="friend-mentions">{friend.mentions} {friend.mentions === 1 ? 'mention' : 'mentions'}</span>
             </div>
@@ -729,7 +205,7 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
         <div class="week-card">
           <div class="week-header">
             <span class="week-label">{week.week}</span>
-            <span class="week-dates">{formatDate(week.startDate)} - {formatDate(week.endDate)}</span>
+            <span class="week-dates">{formatDateNoYear(week.startDate)} - {formatDateNoYear(week.endDate)}</span>
             <span class="week-grade grade-badge-{week.averageGrade === 4 ? 'a' : 'b'}">{week.averageGrade.toFixed(2)}</span>
           </div>
           <div class="week-details">
@@ -1367,41 +843,53 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
   };
 
   // Initialize activity category chart
-  const activityCategoriesCanvas = document.getElementById('activityCategoriesChart');
+  const activityCategoriesCanvas = document.getElementById('activityCategoriesChart') as HTMLCanvasElement | null;
   if (activityCategoriesCanvas) {
-    const config = JSON.parse(activityCategoriesCanvas.dataset.chartConfig);
-    config.options.plugins.tooltip.callbacks.afterLabel = function(context) {
-      const label = context.label;
-      const items = activityCategoryItems[label] || [];
-      return items.map(item => '• ' + item);
-    };
-    new Chart(activityCategoriesCanvas, config);
+    const configStr = activityCategoriesCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
+        const label = context.label as string;
+        const items = activityCategoryItems[label as keyof typeof activityCategoryItems] || [];
+        return items.map((item: string) => '• ' + item);
+      };
+      new Chart(activityCategoriesCanvas, config);
+    }
   }
 
   // Initialize training category chart
-  const trainingCategoriesCanvas = document.getElementById('trainingCategoriesChart');
+  const trainingCategoriesCanvas = document.getElementById('trainingCategoriesChart') as HTMLCanvasElement | null;
   if (trainingCategoriesCanvas) {
-    const config = JSON.parse(trainingCategoriesCanvas.dataset.chartConfig);
-    config.options.plugins.tooltip.callbacks.afterLabel = function(context) {
-      const label = context.label;
-      const items = trainingCategoryItems[label] || [];
-      return items.map(item => '• ' + item);
-    };
-    new Chart(trainingCategoriesCanvas, config);
+    const configStr = trainingCategoriesCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
+        const label = context.label as string;
+        const items = trainingCategoryItems[label as keyof typeof trainingCategoryItems] || [];
+        return items.map((item: string) => '• ' + item);
+      };
+      new Chart(trainingCategoriesCanvas, config);
+    }
   }
 
   // Initialize activity frequency chart
-  const activityFrequencyCanvas = document.getElementById('activityFrequencyChart');
+  const activityFrequencyCanvas = document.getElementById('activityFrequencyChart') as HTMLCanvasElement | null;
   if (activityFrequencyCanvas) {
-    const config = JSON.parse(activityFrequencyCanvas.dataset.chartConfig);
-    new Chart(activityFrequencyCanvas, config);
+    const configStr = activityFrequencyCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(activityFrequencyCanvas, config);
+    }
   }
 
   // Initialize training frequency chart
-  const trainingFrequencyCanvas = document.getElementById('trainingFrequencyChart');
+  const trainingFrequencyCanvas = document.getElementById('trainingFrequencyChart') as HTMLCanvasElement | null;
   if (trainingFrequencyCanvas) {
-    const config = JSON.parse(trainingFrequencyCanvas.dataset.chartConfig);
-    new Chart(trainingFrequencyCanvas, config);
+    const configStr = trainingFrequencyCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(trainingFrequencyCanvas, config);
+    }
   }
 
   // Modal functionality
@@ -1412,11 +900,13 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
   // Open modal
   infoButtons.forEach(button => {
     button.addEventListener('click', () => {
-      const modalId = button.dataset.modal;
-      const modal = document.getElementById(modalId);
-      if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      const modalId = (button as HTMLElement).dataset.modal;
+      if (modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
       }
     });
   });

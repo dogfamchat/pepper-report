@@ -7,10 +7,10 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "scrape:schedule": "bun run scripts/scrapers/scrape-schedule.ts",
-    "scrape:report": "bun run scripts/scrapers/scrape-report.ts",
-    "backfill:schedule": "bun run scripts/backfill-schedule.ts",
-    "backfill:reports": "bun run scripts/backfill.ts",
+    "scrape:schedule": "bun tsx --env-file=.env scripts/scrapers/scrape-schedule.ts",
+    "scrape:report": "bun tsx --env-file=.env scripts/scrapers/scrape-report.ts",
+    "backfill:schedule": "bun tsx --env-file=.env scripts/backfill-schedule.ts",
+    "backfill:reports": "bun tsx --env-file=.env scripts/backfill.ts",
     "analyze": "bun run scripts/analysis/analyze-all.ts",
     "anonymize": "bun run scripts/anonymize.ts",
     "test": "bun test",
@@ -25,6 +25,7 @@
     "@aws-sdk/client-s3": "^3.922.0",
     "astro": "^5.15.3",
     "chart.js": "^4.5.1",
+    "dayjs": "^1.11.19",
     "playwright": "^1.56.1",
     "sharp": "^0.34.4"
   },
@@ -33,6 +34,7 @@
     "@biomejs/biome": "^2.3.2",
     "@types/bun": "latest",
     "lefthook": "^2.0.2",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }

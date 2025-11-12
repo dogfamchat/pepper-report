@@ -17,6 +17,7 @@
 
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { getISOWeekString, getWeekBounds } from '../utils/date-utils';
 import {
   ACTIVITY_CATEGORY_MAP,
   ACTIVITY_COLORS,
@@ -29,7 +30,6 @@ import {
 } from './activity-categories';
 import { aggregateCategoryCounts, calculateFrequencies } from './activity-categorizer';
 import type { DailyAnalysis } from './extract-daily';
-import { getISOWeekString, getWeekBounds } from './report-reader';
 
 interface WeeklySummary {
   week: string; // ISO week format: YYYY-WXX

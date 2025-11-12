@@ -7,6 +7,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import type { PhotosCollection, ReportCard } from '../types';
+import { getCurrentDate } from '../utils/date-utils';
 
 // Grade emoji mapping
 const GRADE_EMOJI: Record<string, string> = {
@@ -290,8 +291,7 @@ async function main() {
   const args = process.argv.slice(2);
   const dateArg = args.find((arg) => arg.startsWith('--date='))?.split('=')[1];
   const dateIndex = args.indexOf('--date');
-  const date =
-    dateArg || (dateIndex !== -1 && args[dateIndex + 1]) || new Date().toISOString().split('T')[0];
+  const date = dateArg || (dateIndex !== -1 && args[dateIndex + 1]) || getCurrentDate();
 
   console.log(`📨 Preparing Slack notification for report card: ${date}`);
 

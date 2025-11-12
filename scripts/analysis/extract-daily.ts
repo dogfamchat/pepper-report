@@ -22,6 +22,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import type { Grade, ReportCard } from '../types';
+import { getCurrentTimestamp } from '../utils/date-utils';
 import type { ActivityCategory, TrainingCategory } from './activity-categories';
 import { categorizeReport } from './activity-categorizer';
 import { gradeToNumber, readReportCard } from './report-reader';
@@ -235,7 +236,7 @@ async function extractDaily(
     trainingCounts: categorization.trainingCounts,
     rawActivities: categorization.rawActivities,
     rawTrainingSkills: categorization.rawTrainingSkills,
-    analyzedAt: new Date().toISOString(),
+    analyzedAt: getCurrentTimestamp(),
   };
 }
 

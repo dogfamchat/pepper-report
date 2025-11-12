@@ -2,6 +2,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import photosData from '../../photos.json';
+import { formatDate } from '../../scripts/utils/date-utils';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -26,18 +27,6 @@ const gradeTrends = JSON.parse(readFileSync(gradeTrendsPath, 'utf-8'));
 
 // Calculate grade percentage
 const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
-
-// Format date nicely
-const formatDate = (dateStr: string) => {
-  const [year, month, day] = dateStr.split('-').map(Number);
-  const date = new Date(year, month - 1, day);
-  return date.toLocaleDateString('en-CA', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-};
 ---
 
 <Layout title="Pepper's Daycare Dashboard">
