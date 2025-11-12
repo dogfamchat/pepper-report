@@ -4,5 +4,33 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "Happy Friday! Today was fearless friday, the dogs practiced going down the slide obstacle into the pool! Pepper was very vocal\ntoday and was policing her friends a little bit. She required some time with the trainers to work on manners",
-  "analyzedAt": "2025-11-10T00:00:04.438Z"
+  "activityCounts": {
+    "playtime": 1,
+    "socialization": 1,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 1,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 1,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "hands-free work",
+    "impulse control"
+  ],
+  "analyzedAt": "2025-11-11T02:30:06.731Z"
 }

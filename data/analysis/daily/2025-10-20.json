@@ -4,5 +4,31 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Today I got to work on thresholds and sit practice. I did so well and listened to my trainers! After my training I played with so many friends 🧡",
-  "analyzedAt": "2025-11-10T00:00:25.755Z"
+  "activityCounts": {
+    "playtime": 3,
+    "socialization": 2,
+    "rest": 0,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)"
+  ],
+  "analyzedAt": "2025-11-11T02:30:32.487Z"
 }

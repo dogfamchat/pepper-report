@@ -4,5 +4,36 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "Today we honored Gander. 🇨🇦🐾\nOur event was a mini obstacle course, and the dogs practiced going through the course and interacting with the “grenade” (ball on a rope). They stayed focused, worked as a team, and showed confidence and bravery — just like Gander. ✨\n🦴🐕🌺",
-  "analyzedAt": "2025-11-10T22:49:17.538Z"
+  "activityCounts": {
+    "playtime": 3,
+    "socialization": 3,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 3,
+    "impulse_control_focus": 0,
+    "physical_skills": 2,
+    "handling_manners": 0,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall",
+    "agility",
+    "balancing skills"
+  ],
+  "analyzedAt": "2025-11-11T02:30:43.126Z"
 }

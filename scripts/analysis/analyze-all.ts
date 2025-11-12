@@ -19,10 +19,15 @@ import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import {
+  analyzeActivityBreakdown,
   analyzeFriendStats,
   analyzeGradeTrends,
+  generateActivityCategoryViz,
+  generateActivityFrequencyViz,
   generateFriendNetworkViz,
   generateGradeTimeline,
+  generateTrainingCategoryViz,
+  generateTrainingFrequencyViz,
 } from './aggregate';
 import type { DailyAnalysis } from './extract-daily';
 import { dailyAnalysisExists, extractDaily, saveDailyAnalysis } from './extract-daily';
@@ -248,9 +253,16 @@ async function main() {
     const topFriends = analyzeFriendStats(analyses);
     console.log(`   Unique friends: ${topFriends.friends.length}`);
 
+    // Aggregate activity breakdown
+    const activityBreakdown = analyzeActivityBreakdown(analyses);
+
     // Generate visualization data
     const timeline = generateGradeTimeline(analyses);
     const friendNetworkViz = generateFriendNetworkViz(topFriends);
+    const activityCategoryViz = generateActivityCategoryViz(activityBreakdown);
+    const trainingCategoryViz = generateTrainingCategoryViz(activityBreakdown);
+    const activityFrequencyViz = generateActivityFrequencyViz(activityBreakdown);
+    const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
 
     // STEP 3: Save aggregated results
     console.log('\n💾 Saving aggregated data...');
@@ -291,6 +303,48 @@ async function main() {
     const friendNetworkFile = join(vizDir, 'friend-network.json');
     writeFileSync(friendNetworkFile, `${JSON.stringify(friendNetworkViz, null, 2)}\n`, 'utf-8');
     console.log('   ✅ data/viz/friend-network.json');
+
+    // Save activity breakdown
+    const activityBreakdownFile = join(aggregatesDir, 'activity-breakdown.json');
+    writeFileSync(
+      activityBreakdownFile,
+      `${JSON.stringify(activityBreakdown, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/analysis/aggregates/activity-breakdown.json');
+
+    // Save activity visualization data
+    const activityCategoryFile = join(vizDir, 'activity-categories.json');
+    writeFileSync(
+      activityCategoryFile,
+      `${JSON.stringify(activityCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/activity-categories.json');
+
+    const trainingCategoryFile = join(vizDir, 'training-categories.json');
+    writeFileSync(
+      trainingCategoryFile,
+      `${JSON.stringify(trainingCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/training-categories.json');
+
+    const activityFrequencyFile = join(vizDir, 'activity-frequency.json');
+    writeFileSync(
+      activityFrequencyFile,
+      `${JSON.stringify(activityFrequencyViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/activity-frequency.json');
+
+    const trainingFrequencyFile = join(vizDir, 'training-frequency.json');
+    writeFileSync(
+      trainingFrequencyFile,
+      `${JSON.stringify(trainingFrequencyViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/training-frequency.json');
 
     // Summary
     console.log('\n═══════════════════════════════════════\n');

@@ -1,14 +1,58 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-11-10
-**Current Phase:** Analysis & Visualization (Phase 3 - Near Complete)
-**Current Branch:** add-photo-display (rebased on main, ready for review)
+**Last Updated:** 2025-11-11
+**Current Phase:** Analysis & Visualization (Phase 3 - Complete)
+**Current Branch:** activity-categorization (ready for review and merge)
 
 ## Overview
 
 This tracks remaining work to complete the Pepper Report project. See [docs/design-proposal.md](docs/design-proposal.md) for full architecture and [docs/report-card-data-structure.md](docs/report-card-data-structure.md) for data schema details.
 
 ## Recent Progress
+
+### Nov 11, 2025 - Activity Categorization ✅ COMPLETE
+
+**Branch:** `activity-categorization` (ready for merge)
+
+**Completed:**
+- ✅ **Activity Aggregation Logic** (`scripts/analysis/aggregate.ts`)
+  - Created `analyzeActivityBreakdown()` function
+  - Built 4 Chart.js visualization generators
+  - Integrated into automated analysis pipeline
+
+- ✅ **Activity Charts on Trends Page** (`src/pages/trends.astro`)
+  - Activity category horizontal bar chart (7 categories)
+  - Training category horizontal bar chart (6 categories)
+  - Top 10 activities horizontal bar chart
+  - Top 10 training skills horizontal bar chart
+  - Enhanced tooltips showing which activities/skills belong to each category
+  - Info modals (ℹ️) with comprehensive category breakdowns
+  - Responsive grid layout with proper Chart.js initialization
+
+- ✅ **Chart Refinements** (Nov 11)
+  - Fixed color palette for better contrast (purple, teal, sky blue)
+  - Fixed bar chart label visibility (all 10 labels now showing)
+  - Adjusted chart heights for better proportions
+  - Fixed doughnut chart size inconsistency
+  - Converted category charts from doughnut to horizontal bars (more accurate for overlapping categories)
+  - Consistent legend styling across all charts
+
+- ✅ **Data Processing**
+  - Regenerated all 32 daily analysis files with activity fields
+  - Created 5 new visualization data files in `data/viz/`
+  - All builds passing, TypeScript checks clean
+
+**Statistics:**
+- 255 total activity instances across 32 reports
+- 135 total training instances
+- Top categories: Playtime (99 instances), Socialization (67), Outdoor (33)
+- Top training: Obedience Commands (51), Handling & Manners (40)
+
+**Key Commits:**
+- `3942ca1` - Add activity categorization aggregation and visualization
+- `f54e201` - Adjust activity charts (colors, labels, sizing)
+- `37582f2` - Fix doughnut chart size inconsistency
+- `5b30d5f` - Convert category charts from doughnut to horizontal bar charts
 
 ### Nov 10, 2025 - Photo Display Feature ✅ COMPLETE
 
@@ -82,18 +126,67 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - **Performance:** New reports process in ~1s (vs ~34s for full batch)
   - **Cost:** $0.00004 per new report (vs $0.0012 per full run)
 
-**📊 Current Stats:**
-- 31 report cards scraped (Aug-Nov 2025)
+**📊 Current Stats (as of Nov 11, 2025):**
+- 32 report cards scraped (Aug 8 - Nov 10, 2025)
 - Overall average: 3.58/4.0 (89.5%)
 - 14 weeks tracked, 4 months of data
-- **14 photos uploaded to Cloudflare R2 (Nov 10: now visible on website!)**
+- **14 photos uploaded to Cloudflare R2** (all displayed with lightbox modal)
 - **12 unique friends identified** (filtered, sorted by recency)
+- **255 activity instances tracked** across 7 categories
+- **135 training instances tracked** across 6 categories
+- **95 positive behaviors** ("Caught Being Good") - not yet visualized
+- **13 "ooops" behaviors** - not yet visualized
 
-## Current Priority: Activity Analysis
+## Current Status
 
-**Photo display is now complete!** ✅ Friend analysis is complete! Next priority is implementing activity categorization.
+**Activity categorization is now complete!** ✅ All major analysis features are implemented:
+- Grade trends ✅
+- Friend analysis ✅
+- Activity categorization ✅ (with 4 charts + info modals)
+- Photo display ✅ (with lightbox modal + timeline indicators)
+
+**Ready to merge:** The `activity-categorization` branch has been fully tested and is ready for production deployment.
+- ✅ PR #10 created: https://github.com/dogfamchat/pepper-report/pull/10
+- ✅ All builds passing (Astro + TypeScript + Biome)
+- ✅ Dev server tested locally
+- ✅ All 4 activity charts rendering correctly
+- ✅ Info modals (ℹ️) working properly
 
 ### Immediate Tasks (Next Session)
+
+- [ ] **Merge activity-categorization branch to main**
+  - Create PR from `activity-categorization` to `main`
+  - Review changes and verify all charts working
+  - Merge and deploy to production
+
+- [ ] **Implement behavior tracking charts** (Next feature branch)
+  - **Branch:** `behavior-tracking` (to be created)
+  - **Approach:** Flexible aggregation (no categories needed - raw strings are meaningful)
+  - **Data source:** `caughtBeingGood[]` and `ooops[]` arrays in each report
+  - **Known values (as of Nov 11, 32 reports):**
+    - 8 unique "Caught Being Good" behaviors
+    - 3 unique "Ooops" behaviors
+    - 95 total positive behaviors (avg 3 per report, 100% of reports)
+    - 13 total ooops (avg 0.4 per report, 34% of reports)
+
+  **Charts to implement:**
+  1. [ ] **Positive behavior trend line** - # of "caught being good" behaviors over time
+  2. [ ] **Good vs Ooops comparison** - Dual-line or stacked bar chart showing ratio
+  3. [ ] **Behavior frequency bar chart** - Top behaviors by count (horizontal bar)
+  4. [ ] **Ooops tracking** - Monitor problem behaviors over time
+
+  **Implementation approach:**
+  - No hardcoded categories (unlike activities)
+  - Automatically includes new values when they appear
+  - Simple frequency counting and trending
+  - Integrate into existing `extract-daily.ts` and `aggregate.ts` pipeline
+
+  **Files to modify:**
+  - `scripts/analysis/extract-daily.ts` - Add behavior extraction
+  - `scripts/analysis/aggregate.ts` - Add behavior aggregation
+  - `src/pages/trends.astro` - Add 2-3 behavior charts
+  - Create `data/analysis/aggregates/behavior-trends.json`
+  - Create `data/viz/behavior-*.json` files for Chart.js
 
 - [x] **Implement friend analysis with Claude API** ✅ COMPLETED Nov 9
   - ✓ Created incremental analysis architecture (extract-daily.ts, aggregate.ts)
@@ -106,59 +199,13 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - ✓ Integrated into analyze-all.ts automated pipeline
   - ✓ **Restructured for incremental updates (cost-efficient)**
 
-- [ ] **Implement activity categorization (PRIORITY)** - IN PROGRESS
-  - **Branch:** `activity-categorization`
-  - **Approach:** Rules-based mapping (no AI needed)
-  - **Rationale:** Activities come from fixed checkboxes on daycare's app - no new activities unless app changes
-
-  **Implementation Steps:**
-  1. [ ] Extract all unique activities from 31 existing reports
-     - Scan `whatIDidToday` arrays for all unique strings
-     - Scan `trainingSkills` arrays for all unique strings
-     - Document complete list of possible checkbox values
-
-  2. [ ] Create activity category mapping
-     - Define categories: playtime, training, enrichment, outdoor, socialization, rest
-     - Map each checkbox option to one or more categories
-     - Create `scripts/analysis/activity-categories.ts` with complete mapping
-     - Handle multi-category activities (e.g., "played with buddies" = playtime + socialization)
-
-  3. [ ] Create activity categorization logic
-     - Create `scripts/analysis/activity-categorizer.ts`
-     - Implement simple lookup function (no AI needed)
-     - Export `categorizeActivities(report)` function
-     - Return category counts for a single report
-
-  4. [ ] Integrate into incremental analysis pipeline
-     - Update `scripts/analysis/extract-daily.ts` to include activity extraction
-     - Add `activities` field to daily analysis JSON structure
-     - Store categorized activities in `data/analysis/daily/YYYY-MM-DD.json`
-
-  5. [ ] Create aggregation logic
-     - Update `scripts/analysis/aggregate.ts` to sum activity counts
-     - Calculate percentages across all reports
-     - Generate `data/analysis/aggregates/activity-breakdown.json`
-     - Generate `data/viz/activity-breakdown.json` (Chart.js format for pie/doughnut chart)
-
-  6. [ ] Add activity charts to trends page
-     - Update `src/pages/trends.astro` or `src/components/GradeCharts.astro`
-     - Add pie or doughnut chart showing activity distribution
-     - Display category percentages and counts
-
-  7. [ ] Test and verify
-     - Run analysis on all 31 reports
-     - Verify categorizations make sense
-     - Check chart displays correctly
-     - Commit changes and create PR
-
-  **Files to Create/Modify:**
-  - New: `scripts/analysis/activity-categories.ts` (mapping file)
-  - New: `scripts/analysis/activity-categorizer.ts` (categorization logic)
-  - Modify: `scripts/analysis/extract-daily.ts` (add activity extraction)
-  - Modify: `scripts/analysis/aggregate.ts` (add activity aggregation)
-  - New: `data/analysis/aggregates/activity-breakdown.json` (output)
-  - New: `data/viz/activity-breakdown.json` (Chart.js format)
-  - Modify: `src/pages/trends.astro` or `src/components/GradeCharts.astro` (add chart)
+- [x] **Implement activity categorization** ✅ COMPLETED Nov 10-11
+  - **Branch:** `activity-categorization` (PR #10)
+  - **Approach:** Rules-based mapping using fixed activity lists from daycare app
+  - **Implementation:** Created mapping files (`activity-categories.ts`, `activity-categorizer.ts`), integrated into incremental analysis pipeline, added 4 Chart.js visualizations to trends page with info modals
+  - **Categories:** 7 activity categories, 6 training categories
+  - **Results:** 255 activity instances, 135 training instances across 32 reports
+  - **Key files:** Activity categorizer logic, daily extraction, aggregation, 5 visualization JSON files, trends page charts
 
 - [x] **Display photos on website** ✅ COMPLETED Nov 10
   - ✓ Added photo display to homepage (latest report's photos)
@@ -272,11 +319,12 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - ✓ Output: `data/viz/friend-network.json`
   - ✓ Displayed as leaderboard on trends page (not chart)
 
-- [ ] **Activity breakdown visualization data**
-  - Format activity categories for pie/doughnut chart
-  - Include percentages and counts
-  - Output: `data/viz/activity-breakdown.json`
-  - **Depends on:** Activity analyzer implementation
+- [x] **Activity breakdown visualization data** ✅ COMPLETED Nov 11
+  - ✓ Formatted activity categories for horizontal bar charts
+  - ✓ Includes percentages and counts
+  - ✓ Output: `data/viz/activity-categories.json`, `activity-frequency.json`
+  - ✓ Output: `data/viz/training-categories.json`, `training-frequency.json`
+  - ✓ Integrated into activity-categorization branch (PR #10)
 
 - [x] **Update GitHub Actions workflow**
   - ✓ Added analysis job that runs after successful scrape
@@ -325,7 +373,8 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - ✓ 4 monthly performance cards with detailed breakdowns
   - ✓ 14 weekly performance entries with dates and grade badges
   - ✓ Friend leaderboard with 12 friends sorted by recency (Nov 9)
-  - Note: Activity charts pending activity analysis implementation
+  - ✓ Activity categorization charts (4 charts added in PR #10)
+  - **Note:** Page is growing - consider splitting into separate pages (e.g., `/trends/grades`, `/trends/activities`, `/trends/friends`) if it becomes too long or slow to load
 
 - [ ] **Build friends page**
   - List all friends Pepper has played with
@@ -339,9 +388,9 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - ✓ Load from R2 URLs (photos.json)
   - ✓ Masonry-style responsive layout
   - ✓ Date labels on each photo
-  - ✓ Links to full-size images
+  - ✓ Full-screen lightbox modal with keyboard navigation (←/→, ESC)
+  - ✓ Click outside to close, body scroll locking
   - [ ] Filter by date/month (future enhancement)
-  - [ ] Lightbox for full-size viewing (future enhancement - currently opens in new tab)
 
 ### Deployment
 
@@ -515,22 +564,31 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 
 **Working Features:**
 - Homepage with latest report card and statistics
-- Trends page with interactive Chart.js visualizations (grade timeline, distribution)
-- Timeline page with all 31 report cards (expandable cards)
+- Trends page with interactive Chart.js visualizations:
+  - Grade timeline (line chart)
+  - Grade distribution (donut chart)
+  - Friend leaderboard (12 friends)
+  - **Activity category chart (horizontal bar)** ✨ New in PR #10
+  - **Training category chart (horizontal bar)** ✨ New in PR #10
+  - **Top 10 activities chart (horizontal bar)** ✨ New in PR #10
+  - **Top 10 training skills chart (horizontal bar)** ✨ New in PR #10
+  - **Info modals (ℹ️) with category breakdowns** ✨ New in PR #10
+- Timeline page with all 32 report cards (expandable cards)
+- Gallery page with 14 photos and full-screen lightbox modal
+- Photo indicator badges (📷) on timeline for dates with photos
 - Automated daily scraping and analysis via GitHub Actions
 - Automated deployment on every push to main
 
-**Recently Added Features (Nov 10):**
-- ✅ Photo display on homepage, timeline, and gallery pages
-- ✅ PhotoGallery reusable component
-- ✅ Dedicated gallery page with 14 photos
+**Recently Added Features:**
+- **Nov 11, 2025:** Activity categorization with 4 new charts (in PR #10)
+- **Nov 10, 2025:** Photo display with lightbox modal + timeline indicators
 
-**Missing Features:**
-- Activity categorization and charts
-- Friends page (optional - leaderboard exists on trends page)
+**Future Enhancements:**
+- Behavior tracking charts ("Caught Being Good" / "Ooops") - Next priority
+- Friends page (optional - leaderboard currently on trends page)
 - Individual report card pages (optional - details shown on timeline)
-- Photo lightbox/modal (currently opens in new tab)
 - Gallery filtering by date/month
+- Photo carousel on homepage
 
 ## Key Technical Decisions
 

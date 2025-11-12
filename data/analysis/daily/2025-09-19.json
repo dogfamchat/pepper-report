@@ -4,5 +4,37 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Happy Friday!!! I had a great day today. We started off our day relaxing with our classmates. Later we went outside to play and run around. I had the best time. Afterwards we had our training exercise working on agility and confidence building. I did great!! We ended our day with a nap and playing with some toys.",
-  "analyzedAt": "2025-11-10T00:00:12.928Z"
+  "activityCounts": {
+    "playtime": 5,
+    "socialization": 4,
+    "rest": 1,
+    "outdoor": 2,
+    "enrichment": 0,
+    "training": 2,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 0,
+    "impulse_control_focus": 0,
+    "physical_skills": 2,
+    "handling_manners": 0,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "had a pool party",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "agility",
+    "confidence building",
+    "balancing skills"
+  ],
+  "analyzedAt": "2025-11-11T02:30:18.996Z"
 }

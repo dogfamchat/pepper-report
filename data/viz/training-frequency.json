@@ -1,0 +1,66 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "sit (stay)",
+      "boundries, door-ways, and thresholds",
+      "impulse control",
+      "recall",
+      "name recognition",
+      "confidence building",
+      "handling (exam style)",
+      "collar grab games",
+      "recall with distractions",
+      "focus work"
+    ],
+    "datasets": [
+      {
+        "label": "Frequency",
+        "data": [
+          20,
+          18,
+          16,
+          13,
+          10,
+          9,
+          8,
+          7,
+          6,
+          6
+        ],
+        "backgroundColor": "rgba(16, 185, 129, 0.8)",
+        "borderColor": "rgba(16, 185, 129, 1)",
+        "borderWidth": 1
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "indexAxis": "y",
+    "plugins": {
+      "title": {
+        "display": false
+      },
+      "legend": {
+        "display": false
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 1
+        },
+        "title": {
+          "display": true,
+          "text": "Number of Days"
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
+      }
+    }
+  }
+}

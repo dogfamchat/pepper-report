@@ -7,5 +7,43 @@
     "Niko"
   ],
   "comment": "Pepper had so much fun playing with her besties Sage and Niko🤍\nAt times she was very very loud.",
-  "analyzedAt": "2025-11-10T00:00:30.221Z"
+  "activityCounts": {
+    "playtime": 4,
+    "socialization": 3,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 1,
+    "training": 1,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 5,
+    "impulse_control_focus": 2,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 1,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "down (stay)",
+    "stand (stay)",
+    "recall",
+    "recall with distractions",
+    "impulse control",
+    "focus work"
+  ],
+  "analyzedAt": "2025-11-11T02:30:37.307Z"
 }

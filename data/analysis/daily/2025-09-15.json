@@ -4,5 +4,35 @@
   "gradeNumeric": 3,
   "friends": [],
   "comment": "Today we celebrated National Online Learning Day at school! 🎓🐾 I worked on some training, practicing skills like sit, spin, and paw. I also got to play and chase bubbles, which was so much fun! It was the perfect mix of learning and playing with my friends!! 🐶🧡",
-  "analyzedAt": "2025-11-10T00:00:11.685Z"
+  "activityCounts": {
+    "playtime": 4,
+    "socialization": 1,
+    "rest": 0,
+    "outdoor": 1,
+    "enrichment": 1,
+    "training": 1,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 2,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 1
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "trick training"
+  ],
+  "analyzedAt": "2025-11-11T02:30:17.662Z"
 }

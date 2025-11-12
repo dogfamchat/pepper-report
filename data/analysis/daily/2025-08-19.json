@@ -4,5 +4,36 @@
   "gradeNumeric": 4,
   "friends": [],
   "comment": "Today I practiced handling and walking on leash! My trainers helped me get comfortable being gently guided and checked over, and I worked on walking nicely without pulling! I also had lots of fun playing with my friends and enjoyed good cuddles from my trainer!! 🐶🦮🧡",
-  "analyzedAt": "2025-11-10T00:00:03.438Z"
+  "activityCounts": {
+    "playtime": 4,
+    "socialization": 1,
+    "rest": 0,
+    "outdoor": 1,
+    "enrichment": 1,
+    "training": 1,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 1,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 3,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "handling (exam style)",
+    "boundries, door-ways, and thresholds",
+    "loose-leash walking",
+    "sit (stay)",
+    "confidence building"
+  ],
+  "analyzedAt": "2025-11-11T02:30:05.258Z"
 }
