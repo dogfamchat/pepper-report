@@ -1,0 +1,38 @@
+{
+  "date": "2025-11-12",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "We did some fun training today, we learned how to do “Tippy”,”Paw”,”Middle”,”Place” and “Spin”. It was great and we had so much fun 🎊",
+  "activityCounts": {
+    "playtime": 3,
+    "socialization": 3,
+    "rest": 1,
+    "outdoor": 1,
+    "enrichment": 0,
+    "training": 0,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 3,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 0,
+    "advanced_training": 0,
+    "fun_skills": 1
+  },
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall",
+    "trick training"
+  ],
+  "analyzedAt": "2025-11-12T22:43:30.100Z"
+}
