@@ -1,0 +1,41 @@
+{
+  "date": "2025-11-12",
+  "completedDateTime": "2025-11-12T21:06:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Stone Meadow"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "making new friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall",
+    "trick training"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "We did some fun training today, we learned how to do “Tippy”,”Paw”,”Middle”,”Place” and “Spin”. It was great and we had so much fun 🎊",
+  "photos": [
+    "2025-11-12-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Stone Meadow",
+    "completedBy": "Stone Meadow"
+  }
+}
