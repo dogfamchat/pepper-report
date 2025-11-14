@@ -9,23 +9,23 @@
       "hung out with my bestie",
       "one-on-one time with the trainer",
       "played with my favorite toy",
-      "had a pool party",
       "engagement games",
+      "had a pool party",
       "caught bubbles"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          28,
+          29,
           27,
           23,
           18,
           17,
+          13,
           12,
-          11,
           7,
-          6,
+          7,
           6
         ],
         "backgroundColor": "rgba(59, 130, 246, 0.8)",

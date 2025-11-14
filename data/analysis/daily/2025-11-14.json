@@ -1,0 +1,40 @@
+{
+  "date": "2025-11-14",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [
+    "Nova"
+  ],
+  "comment": "What a pawsome Friday! I had the best time playing with toys and zooming down the slide! My best friend today was Nova! 🎾🛝🐶🧡",
+  "activityCounts": {
+    "playtime": 2,
+    "socialization": 1,
+    "rest": 0,
+    "outdoor": 0,
+    "enrichment": 2,
+    "training": 2,
+    "special_event": 0
+  },
+  "trainingCounts": {
+    "obedience_commands": 2,
+    "impulse_control_focus": 0,
+    "physical_skills": 0,
+    "handling_manners": 1,
+    "advanced_training": 0,
+    "fun_skills": 0
+  },
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy",
+    "nose work games and challenges"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "nose targeting"
+  ],
+  "analyzedAt": "2025-11-14T22:42:50.364Z"
+}
