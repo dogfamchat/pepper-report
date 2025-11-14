@@ -1,0 +1,44 @@
+{
+  "date": "2025-11-14",
+  "completedDateTime": "2025-11-14T20:00:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Cedar"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy",
+    "nose work games and challenges"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "nose targeting"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": [
+    "bullying or pestering another dog"
+  ],
+  "noteworthyComments": "What a pawsome Friday! I had the best time playing with toys and zooming down the slide! My best friend today was Nova! 🎾🛝🐶🧡",
+  "photos": [
+    "2025-11-14-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Cedar",
+    "completedBy": "Jasper Cedar"
+  }
+}
