@@ -60,7 +60,6 @@ try {
 let behaviorData = null;
 let behaviorTimelineViz = null;
 let behaviorFrequencyViz = null;
-let behaviorComparisonViz = null;
 try {
   const behaviorPath = join(
     process.cwd(),
@@ -74,13 +73,9 @@ try {
   const vizDir = join(process.cwd(), 'data', 'viz');
   behaviorTimelineViz = JSON.parse(readFileSync(join(vizDir, 'behavior-timeline.json'), 'utf-8'));
   behaviorFrequencyViz = JSON.parse(readFileSync(join(vizDir, 'behavior-frequency.json'), 'utf-8'));
-  behaviorComparisonViz = JSON.parse(
-    readFileSync(join(vizDir, 'behavior-comparison.json'), 'utf-8'),
-  );
 } catch (error) {
   // Behavior data not available
 }
-
 
 // Calculate grade percentage
 const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
@@ -203,7 +198,7 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     )}
 
     <!-- Behavior Tracking Section -->
-    {behaviorData && behaviorTimelineViz && behaviorFrequencyViz && behaviorComparisonViz && (
+    {behaviorData && behaviorTimelineViz && behaviorFrequencyViz && (
       <>
         <div class="section-header">
           <h2>🌟 Behavior Tracking</h2>
@@ -248,17 +243,8 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
             ></canvas>
           </div>
 
-          <!-- Behavior Comparison -->
-          <div class="chart-card">
-            <h3>Total Behaviors</h3>
-            <canvas
-              id="behaviorComparisonChart"
-              data-chart-config={JSON.stringify(behaviorComparisonViz)}
-            ></canvas>
-          </div>
-
           <!-- Behavior Frequency -->
-          <div class="chart-card">
+          <div class="chart-card full-width">
             <h3>All Behaviors by Frequency</h3>
             <canvas
               id="behaviorFrequencyChart"
@@ -1134,27 +1120,26 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     if (configStr) {
       const config = JSON.parse(configStr);
       new Chart(trainingFrequencyCanvas, config);
+    }
   }
 
   // Initialize behavior timeline chart
-  const behaviorTimelineCanvas = document.getElementById('behaviorTimelineChart');
+  const behaviorTimelineCanvas = document.getElementById('behaviorTimelineChart') as HTMLCanvasElement | null;
   if (behaviorTimelineCanvas) {
-    const config = JSON.parse(behaviorTimelineCanvas.dataset.chartConfig);
-    new Chart(behaviorTimelineCanvas, config);
-  }
-
-  // Initialize behavior comparison chart
-  const behaviorComparisonCanvas = document.getElementById('behaviorComparisonChart');
-  if (behaviorComparisonCanvas) {
-    const config = JSON.parse(behaviorComparisonCanvas.dataset.chartConfig);
-    new Chart(behaviorComparisonCanvas, config);
+    const configStr = behaviorTimelineCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(behaviorTimelineCanvas, config);
+    }
   }
 
   // Initialize behavior frequency chart
-  const behaviorFrequencyCanvas = document.getElementById('behaviorFrequencyChart');
+  const behaviorFrequencyCanvas = document.getElementById('behaviorFrequencyChart') as HTMLCanvasElement | null;
   if (behaviorFrequencyCanvas) {
-    const config = JSON.parse(behaviorFrequencyCanvas.dataset.chartConfig);
-    new Chart(behaviorFrequencyCanvas, config);
+    const configStr = behaviorFrequencyCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(behaviorFrequencyCanvas, config);
     }
   }
 
