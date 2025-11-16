@@ -1118,57 +1118,6 @@ function generateBehaviorFrequencyViz(behaviorTrends: BehaviorTrends): object {
 }
 
 /**
- * Generate Chart.js visualization data for positive vs negative comparison (stacked bar)
- */
-function generateBehaviorComparisonViz(behaviorTrends: BehaviorTrends): object {
-  return {
-    type: 'bar',
-    data: {
-      labels: ['All Reports'],
-      datasets: [
-        {
-          label: 'Caught Being Good',
-          data: [behaviorTrends.summary.totalPositiveBehaviors],
-          backgroundColor: 'rgba(34, 197, 94, 0.8)',
-        },
-        {
-          label: 'Ooops',
-          data: [behaviorTrends.summary.totalNegativeBehaviors],
-          backgroundColor: 'rgba(239, 68, 68, 0.8)',
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: {
-          display: false,
-        },
-        legend: {
-          display: true,
-          position: 'top',
-        },
-      },
-      scales: {
-        x: {
-          stacked: false,
-        },
-        y: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 10,
-          },
-          title: {
-            display: true,
-            text: 'Total Count',
-          },
-        },
-      },
-    },
-  };
-}
-
-/**
  * Save aggregated results
  */
 function saveResults(
@@ -1184,7 +1133,6 @@ function saveResults(
   behaviorTrends?: BehaviorTrends,
   behaviorTimelineViz?: object,
   behaviorFrequencyViz?: object,
-  behaviorComparisonViz?: object,
 ): void {
   const aggregatesDir = join(process.cwd(), 'data', 'analysis', 'aggregates');
   const vizDir = join(process.cwd(), 'data', 'viz');
@@ -1302,16 +1250,6 @@ function saveResults(
       'utf-8',
     );
     console.log('   ✅ data/viz/behavior-frequency.json');
-  }
-
-  if (behaviorComparisonViz) {
-    const behaviorComparisonFile = join(vizDir, 'behavior-comparison.json');
-    writeFileSync(
-      behaviorComparisonFile,
-      `${JSON.stringify(behaviorComparisonViz, null, 2)}\n`,
-      'utf-8',
-    );
-    console.log('   ✅ data/viz/behavior-comparison.json');
   }
 }
 
@@ -1442,7 +1380,6 @@ async function main() {
     const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
     const behaviorTimelineViz = generateBehaviorTimelineViz(behaviorTrends);
     const behaviorFrequencyViz = generateBehaviorFrequencyViz(behaviorTrends);
-    const behaviorComparisonViz = generateBehaviorComparisonViz(behaviorTrends);
 
     // Save results
     console.log('\n💾 Saving aggregated data...');
@@ -1459,7 +1396,6 @@ async function main() {
       behaviorTrends,
       behaviorTimelineViz,
       behaviorFrequencyViz,
-      behaviorComparisonViz,
     );
 
     console.log('\n═══════════════════════════════════════\n');
@@ -1484,7 +1420,6 @@ export {
   generateTrainingFrequencyViz,
   generateBehaviorTimelineViz,
   generateBehaviorFrequencyViz,
-  generateBehaviorComparisonViz,
 };
 
 // Run if called directly
