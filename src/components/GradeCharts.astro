@@ -152,9 +152,9 @@ const { timeline, trends } = Astro.props;
           backgroundColor: 'rgba(102, 126, 234, 0.1)',
           borderWidth: 2,
           pointRadius: 4,
-          pointHoverRadius: 6,
+          pointHoverRadius: 4,
           pointBackgroundColor: '#667eea',
-          tension: 0.3,
+          tension: 0,
           fill: true
         }]
       },
@@ -162,9 +162,12 @@ const { timeline, trends } = Astro.props;
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: window.innerWidth < 768 ? 1.5 : 2.5,
+        animation: false,
         plugins: {
           legend: { display: false },
           tooltip: {
+            enabled: true,
+            animation: false,
             callbacks: {
               label: (context) => {
                 const grades = ['F', 'D', 'C', 'B', 'A'];
@@ -214,9 +217,12 @@ const { timeline, trends } = Astro.props;
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 1,
+        animation: false,
         plugins: {
           legend: { display: false },
           tooltip: {
+            enabled: true,
+            animation: false,
             callbacks: {
               label: (context) => {
                 const total = dist.A + dist.B;
