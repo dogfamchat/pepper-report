@@ -79,7 +79,7 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - `scripts/analysis/learned-training-mappings.json` (22 training skills including new ones)
   - Multi-category support preserved for activities
   - "confidence building" categorized as "physical_skills" (semantic reasoning: obstacles, surfaces, heights)
-  - "nose targeting" categorized as "fun_skills"
+  - "nose targeting" categorized as "impulse_control_and_focus"
 
 - ✅ **AI Category Aggregation** (`scripts/analysis/activity-categorizer.ts`)
   - Created `aggregateAICategoryCounts()` function

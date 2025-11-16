@@ -375,11 +375,11 @@ TRAINING SKILLS to categorize: ${JSON.stringify(unmappedTraining)}
 
 Suggested training categories:
 - obedience_commands: Basic commands like sit, down, stand, recall, name recognition
-- impulse_control_focus: Impulse control, focus work, settle down exercises
+- impulse_control_and_focus: Impulse control, focus work, settle down exercises, nose targeting
 - physical_skills: Agility, balancing, physical coordination, confidence building
-- handling_manners: Collar grab, handling, loose-leash walking, boundaries, place work, crate training
+- handling_and_manners: Collar grab, handling, loose-leash walking, boundaries, place work, crate training
 - advanced_training: Sequences, recall with distractions, hands-free work
-- fun_skills: Trick training, nose targeting, playful skills
+- fun_skills: Trick training, playful skills
 
 Return categorizations for each item. Activities can belong to multiple categories if appropriate.`,
         },
