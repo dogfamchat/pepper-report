@@ -23,8 +23,6 @@ import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import type { Grade, ReportCard } from '../types';
 import { getCurrentTimestamp } from '../utils/date-utils';
-import type { ActivityCategory, TrainingCategory } from './activity-categories';
-import { categorizeReport } from './activity-categorizer';
 import { gradeToNumber, readReportCard } from './report-reader';
 
 // Load learned mappings (cached from previous AI categorizations)
@@ -68,13 +66,9 @@ export interface DailyAnalysis {
   friends: string[];
   /** Raw comment text (for reference) */
   comment: string;
-  /** Activity category counts (rules-based, legacy) */
-  activityCounts: Record<ActivityCategory, number>;
-  /** Training category counts (rules-based, legacy) */
-  trainingCounts: Record<TrainingCategory, number>;
-  /** Raw activities (detailed view) */
+  /** Raw activities (for frequency tracking and AI categorization) */
   rawActivities: string[];
-  /** Raw training skills (detailed view) */
+  /** Raw training skills (for frequency tracking and AI categorization) */
   rawTrainingSkills: string[];
   /** AI-suggested categories for activities */
   aiActivityCategories?: AICategorization[];
@@ -438,12 +432,13 @@ async function extractDaily(
     console.log(`   Friends found: ${friends.join(', ')}`);
   }
 
-  // Categorize activities and training skills (no AI needed - pure logic)
-  const categorization = categorizeReport(report);
+  // Extract raw activity and training data
+  const rawActivities = report.whatIDidToday || [];
+  const rawTrainingSkills = report.trainingSkills || [];
 
   if (verbose) {
-    console.log(`   Activities: ${categorization.totalActivities}`);
-    console.log(`   Training skills: ${categorization.totalTrainingSkills}`);
+    console.log(`   Activities: ${rawActivities.length}`);
+    console.log(`   Training skills: ${rawTrainingSkills.length}`);
   }
 
   // Extract behavior data directly from report card
@@ -460,8 +455,8 @@ async function extractDaily(
     console.log(`   Running AI categorization...`);
   }
   const aiCategorization = await categorizeWithAI(
-    categorization.rawActivities,
-    categorization.rawTrainingSkills,
+    rawActivities,
+    rawTrainingSkills,
     report.date,
     anthropic,
     verbose,
@@ -478,10 +473,8 @@ async function extractDaily(
     gradeNumeric: gradeToNumber(report.grade),
     friends,
     comment: report.noteworthyComments,
-    activityCounts: categorization.activityCounts,
-    trainingCounts: categorization.trainingCounts,
-    rawActivities: categorization.rawActivities,
-    rawTrainingSkills: categorization.rawTrainingSkills,
+    rawActivities,
+    rawTrainingSkills,
     aiActivityCategories: aiCategorization.activityCategories,
     aiTrainingCategories: aiCategorization.trainingCategories,
     analyzedAt: getCurrentTimestamp(),

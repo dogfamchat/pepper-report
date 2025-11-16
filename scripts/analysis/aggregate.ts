@@ -18,17 +18,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { getISOWeekString, getWeekBounds } from '../utils/date-utils';
-import {
-  ACTIVITY_LABELS,
-  type ActivityCategory,
-  TRAINING_LABELS,
-  type TrainingCategory,
-} from './activity-categories';
-import {
-  aggregateAICategoryCounts,
-  aggregateCategoryCounts,
-  calculateFrequencies,
-} from './activity-categorizer';
+import { aggregateAICategoryCounts, calculateFrequencies } from './activity-categorizer';
 import type { DailyAnalysis } from './extract-daily';
 
 interface WeeklySummary {
@@ -92,26 +82,6 @@ interface ActivityBreakdown {
     };
     totalActivityInstances: number;
     totalTrainingInstances: number;
-  };
-  categoryCounts: {
-    activities: Record<ActivityCategory, number>;
-    training: Record<TrainingCategory, number>;
-  };
-  categoryPercentages: {
-    activities: Record<
-      ActivityCategory,
-      {
-        count: number;
-        percentage: number;
-      }
-    >;
-    training: Record<
-      TrainingCategory,
-      {
-        count: number;
-        percentage: number;
-      }
-    >;
   };
   detailedFrequencies: {
     activities: Array<{
@@ -469,64 +439,18 @@ function analyzeActivityBreakdown(analyses: DailyAnalysis[]): ActivityBreakdown 
     throw new Error('No daily analysis files found');
   }
 
-  // Aggregate category counts across all reports
-  const { activityTotals, trainingTotals } = aggregateCategoryCounts(analyses);
-
-  // Calculate total instances
-  const totalActivityInstances = Object.values(activityTotals).reduce(
-    (sum, count) => sum + count,
-    0,
-  );
-  const totalTrainingInstances = Object.values(trainingTotals).reduce(
-    (sum, count) => sum + count,
-    0,
-  );
-
-  // Calculate percentages for categories
-  const activityPercentages: Record<
-    ActivityCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  > = {} as Record<
-    ActivityCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  >;
-
-  const trainingPercentages: Record<
-    TrainingCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  > = {} as Record<
-    TrainingCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  >;
-
-  for (const [category, count] of Object.entries(activityTotals)) {
-    activityPercentages[category as ActivityCategory] = {
-      count,
-      percentage: totalActivityInstances > 0 ? (count / totalActivityInstances) * 100 : 0,
-    };
-  }
-
-  for (const [category, count] of Object.entries(trainingTotals)) {
-    trainingPercentages[category as TrainingCategory] = {
-      count,
-      percentage: totalTrainingInstances > 0 ? (count / totalTrainingInstances) * 100 : 0,
-    };
-  }
-
   // Calculate detailed frequencies for individual activities/skills
   const { activityFrequency, trainingFrequency } = calculateFrequencies(analyses);
+
+  // Calculate total instances from raw frequencies
+  const totalActivityInstances = Object.values(activityFrequency).reduce(
+    (sum, count) => sum + count,
+    0,
+  );
+  const totalTrainingInstances = Object.values(trainingFrequency).reduce(
+    (sum, count) => sum + count,
+    0,
+  );
 
   // Sort and format detailed frequencies
   const activityFrequencies = Object.entries(activityFrequency)
@@ -554,14 +478,6 @@ function analyzeActivityBreakdown(analyses: DailyAnalysis[]): ActivityBreakdown 
       },
       totalActivityInstances,
       totalTrainingInstances,
-    },
-    categoryCounts: {
-      activities: activityTotals,
-      training: trainingTotals,
-    },
-    categoryPercentages: {
-      activities: activityPercentages,
-      training: trainingPercentages,
     },
     detailedFrequencies: {
       activities: activityFrequencies,
@@ -967,10 +883,12 @@ function generateAIActivityCategoryViz(
   // Sort categories by count
   const sortedCategories = Object.entries(activityCounts).sort(([_, a], [__, b]) => b - a);
 
-  const labels = sortedCategories.map(
-    ([cat]) =>
-      ACTIVITY_LABELS[cat as ActivityCategory] ||
-      cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+  // Convert snake_case to Title Case (keep 'and' lowercase)
+  const labels = sortedCategories.map(([cat]) =>
+    cat
+      .split('_')
+      .map((word) => (word === 'and' ? 'and' : word.charAt(0).toUpperCase() + word.slice(1)))
+      .join(' '),
   );
   const data = sortedCategories.map(([_, count]) => count);
   const percentages = sortedCategories.map(([_, count]) =>
@@ -1042,10 +960,12 @@ function generateAITrainingCategoryViz(
   // Sort categories by count
   const sortedCategories = Object.entries(trainingCounts).sort(([_, a], [__, b]) => b - a);
 
-  const labels = sortedCategories.map(
-    ([cat]) =>
-      TRAINING_LABELS[cat as TrainingCategory] ||
-      cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+  // Convert snake_case to Title Case (keep 'and' lowercase)
+  const labels = sortedCategories.map(([cat]) =>
+    cat
+      .split('_')
+      .map((word) => (word === 'and' ? 'and' : word.charAt(0).toUpperCase() + word.slice(1)))
+      .join(' '),
   );
   const data = sortedCategories.map(([_, count]) => count);
   const percentages = sortedCategories.map(([_, count]) =>
@@ -1303,27 +1223,12 @@ async function main() {
     console.log(`   Total activity instances: ${activityBreakdown.summary.totalActivityInstances}`);
     console.log(`   Total training instances: ${activityBreakdown.summary.totalTrainingInstances}`);
 
-    // Show top 3 activity categories
-    const topActivityCategories = Object.entries(activityBreakdown.categoryPercentages.activities)
-      .filter(([_, data]) => data.count > 0)
-      .sort(([_, a], [__, b]) => b.count - a.count)
-      .slice(0, 3);
-
-    if (topActivityCategories.length > 0) {
-      console.log('\n   Top Activity Categories:');
-      topActivityCategories.forEach(([category, data], i) => {
-        console.log(
-          `   ${i + 1}. ${ACTIVITY_LABELS[category as ActivityCategory]} - ${data.count} times (${data.percentage.toFixed(1)}%)`,
-        );
-      });
-    }
-
-    // Show top 3 activities
+    // Show top 3 most frequent activities
     if (activityBreakdown.detailedFrequencies.activities.length > 0) {
       console.log('\n   Top Activities:');
       activityBreakdown.detailedFrequencies.activities.slice(0, 3).forEach((activity, i) => {
         console.log(
-          `   ${i + 1}. ${activity.name} - ${activity.count} days (${activity.percentage.toFixed(1)}%)`,
+          `   ${i + 1}. ${activity.name} - ${activity.count} times (${activity.percentage.toFixed(1)}%)`,
         );
       });
     }
