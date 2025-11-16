@@ -1,12 +1,12 @@
 {
   "week": "2025-W46",
   "startDate": "2025-11-10",
-  "endDate": "2025-11-16",
-  "daysAttended": 3,
+  "endDate": "2025-11-17",
+  "daysAttended": 2,
   "averageGrade": 3,
   "gradeDistribution": {
     "A": 0,
-    "B": 3,
+    "B": 2,
     "C": 0,
     "D": 0
   }

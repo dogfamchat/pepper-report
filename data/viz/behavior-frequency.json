@@ -9,23 +9,23 @@
       "verbally expressed myself",
       "made good choices",
       "respected thresholds",
+      "bullying or pestering another dog",
       "respected other's space",
       "helped the new kids fit in",
-      "bullying or pestering another dog",
       "challenge with self regulation"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          24,
-          20,
-          16,
-          16,
-          9,
+          26,
+          21,
+          17,
+          17,
+          10,
           7,
           6,
-          3,
+          4,
           3,
           3,
           1
@@ -38,9 +38,9 @@
           "rgba(239, 68, 68, 0.8)",
           "rgba(34, 197, 94, 0.8)",
           "rgba(34, 197, 94, 0.8)",
-          "rgba(34, 197, 94, 0.8)",
-          "rgba(34, 197, 94, 0.8)",
           "rgba(239, 68, 68, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
           "rgba(239, 68, 68, 0.8)"
         ],
         "borderWidth": 0

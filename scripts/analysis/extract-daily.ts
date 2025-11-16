@@ -252,7 +252,6 @@ async function extractDaily(
     analyzedAt: getCurrentTimestamp(),
     caughtBeingGood,
     ooops,
-
   };
 }
 
