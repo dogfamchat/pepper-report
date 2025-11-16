@@ -47,10 +47,6 @@
     },
     {
       "item": "engagement games",
-      "category": "playtime"
-    },
-    {
-      "item": "engagement games",
       "category": "enrichment"
     },
     {
@@ -72,7 +68,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:58:16.124Z",
+  "analyzedAt": "2025-11-16T17:02:03.632Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

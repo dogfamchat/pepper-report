@@ -41,19 +41,19 @@
     },
     {
       "item": "party animal",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
       "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
-    },
-    {
-      "item": "played outdoors",
-      "category": "playtime"
     }
   ],
   "aiTrainingCategories": [
@@ -66,7 +66,7 @@
       "category": "obedience_commands"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:43.864Z",
+  "analyzedAt": "2025-11-16T17:01:54.547Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)"
   ],

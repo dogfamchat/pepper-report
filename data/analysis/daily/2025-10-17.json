@@ -47,35 +47,27 @@
     },
     {
       "item": "party animal",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "party animal",
-      "category": "special_event"
+      "category": "socialization"
     },
     {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
-    },
-    {
       "item": "engagement games",
-      "category": "enrichment"
-    },
-    {
-      "item": "engagement games",
-      "category": "playtime"
-    },
-    {
-      "item": "caught bubbles",
       "category": "enrichment"
     },
     {
       "item": "caught bubbles",
       "category": "playtime"
+    },
+    {
+      "item": "caught bubbles",
+      "category": "enrichment"
     },
     {
       "item": "played with my favorite toy",
@@ -104,7 +96,7 @@
       "category": "physical_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:40.716Z",
+  "analyzedAt": "2025-11-16T17:01:53.380Z",
   "caughtBeingGood": [
     "loved every dog I met",
     "made good choices"

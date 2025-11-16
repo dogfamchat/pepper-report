@@ -49,27 +49,23 @@
     },
     {
       "item": "party animal",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "party animal",
-      "category": "playtime"
+      "category": "socialization"
     },
     {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
-    },
-    {
-      "item": "played outdoors",
-      "category": "playtime"
     }
   ],
   "aiTrainingCategories": [
@@ -90,7 +86,7 @@
       "category": "fun_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:58:22.595Z",
+  "analyzedAt": "2025-11-16T17:02:06.456Z",
   "caughtBeingGood": [
     "listened and respected my trainer"
   ],

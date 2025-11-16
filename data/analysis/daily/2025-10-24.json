@@ -38,32 +38,24 @@
       "category": "socialization"
     },
     {
-      "item": "hung out with my bestie",
+      "item": "played with as many buddies as possible",
       "category": "playtime"
     },
     {
       "item": "played with as many buddies as possible",
       "category": "socialization"
-    },
-    {
-      "item": "played with as many buddies as possible",
-      "category": "playtime"
     },
     {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
-    },
-    {
-      "item": "played outdoors",
-      "category": "playtime"
     }
   ],
   "aiTrainingCategories": [
@@ -80,7 +72,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:50.221Z",
+  "analyzedAt": "2025-11-16T17:01:56.589Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

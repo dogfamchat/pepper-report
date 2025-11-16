@@ -45,24 +45,16 @@
       "category": "socialization"
     },
     {
-      "item": "hung out with my bestie",
-      "category": "playtime"
-    },
-    {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
-    },
-    {
-      "item": "played outdoors",
-      "category": "playtime"
     },
     {
       "item": "one-on-one time with the trainer",
@@ -71,10 +63,6 @@
     {
       "item": "engagement games",
       "category": "enrichment"
-    },
-    {
-      "item": "engagement games",
-      "category": "playtime"
     }
   ],
   "aiTrainingCategories": [
@@ -115,7 +103,7 @@
       "category": "physical_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:56:27.406Z",
+  "analyzedAt": "2025-11-16T17:01:28.138Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

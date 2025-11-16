@@ -48,7 +48,7 @@
       "category": "socialization"
     },
     {
-      "item": "hung out with my bestie",
+      "item": "played with as many buddies as possible",
       "category": "playtime"
     },
     {
@@ -56,36 +56,77 @@
       "category": "socialization"
     },
     {
-      "item": "played with as many buddies as possible",
+      "item": "party animal",
       "category": "playtime"
     },
     {
       "item": "party animal",
       "category": "socialization"
-    },
-    {
-      "item": "party animal",
-      "category": "special_event"
     },
     {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
-    },
-    {
-      "item": "played outdoors",
-      "category": "playtime"
     }
   ],
-  "aiTrainingCategories": [],
-  "analyzedAt": "2025-11-16T02:58:03.891Z",
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_manners"
+    },
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "hands-free work",
+      "category": "advanced_training"
+    },
+    {
+      "item": "loose-leash walking",
+      "category": "handling_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "down (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "stand (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall with distractions",
+      "category": "advanced_training"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_focus"
+    },
+    {
+      "item": "focus work",
+      "category": "impulse_control_focus"
+    },
+    {
+      "item": "place work (go to matt/table)",
+      "category": "handling_manners"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:02:01.291Z",
   "caughtBeingGood": [
     "practiced balanced and fair play"
   ],

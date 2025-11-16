@@ -49,26 +49,26 @@
     },
     {
       "item": "party animal",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "party animal",
-      "category": "special_event"
+      "category": "socialization"
     },
     {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
     },
     {
-      "item": "played outdoors",
+      "item": "had a pool party",
       "category": "playtime"
     },
     {
@@ -77,7 +77,7 @@
     },
     {
       "item": "had a pool party",
-      "category": "special_event"
+      "category": "socialization"
     }
   ],
   "aiTrainingCategories": [
@@ -94,7 +94,7 @@
       "category": "physical_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:56:48.941Z",
+  "analyzedAt": "2025-11-16T17:01:35.576Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)"
   ],

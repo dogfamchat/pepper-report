@@ -3,8 +3,8 @@
   "data": {
     "labels": [
       "Obedience Commands",
-      "Handling Manners",
-      "Impulse Control Focus",
+      "Handling & Manners",
+      "Impulse Control & Focus",
       "Physical Skills",
       "Advanced Training",
       "Fun Skills"
@@ -13,11 +13,11 @@
       {
         "label": "Training Count",
         "data": [
-          44,
-          34,
-          17,
-          13,
-          5,
+          56,
+          41,
+          25,
+          14,
+          11,
           5
         ],
         "backgroundColor": [

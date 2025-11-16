@@ -46,10 +46,6 @@
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
-    },
-    {
       "item": "played outdoors",
       "category": "playtime"
     },
@@ -59,11 +55,15 @@
     },
     {
       "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
       "category": "outdoor"
     },
     {
       "item": "had a pool party",
-      "category": "special_event"
+      "category": "socialization"
     }
   ],
   "aiTrainingCategories": [
@@ -80,7 +80,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:56:30.298Z",
+  "analyzedAt": "2025-11-16T17:01:29.062Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",

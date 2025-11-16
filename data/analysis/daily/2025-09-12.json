@@ -45,10 +45,14 @@
     },
     {
       "item": "played outdoors",
-      "category": "outdoor"
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
       "category": "playtime"
     },
     {
@@ -57,15 +61,15 @@
     },
     {
       "item": "had a pool party",
-      "category": "special_event"
+      "category": "socialization"
+    },
+    {
+      "item": "caught bubbles",
+      "category": "playtime"
     },
     {
       "item": "caught bubbles",
       "category": "enrichment"
-    },
-    {
-      "item": "caught bubbles",
-      "category": "playtime"
     },
     {
       "item": "played with my favorite toy",
@@ -90,7 +94,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:56:55.439Z",
+  "analyzedAt": "2025-11-16T17:01:39.858Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

@@ -51,10 +51,6 @@
     {
       "item": "played with my favorite toy",
       "category": "playtime"
-    },
-    {
-      "item": "played with my favorite toy",
-      "category": "enrichment"
     }
   ],
   "aiTrainingCategories": [
@@ -71,7 +67,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:58:07.114Z",
+  "analyzedAt": "2025-11-16T17:02:02.484Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer"

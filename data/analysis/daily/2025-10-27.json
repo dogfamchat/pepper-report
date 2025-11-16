@@ -45,11 +45,11 @@
     },
     {
       "item": "played outdoors",
-      "category": "outdoor"
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
-      "category": "playtime"
+      "category": "outdoor"
     },
     {
       "item": "one-on-one time with the trainer",
@@ -62,6 +62,10 @@
     {
       "item": "nose work games and challenges",
       "category": "enrichment"
+    },
+    {
+      "item": "nose work games and challenges",
+      "category": "training"
     }
   ],
   "aiTrainingCategories": [
@@ -82,7 +86,7 @@
       "category": "fun_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:53.669Z",
+  "analyzedAt": "2025-11-16T17:01:57.608Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

@@ -54,43 +54,39 @@
     },
     {
       "item": "played with as many buddies as possible",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
       "category": "playtime"
     },
     {
       "item": "party animal",
       "category": "socialization"
-    },
-    {
-      "item": "party animal",
-      "category": "special_event"
     },
     {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
     },
     {
-      "item": "played outdoors",
+      "item": "played on the agility equipment",
       "category": "playtime"
     },
     {
       "item": "played on the agility equipment",
       "category": "training"
-    },
-    {
-      "item": "played on the agility equipment",
-      "category": "outdoor"
     },
     {
       "item": "one-on-one time with the trainer",
@@ -105,8 +101,49 @@
       "category": "special_event"
     }
   ],
-  "aiTrainingCategories": [],
-  "analyzedAt": "2025-11-16T02:57:32.000Z",
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_manners"
+    },
+    {
+      "item": "hands-free work",
+      "category": "advanced_training"
+    },
+    {
+      "item": "loose-leash walking",
+      "category": "handling_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "down (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall with distractions",
+      "category": "advanced_training"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_focus"
+    },
+    {
+      "item": "focus work",
+      "category": "impulse_control_focus"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:49.972Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

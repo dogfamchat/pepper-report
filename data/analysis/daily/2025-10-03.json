@@ -50,24 +50,20 @@
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
     },
     {
-      "item": "played outdoors",
+      "item": "played on the agility equipment",
       "category": "playtime"
     },
     {
       "item": "played on the agility equipment",
       "category": "training"
-    },
-    {
-      "item": "played on the agility equipment",
-      "category": "physical_skills"
     },
     {
       "item": "one-on-one time with the trainer",
@@ -75,11 +71,11 @@
     },
     {
       "item": "caught bubbles",
-      "category": "enrichment"
+      "category": "playtime"
     },
     {
       "item": "caught bubbles",
-      "category": "playtime"
+      "category": "enrichment"
     },
     {
       "item": "played with my favorite toy",
@@ -96,7 +92,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:25.213Z",
+  "analyzedAt": "2025-11-16T17:01:47.628Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

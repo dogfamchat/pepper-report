@@ -42,16 +42,12 @@
       "category": "socialization"
     },
     {
-      "item": "hung out with my bestie",
-      "category": "playtime"
-    },
-    {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "had a pool party",
+      "category": "playtime"
     },
     {
       "item": "had a pool party",
@@ -59,15 +55,7 @@
     },
     {
       "item": "had a pool party",
-      "category": "playtime"
-    },
-    {
-      "item": "had a pool party",
       "category": "socialization"
-    },
-    {
-      "item": "had a pool party",
-      "category": "special_event"
     }
   ],
   "aiTrainingCategories": [
@@ -92,7 +80,7 @@
       "category": "advanced_training"
     }
   ],
-  "analyzedAt": "2025-11-16T02:56:39.545Z",
+  "analyzedAt": "2025-11-16T17:01:32.393Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",

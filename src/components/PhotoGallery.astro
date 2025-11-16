@@ -18,13 +18,13 @@ const { date, showTitle = false, size = 'medium' } = Astro.props;
 import photosData from '../../photos.json';
 
 // Find photos for this date
-const reportPhotos = photosData.photos.filter(photo => photo.date === date);
+const reportPhotos = photosData.photos.filter((photo) => photo.date === date);
 
 // Size classes for different use cases
 const sizeClasses = {
   small: 'h-24 w-24',
   medium: 'h-48 w-48',
-  large: 'h-64 w-64'
+  large: 'h-64 w-64',
 };
 ---
 

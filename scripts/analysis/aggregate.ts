@@ -19,12 +19,8 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 
 import { join } from 'node:path';
 import { getISOWeekString, getWeekBounds } from '../utils/date-utils';
 import {
-  ACTIVITY_CATEGORY_MAP,
-  ACTIVITY_COLORS,
   ACTIVITY_LABELS,
   type ActivityCategory,
-  TRAINING_CATEGORY_MAP,
-  TRAINING_COLORS,
   TRAINING_LABELS,
   type TrainingCategory,
 } from './activity-categories';
@@ -723,166 +719,6 @@ function generateFriendNetworkViz(topFriends: TopFriends): object {
 }
 
 /**
- * Generate Chart.js visualization data for activity categories (pie chart)
- */
-function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
-  const { activities } = breakdown.categoryPercentages;
-
-  // Filter out categories with zero count and sort by count
-  const sortedCategories = Object.entries(activities)
-    .filter(([_, data]) => data.count > 0)
-    .sort(([_, a], [__, b]) => b.count - a.count);
-
-  const labels = sortedCategories.map(
-    ([category]) => ACTIVITY_LABELS[category as ActivityCategory],
-  );
-  const data = sortedCategories.map(([_, data]) => data.count);
-  const colors = sortedCategories.map(
-    ([category]) => ACTIVITY_COLORS[category as ActivityCategory],
-  );
-
-  // Build reverse mapping: category -> list of activities
-  const categoryActivities: Record<string, string[]> = {};
-  for (const [activityName, categories] of Object.entries(ACTIVITY_CATEGORY_MAP)) {
-    for (const category of categories) {
-      if (!categoryActivities[category]) {
-        categoryActivities[category] = [];
-      }
-      categoryActivities[category].push(activityName);
-    }
-  }
-
-  return {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Count',
-          data,
-          backgroundColor: colors,
-          borderWidth: 0,
-        },
-      ],
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      plugins: {
-        title: {
-          display: false,
-        },
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          callbacks: {
-            afterLabel: (context: { dataIndex: number }) => {
-              const categoryIndex = context.dataIndex;
-              const categoryKey = sortedCategories[categoryIndex][0];
-              const activitiesInCategory = categoryActivities[categoryKey] || [];
-              return activitiesInCategory.map((a) => `• ${a}`);
-            },
-          },
-        },
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 10,
-          },
-        },
-        y: {
-          ticks: {
-            autoSkip: false,
-          },
-        },
-      },
-    },
-  };
-}
-
-/**
- * Generate Chart.js visualization data for training categories (pie chart)
- */
-function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
-  const { training } = breakdown.categoryPercentages;
-
-  // Filter out categories with zero count and sort by count
-  const sortedCategories = Object.entries(training)
-    .filter(([_, data]) => data.count > 0)
-    .sort(([_, a], [__, b]) => b.count - a.count);
-
-  const labels = sortedCategories.map(
-    ([category]) => TRAINING_LABELS[category as TrainingCategory],
-  );
-  const data = sortedCategories.map(([_, data]) => data.count);
-  const colors = sortedCategories.map(
-    ([category]) => TRAINING_COLORS[category as TrainingCategory],
-  );
-
-  // Build reverse mapping: category -> list of training skills
-  const categoryTraining: Record<string, string[]> = {};
-  for (const [skillName, category] of Object.entries(TRAINING_CATEGORY_MAP)) {
-    if (!categoryTraining[category]) {
-      categoryTraining[category] = [];
-    }
-    categoryTraining[category].push(skillName);
-  }
-
-  return {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Count',
-          data,
-          backgroundColor: colors,
-          borderWidth: 0,
-        },
-      ],
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      plugins: {
-        title: {
-          display: false,
-        },
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          callbacks: {
-            afterLabel: (context: { dataIndex: number }) => {
-              const categoryIndex = context.dataIndex;
-              const categoryKey = sortedCategories[categoryIndex][0];
-              const skillsInCategory = categoryTraining[categoryKey] || [];
-              return skillsInCategory.map((s) => `• ${s}`);
-            },
-          },
-        },
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 10,
-          },
-        },
-        y: {
-          ticks: {
-            autoSkip: false,
-          },
-        },
-      },
-    },
-  };
-}
-
-/**
  * Generate Chart.js visualization data for top activities (bar chart)
  */
 function generateActivityFrequencyViz(breakdown: ActivityBreakdown): object {
@@ -1131,8 +967,10 @@ function generateAIActivityCategoryViz(
   // Sort categories by count
   const sortedCategories = Object.entries(activityCounts).sort(([_, a], [__, b]) => b - a);
 
-  const labels = sortedCategories.map(([cat]) =>
-    cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+  const labels = sortedCategories.map(
+    ([cat]) =>
+      ACTIVITY_LABELS[cat as ActivityCategory] ||
+      cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
   );
   const data = sortedCategories.map(([_, count]) => count);
   const percentages = sortedCategories.map(([_, count]) =>
@@ -1204,8 +1042,10 @@ function generateAITrainingCategoryViz(
   // Sort categories by count
   const sortedCategories = Object.entries(trainingCounts).sort(([_, a], [__, b]) => b - a);
 
-  const labels = sortedCategories.map(([cat]) =>
-    cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+  const labels = sortedCategories.map(
+    ([cat]) =>
+      TRAINING_LABELS[cat as TrainingCategory] ||
+      cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
   );
   const data = sortedCategories.map(([_, count]) => count);
   const percentages = sortedCategories.map(([_, count]) =>
@@ -1276,8 +1116,6 @@ function saveResults(
   timeline: object,
   friendNetworkViz: object,
   activityBreakdown?: ActivityBreakdown,
-  activityCategoryViz?: object,
-  trainingCategoryViz?: object,
   activityFrequencyViz?: object,
   trainingFrequencyViz?: object,
   behaviorTrends?: BehaviorTrends,
@@ -1336,26 +1174,6 @@ function saveResults(
   }
 
   // Save activity visualization data (if provided)
-  if (activityCategoryViz) {
-    const activityCategoryFile = join(vizDir, 'activity-categories.json');
-    writeFileSync(
-      activityCategoryFile,
-      `${JSON.stringify(activityCategoryViz, null, 2)}\n`,
-      'utf-8',
-    );
-    console.log('   ✅ data/viz/activity-categories.json');
-  }
-
-  if (trainingCategoryViz) {
-    const trainingCategoryFile = join(vizDir, 'training-categories.json');
-    writeFileSync(
-      trainingCategoryFile,
-      `${JSON.stringify(trainingCategoryViz, null, 2)}\n`,
-      'utf-8',
-    );
-    console.log('   ✅ data/viz/training-categories.json');
-  }
-
   if (activityFrequencyViz) {
     const activityFrequencyFile = join(vizDir, 'activity-frequency.json');
     writeFileSync(
@@ -1575,8 +1393,6 @@ async function main() {
     console.log('\n📊 Generating visualization data...');
     const timeline = generateGradeTimeline(analyses);
     const friendNetworkViz = generateFriendNetworkViz(topFriends);
-    const activityCategoryViz = generateActivityCategoryViz(activityBreakdown);
-    const trainingCategoryViz = generateTrainingCategoryViz(activityBreakdown);
     const activityFrequencyViz = generateActivityFrequencyViz(activityBreakdown);
     const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
     const behaviorTimelineViz = generateBehaviorTimelineViz(behaviorTrends);
@@ -1600,8 +1416,6 @@ async function main() {
       timeline,
       friendNetworkViz,
       activityBreakdown,
-      activityCategoryViz,
-      trainingCategoryViz,
       activityFrequencyViz,
       trainingFrequencyViz,
       behaviorTrends,
@@ -1627,8 +1441,6 @@ export {
   analyzeBehaviorTrends,
   generateGradeTimeline,
   generateFriendNetworkViz,
-  generateActivityCategoryViz,
-  generateTrainingCategoryViz,
   generateActivityFrequencyViz,
   generateTrainingFrequencyViz,
   generateBehaviorTimelineViz,

@@ -10,9 +10,9 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 
 ## Recent Progress
 
-### Nov 15, 2025 - AI-Powered Activity Categorization with Learned Mappings 🚧 IN PROGRESS
+### Nov 15, 2025 - AI-Powered Activity Categorization with Learned Mappings ✅ MOSTLY COMPLETE
 
-**Branch:** `fix-activities-and-training` (in development)
+**Branch:** `fix-activities-and-training` (ready for PR - pending GitHub Actions update)
 
 **Context:**
 After merging PR #10 (activity-categorization), we discovered that activities and training skills are NOT static - new ones are being added frequently. Two new items appeared that weren't in our manual mappings:
@@ -79,24 +79,28 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - Total AI cost: ~$0.0014-0.0027 (one-time expense)
 
 **Pending Tasks:**
-- [ ] **Regenerate All Daily Files with Learned Mappings**
-  - Run extract-daily.ts for all 34 dates with learned mappings
-  - Verify all items found in cache (no AI calls needed)
-  - Confirm data consistency across all files
-  - **Command:** Loop through all dates in `data/analysis/daily/*.json`
+- [x] **Regenerate All Daily Files with Learned Mappings** ✅ COMPLETED Nov 15
+  - Ran extract-daily.ts for all 34 dates with learned mappings
+  - Verified all items found in cache (no AI calls needed)
+  - Confirmed data consistency across all files
 
-- [ ] **Regenerate Aggregate Data**
-  - Run `bun run scripts/analysis/aggregate.ts` to update viz files
-  - Ensure AI category charts use latest data
-  - Verify Chart.js configurations are correct
+- [x] **Regenerate Aggregate Data** ✅ COMPLETED Nov 15
+  - Ran aggregation to update viz files
+  - AI category charts use latest data
+  - Chart.js configurations verified
 
-- [ ] **Code Cleanup - Remove Rules-Based Categorization**
-  - Remove duplicate rules-based category charts from trends page
-  - Keep frequency charts (Top 10 activities/training) - they're still valuable
-  - Remove `data/viz/activity-categories.json` and `data/viz/training-categories.json`
-  - Remove rules-based categorization calls from extract-daily.ts
-  - Remove unused category mapping files if no longer needed
-  - Update trends page to only show AI category charts + frequency charts
+- [x] **Code Cleanup - Remove Rules-Based Categorization** ✅ COMPLETED Nov 15
+  - Removed old rules-based category visualization functions (~158 lines)
+  - Deleted `data/viz/activity-categories.json` and `data/viz/training-categories.json`
+  - Removed unused category map and color constants
+  - Cleaned up analyze-all.ts to not generate old viz files
+  - Made system fully dynamic from learned mappings
+
+- [x] **Update UI Text** ✅ COMPLETED Nov 15
+  - Changed "AI-Suggested Categories" to "Categories"
+  - Changed chart titles from "AI Activity/Training Categories" to "Activity/Training Categories"
+  - Updated subtitle to show counts: "14 activities • 22 training skills"
+  - Removed explanatory subtitles from modals for cleaner UI
 
 - [ ] **Update GitHub Actions Workflow**
   - Ensure learned mapping files are committed to Git
@@ -104,12 +108,13 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - Test that new activities trigger AI categorization and get saved to mappings
   - Add step to commit updated learned mappings if new items found
 
-- [ ] **Create Commit**
-  - Commit learned mappings implementation
-  - Include learned mapping JSON files
-  - Include extract-daily.ts changes
-  - Include trends page updates
-  - Include aggregate.ts changes
+- [x] **Create Commit** ✅ COMPLETED Nov 15
+  - Committed learned mappings implementation (commit: 0d912dc)
+  - Included learned mapping JSON files
+  - Included extract-daily.ts changes (cross-platform fix)
+  - Included trends page updates (dynamic modals and tooltips)
+  - Included aggregate.ts changes (removed old code)
+  - 44 files changed, 440 insertions(+), 1046 deletions (net -606 lines)
 
 **Key Technical Details for Future Claude Sessions:**
 

@@ -47,19 +47,19 @@
     },
     {
       "item": "party animal",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "party animal",
-      "category": "special_event"
-    },
-    {
-      "item": "played outdoors",
-      "category": "outdoor"
+      "category": "socialization"
     },
     {
       "item": "played outdoors",
       "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
     },
     {
       "item": "engagement games",
@@ -67,11 +67,11 @@
     },
     {
       "item": "caught bubbles",
-      "category": "enrichment"
+      "category": "playtime"
     },
     {
       "item": "caught bubbles",
-      "category": "outdoor"
+      "category": "enrichment"
     },
     {
       "item": "played with my favorite toy",
@@ -100,7 +100,7 @@
       "category": "physical_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:47.045Z",
+  "analyzedAt": "2025-11-16T17:01:55.601Z",
   "caughtBeingGood": [
     "loved every dog I met",
     "made good choices"

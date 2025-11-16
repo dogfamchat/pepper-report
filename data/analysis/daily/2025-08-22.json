@@ -35,19 +35,11 @@
   "aiActivityCategories": [
     {
       "item": "hung out with my bestie",
-      "category": "playtime"
-    },
-    {
-      "item": "hung out with my bestie",
       "category": "socialization"
     },
     {
       "item": "napped with friends",
       "category": "rest"
-    },
-    {
-      "item": "napped with friends",
-      "category": "socialization"
     },
     {
       "item": "played outdoors",
@@ -76,7 +68,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:56:36.451Z",
+  "analyzedAt": "2025-11-16T17:01:31.417Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer"

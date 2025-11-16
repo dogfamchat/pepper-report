@@ -55,16 +55,12 @@
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
-    },
-    {
-      "item": "played outdoors",
-      "category": "playtime"
     }
   ],
   "aiTrainingCategories": [
@@ -85,7 +81,7 @@
       "category": "physical_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:22.206Z",
+  "analyzedAt": "2025-11-16T17:01:46.310Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",

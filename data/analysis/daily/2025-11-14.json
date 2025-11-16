@@ -39,11 +39,11 @@
   "aiActivityCategories": [
     {
       "item": "played with as many buddies as possible",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "played with as many buddies as possible",
-      "category": "playtime"
+      "category": "socialization"
     },
     {
       "item": "one-on-one time with the trainer",
@@ -54,16 +54,16 @@
       "category": "enrichment"
     },
     {
-      "item": "engagement games",
-      "category": "playtime"
-    },
-    {
       "item": "played with my favorite toy",
       "category": "playtime"
     },
     {
       "item": "nose work games and challenges",
       "category": "enrichment"
+    },
+    {
+      "item": "nose work games and challenges",
+      "category": "training"
     }
   ],
   "aiTrainingCategories": [
@@ -81,10 +81,10 @@
     },
     {
       "item": "nose targeting",
-      "category": "fun_skills"
+      "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:58:25.849Z",
+  "analyzedAt": "2025-11-16T17:02:08.034Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

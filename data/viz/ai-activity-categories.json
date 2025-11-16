@@ -6,23 +6,21 @@
       "Socialization",
       "Outdoor",
       "Rest",
-      "Enrichment",
       "Training",
-      "Special Event",
-      "Physical Skills"
+      "Enrichment",
+      "Special Event"
     ],
     "datasets": [
       {
         "label": "Activity Count",
         "data": [
-          101,
-          88,
-          36,
+          104,
+          71,
+          34,
           23,
-          21,
-          18,
+          20,
           16,
-          1
+          2
         ],
         "backgroundColor": [
           "#FF6B9D",

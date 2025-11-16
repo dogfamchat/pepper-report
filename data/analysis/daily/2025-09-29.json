@@ -58,10 +58,6 @@
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
-    },
-    {
       "item": "played outdoors",
       "category": "playtime"
     },
@@ -88,7 +84,7 @@
       "category": "impulse_control_focus"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:19.343Z",
+  "analyzedAt": "2025-11-16T17:01:45.263Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",

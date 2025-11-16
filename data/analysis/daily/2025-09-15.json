@@ -45,11 +45,11 @@
     },
     {
       "item": "played outdoors",
-      "category": "outdoor"
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
-      "category": "playtime"
+      "category": "outdoor"
     },
     {
       "item": "one-on-one time with the trainer",
@@ -57,11 +57,11 @@
     },
     {
       "item": "caught bubbles",
-      "category": "enrichment"
+      "category": "playtime"
     },
     {
       "item": "caught bubbles",
-      "category": "playtime"
+      "category": "enrichment"
     },
     {
       "item": "played with my favorite toy",
@@ -86,7 +86,7 @@
       "category": "fun_skills"
     }
   ],
-  "analyzedAt": "2025-11-16T02:57:02.374Z",
+  "analyzedAt": "2025-11-16T17:01:40.864Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

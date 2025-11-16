@@ -18,7 +18,7 @@
  *   bun run scripts/analysis/extract-daily.ts --date 2025-08-08 --force
  */
 
-import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import type { Grade, ReportCard } from '../types';
@@ -26,6 +26,20 @@ import { getCurrentTimestamp } from '../utils/date-utils';
 import type { ActivityCategory, TrainingCategory } from './activity-categories';
 import { categorizeReport } from './activity-categorizer';
 import { gradeToNumber, readReportCard } from './report-reader';
+
+// Load learned mappings (cached from previous AI categorizations)
+const LEARNED_ACTIVITY_MAPPINGS: Record<string, string[]> = JSON.parse(
+  readFileSync(
+    join(process.cwd(), 'scripts', 'analysis', 'learned-activity-mappings.json'),
+    'utf-8',
+  ),
+);
+const LEARNED_TRAINING_MAPPINGS: Record<string, string> = JSON.parse(
+  readFileSync(
+    join(process.cwd(), 'scripts', 'analysis', 'learned-training-mappings.json'),
+    'utf-8',
+  ),
+);
 
 /**
  * AI-suggested category for an activity or training skill
@@ -229,6 +243,53 @@ async function categorizeWithAI(
     return { activityCategories: [], trainingCategories: [] };
   }
 
+  // First, check learned mappings for all items
+  const activityCategories: AICategorization[] = [];
+  const trainingCategories: AICategorization[] = [];
+  const unmappedActivities: string[] = [];
+  const unmappedTraining: string[] = [];
+
+  // Check activities against learned mappings
+  for (const activity of activities) {
+    const categories = LEARNED_ACTIVITY_MAPPINGS[activity];
+    if (categories) {
+      // Found in learned mappings - use cached categorization
+      for (const category of categories) {
+        activityCategories.push({ item: activity, category });
+      }
+    } else {
+      // Not found - will need AI categorization
+      unmappedActivities.push(activity);
+    }
+  }
+
+  // Check training skills against learned mappings
+  for (const skill of trainingSkills) {
+    const category = LEARNED_TRAINING_MAPPINGS[skill];
+    if (category) {
+      // Found in learned mappings - use cached categorization
+      trainingCategories.push({ item: skill, category });
+    } else {
+      // Not found - will need AI categorization
+      unmappedTraining.push(skill);
+    }
+  }
+
+  // If everything was found in learned mappings, we're done!
+  if (unmappedActivities.length === 0 && unmappedTraining.length === 0) {
+    if (verbose) {
+      console.log(`   ✅ All items found in learned mappings (no AI call needed)`);
+    }
+    return { activityCategories, trainingCategories };
+  }
+
+  // Log what needs AI categorization
+  if (verbose && (unmappedActivities.length > 0 || unmappedTraining.length > 0)) {
+    console.log(
+      `   🤖 Calling AI for unmapped items: ${unmappedActivities.length} activities, ${unmappedTraining.length} training`,
+    );
+  }
+
   try {
     const message = await anthropic.messages.create({
       model: 'claude-haiku-4-5',
@@ -238,7 +299,7 @@ async function categorizeWithAI(
           role: 'user',
           content: `You are analyzing a dog daycare report card. Categorize the following activities and training skills into appropriate categories.
 
-ACTIVITIES to categorize: ${JSON.stringify(activities)}
+ACTIVITIES to categorize: ${JSON.stringify(unmappedActivities)}
 
 Suggested activity categories:
 - playtime: Playing with toys, buddies, or general play activities
@@ -249,7 +310,7 @@ Suggested activity categories:
 - training: One-on-one trainer time, agility equipment, structured training
 - special_event: Birthday parties, special celebrations
 
-TRAINING SKILLS to categorize: ${JSON.stringify(trainingSkills)}
+TRAINING SKILLS to categorize: ${JSON.stringify(unmappedTraining)}
 
 Suggested training categories:
 - obedience_commands: Basic commands like sit, down, stand, recall, name recognition
@@ -318,8 +379,8 @@ Return categorizations for each item. Activities can belong to multiple categori
         training?: Array<{ item: string; category: string }>;
       };
 
-      // Convert activities (can have multiple categories) to flat list
-      const activityCategories: AICategorization[] =
+      // Convert AI results for activities (can have multiple categories) to flat list
+      const aiActivityResults: AICategorization[] =
         input.activities?.flatMap((act) =>
           act.categories.map((cat) => ({
             item: act.item,
@@ -327,20 +388,26 @@ Return categorizations for each item. Activities can belong to multiple categori
           })),
         ) || [];
 
-      // Convert training (single category each)
-      const trainingCategories: AICategorization[] =
+      // Convert AI results for training (single category each)
+      const aiTrainingResults: AICategorization[] =
         input.training?.map((skill) => ({
           item: skill.item,
           category: skill.category,
         })) || [];
 
-      return { activityCategories, trainingCategories };
+      // Merge AI results with learned mappings
+      return {
+        activityCategories: [...activityCategories, ...aiActivityResults],
+        trainingCategories: [...trainingCategories, ...aiTrainingResults],
+      };
     }
 
-    return { activityCategories: [], trainingCategories: [] };
+    // No tool use found - return learned mappings only
+    return { activityCategories, trainingCategories };
   } catch (error) {
     console.error(`   ❌ AI categorization error for ${date}:`, error);
-    return { activityCategories: [], trainingCategories: [] };
+    // On error, return what we got from learned mappings
+    return { activityCategories, trainingCategories };
   }
 }
 

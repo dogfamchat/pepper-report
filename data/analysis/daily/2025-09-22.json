@@ -52,35 +52,31 @@
     },
     {
       "item": "played with as many buddies as possible",
-      "category": "socialization"
+      "category": "playtime"
     },
     {
       "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
       "category": "playtime"
     },
     {
       "item": "party animal",
       "category": "socialization"
-    },
-    {
-      "item": "party animal",
-      "category": "special_event"
     },
     {
       "item": "napped with friends",
       "category": "rest"
     },
     {
-      "item": "napped with friends",
-      "category": "socialization"
+      "item": "played outdoors",
+      "category": "playtime"
     },
     {
       "item": "played outdoors",
       "category": "outdoor"
-    },
-    {
-      "item": "played outdoors",
-      "category": "playtime"
     },
     {
       "item": "one-on-one time with the trainer",
@@ -91,16 +87,61 @@
       "category": "enrichment"
     },
     {
-      "item": "engagement games",
-      "category": "playtime"
-    },
-    {
       "item": "played with my favorite toy",
       "category": "playtime"
     }
   ],
-  "aiTrainingCategories": [],
-  "analyzedAt": "2025-11-16T02:57:10.216Z",
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_manners"
+    },
+    {
+      "item": "hands-free work",
+      "category": "advanced_training"
+    },
+    {
+      "item": "loose-leash walking",
+      "category": "handling_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall with distractions",
+      "category": "advanced_training"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_focus"
+    },
+    {
+      "item": "jazz up, settle down",
+      "category": "impulse_control_focus"
+    },
+    {
+      "item": "focus work",
+      "category": "impulse_control_focus"
+    },
+    {
+      "item": "trick training",
+      "category": "fun_skills"
+    },
+    {
+      "item": "agility",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:43.181Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "loved every dog I met",
