@@ -225,7 +225,10 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
         <div class="activity-charts-grid">
           <!-- AI Activity Categories Chart -->
           <div class="chart-card">
-            <h3>AI Activity Categories</h3>
+            <h3>
+              AI Activity Categories
+              <button class="info-icon" data-modal="aiActivityModal" title="View AI activity details">ℹ️</button>
+            </h3>
             <canvas
               id="aiActivityCategoriesChart"
               data-chart-config={JSON.stringify(aiActivityCategoriesViz)}
@@ -234,7 +237,10 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
 
           <!-- AI Training Categories Chart -->
           <div class="chart-card">
-            <h3>AI Training Categories</h3>
+            <h3>
+              AI Training Categories
+              <button class="info-icon" data-modal="aiTrainingModal" title="View AI training details">ℹ️</button>
+            </h3>
             <canvas
               id="aiTrainingCategoriesChart"
               data-chart-config={JSON.stringify(aiTrainingCategoriesViz)}
@@ -491,6 +497,149 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
         <div class="category-section">
           <h3>🎭 Fun Skills</h3>
           <ul>
+            <li>trick training</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Activity Categories Modal -->
+  <div id="aiActivityModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>🤖 AI Activity Categories</h2>
+      <p style="color: #666; margin-bottom: 1.5rem;">AI-categorized activities with automatic handling of new items</p>
+      <div class="modal-body">
+        <div class="category-section">
+          <h3>🎾 Playtime</h3>
+          <ul>
+            <li>caught bubbles</li>
+            <li>engagement games</li>
+            <li>had a pool party</li>
+            <li>hung out with my bestie</li>
+            <li>party animal</li>
+            <li>played outdoors</li>
+            <li>played with as many buddies as possible</li>
+            <li>played with my favorite toy</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🐕 Socialization</h3>
+          <ul>
+            <li>had a pool party</li>
+            <li>hung out with my bestie</li>
+            <li>napped with friends</li>
+            <li>party animal</li>
+            <li>played with as many buddies as possible</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🧩 Enrichment</h3>
+          <ul>
+            <li>brain building games and challenges</li>
+            <li>caught bubbles</li>
+            <li>engagement games</li>
+            <li>nose work games and challenges</li>
+            <li>played on the agility equipment</li>
+            <li>played with my favorite toy</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🌳 Outdoor</h3>
+          <ul>
+            <li>caught bubbles</li>
+            <li>had a pool party</li>
+            <li>played on the agility equipment</li>
+            <li>played outdoors</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🎓 Training</h3>
+          <ul>
+            <li>one-on-one time with the trainer</li>
+            <li>played on the agility equipment</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>😴 Rest</h3>
+          <ul>
+            <li>napped with friends</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🎉 Special Event</h3>
+          <ul>
+            <li>had a pool party</li>
+            <li>party animal</li>
+            <li>special event</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>💪 Physical Skills</h3>
+          <ul>
+            <li>played on the agility equipment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Training Categories Modal -->
+  <div id="aiTrainingModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <h2>🤖 AI Training Categories</h2>
+      <p style="color: #666; margin-bottom: 1.5rem;">AI-categorized training skills with automatic handling of new items</p>
+      <div class="modal-body">
+        <div class="category-section">
+          <h3>🎯 Obedience Commands</h3>
+          <ul>
+            <li>down (stay)</li>
+            <li>name recognition</li>
+            <li>recall</li>
+            <li>sit (stay)</li>
+            <li>stand (stay)</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>💪 Physical Skills</h3>
+          <ul>
+            <li>agility</li>
+            <li>balancing skills</li>
+            <li>confidence building</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🤝 Handling Manners</h3>
+          <ul>
+            <li>boundries, door-ways, and thresholds</li>
+            <li>collar grab games</li>
+            <li>crate training</li>
+            <li>handling (exam style)</li>
+            <li>loose-leash walking</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🧘 Impulse Control Focus</h3>
+          <ul>
+            <li>focus work</li>
+            <li>impulse control</li>
+            <li>jazz up, settle down</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🎓 Advanced Training</h3>
+          <ul>
+            <li>hands-free work</li>
+            <li>recall with distractions</li>
+            <li>sequence (3 different skills in varying order)</li>
+          </ul>
+        </div>
+        <div class="category-section">
+          <h3>🎭 Fun Skills</h3>
+          <ul>
+            <li>nose targeting</li>
             <li>trick training</li>
           </ul>
         </div>
@@ -1190,12 +1339,39 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     }
   }
 
+  // AI activity category to items mapping
+  const aiActivityCategoryItems = {
+    'Enrichment': ['brain building games and challenges', 'caught bubbles', 'engagement games', 'nose work games and challenges', 'played on the agility equipment', 'played with my favorite toy'],
+    'Outdoor': ['caught bubbles', 'had a pool party', 'played on the agility equipment', 'played outdoors'],
+    'Physical Skills': ['played on the agility equipment'],
+    'Playtime': ['caught bubbles', 'engagement games', 'had a pool party', 'hung out with my bestie', 'party animal', 'played outdoors', 'played with as many buddies as possible', 'played with my favorite toy'],
+    'Rest': ['napped with friends'],
+    'Socialization': ['had a pool party', 'hung out with my bestie', 'napped with friends', 'party animal', 'played with as many buddies as possible'],
+    'Special Event': ['had a pool party', 'party animal', 'special event'],
+    'Training': ['one-on-one time with the trainer', 'played on the agility equipment']
+  };
+
+  // AI training category to skills mapping
+  const aiTrainingCategoryItems = {
+    'Advanced Training': ['hands-free work', 'recall with distractions', 'sequence (3 different skills in varying order)'],
+    'Fun Skills': ['nose targeting', 'trick training'],
+    'Handling Manners': ['boundries, door-ways, and thresholds', 'collar grab games', 'crate training', 'handling (exam style)', 'loose-leash walking'],
+    'Impulse Control Focus': ['focus work', 'impulse control', 'jazz up, settle down'],
+    'Obedience Commands': ['down (stay)', 'name recognition', 'recall', 'sit (stay)', 'stand (stay)'],
+    'Physical Skills': ['agility', 'balancing skills', 'confidence building']
+  };
+
   // Initialize AI activity categories chart
   const aiActivityCategoriesCanvas = document.getElementById('aiActivityCategoriesChart') as HTMLCanvasElement | null;
   if (aiActivityCategoriesCanvas) {
     const configStr = aiActivityCategoriesCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
+        const label = context.label as string;
+        const items = aiActivityCategoryItems[label as keyof typeof aiActivityCategoryItems] || [];
+        return items.map((item: string) => '• ' + item);
+      };
       new Chart(aiActivityCategoriesCanvas, config);
     }
   }
@@ -1206,6 +1382,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     const configStr = aiTrainingCategoriesCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
+        const label = context.label as string;
+        const items = aiTrainingCategoryItems[label as keyof typeof aiTrainingCategoryItems] || [];
+        return items.map((item: string) => '• ' + item);
+      };
       new Chart(aiTrainingCategoriesCanvas, config);
     }
   }
