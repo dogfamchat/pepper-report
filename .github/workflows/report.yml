@@ -174,15 +174,22 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Check if there are changes to analysis files
-          if [ -n "$(git status --porcelain data/analysis/ data/viz/ 2>/dev/null)" ]; then
+          # Check if there are changes to analysis files or learned mappings
+          if [ -n "$(git status --porcelain data/analysis/ data/viz/ scripts/analysis/learned-*-mappings.json 2>/dev/null)" ]; then
             git add data/analysis/
             git add data/viz/
+            git add scripts/analysis/learned-*-mappings.json
+
+            # Check if learned mappings were updated
+            MAPPINGS_UPDATED=""
+            if git diff --cached --name-only | grep -q "learned-.*-mappings.json"; then
+              MAPPINGS_UPDATED="\n\nℹ️  Learned mappings updated with new activities/training skills."
+            fi
 
             git commit -m "$(cat <<EOF
           Update analysis data
 
-          Regenerated analysis and visualization data after new report card.
+          Regenerated analysis and visualization data after new report card.${MAPPINGS_UPDATED}
           EOF
           )"
 

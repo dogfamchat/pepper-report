@@ -220,6 +220,73 @@ Comment: "${comment}"`,
 }
 
 /**
+ * Save new AI categorizations to learned mapping files
+ */
+function saveNewLearnedMappings(
+  activityResults: AICategorization[],
+  trainingResults: AICategorization[],
+  verbose = false,
+): void {
+  try {
+    // Load current mappings
+    const activityMappingsPath = join(
+      process.cwd(),
+      'scripts/analysis/learned-activity-mappings.json',
+    );
+    const trainingMappingsPath = join(
+      process.cwd(),
+      'scripts/analysis/learned-training-mappings.json',
+    );
+
+    const currentActivityMappings: Record<string, string[]> = JSON.parse(
+      readFileSync(activityMappingsPath, 'utf-8'),
+    );
+    const currentTrainingMappings: Record<string, string> = JSON.parse(
+      readFileSync(trainingMappingsPath, 'utf-8'),
+    );
+
+    let activityUpdates = 0;
+    let trainingUpdates = 0;
+
+    // Add new activity mappings
+    for (const result of activityResults) {
+      if (!currentActivityMappings[result.item]) {
+        currentActivityMappings[result.item] = [];
+      }
+      if (!currentActivityMappings[result.item].includes(result.category)) {
+        currentActivityMappings[result.item].push(result.category);
+        activityUpdates++;
+      }
+    }
+
+    // Add new training mappings (training skills have single category)
+    for (const result of trainingResults) {
+      if (!currentTrainingMappings[result.item]) {
+        currentTrainingMappings[result.item] = result.category;
+        trainingUpdates++;
+      }
+    }
+
+    // Save updated mappings if there were changes
+    if (activityUpdates > 0) {
+      writeFileSync(activityMappingsPath, JSON.stringify(currentActivityMappings, null, 2));
+      if (verbose) {
+        console.log(`   💾 Saved ${activityUpdates} new activity mapping(s)`);
+      }
+    }
+
+    if (trainingUpdates > 0) {
+      writeFileSync(trainingMappingsPath, JSON.stringify(currentTrainingMappings, null, 2));
+      if (verbose) {
+        console.log(`   💾 Saved ${trainingUpdates} new training mapping(s)`);
+      }
+    }
+  } catch (error) {
+    console.error('   ❌ Error saving learned mappings:', error);
+  }
+}
+
+/**
  * Categorize activities and training skills using Claude API
  */
 async function categorizeWithAI(
@@ -388,6 +455,11 @@ Return categorizations for each item. Activities can belong to multiple categori
           item: skill.item,
           category: skill.category,
         })) || [];
+
+      // Save new AI categorizations to learned mappings files
+      if (aiActivityResults.length > 0 || aiTrainingResults.length > 0) {
+        saveNewLearnedMappings(aiActivityResults, aiTrainingResults, verbose);
+      }
 
       // Merge AI results with learned mappings
       return {

@@ -135,11 +135,12 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - Updated subtitle to show counts: "14 activities • 22 training skills"
   - Removed explanatory subtitles from modals for cleaner UI
 
-- [ ] **Update GitHub Actions Workflow**
-  - Ensure learned mapping files are committed to Git
-  - Verify extract-daily.ts runs with learned mappings in CI
-  - Test that new activities trigger AI categorization and get saved to mappings
-  - Add step to commit updated learned mappings if new items found
+- [x] **Update GitHub Actions Workflow** ✅ COMPLETED Nov 16
+  - ✓ Added `saveNewLearnedMappings()` function to extract-daily.ts
+  - ✓ New AI categorizations automatically saved to learned mapping files
+  - ✓ GitHub Actions workflow updated to monitor and commit learned mapping files
+  - ✓ Commit message includes note when mappings are updated
+  - ✓ Full automation: new activities/skills → AI categorization → saved to mappings → committed to Git
 
 - [x] **Create Commit** ✅ COMPLETED Nov 15
   - Committed learned mappings implementation (commit: 0d912dc)
@@ -400,7 +401,8 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 - ✅ 34 report cards analyzed with behavior data
 
 **Pending branches:**
-- `behaviour-tracking` - Ready for PR (5 commits, clean working tree)
+- `behaviour-tracking` - PR open (5 commits, ready for review)
+- `fix-activities-and-training` - Ready for PR (pending GitHub Actions update)
 
 **Recently merged:**
 - `activity-categorization` - PR #10 ✅ MERGED to main
@@ -411,10 +413,10 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - ✓ PR #10 merged successfully
   - ✓ Activity charts now in production
 
-- [ ] **Create PR for behaviour-tracking branch**
-  - Create PR from `behaviour-tracking` to `main`
-  - Review changes and verify all behavior charts working
-  - Merge and deploy to production
+- [ ] **Review and merge behaviour-tracking PR**
+  - PR already open and ready for review
+  - All behavior charts tested and working
+  - Ready to merge and deploy to production
 
 - [x] **Implement behavior tracking charts** ✅ COMPLETED Nov 15
   - **Branch:** `behaviour-tracking` (ready for PR)
