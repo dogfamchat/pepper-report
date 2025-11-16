@@ -17,9 +17,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 2,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -69,7 +69,7 @@
   "aiTrainingCategories": [
     {
       "item": "boundries, door-ways, and thresholds",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "sit (stay)",
@@ -81,7 +81,7 @@
     },
     {
       "item": "nose targeting",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     }
   ],
   "analyzedAt": "2025-11-16T17:02:08.034Z",

@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 0,
-    "handling_manners": 3,
+    "handling_and_manners": 3,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -72,15 +72,15 @@
   "aiTrainingCategories": [
     {
       "item": "handling (exam style)",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "boundries, door-ways, and thresholds",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "loose-leash walking",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "sit (stay)",

@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 3,
-    "impulse_control_focus": 3,
+    "impulse_control_and_focus": 3,
     "physical_skills": 1,
-    "handling_manners": 2,
+    "handling_and_manners": 2,
     "advanced_training": 2,
     "fun_skills": 1
   },
@@ -98,7 +98,7 @@
     },
     {
       "item": "boundries, door-ways, and thresholds",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "hands-free work",
@@ -106,7 +106,7 @@
     },
     {
       "item": "loose-leash walking",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "sit (stay)",
@@ -122,15 +122,15 @@
     },
     {
       "item": "impulse control",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "jazz up, settle down",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "focus work",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "trick training",

@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 2,
+    "handling_and_manners": 2,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -77,11 +77,11 @@
   "aiTrainingCategories": [
     {
       "item": "collar grab games",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "boundries, door-ways, and thresholds",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "sit (stay)",
@@ -89,7 +89,7 @@
     },
     {
       "item": "impulse control",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "confidence building",

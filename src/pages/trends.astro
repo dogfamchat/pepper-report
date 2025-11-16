@@ -84,8 +84,13 @@ try {
   // AI category viz data not available
 }
 
-// Load learned mappings to build modal and tooltip content dynamically
-import { ACTIVITY_LABELS, TRAINING_LABELS } from '../../scripts/analysis/activity-categories';
+// Helper function to convert snake_case category names to human-readable labels
+function formatCategoryLabel(category: string): string {
+  return category
+    .split('_')
+    .map((word) => (word === 'and' ? 'and' : word.charAt(0).toUpperCase() + word.slice(1)))
+    .join(' ');
+}
 
 // Category emoji mappings
 const ACTIVITY_EMOJIS: Record<string, string> = {
@@ -101,9 +106,9 @@ const ACTIVITY_EMOJIS: Record<string, string> = {
 
 const TRAINING_EMOJIS: Record<string, string> = {
   'Obedience Commands': '🎯',
-  'Impulse Control & Focus': '🧠',
+  'Impulse Control and Focus': '🧠',
   'Physical Skills': '💪',
-  'Handling & Manners': '🤝',
+  'Handling and Manners': '🤝',
   'Advanced Training': '🎓',
   'Fun Skills': '🎭',
 };
@@ -134,7 +139,7 @@ try {
   // For activities (can have multiple categories per activity)
   for (const [activity, categories] of Object.entries(learnedActivityMappings)) {
     for (const category of categories) {
-      const label = ACTIVITY_LABELS[category as keyof typeof ACTIVITY_LABELS] || category;
+      const label = formatCategoryLabel(category);
       if (!activityCategoryItems[label]) {
         activityCategoryItems[label] = [];
       }
@@ -144,7 +149,7 @@ try {
 
   // For training (single category per skill)
   for (const [skill, category] of Object.entries(learnedTrainingMappings)) {
-    const label = TRAINING_LABELS[category as keyof typeof TRAINING_LABELS] || category;
+    const label = formatCategoryLabel(category);
     if (!trainingCategoryItems[label]) {
       trainingCategoryItems[label] = [];
     }

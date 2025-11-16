@@ -18,9 +18,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 2,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 1,
     "fun_skills": 0
   },
@@ -61,7 +61,7 @@
   "aiTrainingCategories": [
     {
       "item": "collar grab games",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "sit (stay)",
@@ -73,7 +73,7 @@
     },
     {
       "item": "impulse control",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "sequence (3 different skills in varying order)",

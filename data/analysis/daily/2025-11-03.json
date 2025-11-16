@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 5,
-    "impulse_control_focus": 2,
+    "impulse_control_and_focus": 2,
     "physical_skills": 0,
-    "handling_manners": 3,
+    "handling_and_manners": 3,
     "advanced_training": 2,
     "fun_skills": 0
   },
@@ -79,7 +79,7 @@
   "aiTrainingCategories": [
     {
       "item": "collar grab games",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "name recognition",
@@ -91,7 +91,7 @@
     },
     {
       "item": "loose-leash walking",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "sit (stay)",
@@ -115,15 +115,15 @@
     },
     {
       "item": "impulse control",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "focus work",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "place work (go to matt/table)",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     }
   ],
   "analyzedAt": "2025-11-16T17:02:01.291Z",

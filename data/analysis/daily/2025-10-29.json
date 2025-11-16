@@ -18,9 +18,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 5,
-    "impulse_control_focus": 2,
+    "impulse_control_and_focus": 2,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 1,
     "fun_skills": 0
   },
@@ -98,7 +98,7 @@
     },
     {
       "item": "boundries, door-ways, and thresholds",
-      "category": "handling_manners"
+      "category": "handling_and_manners"
     },
     {
       "item": "sit (stay)",
@@ -122,11 +122,11 @@
     },
     {
       "item": "impulse control",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     },
     {
       "item": "focus work",
-      "category": "impulse_control_focus"
+      "category": "impulse_control_and_focus"
     }
   ],
   "analyzedAt": "2025-11-16T17:01:58.855Z",

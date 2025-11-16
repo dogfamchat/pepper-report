@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 2,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 0,
-    "handling_manners": 0,
+    "handling_and_manners": 0,
     "advanced_training": 0,
     "fun_skills": 0
   },
