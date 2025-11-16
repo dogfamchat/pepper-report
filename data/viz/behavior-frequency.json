@@ -1,0 +1,82 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "listened and respected my trainer",
+      "sharing nicely (water bowl, toys, food)",
+      "practiced balanced and fair play",
+      "loved every dog I met",
+      "verbally expressed myself",
+      "made good choices",
+      "respected thresholds",
+      "bullying or pestering another dog",
+      "respected other's space",
+      "helped the new kids fit in",
+      "challenge with self regulation"
+    ],
+    "datasets": [
+      {
+        "label": "Frequency",
+        "data": [
+          26,
+          21,
+          17,
+          17,
+          10,
+          7,
+          6,
+          4,
+          3,
+          3,
+          1
+        ],
+        "backgroundColor": [
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(239, 68, 68, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(239, 68, 68, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
+          "rgba(239, 68, 68, 0.8)"
+        ],
+        "borderWidth": 0
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "indexAxis": "y",
+    "plugins": {
+      "title": {
+        "display": false
+      },
+      "legend": {
+        "display": false
+      },
+      "tooltip": {
+        "callbacks": {}
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 1
+        },
+        "title": {
+          "display": true,
+          "text": "Number of Occurrences"
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
+      }
+    }
+  }
+}

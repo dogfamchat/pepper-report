@@ -1,4 +1,5 @@
 ---
+
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { formatDateNoYear, formatMonth } from '../../scripts/utils/date-utils';
@@ -53,6 +54,27 @@ try {
   trainingFrequencyViz = JSON.parse(readFileSync(join(vizDir, 'training-frequency.json'), 'utf-8'));
 } catch (error) {
   // Activity viz data not available
+}
+
+// Load behavior data and visualization
+let behaviorData = null;
+let behaviorTimelineViz = null;
+let behaviorFrequencyViz = null;
+try {
+  const behaviorPath = join(
+    process.cwd(),
+    'data',
+    'analysis',
+    'aggregates',
+    'behavior-trends.json',
+  );
+  behaviorData = JSON.parse(readFileSync(behaviorPath, 'utf-8'));
+
+  const vizDir = join(process.cwd(), 'data', 'viz');
+  behaviorTimelineViz = JSON.parse(readFileSync(join(vizDir, 'behavior-timeline.json'), 'utf-8'));
+  behaviorFrequencyViz = JSON.parse(readFileSync(join(vizDir, 'behavior-frequency.json'), 'utf-8'));
+} catch (error) {
+  // Behavior data not available
 }
 
 // Calculate grade percentage
@@ -173,6 +195,90 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
           ></canvas>
         </div>
       </div>
+    )}
+
+    <!-- Behavior Tracking Section -->
+    {behaviorData && behaviorTimelineViz && behaviorFrequencyViz && (
+      <>
+        <div class="section-header">
+          <h2>🌟 Behavior Tracking</h2>
+          <p class="section-subtitle">
+            {behaviorData.summary.totalPositiveBehaviors} positive behaviors tracked across {behaviorData.summary.totalReports} reports
+          </p>
+        </div>
+
+        <!-- Behavior Summary Stats -->
+        <div class="behavior-summary">
+          <div class="behavior-stat positive">
+            <div class="stat-label">Caught Being Good</div>
+            <div class="stat-value">{behaviorData.summary.totalPositiveBehaviors}</div>
+            <div class="stat-detail">
+              in {behaviorData.summary.reportsWithPositive} reports ({behaviorData.summary.positivePercentage.toFixed(0)}%)
+            </div>
+          </div>
+          <div class="behavior-stat negative">
+            <div class="stat-label">Ooops Moments</div>
+            <div class="stat-value">{behaviorData.summary.totalNegativeBehaviors}</div>
+            <div class="stat-detail">
+              in {behaviorData.summary.reportsWithNegative} reports ({behaviorData.summary.negativePercentage.toFixed(0)}%)
+            </div>
+          </div>
+          <div class="behavior-stat ratio">
+            <div class="stat-label">Positive:Negative Ratio</div>
+            <div class="stat-value">
+              {(behaviorData.summary.totalPositiveBehaviors / Math.max(behaviorData.summary.totalNegativeBehaviors, 1)).toFixed(1)}:1
+            </div>
+            <div class="stat-detail">Overwhelmingly positive!</div>
+          </div>
+        </div>
+
+        <!-- Behavior Charts -->
+        <div class="behavior-charts-grid">
+          <!-- Behavior Timeline -->
+          <div class="chart-card full-width">
+            <h3>Behavior Over Time</h3>
+            <canvas
+              id="behaviorTimelineChart"
+              data-chart-config={JSON.stringify(behaviorTimelineViz)}
+            ></canvas>
+          </div>
+
+          <!-- Behavior Frequency -->
+          <div class="chart-card full-width">
+            <h3>All Behaviors by Frequency</h3>
+            <canvas
+              id="behaviorFrequencyChart"
+              data-chart-config={JSON.stringify(behaviorFrequencyViz)}
+            ></canvas>
+          </div>
+        </div>
+
+        <!-- Top Behaviors List -->
+        <div class="behavior-lists-grid">
+          <div class="behavior-list positive">
+            <h3>✅ Most Common Positive Behaviors</h3>
+            <ol>
+              {behaviorData.positiveBehaviors.slice(0, 5).map((behavior: any) => (
+                <li>
+                  <span class="behavior-name">{behavior.name}</span>
+                  <span class="behavior-count">{behavior.count} times ({behavior.percentage.toFixed(1)}%)</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+          <div class="behavior-list negative">
+            <h3>⚠️ Ooops Behaviors</h3>
+            <ol>
+              {behaviorData.negativeBehaviors.map((behavior: any) => (
+                <li>
+                  <span class="behavior-name">{behavior.name}</span>
+                  <span class="behavior-count">{behavior.count} times ({behavior.percentage.toFixed(1)}%)</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </>
     )}
 
     <!-- Monthly Breakdown -->
@@ -813,6 +919,131 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
       gap: 1.5rem;
     }
   }
+
+  /* Behavior Tracking Styles */
+  .behavior-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .behavior-stat {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .behavior-stat.positive {
+    border-left: 4px solid #22c55e;
+  }
+
+  .behavior-stat.negative {
+    border-left: 4px solid #ef4444;
+  }
+
+  .behavior-stat.ratio {
+    border-left: 4px solid #667eea;
+  }
+
+  .behavior-stat .stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .behavior-stat .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  .behavior-stat .stat-detail {
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  .behavior-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .behavior-charts-grid .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .behavior-lists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .behavior-list {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .behavior-list.positive {
+    border-left: 4px solid #22c55e;
+  }
+
+  .behavior-list.negative {
+    border-left: 4px solid #ef4444;
+  }
+
+  .behavior-list h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.1rem;
+    color: #333;
+  }
+
+  .behavior-list ol {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+
+  .behavior-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .behavior-list li:last-child {
+    border-bottom: none;
+  }
+
+  .behavior-name {
+    flex: 1;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .behavior-count {
+    color: #666;
+    font-size: 0.9rem;
+    margin-left: 1rem;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .behavior-charts-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .behavior-lists-grid {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 
 <script>
@@ -892,6 +1123,26 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     }
   }
 
+  // Initialize behavior timeline chart
+  const behaviorTimelineCanvas = document.getElementById('behaviorTimelineChart') as HTMLCanvasElement | null;
+  if (behaviorTimelineCanvas) {
+    const configStr = behaviorTimelineCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(behaviorTimelineCanvas, config);
+    }
+  }
+
+  // Initialize behavior frequency chart
+  const behaviorFrequencyCanvas = document.getElementById('behaviorFrequencyChart') as HTMLCanvasElement | null;
+  if (behaviorFrequencyCanvas) {
+    const configStr = behaviorFrequencyCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(behaviorFrequencyCanvas, config);
+    }
+  }
+
   // Modal functionality
   const infoButtons = document.querySelectorAll('.info-icon');
   const modals = document.querySelectorAll('.modal');
@@ -942,4 +1193,3 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     }
   });
 </script>
-

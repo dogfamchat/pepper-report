@@ -1,14 +1,76 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-11-11
+**Last Updated:** 2025-11-15
 **Current Phase:** Analysis & Visualization (Phase 3 - Complete)
-**Current Branch:** activity-categorization (ready for review and merge)
+**Current Branch:** behaviour-tracking (ready for PR)
 
 ## Overview
 
 This tracks remaining work to complete the Pepper Report project. See [docs/design-proposal.md](docs/design-proposal.md) for full architecture and [docs/report-card-data-structure.md](docs/report-card-data-structure.md) for data schema details.
 
 ## Recent Progress
+
+### Nov 15, 2025 - Behavior Tracking ✅ COMPLETE
+
+**Branch:** `behaviour-tracking` (ready for PR)
+
+**Completed:**
+- ✅ **Behavior Data Extraction** (`scripts/analysis/extract-daily.ts`)
+  - Added `caughtBeingGood` and `ooops` arrays to DailyAnalysis interface
+  - Extraction logic pulls behaviors directly from report cards
+  - No AI processing needed - behaviors are already structured data
+  - Regenerated all 34 daily analysis files with behavior fields
+
+- ✅ **Behavior Aggregation Logic** (`scripts/analysis/aggregate.ts`)
+  - Created `analyzeBehaviorTrends()` function
+  - Counts total positive/negative behaviors across all reports
+  - Tracks frequency of each unique behavior
+  - Calculates percentages and report coverage
+  - Built 2 Chart.js visualization generators (comparison chart removed)
+
+- ✅ **Behavior Charts on Trends Page** (`src/pages/trends.astro`)
+  - Behavior timeline (line chart showing positive vs negative over time)
+  - Behavior frequency (full-width horizontal bar chart, all behaviors color-coded)
+  - Summary stats section (3 stat cards with totals and ratio)
+  - Top 5 positive behaviors list
+  - All "ooops" behaviors list
+  - Color-coded: green for positive, red for negative
+  - Responsive mobile-friendly design
+
+- ✅ **Utility Script** (`scripts/analysis/regenerate-all-daily.ts`)
+  - New utility script to regenerate all daily files
+  - Useful when DailyAnalysis interface changes
+  - Processes all 34 reports with proper rate limiting
+
+- ✅ **Data Processing**
+  - Regenerated all 34 daily analysis files with behavior data
+  - Created 3 data files in `data/analysis/aggregates/` and `data/viz/`
+  - Removed redundant behavior comparison chart
+  - All builds passing, TypeScript checks clean
+
+- ✅ **Code Cleanup** (Nov 15)
+  - Removed redundant behavior comparison bar chart (data shown in stat cards)
+  - Deleted `data/viz/behavior-comparison.json`
+  - Removed `generateBehaviorComparisonViz()` function from aggregate.ts
+  - Made behavior frequency chart full-width for better visibility
+  - Fixed TypeScript type assertions for Chart.js canvas elements
+
+**Statistics (34 reports):**
+- 100 total positive behaviors (avg 2.9 per report)
+- 15 total negative behaviors (avg 0.4 per report)
+- 100% of reports have positive behaviors
+- 35% of reports have ooops moments
+- 6.7:1 positive:negative ratio
+- Top positive: "listened and respected my trainer" (26 times, 26%)
+- Top ooops: "verbally expressed myself" (10 times, 66.7%)
+- 8 unique positive behaviors, 3 unique ooops behaviors
+
+**Key Commits:**
+- `08f5cb4` - Add behavior tracking with charts and visualizations
+- `204da04` - Update TODO.md with behavior tracking progress
+- `c403dd0` - Regenerate daily analysis (34 reports)
+- `6ba760b` - Remove redundant behavior comparison chart
+- `bab3c76` - Remove unused behavior comparison chart generation
 
 ### Nov 11, 2025 - Activity Categorization ✅ COMPLETE
 
@@ -126,67 +188,68 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - **Performance:** New reports process in ~1s (vs ~34s for full batch)
   - **Cost:** $0.00004 per new report (vs $0.0012 per full run)
 
-**📊 Current Stats (as of Nov 11, 2025):**
-- 32 report cards scraped (Aug 8 - Nov 10, 2025)
+**📊 Current Stats (as of Nov 15, 2025):**
+- 34 report cards scraped (Aug 8 - Nov 14, 2025)
 - Overall average: 3.58/4.0 (89.5%)
 - 14 weeks tracked, 4 months of data
 - **14 photos uploaded to Cloudflare R2** (all displayed with lightbox modal)
 - **12 unique friends identified** (filtered, sorted by recency)
-- **255 activity instances tracked** across 7 categories
-- **135 training instances tracked** across 6 categories
-- **95 positive behaviors** ("Caught Being Good") - not yet visualized
-- **13 "ooops" behaviors** - not yet visualized
+- **255 activity instances tracked** across 7 categories ✅ visualized
+- **135 training instances tracked** across 6 categories ✅ visualized
+- **100 positive behaviors** ("Caught Being Good") ✅ visualized
+- **15 "ooops" behaviors** ✅ visualized
 
 ## Current Status
 
-**Activity categorization is now complete!** ✅ All major analysis features are implemented:
-- Grade trends ✅
-- Friend analysis ✅
-- Activity categorization ✅ (with 4 charts + info modals)
-- Photo display ✅ (with lightbox modal + timeline indicators)
+**All major analysis features are now complete!** ✅ Full visualization pipeline implemented:
+- Grade trends ✅ (line chart + donut chart + weekly/monthly breakdowns)
+- Friend analysis ✅ (leaderboard with 12 friends)
+- Activity categorization ✅ (4 charts: 2 category bars + 2 frequency bars + info modals)
+- Behavior tracking ✅ (2 charts: timeline + frequency + stat cards + top behaviors lists)
+- Photo display ✅ (lightbox modal + timeline indicators + gallery page)
 
-**Ready to merge:** The `activity-categorization` branch has been fully tested and is ready for production deployment.
-- ✅ PR #10 created: https://github.com/dogfamchat/pepper-report/pull/10
+**Ready for review:** The `behaviour-tracking` branch has been fully tested and committed.
+- ✅ Latest commit: bab3c76
 - ✅ All builds passing (Astro + TypeScript + Biome)
 - ✅ Dev server tested locally
-- ✅ All 4 activity charts rendering correctly
-- ✅ Info modals (ℹ️) working properly
+- ✅ 2 behavior charts rendering correctly (comparison chart removed as redundant)
+- ✅ 5 commits total on branch
+- ✅ 34 report cards analyzed with behavior data
+
+**Pending branches:**
+- `behaviour-tracking` - Ready for PR (5 commits, clean working tree)
+
+**Recently merged:**
+- `activity-categorization` - PR #10 ✅ MERGED to main
 
 ### Immediate Tasks (Next Session)
 
-- [ ] **Merge activity-categorization branch to main**
-  - Create PR from `activity-categorization` to `main`
-  - Review changes and verify all charts working
+- [x] **Merge activity-categorization branch to main** ✅ COMPLETED Nov 11
+  - ✓ PR #10 merged successfully
+  - ✓ Activity charts now in production
+
+- [ ] **Create PR for behaviour-tracking branch**
+  - Create PR from `behaviour-tracking` to `main`
+  - Review changes and verify all behavior charts working
   - Merge and deploy to production
 
-- [ ] **Implement behavior tracking charts** (Next feature branch)
-  - **Branch:** `behavior-tracking` (to be created)
-  - **Approach:** Flexible aggregation (no categories needed - raw strings are meaningful)
-  - **Data source:** `caughtBeingGood[]` and `ooops[]` arrays in each report
-  - **Known values (as of Nov 11, 32 reports):**
-    - 8 unique "Caught Being Good" behaviors
-    - 3 unique "Ooops" behaviors
-    - 95 total positive behaviors (avg 3 per report, 100% of reports)
-    - 13 total ooops (avg 0.4 per report, 34% of reports)
-
-  **Charts to implement:**
-  1. [ ] **Positive behavior trend line** - # of "caught being good" behaviors over time
-  2. [ ] **Good vs Ooops comparison** - Dual-line or stacked bar chart showing ratio
-  3. [ ] **Behavior frequency bar chart** - Top behaviors by count (horizontal bar)
-  4. [ ] **Ooops tracking** - Monitor problem behaviors over time
-
-  **Implementation approach:**
-  - No hardcoded categories (unlike activities)
-  - Automatically includes new values when they appear
-  - Simple frequency counting and trending
-  - Integrate into existing `extract-daily.ts` and `aggregate.ts` pipeline
-
-  **Files to modify:**
-  - `scripts/analysis/extract-daily.ts` - Add behavior extraction
-  - `scripts/analysis/aggregate.ts` - Add behavior aggregation
-  - `src/pages/trends.astro` - Add 2-3 behavior charts
-  - Create `data/analysis/aggregates/behavior-trends.json`
-  - Create `data/viz/behavior-*.json` files for Chart.js
+- [x] **Implement behavior tracking charts** ✅ COMPLETED Nov 15
+  - **Branch:** `behaviour-tracking` (ready for PR)
+  - **Implementation:** Flexible aggregation (no categories - raw strings used directly)
+  - **Charts implemented:**
+    1. ✅ Behavior timeline (line chart with positive/negative over time)
+    2. ✅ Behavior frequency (full-width horizontal bar chart, all behaviors color-coded)
+    3. ❌ Behavior comparison (removed as redundant - data shown in stat cards)
+  - **Files modified:**
+    - ✅ `scripts/analysis/extract-daily.ts` - Added behavior extraction
+    - ✅ `scripts/analysis/aggregate.ts` - Added behavior aggregation (removed comparison viz)
+    - ✅ `src/pages/trends.astro` - Added behavior section with 2 charts + stat cards
+    - ✅ Created `data/analysis/aggregates/behavior-trends.json`
+    - ✅ Created `data/viz/behavior-*.json` files (2 files)
+  - **Code cleanup:**
+    - ✅ Removed redundant comparison chart visualization
+    - ✅ Deleted `data/viz/behavior-comparison.json`
+    - ✅ Removed `generateBehaviorComparisonViz()` function
 
 - [x] **Implement friend analysis with Claude API** ✅ COMPLETED Nov 9
   - ✓ Created incremental analysis architecture (extract-daily.ts, aggregate.ts)

@@ -127,6 +127,37 @@ interface ActivityBreakdown {
   };
 }
 
+interface BehaviorTrends {
+  summary: {
+    totalReports: number;
+    dateRange: {
+      start: string;
+      end: string;
+    };
+    totalPositiveBehaviors: number;
+    totalNegativeBehaviors: number;
+    reportsWithPositive: number;
+    reportsWithNegative: number;
+    positivePercentage: number;
+    negativePercentage: number;
+  };
+  timeline: Array<{
+    date: string;
+    positiveCount: number;
+    negativeCount: number;
+  }>;
+  positiveBehaviors: Array<{
+    name: string;
+    count: number;
+    percentage: number;
+  }>;
+  negativeBehaviors: Array<{
+    name: string;
+    count: number;
+    percentage: number;
+  }>;
+}
+
 interface AggregateOptions {
   verbose?: boolean;
 }
@@ -220,8 +251,8 @@ function groupByWeek(analyses: DailyAnalysis[]): Map<string, DailyAnalysis[]> {
   const grouped = new Map<string, DailyAnalysis[]>();
 
   for (const analysis of analyses) {
-    const date = new Date(analysis.date);
-    const weekKey = getISOWeekString(date);
+    // Pass date string directly to avoid UTC conversion issues
+    const weekKey = getISOWeekString(analysis.date);
 
     if (!grouped.has(weekKey)) {
       grouped.set(weekKey, []);
@@ -316,8 +347,8 @@ function analyzeGradeTrends(analyses: DailyAnalysis[]): GradeTrendsOutput {
     // Find all unique weeks in this month
     const weeksInMonth = new Set<string>();
     for (const analysis of monthAnalyses) {
-      const date = new Date(analysis.date);
-      const weekKey = getISOWeekString(date);
+      // Pass date string directly to avoid UTC conversion issues
+      const weekKey = getISOWeekString(analysis.date);
       weeksInMonth.add(weekKey);
     }
 
@@ -536,6 +567,95 @@ function analyzeActivityBreakdown(analyses: DailyAnalysis[]): ActivityBreakdown 
       activities: activityFrequencies,
       training: trainingFrequencies,
     },
+  };
+}
+
+/**
+ * Analyze behavior trends from daily analyses
+ */
+function analyzeBehaviorTrends(analyses: DailyAnalysis[]): BehaviorTrends {
+  if (analyses.length === 0) {
+    throw new Error('No daily analysis files found');
+  }
+
+  // Count total behaviors and reports with behaviors
+  let totalPositiveBehaviors = 0;
+  let totalNegativeBehaviors = 0;
+  let reportsWithPositive = 0;
+  let reportsWithNegative = 0;
+
+  // Track frequency of each behavior
+  const positiveBehaviorCounts = new Map<string, number>();
+  const negativeBehaviorCounts = new Map<string, number>();
+
+  // Timeline data for charting
+  const timeline: Array<{
+    date: string;
+    positiveCount: number;
+    negativeCount: number;
+  }> = [];
+
+  for (const analysis of analyses) {
+    const positiveCount = analysis.caughtBeingGood?.length || 0;
+    const negativeCount = analysis.ooops?.length || 0;
+
+    totalPositiveBehaviors += positiveCount;
+    totalNegativeBehaviors += negativeCount;
+
+    if (positiveCount > 0) reportsWithPositive++;
+    if (negativeCount > 0) reportsWithNegative++;
+
+    // Track timeline
+    timeline.push({
+      date: analysis.date,
+      positiveCount,
+      negativeCount,
+    });
+
+    // Count individual behaviors
+    for (const behavior of analysis.caughtBeingGood || []) {
+      positiveBehaviorCounts.set(behavior, (positiveBehaviorCounts.get(behavior) || 0) + 1);
+    }
+
+    for (const behavior of analysis.ooops || []) {
+      negativeBehaviorCounts.set(behavior, (negativeBehaviorCounts.get(behavior) || 0) + 1);
+    }
+  }
+
+  // Calculate percentages and sort behaviors by frequency
+  const positiveBehaviors = Array.from(positiveBehaviorCounts.entries())
+    .map(([name, count]) => ({
+      name,
+      count,
+      percentage: totalPositiveBehaviors > 0 ? (count / totalPositiveBehaviors) * 100 : 0,
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  const negativeBehaviors = Array.from(negativeBehaviorCounts.entries())
+    .map(([name, count]) => ({
+      name,
+      count,
+      percentage: totalNegativeBehaviors > 0 ? (count / totalNegativeBehaviors) * 100 : 0,
+    }))
+    .sort((a, b) => b.count - a.count);
+
+  return {
+    summary: {
+      totalReports: analyses.length,
+      dateRange: {
+        start: analyses[0].date,
+        end: analyses[analyses.length - 1].date,
+      },
+      totalPositiveBehaviors,
+      totalNegativeBehaviors,
+      reportsWithPositive,
+      reportsWithNegative,
+      positivePercentage: (reportsWithPositive / analyses.length) * 100,
+      negativePercentage: (reportsWithNegative / analyses.length) * 100,
+    },
+    timeline,
+    positiveBehaviors,
+    negativeBehaviors,
   };
 }
 
@@ -865,6 +985,139 @@ function generateTrainingFrequencyViz(breakdown: ActivityBreakdown): object {
 }
 
 /**
+ * Generate Chart.js visualization data for behavior timeline (line chart)
+ */
+function generateBehaviorTimelineViz(behaviorTrends: BehaviorTrends): object {
+  return {
+    type: 'line',
+    data: {
+      labels: behaviorTrends.timeline.map((t) => t.date),
+      datasets: [
+        {
+          label: 'Caught Being Good',
+          data: behaviorTrends.timeline.map((t) => t.positiveCount),
+          borderColor: 'rgba(34, 197, 94, 1)', // Green
+          backgroundColor: 'rgba(34, 197, 94, 0.1)',
+          tension: 0.3,
+          fill: true,
+        },
+        {
+          label: 'Ooops',
+          data: behaviorTrends.timeline.map((t) => t.negativeCount),
+          borderColor: 'rgba(239, 68, 68, 1)', // Red
+          backgroundColor: 'rgba(239, 68, 68, 0.1)',
+          tension: 0.3,
+          fill: true,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        title: {
+          display: false,
+        },
+        legend: {
+          display: true,
+          position: 'top',
+        },
+        tooltip: {
+          mode: 'index',
+          intersect: false,
+        },
+      },
+      scales: {
+        x: {
+          display: true,
+          title: {
+            display: true,
+            text: 'Date',
+          },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+          title: {
+            display: true,
+            text: 'Number of Behaviors',
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
+ * Generate Chart.js visualization data for behavior frequency (bar chart)
+ */
+function generateBehaviorFrequencyViz(behaviorTrends: BehaviorTrends): object {
+  // Combine positive and negative behaviors
+  const allBehaviors = [
+    ...behaviorTrends.positiveBehaviors.map((b) => ({ ...b, type: 'positive' })),
+    ...behaviorTrends.negativeBehaviors.map((b) => ({ ...b, type: 'negative' })),
+  ].sort((a, b) => b.count - a.count);
+
+  const labels = allBehaviors.map((b) => b.name);
+  const data = allBehaviors.map((b) => b.count);
+  const colors = allBehaviors.map((b) =>
+    b.type === 'positive' ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)',
+  );
+
+  return {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Frequency',
+          data,
+          backgroundColor: colors,
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      plugins: {
+        title: {
+          display: false,
+        },
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: { parsed: { x: number } }) => {
+              return `Occurred ${context.parsed.x} times`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+          title: {
+            display: true,
+            text: 'Number of Occurrences',
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
  * Save aggregated results
  */
 function saveResults(
@@ -877,6 +1130,9 @@ function saveResults(
   trainingCategoryViz?: object,
   activityFrequencyViz?: object,
   trainingFrequencyViz?: object,
+  behaviorTrends?: BehaviorTrends,
+  behaviorTimelineViz?: object,
+  behaviorFrequencyViz?: object,
 ): void {
   const aggregatesDir = join(process.cwd(), 'data', 'analysis', 'aggregates');
   const vizDir = join(process.cwd(), 'data', 'viz');
@@ -967,6 +1223,34 @@ function saveResults(
     );
     console.log('   ✅ data/viz/training-frequency.json');
   }
+
+  // Save behavior trends (if provided)
+  if (behaviorTrends) {
+    const behaviorTrendsFile = join(aggregatesDir, 'behavior-trends.json');
+    writeFileSync(behaviorTrendsFile, `${JSON.stringify(behaviorTrends, null, 2)}\n`, 'utf-8');
+    console.log('   ✅ data/analysis/aggregates/behavior-trends.json');
+  }
+
+  // Save behavior visualization data (if provided)
+  if (behaviorTimelineViz) {
+    const behaviorTimelineFile = join(vizDir, 'behavior-timeline.json');
+    writeFileSync(
+      behaviorTimelineFile,
+      `${JSON.stringify(behaviorTimelineViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/behavior-timeline.json');
+  }
+
+  if (behaviorFrequencyViz) {
+    const behaviorFrequencyFile = join(vizDir, 'behavior-frequency.json');
+    writeFileSync(
+      behaviorFrequencyFile,
+      `${JSON.stringify(behaviorFrequencyViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/behavior-frequency.json');
+  }
 }
 
 /**
@@ -1053,6 +1337,39 @@ async function main() {
       });
     }
 
+    // Analyze behavior trends
+    console.log('\n🌟 Aggregating behavior trends...');
+    const behaviorTrends = analyzeBehaviorTrends(analyses);
+
+    console.log(`   Total positive behaviors: ${behaviorTrends.summary.totalPositiveBehaviors}`);
+    console.log(`   Total negative behaviors: ${behaviorTrends.summary.totalNegativeBehaviors}`);
+    console.log(
+      `   Reports with positive: ${behaviorTrends.summary.reportsWithPositive} (${behaviorTrends.summary.positivePercentage.toFixed(1)}%)`,
+    );
+    console.log(
+      `   Reports with negative: ${behaviorTrends.summary.reportsWithNegative} (${behaviorTrends.summary.negativePercentage.toFixed(1)}%)`,
+    );
+
+    // Show top 3 positive behaviors
+    if (behaviorTrends.positiveBehaviors.length > 0) {
+      console.log('\n   Top Positive Behaviors:');
+      behaviorTrends.positiveBehaviors.slice(0, 3).forEach((behavior, i) => {
+        console.log(
+          `   ${i + 1}. ${behavior.name} - ${behavior.count} times (${behavior.percentage.toFixed(1)}%)`,
+        );
+      });
+    }
+
+    // Show all negative behaviors (usually only a few)
+    if (behaviorTrends.negativeBehaviors.length > 0) {
+      console.log('\n   Negative Behaviors:');
+      behaviorTrends.negativeBehaviors.forEach((behavior, i) => {
+        console.log(
+          `   ${i + 1}. ${behavior.name} - ${behavior.count} times (${behavior.percentage.toFixed(1)}%)`,
+        );
+      });
+    }
+
     // Generate visualization data
     console.log('\n📊 Generating visualization data...');
     const timeline = generateGradeTimeline(analyses);
@@ -1061,6 +1378,8 @@ async function main() {
     const trainingCategoryViz = generateTrainingCategoryViz(activityBreakdown);
     const activityFrequencyViz = generateActivityFrequencyViz(activityBreakdown);
     const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
+    const behaviorTimelineViz = generateBehaviorTimelineViz(behaviorTrends);
+    const behaviorFrequencyViz = generateBehaviorFrequencyViz(behaviorTrends);
 
     // Save results
     console.log('\n💾 Saving aggregated data...');
@@ -1074,6 +1393,9 @@ async function main() {
       trainingCategoryViz,
       activityFrequencyViz,
       trainingFrequencyViz,
+      behaviorTrends,
+      behaviorTimelineViz,
+      behaviorFrequencyViz,
     );
 
     console.log('\n═══════════════════════════════════════\n');
@@ -1089,12 +1411,15 @@ export {
   analyzeGradeTrends,
   analyzeFriendStats,
   analyzeActivityBreakdown,
+  analyzeBehaviorTrends,
   generateGradeTimeline,
   generateFriendNetworkViz,
   generateActivityCategoryViz,
   generateTrainingCategoryViz,
   generateActivityFrequencyViz,
   generateTrainingFrequencyViz,
+  generateBehaviorTimelineViz,
+  generateBehaviorFrequencyViz,
 };
 
 // Run if called directly
