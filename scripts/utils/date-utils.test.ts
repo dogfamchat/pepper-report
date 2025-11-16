@@ -427,14 +427,14 @@ describe('getISOWeekString', () => {
 });
 
 describe('getWeekBounds', () => {
-  test('returns Monday to Sunday for a week', () => {
+  test('returns Monday to Monday (exclusive end) for a week', () => {
     const { start, end } = getWeekBounds('2025-W33');
 
-    // Monday
+    // Monday (start of week)
     expect(start.getDay()).toBe(1);
 
-    // Sunday
-    expect(end.getDay()).toBe(0);
+    // Monday (start of next week - exclusive upper bound)
+    expect(end.getDay()).toBe(1);
   });
 
   test('returns 7-day span', () => {

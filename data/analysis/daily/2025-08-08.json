@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 3,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 3,
+    "handling_and_manners": 3,
     "advanced_training": 1,
     "fun_skills": 0
   },
@@ -39,7 +39,71 @@
     "focus work",
     "confidence building"
   ],
-  "analyzedAt": "2025-11-16T00:03:20.674Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "engagement games",
+      "category": "enrichment"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "loose-leash walking",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall with distractions",
+      "category": "advanced_training"
+    },
+    {
+      "item": "focus work",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:28.138Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

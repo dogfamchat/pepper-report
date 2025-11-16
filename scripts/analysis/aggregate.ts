@@ -18,17 +18,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { getISOWeekString, getWeekBounds } from '../utils/date-utils';
-import {
-  ACTIVITY_CATEGORY_MAP,
-  ACTIVITY_COLORS,
-  ACTIVITY_LABELS,
-  type ActivityCategory,
-  TRAINING_CATEGORY_MAP,
-  TRAINING_COLORS,
-  TRAINING_LABELS,
-  type TrainingCategory,
-} from './activity-categories';
-import { aggregateCategoryCounts, calculateFrequencies } from './activity-categorizer';
+import { aggregateAICategoryCounts, calculateFrequencies } from './activity-categorizer';
 import type { DailyAnalysis } from './extract-daily';
 
 interface WeeklySummary {
@@ -92,26 +82,6 @@ interface ActivityBreakdown {
     };
     totalActivityInstances: number;
     totalTrainingInstances: number;
-  };
-  categoryCounts: {
-    activities: Record<ActivityCategory, number>;
-    training: Record<TrainingCategory, number>;
-  };
-  categoryPercentages: {
-    activities: Record<
-      ActivityCategory,
-      {
-        count: number;
-        percentage: number;
-      }
-    >;
-    training: Record<
-      TrainingCategory,
-      {
-        count: number;
-        percentage: number;
-      }
-    >;
   };
   detailedFrequencies: {
     activities: Array<{
@@ -469,64 +439,18 @@ function analyzeActivityBreakdown(analyses: DailyAnalysis[]): ActivityBreakdown 
     throw new Error('No daily analysis files found');
   }
 
-  // Aggregate category counts across all reports
-  const { activityTotals, trainingTotals } = aggregateCategoryCounts(analyses);
-
-  // Calculate total instances
-  const totalActivityInstances = Object.values(activityTotals).reduce(
-    (sum, count) => sum + count,
-    0,
-  );
-  const totalTrainingInstances = Object.values(trainingTotals).reduce(
-    (sum, count) => sum + count,
-    0,
-  );
-
-  // Calculate percentages for categories
-  const activityPercentages: Record<
-    ActivityCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  > = {} as Record<
-    ActivityCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  >;
-
-  const trainingPercentages: Record<
-    TrainingCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  > = {} as Record<
-    TrainingCategory,
-    {
-      count: number;
-      percentage: number;
-    }
-  >;
-
-  for (const [category, count] of Object.entries(activityTotals)) {
-    activityPercentages[category as ActivityCategory] = {
-      count,
-      percentage: totalActivityInstances > 0 ? (count / totalActivityInstances) * 100 : 0,
-    };
-  }
-
-  for (const [category, count] of Object.entries(trainingTotals)) {
-    trainingPercentages[category as TrainingCategory] = {
-      count,
-      percentage: totalTrainingInstances > 0 ? (count / totalTrainingInstances) * 100 : 0,
-    };
-  }
-
   // Calculate detailed frequencies for individual activities/skills
   const { activityFrequency, trainingFrequency } = calculateFrequencies(analyses);
+
+  // Calculate total instances from raw frequencies
+  const totalActivityInstances = Object.values(activityFrequency).reduce(
+    (sum, count) => sum + count,
+    0,
+  );
+  const totalTrainingInstances = Object.values(trainingFrequency).reduce(
+    (sum, count) => sum + count,
+    0,
+  );
 
   // Sort and format detailed frequencies
   const activityFrequencies = Object.entries(activityFrequency)
@@ -554,14 +478,6 @@ function analyzeActivityBreakdown(analyses: DailyAnalysis[]): ActivityBreakdown 
       },
       totalActivityInstances,
       totalTrainingInstances,
-    },
-    categoryCounts: {
-      activities: activityTotals,
-      training: trainingTotals,
-    },
-    categoryPercentages: {
-      activities: activityPercentages,
-      training: trainingPercentages,
     },
     detailedFrequencies: {
       activities: activityFrequencies,
@@ -711,166 +627,6 @@ function generateFriendNetworkViz(topFriends: TopFriends): object {
           title: {
             display: true,
             text: 'Number of Mentions',
-          },
-        },
-      },
-    },
-  };
-}
-
-/**
- * Generate Chart.js visualization data for activity categories (pie chart)
- */
-function generateActivityCategoryViz(breakdown: ActivityBreakdown): object {
-  const { activities } = breakdown.categoryPercentages;
-
-  // Filter out categories with zero count and sort by count
-  const sortedCategories = Object.entries(activities)
-    .filter(([_, data]) => data.count > 0)
-    .sort(([_, a], [__, b]) => b.count - a.count);
-
-  const labels = sortedCategories.map(
-    ([category]) => ACTIVITY_LABELS[category as ActivityCategory],
-  );
-  const data = sortedCategories.map(([_, data]) => data.count);
-  const colors = sortedCategories.map(
-    ([category]) => ACTIVITY_COLORS[category as ActivityCategory],
-  );
-
-  // Build reverse mapping: category -> list of activities
-  const categoryActivities: Record<string, string[]> = {};
-  for (const [activityName, categories] of Object.entries(ACTIVITY_CATEGORY_MAP)) {
-    for (const category of categories) {
-      if (!categoryActivities[category]) {
-        categoryActivities[category] = [];
-      }
-      categoryActivities[category].push(activityName);
-    }
-  }
-
-  return {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Count',
-          data,
-          backgroundColor: colors,
-          borderWidth: 0,
-        },
-      ],
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      plugins: {
-        title: {
-          display: false,
-        },
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          callbacks: {
-            afterLabel: (context: { dataIndex: number }) => {
-              const categoryIndex = context.dataIndex;
-              const categoryKey = sortedCategories[categoryIndex][0];
-              const activitiesInCategory = categoryActivities[categoryKey] || [];
-              return activitiesInCategory.map((a) => `• ${a}`);
-            },
-          },
-        },
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 10,
-          },
-        },
-        y: {
-          ticks: {
-            autoSkip: false,
-          },
-        },
-      },
-    },
-  };
-}
-
-/**
- * Generate Chart.js visualization data for training categories (pie chart)
- */
-function generateTrainingCategoryViz(breakdown: ActivityBreakdown): object {
-  const { training } = breakdown.categoryPercentages;
-
-  // Filter out categories with zero count and sort by count
-  const sortedCategories = Object.entries(training)
-    .filter(([_, data]) => data.count > 0)
-    .sort(([_, a], [__, b]) => b.count - a.count);
-
-  const labels = sortedCategories.map(
-    ([category]) => TRAINING_LABELS[category as TrainingCategory],
-  );
-  const data = sortedCategories.map(([_, data]) => data.count);
-  const colors = sortedCategories.map(
-    ([category]) => TRAINING_COLORS[category as TrainingCategory],
-  );
-
-  // Build reverse mapping: category -> list of training skills
-  const categoryTraining: Record<string, string[]> = {};
-  for (const [skillName, category] of Object.entries(TRAINING_CATEGORY_MAP)) {
-    if (!categoryTraining[category]) {
-      categoryTraining[category] = [];
-    }
-    categoryTraining[category].push(skillName);
-  }
-
-  return {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        {
-          label: 'Count',
-          data,
-          backgroundColor: colors,
-          borderWidth: 0,
-        },
-      ],
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      plugins: {
-        title: {
-          display: false,
-        },
-        legend: {
-          display: false,
-        },
-        tooltip: {
-          callbacks: {
-            afterLabel: (context: { dataIndex: number }) => {
-              const categoryIndex = context.dataIndex;
-              const categoryKey = sortedCategories[categoryIndex][0];
-              const skillsInCategory = categoryTraining[categoryKey] || [];
-              return skillsInCategory.map((s) => `• ${s}`);
-            },
-          },
-        },
-      },
-      scales: {
-        x: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 10,
-          },
-        },
-        y: {
-          ticks: {
-            autoSkip: false,
           },
         },
       },
@@ -1118,6 +874,160 @@ function generateBehaviorFrequencyViz(behaviorTrends: BehaviorTrends): object {
 }
 
 /**
+ * Generate Chart.js visualization data for AI activity categories (bar chart)
+ */
+function generateAIActivityCategoryViz(
+  activityCounts: Record<string, number>,
+  totalInstances: number,
+): object {
+  // Sort categories by count
+  const sortedCategories = Object.entries(activityCounts).sort(([_, a], [__, b]) => b - a);
+
+  // Convert snake_case to Title Case (keep 'and' lowercase)
+  const labels = sortedCategories.map(([cat]) =>
+    cat
+      .split('_')
+      .map((word) => (word === 'and' ? 'and' : word.charAt(0).toUpperCase() + word.slice(1)))
+      .join(' '),
+  );
+  const data = sortedCategories.map(([_, count]) => count);
+  const percentages = sortedCategories.map(([_, count]) =>
+    ((count / totalInstances) * 100).toFixed(1),
+  );
+
+  // Use existing color palette or generate colors
+  const colors = ['#FF6B9D', '#9B59B6', '#5DADE2', '#26A69A', '#FFD93D', '#FF9800', '#FF9FF3'];
+
+  return {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Activity Count',
+          data,
+          backgroundColor: colors.slice(0, labels.length),
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      plugins: {
+        title: {
+          display: false,
+        },
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: { parsed: { x: number }; dataIndex: number }) => {
+              return `${context.parsed.x} instances (${percentages[context.dataIndex]}%)`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+          title: {
+            display: true,
+            text: 'Number of Activity Instances',
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
+ * Generate Chart.js visualization data for AI training categories (bar chart)
+ */
+function generateAITrainingCategoryViz(
+  trainingCounts: Record<string, number>,
+  totalInstances: number,
+): object {
+  // Sort categories by count
+  const sortedCategories = Object.entries(trainingCounts).sort(([_, a], [__, b]) => b - a);
+
+  // Convert snake_case to Title Case (keep 'and' lowercase)
+  const labels = sortedCategories.map(([cat]) =>
+    cat
+      .split('_')
+      .map((word) => (word === 'and' ? 'and' : word.charAt(0).toUpperCase() + word.slice(1)))
+      .join(' '),
+  );
+  const data = sortedCategories.map(([_, count]) => count);
+  const percentages = sortedCategories.map(([_, count]) =>
+    ((count / totalInstances) * 100).toFixed(1),
+  );
+
+  // Use existing color palette or generate colors
+  const colors = ['#6C5CE7', '#0984E3', '#00B894', '#FDCB6E', '#E17055', '#FD79A8'];
+
+  return {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Training Count',
+          data,
+          backgroundColor: colors.slice(0, labels.length),
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      plugins: {
+        title: {
+          display: false,
+        },
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: { parsed: { x: number }; dataIndex: number }) => {
+              return `${context.parsed.x} instances (${percentages[context.dataIndex]}%)`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+          title: {
+            display: true,
+            text: 'Number of Training Instances',
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
  * Save aggregated results
  */
 function saveResults(
@@ -1126,13 +1036,13 @@ function saveResults(
   timeline: object,
   friendNetworkViz: object,
   activityBreakdown?: ActivityBreakdown,
-  activityCategoryViz?: object,
-  trainingCategoryViz?: object,
   activityFrequencyViz?: object,
   trainingFrequencyViz?: object,
   behaviorTrends?: BehaviorTrends,
   behaviorTimelineViz?: object,
   behaviorFrequencyViz?: object,
+  aiActivityCategoryViz?: object,
+  aiTrainingCategoryViz?: object,
 ): void {
   const aggregatesDir = join(process.cwd(), 'data', 'analysis', 'aggregates');
   const vizDir = join(process.cwd(), 'data', 'viz');
@@ -1184,26 +1094,6 @@ function saveResults(
   }
 
   // Save activity visualization data (if provided)
-  if (activityCategoryViz) {
-    const activityCategoryFile = join(vizDir, 'activity-categories.json');
-    writeFileSync(
-      activityCategoryFile,
-      `${JSON.stringify(activityCategoryViz, null, 2)}\n`,
-      'utf-8',
-    );
-    console.log('   ✅ data/viz/activity-categories.json');
-  }
-
-  if (trainingCategoryViz) {
-    const trainingCategoryFile = join(vizDir, 'training-categories.json');
-    writeFileSync(
-      trainingCategoryFile,
-      `${JSON.stringify(trainingCategoryViz, null, 2)}\n`,
-      'utf-8',
-    );
-    console.log('   ✅ data/viz/training-categories.json');
-  }
-
   if (activityFrequencyViz) {
     const activityFrequencyFile = join(vizDir, 'activity-frequency.json');
     writeFileSync(
@@ -1250,6 +1140,27 @@ function saveResults(
       'utf-8',
     );
     console.log('   ✅ data/viz/behavior-frequency.json');
+  }
+
+  // Save AI category visualization data (if provided)
+  if (aiActivityCategoryViz) {
+    const aiActivityCategoryFile = join(vizDir, 'ai-activity-categories.json');
+    writeFileSync(
+      aiActivityCategoryFile,
+      `${JSON.stringify(aiActivityCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/ai-activity-categories.json');
+  }
+
+  if (aiTrainingCategoryViz) {
+    const aiTrainingCategoryFile = join(vizDir, 'ai-training-categories.json');
+    writeFileSync(
+      aiTrainingCategoryFile,
+      `${JSON.stringify(aiTrainingCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/ai-training-categories.json');
   }
 }
 
@@ -1312,27 +1223,12 @@ async function main() {
     console.log(`   Total activity instances: ${activityBreakdown.summary.totalActivityInstances}`);
     console.log(`   Total training instances: ${activityBreakdown.summary.totalTrainingInstances}`);
 
-    // Show top 3 activity categories
-    const topActivityCategories = Object.entries(activityBreakdown.categoryPercentages.activities)
-      .filter(([_, data]) => data.count > 0)
-      .sort(([_, a], [__, b]) => b.count - a.count)
-      .slice(0, 3);
-
-    if (topActivityCategories.length > 0) {
-      console.log('\n   Top Activity Categories:');
-      topActivityCategories.forEach(([category, data], i) => {
-        console.log(
-          `   ${i + 1}. ${ACTIVITY_LABELS[category as ActivityCategory]} - ${data.count} times (${data.percentage.toFixed(1)}%)`,
-        );
-      });
-    }
-
-    // Show top 3 activities
+    // Show top 3 most frequent activities
     if (activityBreakdown.detailedFrequencies.activities.length > 0) {
       console.log('\n   Top Activities:');
       activityBreakdown.detailedFrequencies.activities.slice(0, 3).forEach((activity, i) => {
         console.log(
-          `   ${i + 1}. ${activity.name} - ${activity.count} days (${activity.percentage.toFixed(1)}%)`,
+          `   ${i + 1}. ${activity.name} - ${activity.count} times (${activity.percentage.toFixed(1)}%)`,
         );
       });
     }
@@ -1370,16 +1266,52 @@ async function main() {
       });
     }
 
+    // Aggregate AI categories
+    console.log('\n🤖 Aggregating AI-suggested categories...');
+    const aiCategories = aggregateAICategoryCounts(analyses);
+
+    console.log(`   AI activity instances: ${aiCategories.totalActivityInstances}`);
+    console.log(`   AI training instances: ${aiCategories.totalTrainingInstances}`);
+    console.log(
+      `   Unique AI activity categories: ${Object.keys(aiCategories.activityCounts).length}`,
+    );
+    console.log(
+      `   Unique AI training categories: ${Object.keys(aiCategories.trainingCounts).length}`,
+    );
+
+    // Show top 3 AI activity categories
+    const topAIActivityCategories = Object.entries(aiCategories.activityCounts)
+      .sort(([_, a], [__, b]) => b - a)
+      .slice(0, 3);
+
+    if (topAIActivityCategories.length > 0) {
+      console.log('\n   Top AI Activity Categories:');
+      topAIActivityCategories.forEach(([category, count], i) => {
+        const percentage = ((count / aiCategories.totalActivityInstances) * 100).toFixed(1);
+        console.log(
+          `   ${i + 1}. ${category.replace(/_/g, ' ')} - ${count} instances (${percentage}%)`,
+        );
+      });
+    }
+
     // Generate visualization data
     console.log('\n📊 Generating visualization data...');
     const timeline = generateGradeTimeline(analyses);
     const friendNetworkViz = generateFriendNetworkViz(topFriends);
-    const activityCategoryViz = generateActivityCategoryViz(activityBreakdown);
-    const trainingCategoryViz = generateTrainingCategoryViz(activityBreakdown);
     const activityFrequencyViz = generateActivityFrequencyViz(activityBreakdown);
     const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
     const behaviorTimelineViz = generateBehaviorTimelineViz(behaviorTrends);
     const behaviorFrequencyViz = generateBehaviorFrequencyViz(behaviorTrends);
+
+    // Generate AI category visualizations
+    const aiActivityCategoryViz = generateAIActivityCategoryViz(
+      aiCategories.activityCounts,
+      aiCategories.totalActivityInstances,
+    );
+    const aiTrainingCategoryViz = generateAITrainingCategoryViz(
+      aiCategories.trainingCounts,
+      aiCategories.totalTrainingInstances,
+    );
 
     // Save results
     console.log('\n💾 Saving aggregated data...');
@@ -1389,13 +1321,13 @@ async function main() {
       timeline,
       friendNetworkViz,
       activityBreakdown,
-      activityCategoryViz,
-      trainingCategoryViz,
       activityFrequencyViz,
       trainingFrequencyViz,
       behaviorTrends,
       behaviorTimelineViz,
       behaviorFrequencyViz,
+      aiActivityCategoryViz,
+      aiTrainingCategoryViz,
     );
 
     console.log('\n═══════════════════════════════════════\n');
@@ -1414,8 +1346,6 @@ export {
   analyzeBehaviorTrends,
   generateGradeTimeline,
   generateFriendNetworkViz,
-  generateActivityCategoryViz,
-  generateTrainingCategoryViz,
   generateActivityFrequencyViz,
   generateTrainingFrequencyViz,
   generateBehaviorTimelineViz,

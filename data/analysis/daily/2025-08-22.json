@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 1,
     "fun_skills": 0
   },
@@ -32,7 +32,43 @@
     "hands-free work",
     "impulse control"
   ],
-  "analyzedAt": "2025-11-16T00:03:24.065Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "hands-free work",
+      "category": "advanced_training"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:31.417Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer"

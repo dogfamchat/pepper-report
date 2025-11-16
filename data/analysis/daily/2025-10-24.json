@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -32,7 +32,47 @@
     "sit (stay)",
     "focus work"
   ],
-  "analyzedAt": "2025-11-16T00:03:46.381Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "focus work",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:56.589Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

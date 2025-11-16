@@ -22,11 +22,9 @@ import {
   analyzeActivityBreakdown,
   analyzeFriendStats,
   analyzeGradeTrends,
-  generateActivityCategoryViz,
   generateActivityFrequencyViz,
   generateFriendNetworkViz,
   generateGradeTimeline,
-  generateTrainingCategoryViz,
   generateTrainingFrequencyViz,
 } from './aggregate';
 import type { DailyAnalysis } from './extract-daily';
@@ -259,8 +257,6 @@ async function main() {
     // Generate visualization data
     const timeline = generateGradeTimeline(analyses);
     const friendNetworkViz = generateFriendNetworkViz(topFriends);
-    const activityCategoryViz = generateActivityCategoryViz(activityBreakdown);
-    const trainingCategoryViz = generateTrainingCategoryViz(activityBreakdown);
     const activityFrequencyViz = generateActivityFrequencyViz(activityBreakdown);
     const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
 
@@ -314,22 +310,6 @@ async function main() {
     console.log('   ✅ data/analysis/aggregates/activity-breakdown.json');
 
     // Save activity visualization data
-    const activityCategoryFile = join(vizDir, 'activity-categories.json');
-    writeFileSync(
-      activityCategoryFile,
-      `${JSON.stringify(activityCategoryViz, null, 2)}\n`,
-      'utf-8',
-    );
-    console.log('   ✅ data/viz/activity-categories.json');
-
-    const trainingCategoryFile = join(vizDir, 'training-categories.json');
-    writeFileSync(
-      trainingCategoryFile,
-      `${JSON.stringify(trainingCategoryViz, null, 2)}\n`,
-      'utf-8',
-    );
-    console.log('   ✅ data/viz/training-categories.json');
-
     const activityFrequencyFile = join(vizDir, 'activity-frequency.json');
     writeFileSync(
       activityFrequencyFile,

@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 2,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 0,
     "fun_skills": 1
   },
@@ -34,7 +34,59 @@
     "recall",
     "trick training"
   ],
-  "analyzedAt": "2025-11-16T00:03:47.694Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    },
+    {
+      "item": "nose work games and challenges",
+      "category": "enrichment"
+    },
+    {
+      "item": "nose work games and challenges",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "trick training",
+      "category": "fun_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:57.608Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

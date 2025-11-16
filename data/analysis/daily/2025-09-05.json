@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 2,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 0,
-    "handling_manners": 0,
+    "handling_and_manners": 0,
     "advanced_training": 0,
     "fun_skills": 1
   },
@@ -33,7 +33,55 @@
     "recall",
     "trick training"
   ],
-  "analyzedAt": "2025-11-16T00:03:27.446Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "trick training",
+      "category": "fun_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:34.462Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)"
   ],

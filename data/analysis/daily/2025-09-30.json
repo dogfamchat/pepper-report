@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 0,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 2,
+    "handling_and_manners": 2,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -33,7 +33,55 @@
     "impulse control",
     "confidence building"
   ],
-  "analyzedAt": "2025-11-16T00:03:36.991Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:46.310Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",

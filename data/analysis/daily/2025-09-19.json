@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 0,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 2,
-    "handling_manners": 0,
+    "handling_and_manners": 0,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -36,7 +36,79 @@
     "confidence building",
     "balancing skills"
   ],
-  "analyzedAt": "2025-11-16T00:03:32.763Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "socialization"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "agility",
+      "category": "physical_skills"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    },
+    {
+      "item": "balancing skills",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:42.011Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "respected thresholds",

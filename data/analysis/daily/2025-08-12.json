@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -32,7 +32,55 @@
     "recall",
     "impulse control"
   ],
-  "analyzedAt": "2025-11-16T00:03:21.712Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "socialization"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:29.062Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",

@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -29,7 +29,31 @@
     "boundries, door-ways, and thresholds",
     "sit (stay)"
   ],
-  "analyzedAt": "2025-11-16T00:03:49.994Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "special event",
+      "category": "special_event"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:02:00.022Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

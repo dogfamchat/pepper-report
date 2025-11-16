@@ -17,9 +17,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 0,
+    "impulse_control_and_focus": 0,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 1,
     "fun_skills": 0
   },
@@ -35,7 +35,51 @@
     "recall with distractions",
     "confidence building"
   ],
-  "analyzedAt": "2025-11-16T00:03:39.225Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall with distractions",
+      "category": "advanced_training"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:48.729Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",

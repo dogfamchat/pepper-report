@@ -12,7 +12,7 @@
     ],
     "datasets": [
       {
-        "label": "Count",
+        "label": "Activity Count",
         "data": [
           104,
           71,
@@ -25,10 +25,10 @@
         "backgroundColor": [
           "#FF6B9D",
           "#9B59B6",
-          "#26A69A",
           "#5DADE2",
-          "#FF9800",
+          "#26A69A",
           "#FFD93D",
+          "#FF9800",
           "#FF9FF3"
         ],
         "borderWidth": 0
@@ -36,8 +36,8 @@
     ]
   },
   "options": {
-    "indexAxis": "y",
     "responsive": true,
+    "indexAxis": "y",
     "plugins": {
       "title": {
         "display": false
@@ -53,7 +53,11 @@
       "x": {
         "beginAtZero": true,
         "ticks": {
-          "stepSize": 10
+          "stepSize": 1
+        },
+        "title": {
+          "display": true,
+          "text": "Number of Activity Instances"
         }
       },
       "y": {

@@ -1,0 +1,16 @@
+{
+  "brain building games and challenges": ["enrichment"],
+  "caught bubbles": ["playtime", "enrichment"],
+  "engagement games": ["enrichment"],
+  "had a pool party": ["playtime", "outdoor", "socialization"],
+  "hung out with my bestie": ["socialization"],
+  "napped with friends": ["rest"],
+  "nose work games and challenges": ["enrichment", "training"],
+  "one-on-one time with the trainer": ["training"],
+  "party animal": ["playtime", "socialization"],
+  "played on the agility equipment": ["playtime", "training"],
+  "played outdoors": ["playtime", "outdoor"],
+  "played with as many buddies as possible": ["playtime", "socialization"],
+  "played with my favorite toy": ["playtime"],
+  "special event": ["special_event"]
+}

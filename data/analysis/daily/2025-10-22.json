@@ -15,9 +15,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 1,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 2,
+    "handling_and_manners": 2,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -36,7 +36,71 @@
     "impulse control",
     "confidence building"
   ],
-  "analyzedAt": "2025-11-16T00:03:45.190Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "engagement games",
+      "category": "enrichment"
+    },
+    {
+      "item": "caught bubbles",
+      "category": "playtime"
+    },
+    {
+      "item": "caught bubbles",
+      "category": "enrichment"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:55.601Z",
   "caughtBeingGood": [
     "loved every dog I met",
     "made good choices"

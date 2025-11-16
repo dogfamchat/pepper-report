@@ -17,9 +17,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 0,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 0,
     "fun_skills": 0
   },
@@ -36,7 +36,63 @@
     "handling (exam style)",
     "jazz up, settle down"
   ],
-  "analyzedAt": "2025-11-16T00:03:38.075Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "caught bubbles",
+      "category": "playtime"
+    },
+    {
+      "item": "caught bubbles",
+      "category": "enrichment"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "jazz up, settle down",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:47.628Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer",

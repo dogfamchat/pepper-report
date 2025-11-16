@@ -18,9 +18,9 @@
   },
   "trainingCounts": {
     "obedience_commands": 2,
-    "impulse_control_focus": 1,
+    "impulse_control_and_focus": 1,
     "physical_skills": 0,
-    "handling_manners": 1,
+    "handling_and_manners": 1,
     "advanced_training": 1,
     "fun_skills": 0
   },
@@ -36,7 +36,51 @@
     "impulse control",
     "sequence (3 different skills in varying order)"
   ],
-  "analyzedAt": "2025-11-16T00:03:25.169Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "socialization"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "down (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "sequence (3 different skills in varying order)",
+      "category": "advanced_training"
+    }
+  ],
+  "analyzedAt": "2025-11-16T17:01:32.393Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "practiced balanced and fair play",
