@@ -10,6 +10,151 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 
 ## Recent Progress
 
+### Nov 15, 2025 - AI-Powered Activity Categorization with Learned Mappings 🚧 IN PROGRESS
+
+**Branch:** `fix-activities-and-training` (in development)
+
+**Context:**
+After merging PR #10 (activity-categorization), we discovered that activities and training skills are NOT static - new ones are being added frequently. Two new items appeared that weren't in our manual mappings:
+- "confidence building" (appeared in 9 reports starting Aug 8, 2025)
+- "nose targeting" (appeared in 1 report on Nov 14, 2025)
+
+**Problem:** Manual mapping maintenance would be ongoing burden as daycare adds new activities/skills.
+
+**Solution:** Hybrid approach with AI categorization + learned mappings
+1. Keep raw data frequency charts (never break)
+2. Add AI-powered category suggestions using Claude Haiku 4.5
+3. Use learned mappings to lock categories after first AI categorization (prevents drift)
+4. Only new items trigger AI calls (cost-efficient)
+
+**Completed So Far:**
+- ✅ **AI Categorization Integration** (`scripts/analysis/extract-daily.ts`)
+  - Added `categorizeWithAI()` function using Claude Haiku 4.5 API
+  - Structured outputs with tool_choice for guaranteed JSON schema
+  - Extended `DailyAnalysis` interface with `aiActivityCategories` and `aiTrainingCategories`
+  - Cost: ~$0.00004 per report when AI is needed, $0 when using learned mappings
+
+- ✅ **Learned Mappings System** (`scripts/analysis/extract-daily.ts`)
+  - Checks learned mappings first before calling AI
+  - Only unmapped items trigger AI categorization
+  - Merges learned mappings with AI results
+  - Returns early if all items found in cache (no AI call)
+  - Verbose logging shows when AI is needed vs cached
+
+- ✅ **Learned Mapping Files Created**
+  - `scripts/analysis/learned-activity-mappings.json` (14 activities from manual approach)
+  - `scripts/analysis/learned-training-mappings.json` (22 training skills including new ones)
+  - Multi-category support preserved for activities
+  - "confidence building" categorized as "physical_skills" (semantic reasoning: obstacles, surfaces, heights)
+  - "nose targeting" categorized as "fun_skills"
+
+- ✅ **AI Category Aggregation** (`scripts/analysis/activity-categorizer.ts`)
+  - Created `aggregateAICategoryCounts()` function
+  - Counts activity and training instances across all reports
+  - Tracks total instances for percentage calculations
+
+- ✅ **AI Category Visualization** (`scripts/analysis/aggregate.ts`)
+  - Added `generateAIActivityCategoryViz()` and `generateAITrainingCategoryViz()`
+  - Creates Chart.js configuration for horizontal bar charts
+  - Outputs to `data/viz/ai-activity-categories.json` and `data/viz/ai-training-categories.json`
+
+- ✅ **Interactive Charts on Trends Page** (`src/pages/trends.astro`)
+  - Added "🤖 AI-Suggested Categories" section with 2 charts
+  - Built category mappings from AI data (8 activity categories, 6 training categories)
+  - Hover tooltips showing all items in each category (afterLabel callbacks)
+  - Info icons (ℹ️) opening modals with complete category breakdowns
+  - Modals list all items under each category with emoji headers
+  - Same UX as manual charts
+
+- ✅ **Testing** (Nov 14 report)
+  - Verified learned mappings load correctly
+  - Confirmed all known items found in cache (no AI call)
+  - Processing time: 1.4s (vs ~2.8s with AI calls)
+  - Output: "✅ All items found in learned mappings (no AI call needed)"
+
+- ✅ **Initial AI Categorization** (one-time, Nov 15)
+  - Regenerated all 34 daily analysis files with AI categories
+  - 304 activity instances categorized across 34 reports
+  - 118 training instances categorized across 34 reports
+  - Total AI cost: ~$0.0014-0.0027 (one-time expense)
+
+**Pending Tasks:**
+- [ ] **Regenerate All Daily Files with Learned Mappings**
+  - Run extract-daily.ts for all 34 dates with learned mappings
+  - Verify all items found in cache (no AI calls needed)
+  - Confirm data consistency across all files
+  - **Command:** Loop through all dates in `data/analysis/daily/*.json`
+
+- [ ] **Regenerate Aggregate Data**
+  - Run `bun run scripts/analysis/aggregate.ts` to update viz files
+  - Ensure AI category charts use latest data
+  - Verify Chart.js configurations are correct
+
+- [ ] **Code Cleanup - Remove Rules-Based Categorization**
+  - Remove duplicate rules-based category charts from trends page
+  - Keep frequency charts (Top 10 activities/training) - they're still valuable
+  - Remove `data/viz/activity-categories.json` and `data/viz/training-categories.json`
+  - Remove rules-based categorization calls from extract-daily.ts
+  - Remove unused category mapping files if no longer needed
+  - Update trends page to only show AI category charts + frequency charts
+
+- [ ] **Update GitHub Actions Workflow**
+  - Ensure learned mapping files are committed to Git
+  - Verify extract-daily.ts runs with learned mappings in CI
+  - Test that new activities trigger AI categorization and get saved to mappings
+  - Add step to commit updated learned mappings if new items found
+
+- [ ] **Create Commit**
+  - Commit learned mappings implementation
+  - Include learned mapping JSON files
+  - Include extract-daily.ts changes
+  - Include trends page updates
+  - Include aggregate.ts changes
+
+**Key Technical Details for Future Claude Sessions:**
+
+**File: `scripts/analysis/extract-daily.ts`**
+- Location of learned mapping imports: Lines ~9-16 (after existing imports)
+- Modified function: `categorizeWithAI()` (around line 150-250)
+- Logic flow:
+  1. Load `LEARNED_ACTIVITY_MAPPINGS` and `LEARNED_TRAINING_MAPPINGS` from JSON files
+  2. Check all activities/training against learned mappings first
+  3. Separate into `unmappedActivities` and `unmappedTraining` arrays
+  4. Return early if all found in cache (no AI call)
+  5. Only call AI for unmapped items
+  6. Merge learned mappings with AI results
+  7. Return combined categorizations
+
+**Files: `scripts/analysis/learned-*-mappings.json`**
+- `learned-activity-mappings.json`: 14 activities, multi-category support (array values)
+- `learned-training-mappings.json`: 22 training skills, single category (string values)
+- These are the "source of truth" for categories - edit these to change categorizations
+- New items will be added here when AI categorizes them (future enhancement)
+
+**File: `src/pages/trends.astro`**
+- AI category section starts around line ~400 (after activity categorization section)
+- Two category mappings built from AI data: `aiActivityCategoryItems` and `aiTrainingCategoryItems`
+- Used for hover tooltips (afterLabel callbacks) and info modals
+- Chart initialization uses these mappings to show items in each category
+
+**Data Flow:**
+1. Report scraped → stored in `data/reports/2025/YYYY-MM-DD.json`
+2. `extract-daily.ts` reads report, checks learned mappings, calls AI if needed
+3. Results saved to `data/analysis/daily/YYYY-MM-DD.json` with `aiActivityCategories` and `aiTrainingCategories`
+4. `aggregate.ts` reads all daily files, aggregates AI categories, generates viz JSON
+5. Trends page loads viz JSON and renders charts with interactive features
+
+**Cost Analysis:**
+- Initial categorization (34 reports): ~$0.0014-0.0027 one-time
+- Future reports with learned mappings: $0 (no AI call if all items known)
+- Future reports with NEW items: ~$0.00004 per report (only new items categorized)
+
+**Why "confidence building" is physical_skills:**
+- Not found in original manual mappings (bug in PR #10 - modal showed it but code didn't include it)
+- Appeared in 9 reports starting Aug 8, 2025
+- AI suggested "physical_skills" based on semantic reasoning
+- User approved: obstacles, surfaces, heights, balance challenges = physical development
+
 ### Nov 15, 2025 - Behavior Tracking ✅ COMPLETE
 
 **Branch:** `behaviour-tracking` (ready for PR)
