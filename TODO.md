@@ -10,7 +10,40 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 
 ## Recent Progress
 
-### Nov 15, 2025 - AI-Powered Activity Categorization with Learned Mappings ✅ MOSTLY COMPLETE
+### Nov 16, 2025 - Code Cleanup & Label Formatting Consistency ✅ COMPLETE
+
+**Branch:** `fix-activities-and-training` (ready for PR - pending GitHub Actions update)
+
+**Completed:**
+- ✅ **Additional Code Cleanup** (`scripts/analysis/`)
+  - Deleted `activity-categories.ts` entirely (184 lines removed)
+  - Removed unused functions from `activity-categorizer.ts` (~160 lines removed)
+  - Removed unused interfaces and imports from `extract-daily.ts`
+  - Removed categoryCounts/categoryPercentages from `activity-breakdown.json`
+  - Total cleanup: 5 files, 76 insertions, 602 deletions
+  - Commit: e2a7156
+
+- ✅ **Category Label Formatting Fix**
+  - Renamed category keys in learned mappings to include "and":
+    - `impulse_control_focus` → `impulse_control_and_focus`
+    - `handling_manners` → `handling_and_manners`
+  - Updated all 34 daily analysis files with new category names
+  - Regenerated visualization JSON files
+  - Simple snake_case to Title Case conversion (keeps "and" lowercase)
+  - No brittle special case handling needed
+  - Total changes: 37 files, 157 insertions, 152 deletions
+  - Commit: 6c51e1f
+
+**Key Technical Decision:**
+Rather than maintaining special case dictionaries for label formatting, we renamed the category keys themselves at the source (learned mappings) to include "and". This allows a simple converter to handle everything automatically without special cases:
+```typescript
+// Convert snake_case to Title Case (keep 'and' lowercase)
+category.split('_')
+  .map(word => word === 'and' ? 'and' : word.charAt(0).toUpperCase() + word.slice(1))
+  .join(' ')
+```
+
+### Nov 15, 2025 - AI-Powered Activity Categorization with Learned Mappings ✅ COMPLETE
 
 **Branch:** `fix-activities-and-training` (ready for PR - pending GitHub Actions update)
 
