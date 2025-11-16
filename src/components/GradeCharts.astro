@@ -161,7 +161,7 @@ const { timeline, trends } = Astro.props;
       options: {
         responsive: true,
         maintainAspectRatio: true,
-        aspectRatio: 2.5,
+        aspectRatio: window.innerWidth < 768 ? 1.5 : 2.5,
         plugins: {
           legend: { display: false },
           tooltip: {
@@ -295,5 +295,28 @@ const { timeline, trends } = Astro.props;
   .dist-percent {
     font-size: 0.9rem;
     color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .chart-card {
+      padding: 1.5rem;
+    }
+
+    .chart-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .distribution-stats {
+      gap: 0.75rem;
+    }
+
+    .dist-stat {
+      padding: 0.75rem;
+    }
+
+    .dist-value {
+      font-size: 1.5rem;
+    }
   }
 </style>
