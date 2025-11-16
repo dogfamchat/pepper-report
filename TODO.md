@@ -1,8 +1,8 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-11-11
+**Last Updated:** 2025-11-15
 **Current Phase:** Analysis & Visualization (Phase 3 - Complete)
-**Current Branch:** behaviour-tracking (committed, ready for review)
+**Current Branch:** behaviour-tracking (ready for PR)
 
 ## Overview
 
@@ -10,28 +10,27 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 
 ## Recent Progress
 
-### Nov 11, 2025 - Behavior Tracking ✅ COMPLETE
+### Nov 15, 2025 - Behavior Tracking ✅ COMPLETE
 
-**Branch:** `behaviour-tracking` (committed: 08f5cb4)
+**Branch:** `behaviour-tracking` (ready for PR)
 
 **Completed:**
 - ✅ **Behavior Data Extraction** (`scripts/analysis/extract-daily.ts`)
   - Added `caughtBeingGood` and `ooops` arrays to DailyAnalysis interface
   - Extraction logic pulls behaviors directly from report cards
   - No AI processing needed - behaviors are already structured data
-  - Regenerated all 32 daily analysis files with behavior fields
+  - Regenerated all 34 daily analysis files with behavior fields
 
 - ✅ **Behavior Aggregation Logic** (`scripts/analysis/aggregate.ts`)
   - Created `analyzeBehaviorTrends()` function
   - Counts total positive/negative behaviors across all reports
   - Tracks frequency of each unique behavior
   - Calculates percentages and report coverage
-  - Built 3 Chart.js visualization generators
+  - Built 2 Chart.js visualization generators (comparison chart removed)
 
 - ✅ **Behavior Charts on Trends Page** (`src/pages/trends.astro`)
   - Behavior timeline (line chart showing positive vs negative over time)
-  - Behavior comparison (bar chart of total positive vs negative counts)
-  - Behavior frequency (horizontal bar chart, all behaviors color-coded)
+  - Behavior frequency (full-width horizontal bar chart, all behaviors color-coded)
   - Summary stats section (3 stat cards with totals and ratio)
   - Top 5 positive behaviors list
   - All "ooops" behaviors list
@@ -41,25 +40,37 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - ✅ **Utility Script** (`scripts/analysis/regenerate-all-daily.ts`)
   - New utility script to regenerate all daily files
   - Useful when DailyAnalysis interface changes
-  - Processes all 32 reports with proper rate limiting
+  - Processes all 34 reports with proper rate limiting
 
 - ✅ **Data Processing**
-  - Regenerated all 32 daily analysis files with behavior data
-  - Created 4 new data files in `data/analysis/aggregates/` and `data/viz/`
+  - Regenerated all 34 daily analysis files with behavior data
+  - Created 3 data files in `data/analysis/aggregates/` and `data/viz/`
+  - Removed redundant behavior comparison chart
   - All builds passing, TypeScript checks clean
 
-**Statistics (32 reports):**
-- 95 total positive behaviors (avg 3 per report)
-- 13 total negative behaviors (avg 0.4 per report)
+- ✅ **Code Cleanup** (Nov 15)
+  - Removed redundant behavior comparison bar chart (data shown in stat cards)
+  - Deleted `data/viz/behavior-comparison.json`
+  - Removed `generateBehaviorComparisonViz()` function from aggregate.ts
+  - Made behavior frequency chart full-width for better visibility
+  - Fixed TypeScript type assertions for Chart.js canvas elements
+
+**Statistics (34 reports):**
+- 100 total positive behaviors (avg 2.9 per report)
+- 15 total negative behaviors (avg 0.4 per report)
 - 100% of reports have positive behaviors
-- 34% of reports have ooops moments
-- 7.3:1 positive:negative ratio
-- Top positive: "listened and respected my trainer" (24 times, 25.3%)
-- Top ooops: "verbally expressed myself" (9 times, 69.2%)
+- 35% of reports have ooops moments
+- 6.7:1 positive:negative ratio
+- Top positive: "listened and respected my trainer" (26 times, 26%)
+- Top ooops: "verbally expressed myself" (10 times, 66.7%)
 - 8 unique positive behaviors, 3 unique ooops behaviors
 
-**Key Commit:**
+**Key Commits:**
 - `08f5cb4` - Add behavior tracking with charts and visualizations
+- `204da04` - Update TODO.md with behavior tracking progress
+- `c403dd0` - Regenerate daily analysis (34 reports)
+- `6ba760b` - Remove redundant behavior comparison chart
+- `bab3c76` - Remove unused behavior comparison chart generation
 
 ### Nov 11, 2025 - Activity Categorization ✅ COMPLETE
 
@@ -177,16 +188,16 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - **Performance:** New reports process in ~1s (vs ~34s for full batch)
   - **Cost:** $0.00004 per new report (vs $0.0012 per full run)
 
-**📊 Current Stats (as of Nov 11, 2025):**
-- 32 report cards scraped (Aug 8 - Nov 10, 2025)
+**📊 Current Stats (as of Nov 15, 2025):**
+- 34 report cards scraped (Aug 8 - Nov 14, 2025)
 - Overall average: 3.58/4.0 (89.5%)
 - 14 weeks tracked, 4 months of data
 - **14 photos uploaded to Cloudflare R2** (all displayed with lightbox modal)
 - **12 unique friends identified** (filtered, sorted by recency)
 - **255 activity instances tracked** across 7 categories ✅ visualized
 - **135 training instances tracked** across 6 categories ✅ visualized
-- **95 positive behaviors** ("Caught Being Good") ✅ visualized
-- **13 "ooops" behaviors** ✅ visualized
+- **100 positive behaviors** ("Caught Being Good") ✅ visualized
+- **15 "ooops" behaviors** ✅ visualized
 
 ## Current Status
 
@@ -194,18 +205,19 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - Grade trends ✅ (line chart + donut chart + weekly/monthly breakdowns)
 - Friend analysis ✅ (leaderboard with 12 friends)
 - Activity categorization ✅ (4 charts: 2 category bars + 2 frequency bars + info modals)
-- Behavior tracking ✅ (3 charts: timeline + comparison + frequency + stat cards)
+- Behavior tracking ✅ (2 charts: timeline + frequency + stat cards + top behaviors lists)
 - Photo display ✅ (lightbox modal + timeline indicators + gallery page)
 
 **Ready for review:** The `behaviour-tracking` branch has been fully tested and committed.
-- ✅ Commit: 08f5cb4
+- ✅ Latest commit: bab3c76
 - ✅ All builds passing (Astro + TypeScript + Biome)
 - ✅ Dev server tested locally
-- ✅ All 3 behavior charts rendering correctly
-- ✅ 40 files changed, 1,515 insertions
+- ✅ 2 behavior charts rendering correctly (comparison chart removed as redundant)
+- ✅ 5 commits total on branch
+- ✅ 34 report cards analyzed with behavior data
 
 **Pending branches:**
-- `behaviour-tracking` - Just committed (ready for PR)
+- `behaviour-tracking` - Ready for PR (5 commits, clean working tree)
 
 **Recently merged:**
 - `activity-categorization` - PR #10 ✅ MERGED to main
@@ -221,19 +233,23 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - Review changes and verify all behavior charts working
   - Merge and deploy to production
 
-- [x] **Implement behavior tracking charts** ✅ COMPLETED Nov 11
-  - **Branch:** `behaviour-tracking` (committed: 08f5cb4)
+- [x] **Implement behavior tracking charts** ✅ COMPLETED Nov 15
+  - **Branch:** `behaviour-tracking` (ready for PR)
   - **Implementation:** Flexible aggregation (no categories - raw strings used directly)
   - **Charts implemented:**
     1. ✅ Behavior timeline (line chart with positive/negative over time)
-    2. ✅ Behavior comparison (bar chart of totals)
-    3. ✅ Behavior frequency (horizontal bar chart, all behaviors color-coded)
+    2. ✅ Behavior frequency (full-width horizontal bar chart, all behaviors color-coded)
+    3. ❌ Behavior comparison (removed as redundant - data shown in stat cards)
   - **Files modified:**
     - ✅ `scripts/analysis/extract-daily.ts` - Added behavior extraction
-    - ✅ `scripts/analysis/aggregate.ts` - Added behavior aggregation
-    - ✅ `src/pages/trends.astro` - Added behavior section with 3 charts
+    - ✅ `scripts/analysis/aggregate.ts` - Added behavior aggregation (removed comparison viz)
+    - ✅ `src/pages/trends.astro` - Added behavior section with 2 charts + stat cards
     - ✅ Created `data/analysis/aggregates/behavior-trends.json`
-    - ✅ Created `data/viz/behavior-*.json` files (3 files)
+    - ✅ Created `data/viz/behavior-*.json` files (2 files)
+  - **Code cleanup:**
+    - ✅ Removed redundant comparison chart visualization
+    - ✅ Deleted `data/viz/behavior-comparison.json`
+    - ✅ Removed `generateBehaviorComparisonViz()` function
 
 - [x] **Implement friend analysis with Claude API** ✅ COMPLETED Nov 9
   - ✓ Created incremental analysis architecture (extract-daily.ts, aggregate.ts)
