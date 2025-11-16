@@ -251,8 +251,8 @@ function groupByWeek(analyses: DailyAnalysis[]): Map<string, DailyAnalysis[]> {
   const grouped = new Map<string, DailyAnalysis[]>();
 
   for (const analysis of analyses) {
-    const date = new Date(analysis.date);
-    const weekKey = getISOWeekString(date);
+    // Pass date string directly to avoid UTC conversion issues
+    const weekKey = getISOWeekString(analysis.date);
 
     if (!grouped.has(weekKey)) {
       grouped.set(weekKey, []);
@@ -347,8 +347,8 @@ function analyzeGradeTrends(analyses: DailyAnalysis[]): GradeTrendsOutput {
     // Find all unique weeks in this month
     const weeksInMonth = new Set<string>();
     for (const analysis of monthAnalyses) {
-      const date = new Date(analysis.date);
-      const weekKey = getISOWeekString(date);
+      // Pass date string directly to avoid UTC conversion issues
+      const weekKey = getISOWeekString(analysis.date);
       weeksInMonth.add(weekKey);
     }
 

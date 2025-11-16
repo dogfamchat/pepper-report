@@ -240,16 +240,20 @@ export function getWeekNumber(date: Date): number {
 
 /**
  * Format date as ISO week string (e.g., "2025-W45")
+ * Accepts either a Date object or a date string in YYYY-MM-DD format
+ * For string inputs, parses in local timezone to avoid UTC conversion issues
  */
-export function getISOWeekString(date: Date): string {
+export function getISOWeekString(date: Date | string): string {
   const d = dayjs(date);
   return `${d.isoWeekYear()}-W${d.isoWeek().toString().padStart(2, '0')}`;
 }
 
 /**
  * Get start and end dates for a given ISO week
+ * Returns [start, end) with end being exclusive (the Monday of the next week)
  * Input: "2025-W45"
  * Output: { start: Date, end: Date }
+ * Example: 2025-W44 returns [2025-10-27, 2025-11-03) where Nov 3 is NOT included
  */
 export function getWeekBounds(isoWeek: string): { start: Date; end: Date } {
   const [year, week] = isoWeek.split('-W').map(Number);
@@ -257,8 +261,8 @@ export function getWeekBounds(isoWeek: string): { start: Date; end: Date } {
   // Set to the start of the ISO week (Monday)
   const weekStart = dayjs().year(year).isoWeek(week).startOf('isoWeek');
 
-  // Set to the end of the ISO week (Sunday)
-  const weekEnd = weekStart.endOf('isoWeek');
+  // Set to the start of the next week (Monday) - exclusive upper bound
+  const weekEnd = weekStart.add(1, 'week');
 
   return {
     start: weekStart.toDate(),
