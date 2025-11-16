@@ -208,3 +208,63 @@ export function calculatePercentages(counts: Record<Category, number>): Record<
 
   return result;
 }
+
+/**
+ * AI Categorization type (must match extract-daily.ts)
+ */
+export interface AICategorization {
+  item: string;
+  category: string;
+  confidence?: number;
+}
+
+/**
+ * Type that has AI categorization fields
+ */
+type AICategorizableMinimal = {
+  aiActivityCategories?: AICategorization[];
+  aiTrainingCategories?: AICategorization[];
+};
+
+/**
+ * Aggregate AI-suggested category counts across multiple reports
+ * Returns counts for all unique categories suggested by AI
+ */
+export function aggregateAICategoryCounts(analyses: AICategorizableMinimal[]): {
+  activityCounts: Record<string, number>;
+  trainingCounts: Record<string, number>;
+  totalReports: number;
+  totalActivityInstances: number;
+  totalTrainingInstances: number;
+} {
+  const activityCounts: Record<string, number> = {};
+  const trainingCounts: Record<string, number> = {};
+  let totalActivityInstances = 0;
+  let totalTrainingInstances = 0;
+
+  for (const analysis of analyses) {
+    // Count AI activity categories
+    if (analysis.aiActivityCategories) {
+      for (const cat of analysis.aiActivityCategories) {
+        activityCounts[cat.category] = (activityCounts[cat.category] || 0) + 1;
+        totalActivityInstances++;
+      }
+    }
+
+    // Count AI training categories
+    if (analysis.aiTrainingCategories) {
+      for (const cat of analysis.aiTrainingCategories) {
+        trainingCounts[cat.category] = (trainingCounts[cat.category] || 0) + 1;
+        totalTrainingInstances++;
+      }
+    }
+  }
+
+  return {
+    activityCounts,
+    trainingCounts,
+    totalReports: analyses.length,
+    totalActivityInstances,
+    totalTrainingInstances,
+  };
+}

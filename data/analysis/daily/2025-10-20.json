@@ -30,7 +30,43 @@
     "boundries, door-ways, and thresholds",
     "sit (stay)"
   ],
-  "analyzedAt": "2025-11-16T00:03:44.197Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    }
+  ],
+  "analyzedAt": "2025-11-16T02:57:43.864Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)"
   ],

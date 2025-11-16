@@ -28,6 +28,18 @@ import { categorizeReport } from './activity-categorizer';
 import { gradeToNumber, readReportCard } from './report-reader';
 
 /**
+ * AI-suggested category for an activity or training skill
+ */
+export interface AICategorization {
+  /** The activity or training skill name */
+  item: string;
+  /** AI-suggested category */
+  category: string;
+  /** Confidence level (0-1) */
+  confidence?: number;
+}
+
+/**
  * Daily analysis data structure
  * Stored once per report card, never recalculated
  */
@@ -42,14 +54,18 @@ export interface DailyAnalysis {
   friends: string[];
   /** Raw comment text (for reference) */
   comment: string;
-  /** Activity category counts (aggregated view) */
+  /** Activity category counts (rules-based, legacy) */
   activityCounts: Record<ActivityCategory, number>;
-  /** Training category counts (aggregated view) */
+  /** Training category counts (rules-based, legacy) */
   trainingCounts: Record<TrainingCategory, number>;
   /** Raw activities (detailed view) */
   rawActivities: string[];
   /** Raw training skills (detailed view) */
   rawTrainingSkills: string[];
+  /** AI-suggested categories for activities */
+  aiActivityCategories?: AICategorization[];
+  /** AI-suggested categories for training skills */
+  aiTrainingCategories?: AICategorization[];
   /** Positive behaviors from caughtBeingGood array */
   caughtBeingGood: string[];
   /** Negative behaviors from ooops array */
@@ -196,6 +212,139 @@ Comment: "${comment}"`,
 }
 
 /**
+ * Categorize activities and training skills using Claude API
+ */
+async function categorizeWithAI(
+  activities: string[],
+  trainingSkills: string[],
+  date: string,
+  anthropic: Anthropic,
+  verbose = false,
+): Promise<{
+  activityCategories: AICategorization[];
+  trainingCategories: AICategorization[];
+}> {
+  // If nothing to categorize, return empty arrays
+  if (activities.length === 0 && trainingSkills.length === 0) {
+    return { activityCategories: [], trainingCategories: [] };
+  }
+
+  try {
+    const message = await anthropic.messages.create({
+      model: 'claude-haiku-4-5',
+      max_tokens: 500,
+      messages: [
+        {
+          role: 'user',
+          content: `You are analyzing a dog daycare report card. Categorize the following activities and training skills into appropriate categories.
+
+ACTIVITIES to categorize: ${JSON.stringify(activities)}
+
+Suggested activity categories:
+- playtime: Playing with toys, buddies, or general play activities
+- socialization: Interacting with other dogs or making friends
+- rest: Napping, resting, quiet time
+- outdoor: Outside activities, pool parties, outdoor play
+- enrichment: Brain games, puzzles, nose work, mental stimulation
+- training: One-on-one trainer time, agility equipment, structured training
+- special_event: Birthday parties, special celebrations
+
+TRAINING SKILLS to categorize: ${JSON.stringify(trainingSkills)}
+
+Suggested training categories:
+- obedience_commands: Basic commands like sit, down, stand, recall, name recognition
+- impulse_control_focus: Impulse control, focus work, settle down exercises
+- physical_skills: Agility, balancing, physical coordination, confidence building
+- handling_manners: Collar grab, handling, loose-leash walking, boundaries, place work, crate training
+- advanced_training: Sequences, recall with distractions, hands-free work
+- fun_skills: Trick training, nose targeting, playful skills
+
+Return categorizations for each item. Activities can belong to multiple categories if appropriate.`,
+        },
+      ],
+      tools: [
+        {
+          name: 'categorize_activities',
+          description:
+            'Categorize dog daycare activities and training skills into appropriate categories.',
+          input_schema: {
+            type: 'object',
+            properties: {
+              activities: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    item: { type: 'string', description: 'The activity name' },
+                    categories: {
+                      type: 'array',
+                      items: { type: 'string' },
+                      description: 'Category names (can be multiple for activities)',
+                    },
+                  },
+                  required: ['item', 'categories'],
+                },
+                description: 'Categorized activities',
+              },
+              training: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    item: { type: 'string', description: 'The training skill name' },
+                    category: { type: 'string', description: 'Single category name' },
+                  },
+                  required: ['item', 'category'],
+                },
+                description: 'Categorized training skills',
+              },
+            },
+            required: ['activities', 'training'],
+          },
+        },
+      ],
+      tool_choice: { type: 'tool', name: 'categorize_activities' },
+    });
+
+    if (verbose) {
+      console.log(`   AI Categorization Response:`, JSON.stringify(message.content, null, 2));
+    }
+
+    // Extract categorizations from tool use response
+    const toolUse = message.content.find((block) => block.type === 'tool_use');
+    if (toolUse && toolUse.type === 'tool_use') {
+      const input = toolUse.input as {
+        activities?: Array<{ item: string; categories: string[] }>;
+        training?: Array<{ item: string; category: string }>;
+      };
+
+      // Convert activities (can have multiple categories) to flat list
+      const activityCategories: AICategorization[] =
+        input.activities?.flatMap((act) =>
+          act.categories.map((cat) => ({
+            item: act.item,
+            category: cat,
+          })),
+        ) || [];
+
+      // Convert training (single category each)
+      const trainingCategories: AICategorization[] =
+        input.training?.map((skill) => ({
+          item: skill.item,
+          category: skill.category,
+        })) || [];
+
+      return { activityCategories, trainingCategories };
+    }
+
+    return { activityCategories: [], trainingCategories: [] };
+  } catch (error) {
+    console.error(`   ❌ AI categorization error for ${date}:`, error);
+    return { activityCategories: [], trainingCategories: [] };
+  }
+}
+
+/**
  * Extract analysis data for a single report card
  */
 async function extractDaily(
@@ -239,6 +388,23 @@ async function extractDaily(
     console.log(`   Ooops: ${ooops.length}`);
   }
 
+  // AI categorization for activities and training
+  if (verbose) {
+    console.log(`   Running AI categorization...`);
+  }
+  const aiCategorization = await categorizeWithAI(
+    categorization.rawActivities,
+    categorization.rawTrainingSkills,
+    report.date,
+    anthropic,
+    verbose,
+  );
+
+  if (verbose) {
+    console.log(`   AI Activity Categories: ${aiCategorization.activityCategories.length}`);
+    console.log(`   AI Training Categories: ${aiCategorization.trainingCategories.length}`);
+  }
+
   return {
     date: report.date,
     grade: report.grade,
@@ -249,6 +415,8 @@ async function extractDaily(
     trainingCounts: categorization.trainingCounts,
     rawActivities: categorization.rawActivities,
     rawTrainingSkills: categorization.rawTrainingSkills,
+    aiActivityCategories: aiCategorization.activityCategories,
+    aiTrainingCategories: aiCategorization.trainingCategories,
     analyzedAt: getCurrentTimestamp(),
     caughtBeingGood,
     ooops,
@@ -335,7 +503,7 @@ async function main() {
     const anthropic = new Anthropic({ apiKey });
 
     // Extract analysis
-    console.log(`\n🤖 Extracting friends with Claude API...`);
+    console.log(`\n🤖 Extracting data with Claude API (friends + categorization)...`);
     const startTime = Date.now();
     const analysis = await extractDaily(report, anthropic, options.verbose);
     const duration = Date.now() - startTime;
@@ -346,6 +514,9 @@ async function main() {
     } else {
       console.log(`   No friends mentioned`);
     }
+    console.log(
+      `   AI Categories: ${(analysis.aiActivityCategories?.length || 0) + (analysis.aiTrainingCategories?.length || 0)} items categorized`,
+    );
 
     if (options.dryRun) {
       console.log('\n🔍 Dry run - not saving file');

@@ -77,6 +77,21 @@ try {
   // Behavior data not available
 }
 
+// Load AI category visualization data
+let aiActivityCategoriesViz = null;
+let aiTrainingCategoriesViz = null;
+try {
+  const vizDir = join(process.cwd(), 'data', 'viz');
+  aiActivityCategoriesViz = JSON.parse(
+    readFileSync(join(vizDir, 'ai-activity-categories.json'), 'utf-8'),
+  );
+  aiTrainingCategoriesViz = JSON.parse(
+    readFileSync(join(vizDir, 'ai-training-categories.json'), 'utf-8'),
+  );
+} catch (error) {
+  // AI category viz data not available
+}
+
 // Calculate grade percentage
 const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
 ---
@@ -195,6 +210,38 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
           ></canvas>
         </div>
       </div>
+    )}
+
+    <!-- AI-Suggested Categories Section -->
+    {aiActivityCategoriesViz && aiTrainingCategoriesViz && (
+      <>
+        <div class="section-header">
+          <h2>🤖 AI-Suggested Categories</h2>
+          <p class="section-subtitle">
+            Automatically categorized activities and training using AI • Handles new activities without manual updates
+          </p>
+        </div>
+
+        <div class="activity-charts-grid">
+          <!-- AI Activity Categories Chart -->
+          <div class="chart-card">
+            <h3>AI Activity Categories</h3>
+            <canvas
+              id="aiActivityCategoriesChart"
+              data-chart-config={JSON.stringify(aiActivityCategoriesViz)}
+            ></canvas>
+          </div>
+
+          <!-- AI Training Categories Chart -->
+          <div class="chart-card">
+            <h3>AI Training Categories</h3>
+            <canvas
+              id="aiTrainingCategoriesChart"
+              data-chart-config={JSON.stringify(aiTrainingCategoriesViz)}
+            ></canvas>
+          </div>
+        </div>
+      </>
     )}
 
     <!-- Behavior Tracking Section -->
@@ -1140,6 +1187,26 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     if (configStr) {
       const config = JSON.parse(configStr);
       new Chart(behaviorFrequencyCanvas, config);
+    }
+  }
+
+  // Initialize AI activity categories chart
+  const aiActivityCategoriesCanvas = document.getElementById('aiActivityCategoriesChart') as HTMLCanvasElement | null;
+  if (aiActivityCategoriesCanvas) {
+    const configStr = aiActivityCategoriesCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(aiActivityCategoriesCanvas, config);
+    }
+  }
+
+  // Initialize AI training categories chart
+  const aiTrainingCategoriesCanvas = document.getElementById('aiTrainingCategoriesChart') as HTMLCanvasElement | null;
+  if (aiTrainingCategoriesCanvas) {
+    const configStr = aiTrainingCategoriesCanvas.dataset.chartConfig;
+    if (configStr) {
+      const config = JSON.parse(configStr);
+      new Chart(aiTrainingCategoriesCanvas, config);
     }
   }
 

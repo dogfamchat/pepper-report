@@ -36,7 +36,87 @@
     "confidence building",
     "balancing skills"
   ],
-  "analyzedAt": "2025-11-16T00:03:32.763Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "hung out with my bestie",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "napped with friends",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "special_event"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "enrichment"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "agility",
+      "category": "physical_skills"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    },
+    {
+      "item": "balancing skills",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-16T02:57:05.997Z",
   "caughtBeingGood": [
     "listened and respected my trainer",
     "respected thresholds",

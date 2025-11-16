@@ -28,7 +28,11 @@ import {
   TRAINING_LABELS,
   type TrainingCategory,
 } from './activity-categories';
-import { aggregateCategoryCounts, calculateFrequencies } from './activity-categorizer';
+import {
+  aggregateAICategoryCounts,
+  aggregateCategoryCounts,
+  calculateFrequencies,
+} from './activity-categorizer';
 import type { DailyAnalysis } from './extract-daily';
 
 interface WeeklySummary {
@@ -1118,6 +1122,152 @@ function generateBehaviorFrequencyViz(behaviorTrends: BehaviorTrends): object {
 }
 
 /**
+ * Generate Chart.js visualization data for AI activity categories (bar chart)
+ */
+function generateAIActivityCategoryViz(
+  activityCounts: Record<string, number>,
+  totalInstances: number,
+): object {
+  // Sort categories by count
+  const sortedCategories = Object.entries(activityCounts).sort(([_, a], [__, b]) => b - a);
+
+  const labels = sortedCategories.map(([cat]) =>
+    cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+  );
+  const data = sortedCategories.map(([_, count]) => count);
+  const percentages = sortedCategories.map(([_, count]) =>
+    ((count / totalInstances) * 100).toFixed(1),
+  );
+
+  // Use existing color palette or generate colors
+  const colors = ['#FF6B9D', '#9B59B6', '#5DADE2', '#26A69A', '#FFD93D', '#FF9800', '#FF9FF3'];
+
+  return {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Activity Count',
+          data,
+          backgroundColor: colors.slice(0, labels.length),
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      plugins: {
+        title: {
+          display: false,
+        },
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: { parsed: { x: number }; dataIndex: number }) => {
+              return `${context.parsed.x} instances (${percentages[context.dataIndex]}%)`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+          title: {
+            display: true,
+            text: 'Number of Activity Instances',
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
+ * Generate Chart.js visualization data for AI training categories (bar chart)
+ */
+function generateAITrainingCategoryViz(
+  trainingCounts: Record<string, number>,
+  totalInstances: number,
+): object {
+  // Sort categories by count
+  const sortedCategories = Object.entries(trainingCounts).sort(([_, a], [__, b]) => b - a);
+
+  const labels = sortedCategories.map(([cat]) =>
+    cat.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase()),
+  );
+  const data = sortedCategories.map(([_, count]) => count);
+  const percentages = sortedCategories.map(([_, count]) =>
+    ((count / totalInstances) * 100).toFixed(1),
+  );
+
+  // Use existing color palette or generate colors
+  const colors = ['#6C5CE7', '#0984E3', '#00B894', '#FDCB6E', '#E17055', '#FD79A8'];
+
+  return {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Training Count',
+          data,
+          backgroundColor: colors.slice(0, labels.length),
+          borderWidth: 0,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      indexAxis: 'y',
+      plugins: {
+        title: {
+          display: false,
+        },
+        legend: {
+          display: false,
+        },
+        tooltip: {
+          callbacks: {
+            label: (context: { parsed: { x: number }; dataIndex: number }) => {
+              return `${context.parsed.x} instances (${percentages[context.dataIndex]}%)`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 1,
+          },
+          title: {
+            display: true,
+            text: 'Number of Training Instances',
+          },
+        },
+        y: {
+          ticks: {
+            autoSkip: false,
+          },
+        },
+      },
+    },
+  };
+}
+
+/**
  * Save aggregated results
  */
 function saveResults(
@@ -1133,6 +1283,8 @@ function saveResults(
   behaviorTrends?: BehaviorTrends,
   behaviorTimelineViz?: object,
   behaviorFrequencyViz?: object,
+  aiActivityCategoryViz?: object,
+  aiTrainingCategoryViz?: object,
 ): void {
   const aggregatesDir = join(process.cwd(), 'data', 'analysis', 'aggregates');
   const vizDir = join(process.cwd(), 'data', 'viz');
@@ -1250,6 +1402,27 @@ function saveResults(
       'utf-8',
     );
     console.log('   ✅ data/viz/behavior-frequency.json');
+  }
+
+  // Save AI category visualization data (if provided)
+  if (aiActivityCategoryViz) {
+    const aiActivityCategoryFile = join(vizDir, 'ai-activity-categories.json');
+    writeFileSync(
+      aiActivityCategoryFile,
+      `${JSON.stringify(aiActivityCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/ai-activity-categories.json');
+  }
+
+  if (aiTrainingCategoryViz) {
+    const aiTrainingCategoryFile = join(vizDir, 'ai-training-categories.json');
+    writeFileSync(
+      aiTrainingCategoryFile,
+      `${JSON.stringify(aiTrainingCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/ai-training-categories.json');
   }
 }
 
@@ -1370,6 +1543,34 @@ async function main() {
       });
     }
 
+    // Aggregate AI categories
+    console.log('\n🤖 Aggregating AI-suggested categories...');
+    const aiCategories = aggregateAICategoryCounts(analyses);
+
+    console.log(`   AI activity instances: ${aiCategories.totalActivityInstances}`);
+    console.log(`   AI training instances: ${aiCategories.totalTrainingInstances}`);
+    console.log(
+      `   Unique AI activity categories: ${Object.keys(aiCategories.activityCounts).length}`,
+    );
+    console.log(
+      `   Unique AI training categories: ${Object.keys(aiCategories.trainingCounts).length}`,
+    );
+
+    // Show top 3 AI activity categories
+    const topAIActivityCategories = Object.entries(aiCategories.activityCounts)
+      .sort(([_, a], [__, b]) => b - a)
+      .slice(0, 3);
+
+    if (topAIActivityCategories.length > 0) {
+      console.log('\n   Top AI Activity Categories:');
+      topAIActivityCategories.forEach(([category, count], i) => {
+        const percentage = ((count / aiCategories.totalActivityInstances) * 100).toFixed(1);
+        console.log(
+          `   ${i + 1}. ${category.replace(/_/g, ' ')} - ${count} instances (${percentage}%)`,
+        );
+      });
+    }
+
     // Generate visualization data
     console.log('\n📊 Generating visualization data...');
     const timeline = generateGradeTimeline(analyses);
@@ -1380,6 +1581,16 @@ async function main() {
     const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
     const behaviorTimelineViz = generateBehaviorTimelineViz(behaviorTrends);
     const behaviorFrequencyViz = generateBehaviorFrequencyViz(behaviorTrends);
+
+    // Generate AI category visualizations
+    const aiActivityCategoryViz = generateAIActivityCategoryViz(
+      aiCategories.activityCounts,
+      aiCategories.totalActivityInstances,
+    );
+    const aiTrainingCategoryViz = generateAITrainingCategoryViz(
+      aiCategories.trainingCounts,
+      aiCategories.totalTrainingInstances,
+    );
 
     // Save results
     console.log('\n💾 Saving aggregated data...');
@@ -1396,6 +1607,8 @@ async function main() {
       behaviorTrends,
       behaviorTimelineViz,
       behaviorFrequencyViz,
+      aiActivityCategoryViz,
+      aiTrainingCategoryViz,
     );
 
     console.log('\n═══════════════════════════════════════\n');

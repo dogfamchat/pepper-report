@@ -1,0 +1,67 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "Obedience Commands",
+      "Handling Manners",
+      "Impulse Control Focus",
+      "Physical Skills",
+      "Advanced Training",
+      "Fun Skills"
+    ],
+    "datasets": [
+      {
+        "label": "Training Count",
+        "data": [
+          44,
+          34,
+          17,
+          13,
+          5,
+          5
+        ],
+        "backgroundColor": [
+          "#6C5CE7",
+          "#0984E3",
+          "#00B894",
+          "#FDCB6E",
+          "#E17055",
+          "#FD79A8"
+        ],
+        "borderWidth": 0
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "indexAxis": "y",
+    "plugins": {
+      "title": {
+        "display": false
+      },
+      "legend": {
+        "display": false
+      },
+      "tooltip": {
+        "callbacks": {}
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 1
+        },
+        "title": {
+          "display": true,
+          "text": "Number of Training Instances"
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
+      }
+    }
+  }
+}

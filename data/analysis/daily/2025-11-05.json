@@ -31,7 +31,47 @@
     "boundries, door-ways, and thresholds",
     "impulse control"
   ],
-  "analyzedAt": "2025-11-16T00:03:52.287Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "enrichment"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_manners"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_manners"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_focus"
+    }
+  ],
+  "analyzedAt": "2025-11-16T02:58:07.114Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)",
     "listened and respected my trainer"

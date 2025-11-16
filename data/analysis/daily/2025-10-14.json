@@ -30,7 +30,39 @@
     "collar grab games",
     "down (stay)"
   ],
-  "analyzedAt": "2025-11-16T00:03:41.219Z",
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_manners"
+    },
+    {
+      "item": "down (stay)",
+      "category": "obedience_commands"
+    }
+  ],
+  "analyzedAt": "2025-11-16T02:57:34.760Z",
   "caughtBeingGood": [
     "sharing nicely (water bowl, toys, food)"
   ],

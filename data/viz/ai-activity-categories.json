@@ -1,0 +1,72 @@
+{
+  "type": "bar",
+  "data": {
+    "labels": [
+      "Playtime",
+      "Socialization",
+      "Outdoor",
+      "Rest",
+      "Enrichment",
+      "Training",
+      "Special Event",
+      "Physical Skills"
+    ],
+    "datasets": [
+      {
+        "label": "Activity Count",
+        "data": [
+          101,
+          88,
+          36,
+          23,
+          21,
+          18,
+          16,
+          1
+        ],
+        "backgroundColor": [
+          "#FF6B9D",
+          "#9B59B6",
+          "#5DADE2",
+          "#26A69A",
+          "#FFD93D",
+          "#FF9800",
+          "#FF9FF3"
+        ],
+        "borderWidth": 0
+      }
+    ]
+  },
+  "options": {
+    "responsive": true,
+    "indexAxis": "y",
+    "plugins": {
+      "title": {
+        "display": false
+      },
+      "legend": {
+        "display": false
+      },
+      "tooltip": {
+        "callbacks": {}
+      }
+    },
+    "scales": {
+      "x": {
+        "beginAtZero": true,
+        "ticks": {
+          "stepSize": 1
+        },
+        "title": {
+          "display": true,
+          "text": "Number of Activity Instances"
+        }
+      },
+      "y": {
+        "ticks": {
+          "autoSkip": false
+        }
+      }
+    }
+  }
+}

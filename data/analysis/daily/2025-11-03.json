@@ -42,7 +42,50 @@
     "focus work",
     "place work (go to matt/table)"
   ],
-  "analyzedAt": "2025-11-16T00:03:51.165Z",
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "hung out with my bestie",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "special_event"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "napped with friends",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [],
+  "analyzedAt": "2025-11-16T02:58:03.891Z",
   "caughtBeingGood": [
     "practiced balanced and fair play"
   ],
