@@ -388,24 +388,16 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 **All major analysis features are now complete!** ✅ Full visualization pipeline implemented:
 - Grade trends ✅ (line chart + donut chart + weekly/monthly breakdowns)
 - Friend analysis ✅ (leaderboard with 12 friends)
-- Activity categorization ✅ (4 charts: 2 category bars + 2 frequency bars + info modals)
+- Activity categorization ✅ (AI-powered with learned mappings, 2 category bars + 2 frequency bars + info modals)
 - Behavior tracking ✅ (2 charts: timeline + frequency + stat cards + top behaviors lists)
 - Photo display ✅ (lightbox modal + timeline indicators + gallery page)
 
-**Ready for review:** The `behaviour-tracking` branch has been fully tested and committed.
-- ✅ Latest commit: bab3c76
-- ✅ All builds passing (Astro + TypeScript + Biome)
-- ✅ Dev server tested locally
-- ✅ 2 behavior charts rendering correctly (comparison chart removed as redundant)
-- ✅ 5 commits total on branch
-- ✅ 34 report cards analyzed with behavior data
-
 **Pending branches:**
-- `behaviour-tracking` - PR open (5 commits, ready for review)
-- `fix-activities-and-training` - Ready for PR (pending GitHub Actions update)
+- `fix-activities-and-training` - PR #13 open (12 commits, ready for review)
 
 **Recently merged:**
-- `activity-categorization` - PR #10 ✅ MERGED to main
+- `behaviour-tracking` - PR #12 ✅ MERGED to main (Nov 16, 2025)
+- `activity-categorization` - PR #10 ✅ MERGED to main (Nov 11, 2025)
 
 ### Immediate Tasks (Next Session)
 
@@ -413,9 +405,15 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - ✓ PR #10 merged successfully
   - ✓ Activity charts now in production
 
-- [ ] **Review and merge behaviour-tracking PR**
-  - PR already open and ready for review
-  - All behavior charts tested and working
+- [x] **Review and merge behaviour-tracking PR** ✅ COMPLETED Nov 16
+  - ✓ PR #12 merged successfully
+  - ✓ Behavior charts now in production
+  - ✓ All behavior tracking features deployed
+
+- [ ] **Review and merge fix-activities-and-training PR**
+  - PR #13 open and ready for review
+  - AI-powered categorization with learned mappings
+  - 39 new tests (116 total passing)
   - Ready to merge and deploy to production
 
 - [x] **Implement behavior tracking charts** ✅ COMPLETED Nov 15
