@@ -91,7 +91,6 @@ const months = Object.keys(photosByMonth);
     text-decoration: none;
     font-size: 0.95rem;
     margin-bottom: 1rem;
-    transition: color 0.2s ease;
   }
 
   .back-link:hover {
@@ -134,12 +133,6 @@ const months = Object.keys(photosByMonth);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .photo-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   }
 
   .photo-link {
@@ -158,11 +151,6 @@ const months = Object.keys(photosByMonth);
     height: 280px;
     object-fit: cover;
     display: block;
-    transition: transform 0.3s ease;
-  }
-
-  .photo-link:hover .photo-img {
-    transform: scale(1.05);
   }
 
   .photo-overlay {
@@ -172,11 +160,6 @@ const months = Object.keys(photosByMonth);
     right: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     padding: 2rem 1rem 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .photo-link:hover .photo-overlay {
     opacity: 1;
   }
 
@@ -249,14 +232,7 @@ const months = Object.keys(photosByMonth);
     font-size: 3rem;
     cursor: pointer;
     padding: 0.5rem 1rem;
-    transition: background 0.2s ease;
     border-radius: 4px;
-  }
-
-  .lightbox-close:hover,
-  .lightbox-prev:hover,
-  .lightbox-next:hover {
-    background: rgba(255, 255, 255, 0.3);
   }
 
   .lightbox-close {

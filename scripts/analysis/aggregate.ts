@@ -754,7 +754,7 @@ function generateBehaviorTimelineViz(behaviorTrends: BehaviorTrends): object {
           data: behaviorTrends.timeline.map((t) => t.positiveCount),
           borderColor: 'rgba(34, 197, 94, 1)', // Green
           backgroundColor: 'rgba(34, 197, 94, 0.1)',
-          tension: 0.3,
+          tension: 0,
           fill: true,
         },
         {
@@ -762,7 +762,7 @@ function generateBehaviorTimelineViz(behaviorTrends: BehaviorTrends): object {
           data: behaviorTrends.timeline.map((t) => t.negativeCount),
           borderColor: 'rgba(239, 68, 68, 1)', // Red
           backgroundColor: 'rgba(239, 68, 68, 0.1)',
-          tension: 0.3,
+          tension: 0,
           fill: true,
         },
       ],

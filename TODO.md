@@ -1,14 +1,63 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-11-15
+**Last Updated:** 2025-11-16
 **Current Phase:** Analysis & Visualization (Phase 3 - Complete)
-**Current Branch:** behaviour-tracking (ready for PR)
+**Current Branch:** layout-tweaks (ready for PR)
 
 ## Overview
 
 This tracks remaining work to complete the Pepper Report project. See [docs/design-proposal.md](docs/design-proposal.md) for full architecture and [docs/report-card-data-structure.md](docs/report-card-data-structure.md) for data schema details.
 
 ## Recent Progress
+
+### Nov 16, 2025 - Layout & Responsive Design Improvements 🚧 IN PROGRESS
+
+**Branch:** `layout-tweaks` (ready for PR)
+
+**Completed:**
+- ✅ **Responsive Layout Enhancements** (`src/pages/*.astro`)
+  - Fixed mobile responsiveness across all pages
+  - Improved chart container sizing and layout
+  - Enhanced homepage layout with better spacing
+  - Updated trends page with responsive grid improvements
+  - Cleaned up timeline page layout
+
+- ✅ **Animation Improvements** (`src/components/GradeCharts.astro`, `data/viz/behavior-timeline.json`)
+  - Disabled chart animations for better performance
+  - Updated behavior timeline visualization settings
+  - Modified aggregate.ts to disable animations by default
+
+- ✅ **Component Cleanup** (`src/components/PhotoGallery.astro`, `src/pages/gallery.astro`)
+  - Removed unused code and improved component structure
+  - Simplified gallery page layout
+  - Enhanced photo display components
+
+- ✅ **Layout Consistency** (`src/layouts/Layout.astro`)
+  - Added global layout improvements
+  - Better mobile viewport handling
+  - Consistent styling across all pages
+
+**Files Modified:**
+- `.mcp.json` - Chrome MCP configuration fix
+- `data/viz/behavior-timeline.json` - Animation settings
+- `scripts/analysis/aggregate.ts` - Chart generation updates
+- `src/components/GradeCharts.astro` - Chart improvements (35+ line additions)
+- `src/components/PhotoGallery.astro` - Code cleanup
+- `src/layouts/Layout.astro` - Global layout enhancements
+- `src/pages/gallery.astro` - Gallery page simplification
+- `src/pages/index.astro` - Homepage layout improvements (73+ line additions)
+- `src/pages/timeline.astro` - Timeline cleanup
+- `src/pages/trends.astro` - Trends page responsive improvements (95+ line changes)
+
+**Statistics:**
+- 10 files changed, 190 insertions(+), 80 deletions(-)
+- 3 commits total
+- Net: +110 lines (improved layout and responsiveness)
+
+**Key Commits:**
+- `29dd95e` - Disable animation
+- `8c86322` - Responsive layout
+- `5b2d6db` - Fix chrome mcp config
 
 ### Nov 16, 2025 - Code Cleanup & Label Formatting Consistency ✅ COMPLETE
 
@@ -393,6 +442,7 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 - Photo display ✅ (lightbox modal + timeline indicators + gallery page)
 
 **Pending branches:**
+- `layout-tweaks` - Ready for PR (3 commits, responsive design improvements)
 - `fix-activities-and-training` - PR #13 open (12 commits, ready for review)
 
 **Recently merged:**

@@ -152,19 +152,22 @@ const { timeline, trends } = Astro.props;
           backgroundColor: 'rgba(102, 126, 234, 0.1)',
           borderWidth: 2,
           pointRadius: 4,
-          pointHoverRadius: 6,
+          pointHoverRadius: 4,
           pointBackgroundColor: '#667eea',
-          tension: 0.3,
+          tension: 0,
           fill: true
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: true,
-        aspectRatio: 2.5,
+        aspectRatio: window.innerWidth < 768 ? 1.5 : 2.5,
+        animation: false,
         plugins: {
           legend: { display: false },
           tooltip: {
+            enabled: true,
+            animation: false,
             callbacks: {
               label: (context) => {
                 const grades = ['F', 'D', 'C', 'B', 'A'];
@@ -214,9 +217,12 @@ const { timeline, trends } = Astro.props;
         responsive: true,
         maintainAspectRatio: true,
         aspectRatio: 1,
+        animation: false,
         plugins: {
           legend: { display: false },
           tooltip: {
+            enabled: true,
+            animation: false,
             callbacks: {
               label: (context) => {
                 const total = dist.A + dist.B;
@@ -295,5 +301,28 @@ const { timeline, trends } = Astro.props;
   .dist-percent {
     font-size: 0.9rem;
     color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .chart-card {
+      padding: 1.5rem;
+    }
+
+    .chart-card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .distribution-stats {
+      gap: 0.75rem;
+    }
+
+    .dist-stat {
+      padding: 0.75rem;
+    }
+
+    .dist-value {
+      font-size: 1.5rem;
+    }
   }
 </style>

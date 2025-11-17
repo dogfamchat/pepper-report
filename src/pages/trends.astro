@@ -560,12 +560,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 1.5rem;
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-
-  .month-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 
   .month-card h3 {
@@ -618,11 +612,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 1rem 1.5rem;
-    transition: box-shadow 0.2s;
-  }
-
-  .week-card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .week-header {
@@ -678,12 +667,20 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
+    }
+
+    .summary-card {
+      padding: 1.5rem;
     }
 
     .summary-stats {
       grid-template-columns: 1fr;
       gap: 1rem;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
     }
 
     .monthly-grid {
@@ -699,6 +696,38 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
       width: 100%;
       order: -1;
       margin-bottom: 0.5rem;
+    }
+
+    .chart-card {
+      padding: 1.5rem;
+    }
+
+    .chart-card h2 {
+      font-size: 1.2rem;
+    }
+
+    .friends-list {
+      gap: 0.5rem;
+    }
+
+    .friend-item {
+      grid-template-columns: 30px 1fr auto;
+      gap: 0.75rem;
+      padding: 0.75rem;
+    }
+
+    .friend-rank {
+      font-size: 1rem;
+    }
+
+    .modal-content {
+      margin: 10% 5%;
+      padding: 1.5rem;
+      max-width: 95%;
+    }
+
+    .modal-body {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -734,11 +763,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     padding: 0.75rem 1rem;
     background: rgba(0, 0, 0, 0.02);
     border-radius: 8px;
-    transition: background 0.2s;
-  }
-
-  .friend-item:hover {
-    background: rgba(147, 51, 234, 0.05);
   }
 
   .friend-rank {
@@ -820,11 +844,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     cursor: pointer;
     padding: 0.25rem;
     opacity: 0.6;
-    transition: opacity 0.2s;
-  }
-
-  .info-icon:hover {
-    opacity: 1;
   }
 
   /* Modal styles */
@@ -1052,6 +1071,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     const configStr = activityFrequencyCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options = config.options || {};
+      config.options.animation = false;
+      config.options.plugins = config.options.plugins || {};
+      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+      config.options.plugins.tooltip.animation = false;
       new Chart(activityFrequencyCanvas, config);
     }
   }
@@ -1062,6 +1086,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     const configStr = trainingFrequencyCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options = config.options || {};
+      config.options.animation = false;
+      config.options.plugins = config.options.plugins || {};
+      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+      config.options.plugins.tooltip.animation = false;
       new Chart(trainingFrequencyCanvas, config);
     }
   }
@@ -1072,6 +1101,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     const configStr = behaviorTimelineCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options = config.options || {};
+      config.options.animation = false;
+      config.options.plugins = config.options.plugins || {};
+      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+      config.options.plugins.tooltip.animation = false;
       new Chart(behaviorTimelineCanvas, config);
     }
   }
@@ -1082,6 +1116,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     const configStr = behaviorFrequencyCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options = config.options || {};
+      config.options.animation = false;
+      config.options.plugins = config.options.plugins || {};
+      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+      config.options.plugins.tooltip.animation = false;
       new Chart(behaviorFrequencyCanvas, config);
     }
   }
@@ -1096,6 +1135,12 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     const configStr = aiActivityCategoriesCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options = config.options || {};
+      config.options.animation = false;
+      config.options.plugins = config.options.plugins || {};
+      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+      config.options.plugins.tooltip.animation = false;
+      config.options.plugins.tooltip.callbacks = config.options.plugins.tooltip.callbacks || {};
       config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
         const label = context.label as string;
         const items = aiActivityCategoryItems[label as keyof typeof aiActivityCategoryItems] || [];
@@ -1111,6 +1156,12 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     const configStr = aiTrainingCategoriesCanvas.dataset.chartConfig;
     if (configStr) {
       const config = JSON.parse(configStr);
+      config.options = config.options || {};
+      config.options.animation = false;
+      config.options.plugins = config.options.plugins || {};
+      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+      config.options.plugins.tooltip.animation = false;
+      config.options.plugins.tooltip.callbacks = config.options.plugins.tooltip.callbacks || {};
       config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
         const label = context.label as string;
         const items = aiTrainingCategoryItems[label as keyof typeof aiTrainingCategoryItems] || [];
