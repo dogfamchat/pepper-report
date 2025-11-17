@@ -1,0 +1,74 @@
+{
+  "date": "2025-11-17",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "I had a great Monday!! We started off our day with some time outside. I had a wonderful time running around and playing with my friends. Later we went inside to have our training session. We worked on building confidence around moving objects. I did great. Afterwards I enjoyed a nap and another play session with my friends!!",
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "sit (stay)",
+    "recall",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-17T22:43:21.568Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": []
+}
