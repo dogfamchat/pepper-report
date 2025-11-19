@@ -1,0 +1,40 @@
+{
+  "date": "2025-11-19",
+  "completedDateTime": "2025-11-19T22:15:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "learning something new.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "impulse control",
+    "confidence building",
+    "balancing skills"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I worked on building my confidence with heights! First, I tried out a tall slide. I took my time sniffing and checking it out, and then I got brave and gave it a go! After that, I walked across a bridge made out of chairs. It felt a little wobbly, but I did it and I got more confident each time. I’m pretty proud of myself! 🐾✨",
+  "photos": [
+    "2025-11-19-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Clay Valley",
+    "completedBy": "Clay Valley"
+  }
+}
