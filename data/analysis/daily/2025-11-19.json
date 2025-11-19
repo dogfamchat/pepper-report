@@ -1,0 +1,78 @@
+{
+  "date": "2025-11-19",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "Today I worked on building my confidence with heights! First, I tried out a tall slide. I took my time sniffing and checking it out, and then I got brave and gave it a go! After that, I walked across a bridge made out of chairs. It felt a little wobbly, but I did it and I got more confident each time. I’m pretty proud of myself! 🐾✨",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "impulse control",
+    "confidence building",
+    "balancing skills"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    },
+    {
+      "item": "balancing skills",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-11-19T22:43:00.951Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "loved every dog I met"
+  ],
+  "ooops": []
+}
