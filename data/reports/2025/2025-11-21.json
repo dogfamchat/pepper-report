@@ -1,0 +1,42 @@
+{
+  "date": "2025-11-21",
+  "completedDateTime": "2025-11-21T19:49:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Cedar"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "impulse control",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Fun Friday! Today I worked on confidence-building with mazes! 🐶🌀 I felt so brave finding my way through. After that, I played with toys, went down the slide, and ran around the yard with my friends! 🎾🛝🐾\nSuch a fun and adventurous Friday! 🧡✨",
+  "photos": [
+    "2025-11-21-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Cedar",
+    "completedBy": "Jasper Cedar"
+  }
+}
