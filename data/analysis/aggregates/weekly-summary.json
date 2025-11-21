@@ -2,10 +2,10 @@
   "week": "2025-W47",
   "startDate": "2025-11-17",
   "endDate": "2025-11-24",
-  "daysAttended": 2,
-  "averageGrade": 3.5,
+  "daysAttended": 3,
+  "averageGrade": 3.6666666666666665,
   "gradeDistribution": {
-    "A": 1,
+    "A": 2,
     "B": 1,
     "C": 0,
     "D": 0
