@@ -4,8 +4,8 @@
     "labels": [
       "sit (stay)",
       "boundries, door-ways, and thresholds",
-      "impulse control",
       "recall",
+      "impulse control",
       "confidence building",
       "name recognition",
       "handling (exam style)",
@@ -17,13 +17,13 @@
       {
         "label": "Frequency",
         "data": [
-          24,
+          25,
           21,
           18,
-          17,
+          18,
+          13,
           12,
-          11,
-          8,
+          9,
           8,
           6,
           6
