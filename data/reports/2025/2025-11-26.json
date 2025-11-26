@@ -1,0 +1,35 @@
+{
+  "date": "2025-11-26",
+  "completedDateTime": "2025-11-26T21:24:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Oak"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "making new friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [],
+  "noteworthyComments": "I had a pawsome day in school 🐾. I worked really hard on my cues, especially listening to my name and ‘sit’. I even stayed focused when there were fun smells and other dogs around! After training, I got to PLAY, and it was the best part. I ran, zoomed, and made some new friends. I can’t wait to practice more and get even better💙",
+  "photos": [
+    "2025-11-26-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Oak",
+    "completedBy": "Jasper Oak"
+  }
+}
