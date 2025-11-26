@@ -1,0 +1,53 @@
+{
+  "date": "2025-11-26",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "I had a pawsome day in school 🐾. I worked really hard on my cues, especially listening to my name and ‘sit’. I even stayed focused when there were fun smells and other dogs around! After training, I got to PLAY, and it was the best part. I ran, zoomed, and made some new friends. I can’t wait to practice more and get even better💙",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    }
+  ],
+  "analyzedAt": "2025-11-26T22:43:08.976Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": []
+}
