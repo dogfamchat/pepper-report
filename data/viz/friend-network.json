@@ -2,6 +2,7 @@
   "type": "bar",
   "data": {
     "labels": [
+      "Robertson",
       "Nova",
       "Sage",
       "Niko",
@@ -10,8 +11,7 @@
       "Freyja",
       "June",
       "Archie",
-      "Eleanor",
-      "Natty"
+      "Eleanor"
     ],
     "datasets": [
       {
