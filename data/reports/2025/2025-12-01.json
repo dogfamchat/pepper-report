@@ -1,0 +1,38 @@
+{
+  "date": "2025-12-01",
+  "completedDateTime": "2025-12-01T23:15:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Oak"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "making new friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "sit (stay)",
+    "down (stay)",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [
+    "cranky (lacking patience and a little irritable"
+  ],
+  "noteworthyComments": "I had the BEST Christmas play day ever! I was super busy being festive and adorable. We played Santa Says, and guess what? I NAILED it. Every time they said “Santa says sit,” I sat sooo fast! I think Santa would be really proud of me. 🎅✨ I had SO much fun and can't wait to come back for more holiday magic!",
+  "photos": [
+    "2025-12-01-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Oak",
+    "completedBy": "Jasper Oak"
+  }
+}
