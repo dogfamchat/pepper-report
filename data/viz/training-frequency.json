@@ -11,22 +11,22 @@
       "handling (exam style)",
       "collar grab games",
       "recall with distractions",
-      "focus work"
+      "down (stay)"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          25,
+          26,
           23,
           19,
-          18,
+          19,
           14,
           13,
           9,
           8,
           7,
-          6
+          7
         ],
         "backgroundColor": "rgba(16, 185, 129, 0.8)",
         "borderColor": "rgba(16, 185, 129, 1)",

@@ -1,0 +1,64 @@
+{
+  "date": "2025-12-01",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "I had the BEST Christmas play day ever! I was super busy being festive and adorable. We played Santa Says, and guess what? I NAILED it. Every time they said “Santa says sit,” I sat sooo fast! I think Santa would be really proud of me. 🎅✨ I had SO much fun and can't wait to come back for more holiday magic!",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "sit (stay)",
+    "down (stay)",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "down (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2025-12-01T23:39:17.154Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [
+    "cranky (lacking patience and a little irritable"
+  ]
+}
