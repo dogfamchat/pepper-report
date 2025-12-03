@@ -9,24 +9,24 @@
       "name recognition",
       "confidence building",
       "handling (exam style)",
-      "collar grab games",
       "recall with distractions",
+      "collar grab games",
       "down (stay)"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          26,
-          23,
+          27,
+          24,
+          20,
           19,
-          19,
-          14,
+          15,
           13,
           9,
           8,
-          7,
-          7
+          8,
+          8
         ],
         "backgroundColor": "rgba(16, 185, 129, 0.8)",
         "borderColor": "rgba(16, 185, 129, 1)",

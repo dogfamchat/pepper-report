@@ -1,17 +1,25 @@
 {
   "summary": {
-    "totalReportCards": 41,
+    "totalReportCards": 42,
     "uniqueFriends": 14,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2025-12-01"
+      "end": "2025-12-03"
     }
   },
   "friends": [
     {
+      "name": "Sage",
+      "mentions": 2,
+      "percentage": 4.761904761904762,
+      "firstSeen": "2025-10-29",
+      "lastSeen": "2025-12-03",
+      "trend": "stable"
+    },
+    {
       "name": "Robertson",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-11-28",
       "lastSeen": "2025-11-28",
       "trend": "stable"
@@ -19,23 +27,15 @@
     {
       "name": "Nova",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-11-14",
       "lastSeen": "2025-11-14",
       "trend": "stable"
     },
     {
-      "name": "Sage",
-      "mentions": 1,
-      "percentage": 2.4390243902439024,
-      "firstSeen": "2025-10-29",
-      "lastSeen": "2025-10-29",
-      "trend": "stable"
-    },
-    {
       "name": "Niko",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-10-29",
       "lastSeen": "2025-10-29",
       "trend": "stable"
@@ -43,7 +43,7 @@
     {
       "name": "Joey",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-10-15",
       "lastSeen": "2025-10-15",
       "trend": "stable"
@@ -51,7 +51,7 @@
     {
       "name": "Barolo",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-10-15",
       "lastSeen": "2025-10-15",
       "trend": "stable"
@@ -59,7 +59,7 @@
     {
       "name": "Freyja",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-10-10",
       "lastSeen": "2025-10-10",
       "trend": "stable"
@@ -67,7 +67,7 @@
     {
       "name": "June",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-10-10",
       "lastSeen": "2025-10-10",
       "trend": "stable"
@@ -75,7 +75,7 @@
     {
       "name": "Archie",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-10-07",
       "lastSeen": "2025-10-07",
       "trend": "stable"
@@ -83,7 +83,7 @@
     {
       "name": "Eleanor",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-10-03",
       "lastSeen": "2025-10-03",
       "trend": "stable"
@@ -91,7 +91,7 @@
     {
       "name": "Natty",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-09-29",
       "lastSeen": "2025-09-29",
       "trend": "stable"
@@ -99,7 +99,7 @@
     {
       "name": "Wesker",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-09-29",
       "lastSeen": "2025-09-29",
       "trend": "stable"
@@ -107,7 +107,7 @@
     {
       "name": "Todd",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-08-27",
       "lastSeen": "2025-08-27",
       "trend": "stable"
@@ -115,7 +115,7 @@
     {
       "name": "Letha",
       "mentions": 1,
-      "percentage": 2.4390243902439024,
+      "percentage": 2.380952380952381,
       "firstSeen": "2025-08-27",
       "lastSeen": "2025-08-27",
       "trend": "stable"

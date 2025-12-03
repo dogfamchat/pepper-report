@@ -11,22 +11,22 @@
       "played with my favorite toy",
       "engagement games",
       "had a pool party",
-      "caught bubbles"
+      "played on the agility equipment"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          35,
-          32,
-          27,
-          24,
-          20,
+          36,
+          33,
+          28,
+          25,
+          21,
+          16,
           15,
-          14,
           8,
           7,
-          6
+          7
         ],
         "backgroundColor": "rgba(59, 130, 246, 0.8)",
         "borderColor": "rgba(59, 130, 246, 1)",
