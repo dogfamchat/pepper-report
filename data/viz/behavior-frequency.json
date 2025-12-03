@@ -2,32 +2,34 @@
   "type": "bar",
   "data": {
     "labels": [
-      "listened and respected my trainer",
       "sharing nicely (water bowl, toys, food)",
-      "practiced balanced and fair play",
+      "listened and respected my trainer",
       "loved every dog I met",
+      "practiced balanced and fair play",
       "verbally expressed myself",
-      "made good choices",
       "respected thresholds",
-      "bullying or pestering another dog",
+      "made good choices",
       "respected other's space",
+      "bullying or pestering another dog",
       "helped the new kids fit in",
-      "challenge with self regulation"
+      "challenge with self regulation",
+      "cranky (lacking patience and a little irritable"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          26,
+          29,
+          29,
           21,
-          17,
-          17,
-          10,
-          7,
-          6,
+          20,
+          11,
+          9,
+          8,
+          4,
           4,
           3,
-          3,
+          1,
           1
         ],
         "backgroundColor": [
@@ -38,9 +40,10 @@
           "rgba(239, 68, 68, 0.8)",
           "rgba(34, 197, 94, 0.8)",
           "rgba(34, 197, 94, 0.8)",
+          "rgba(34, 197, 94, 0.8)",
           "rgba(239, 68, 68, 0.8)",
           "rgba(34, 197, 94, 0.8)",
-          "rgba(34, 197, 94, 0.8)",
+          "rgba(239, 68, 68, 0.8)",
           "rgba(239, 68, 68, 0.8)"
         ],
         "borderWidth": 0
