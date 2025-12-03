@@ -18,6 +18,7 @@
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
+import { aggregateAICategoryCounts } from './activity-categorizer';
 import {
   analyzeActivityBreakdown,
   analyzeBehaviorTrends,
@@ -32,7 +33,6 @@ import {
   generateGradeTimeline,
   generateTrainingFrequencyViz,
 } from './aggregate';
-import { aggregateAICategoryCounts } from './activity-categorizer';
 import type { DailyAnalysis } from './extract-daily';
 import { dailyAnalysisExists, extractDaily, saveDailyAnalysis } from './extract-daily';
 import { readAllReportCards, readReportCard } from './report-reader';
