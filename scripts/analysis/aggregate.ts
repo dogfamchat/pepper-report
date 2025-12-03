@@ -1350,6 +1350,8 @@ export {
   generateTrainingFrequencyViz,
   generateBehaviorTimelineViz,
   generateBehaviorFrequencyViz,
+  generateAIActivityCategoryViz,
+  generateAITrainingCategoryViz,
 };
 
 // Run if called directly

@@ -18,11 +18,17 @@
 import { existsSync, mkdirSync, readdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
+import { aggregateAICategoryCounts } from './activity-categorizer';
 import {
   analyzeActivityBreakdown,
+  analyzeBehaviorTrends,
   analyzeFriendStats,
   analyzeGradeTrends,
   generateActivityFrequencyViz,
+  generateAIActivityCategoryViz,
+  generateAITrainingCategoryViz,
+  generateBehaviorFrequencyViz,
+  generateBehaviorTimelineViz,
   generateFriendNetworkViz,
   generateGradeTimeline,
   generateTrainingFrequencyViz,
@@ -254,11 +260,27 @@ async function main() {
     // Aggregate activity breakdown
     const activityBreakdown = analyzeActivityBreakdown(analyses);
 
+    // Aggregate behavior trends
+    const behaviorTrends = analyzeBehaviorTrends(analyses);
+
+    // Aggregate AI categories
+    const aiCategories = aggregateAICategoryCounts(analyses);
+
     // Generate visualization data
     const timeline = generateGradeTimeline(analyses);
     const friendNetworkViz = generateFriendNetworkViz(topFriends);
     const activityFrequencyViz = generateActivityFrequencyViz(activityBreakdown);
     const trainingFrequencyViz = generateTrainingFrequencyViz(activityBreakdown);
+    const behaviorTimelineViz = generateBehaviorTimelineViz(behaviorTrends);
+    const behaviorFrequencyViz = generateBehaviorFrequencyViz(behaviorTrends);
+    const aiActivityCategoryViz = generateAIActivityCategoryViz(
+      aiCategories.activityCounts,
+      aiCategories.totalActivityInstances,
+    );
+    const aiTrainingCategoryViz = generateAITrainingCategoryViz(
+      aiCategories.trainingCounts,
+      aiCategories.totalTrainingInstances,
+    );
 
     // STEP 3: Save aggregated results
     console.log('\n💾 Saving aggregated data...');
@@ -309,6 +331,11 @@ async function main() {
     );
     console.log('   ✅ data/analysis/aggregates/activity-breakdown.json');
 
+    // Save behavior trends
+    const behaviorTrendsFile = join(aggregatesDir, 'behavior-trends.json');
+    writeFileSync(behaviorTrendsFile, `${JSON.stringify(behaviorTrends, null, 2)}\n`, 'utf-8');
+    console.log('   ✅ data/analysis/aggregates/behavior-trends.json');
+
     // Save activity visualization data
     const activityFrequencyFile = join(vizDir, 'activity-frequency.json');
     writeFileSync(
@@ -325,6 +352,40 @@ async function main() {
       'utf-8',
     );
     console.log('   ✅ data/viz/training-frequency.json');
+
+    // Save behavior visualization data
+    const behaviorTimelineFile = join(vizDir, 'behavior-timeline.json');
+    writeFileSync(
+      behaviorTimelineFile,
+      `${JSON.stringify(behaviorTimelineViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/behavior-timeline.json');
+
+    const behaviorFrequencyFile = join(vizDir, 'behavior-frequency.json');
+    writeFileSync(
+      behaviorFrequencyFile,
+      `${JSON.stringify(behaviorFrequencyViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/behavior-frequency.json');
+
+    // Save AI category visualization data
+    const aiActivityCategoryFile = join(vizDir, 'ai-activity-categories.json');
+    writeFileSync(
+      aiActivityCategoryFile,
+      `${JSON.stringify(aiActivityCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/ai-activity-categories.json');
+
+    const aiTrainingCategoryFile = join(vizDir, 'ai-training-categories.json');
+    writeFileSync(
+      aiTrainingCategoryFile,
+      `${JSON.stringify(aiTrainingCategoryViz, null, 2)}\n`,
+      'utf-8',
+    );
+    console.log('   ✅ data/viz/ai-training-categories.json');
 
     // Summary
     console.log('\n═══════════════════════════════════════\n');
