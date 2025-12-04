@@ -65,30 +65,18 @@ export default defineConfig({
 });
 ```
 
-### Step 1.3: Create Date Utility for React Components
+### Step 1.3: Date Utility Note
 
-**File**: `src/utils/date-utils.ts` (NEW)
-
-```typescript
-/**
- * Formats a date string (YYYY-MM-DD) to display without the year
- * Example: "2025-08-15" -> "8/15"
- */
-export function formatDateNoYear(dateString: string): string {
-  const date = new Date(dateString);
-  const month = date.getMonth() + 1;
-  const day = date.getDate();
-  return `${month}/${day}`;
-}
-```
+**Note**: The `formatDateNoYear` utility already exists in `scripts/utils/date-utils.ts`. Import it from there using the path `../../../scripts/utils/date-utils` when used in React components under `src/components/charts/`.
 
 ### Step 1.4: Create Grade Timeline Chart Component
 
 **File**: `src/components/charts/GradeTimelineChart.tsx` (NEW)
 
 ```typescript
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area } from 'recharts';
-import { formatDateNoYear } from '../../utils/date-utils';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, type TooltipContentProps } from 'recharts';
+import { formatDateNoYear } from '../../../scripts/utils/date-utils';
+import type { Grade } from '../../../scripts/types';
 
 interface TimelineDataPoint {
   date: string;
@@ -111,7 +99,7 @@ export default function GradeTimelineChart({ data }: Props) {
   const gradeTickFormatter = (value: number) => GRADE_LABELS[value] || '';
 
   // Custom tooltip component
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: TooltipContentProps<Grade, string>) => {
     if (active && payload && payload.length) {
       const dataPoint = payload[0].payload;
       const gradeValue = payload[0].value;
@@ -164,7 +152,7 @@ export default function GradeTimelineChart({ data }: Props) {
           stroke="#666"
         />
 
-        <Tooltip content={<CustomTooltip />} isAnimationActive={false} />
+        <Tooltip content={CustomTooltip} isAnimationActive={false} />
 
         <Area
           type="linear"
@@ -307,7 +295,8 @@ Visit http://localhost:4321/pepper-report/ and verify:
 **File**: `src/components/charts/GradeDistributionChart.tsx` (NEW)
 
 ```typescript
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, type TooltipContentProps } from 'recharts';
+import type { Grade } from '../../../scripts/types';
 
 interface Props {
   distributionData: {
@@ -323,7 +312,7 @@ export default function GradeDistributionChart({ distributionData, totalReports 
     { name: 'B', value: distributionData.B, color: '#f093fb' },
   ];
 
-  const CustomTooltip = ({ active, payload }: any) => {
+  const CustomTooltip = ({ active, payload }: TooltipContentProps<Grade, string>) => {
     if (active && payload && payload.length) {
       const { name, value } = payload[0];
       const percent = ((value / totalReports) * 100).toFixed(0);
@@ -360,7 +349,7 @@ export default function GradeDistributionChart({ distributionData, totalReports 
             <Cell key={`cell-${index}`} fill={entry.color} />
           ))}
         </Pie>
-        <Tooltip content={<CustomTooltip />} isAnimationActive={false} />
+        <Tooltip content={CustomTooltip} isAnimationActive={false} />
       </PieChart>
     </ResponsiveContainer>
   );
@@ -438,7 +427,7 @@ const { timeline, trends } = Astro.props;
 **File**: `src/components/charts/HorizontalBarChart.tsx` (NEW)
 
 ```typescript
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, type TooltipContentProps } from 'recharts';
 
 interface BarData {
   name: string;
@@ -451,7 +440,7 @@ interface Props {
   barColor?: string;
   xAxisLabel?: string;
   height?: number;
-  customTooltip?: (payload: any) => React.ReactNode;
+  customTooltip?: (payload: TooltipContentProps<number, string>['payload']) => React.ReactNode;
 }
 
 export default function HorizontalBarChart({
@@ -461,10 +450,10 @@ export default function HorizontalBarChart({
   height = 400,
   customTooltip
 }: Props) {
-  const DefaultTooltip = ({ active, payload }: any) => {
+  const DefaultTooltip = ({ active, payload }: TooltipContentProps<number, string>) => {
     if (active && payload && payload.length) {
       if (customTooltip) {
-        return <>{customTooltip(payload[0])}</>;
+        return <>{customTooltip(payload)}</>;
       }
       return (
         <div style={{
@@ -492,7 +481,7 @@ export default function HorizontalBarChart({
           label={xAxisLabel ? { value: xAxisLabel, position: 'bottom' } : undefined}
         />
         <YAxis type="category" dataKey="name" width={200} />
-        <Tooltip content={<DefaultTooltip />} isAnimationActive={false} />
+        <Tooltip content={DefaultTooltip} isAnimationActive={false} />
         <Bar dataKey="value" isAnimationActive={false}>
           {data.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={entry.color || barColor} />
@@ -510,7 +499,7 @@ export default function HorizontalBarChart({
 
 ```typescript
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { formatDateNoYear } from '../../utils/date-utils';
+import { formatDateNoYear } from '../../../scripts/utils/date-utils';
 
 interface BehaviorData {
   date: string;
@@ -567,6 +556,7 @@ export default function BehaviorTimelineChart({ data }: Props) {
 
 ```typescript
 import HorizontalBarChart from './HorizontalBarChart';
+import type { TooltipContentProps } from 'recharts';
 
 interface CategoryData {
   name: string;
@@ -580,8 +570,10 @@ interface Props {
 }
 
 export default function AIActivityCategoriesChart({ data, categoryItems }: Props) {
-  const customTooltip = (payload: any) => {
-    const { name, value } = payload.payload;
+  const customTooltip = (payload: TooltipContentProps<number, string>['payload']) => {
+    if (!payload || !payload.length) return null;
+
+    const { name, value } = payload[0].payload as { name: string; value: number };
     const items = categoryItems[name] || [];
     const total = data.reduce((sum, d) => sum + d.value, 0);
     const percent = ((value / total) * 100).toFixed(1);
@@ -627,6 +619,7 @@ export default function AIActivityCategoriesChart({ data, categoryItems }: Props
 
 ```typescript
 import HorizontalBarChart from './HorizontalBarChart';
+import type { TooltipContentProps } from 'recharts';
 
 interface CategoryData {
   name: string;
@@ -640,8 +633,10 @@ interface Props {
 }
 
 export default function AITrainingCategoriesChart({ data, categoryItems }: Props) {
-  const customTooltip = (payload: any) => {
-    const { name, value } = payload.payload;
+  const customTooltip = (payload: TooltipContentProps<number, string>['payload']) => {
+    if (!payload || !payload.length) return null;
+
+    const { name, value } = payload[0].payload as { name: string; value: number };
     const items = categoryItems[name] || [];
     const total = data.reduce((sum, d) => sum + d.value, 0);
     const percent = ((value / total) * 100).toFixed(1);
