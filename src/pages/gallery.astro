@@ -35,7 +35,7 @@ const months = Object.keys(photosByMonth);
       <div class="month-section">
         <h2 class="month-header">{formatMonth(month)}</h2>
         <div class="photo-grid">
-          {photosByMonth[month].map((photo, index) => (
+          {photosByMonth[month].map((photo) => (
             <div class="photo-card">
               <button
                 type="button"
@@ -329,7 +329,7 @@ const months = Object.keys(photosByMonth);
 
   // Event listeners
   document.querySelectorAll('.photo-link').forEach(link => {
-    link.addEventListener('click', (e) => {
+    link.addEventListener('click', () => {
       const index = parseInt(link.dataset.photoIndex);
       openLightbox(index);
     });
