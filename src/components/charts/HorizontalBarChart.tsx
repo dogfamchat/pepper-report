@@ -57,13 +57,15 @@ export default function HorizontalBarChart({
 
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <BarChart data={data} layout="vertical" margin={{ left: 20, right: 20, top: 10, bottom: 10 }}>
+      <BarChart data={data} layout="vertical" margin={{ left: 20, right: 20, top: 10, bottom: 30 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="rgba(0, 0, 0, 0.05)" />
         <XAxis
           type="number"
-          label={xAxisLabel ? { value: xAxisLabel, position: 'bottom' } : undefined}
+          label={
+            xAxisLabel ? { value: xAxisLabel, position: 'insideBottom', offset: -15 } : undefined
+          }
         />
-        <YAxis type="category" dataKey="name" width={200} />
+        <YAxis type="category" dataKey="name" width={200} tick={{ fontSize: 13 }} />
         <Tooltip content={DefaultTooltip} isAnimationActive={false} />
         <Bar dataKey="value" isAnimationActive={false}>
           {data.map((entry, index) => (

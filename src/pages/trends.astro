@@ -3,6 +3,12 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { formatDateNoYear, formatMonth } from '../../scripts/utils/date-utils';
+import AIActivityCategoriesChart from '../components/charts/AIActivityCategoriesChart';
+import AITrainingCategoriesChart from '../components/charts/AITrainingCategoriesChart';
+
+// Import React chart components
+import BehaviorTimelineChart from '../components/charts/BehaviorTimelineChart';
+import HorizontalBarChart from '../components/charts/HorizontalBarChart';
 import GradeCharts from '../components/GradeCharts.astro';
 import Layout from '../layouts/Layout.astro';
 
@@ -159,6 +165,95 @@ try {
   console.error('Failed to load learned mappings:', error);
 }
 
+// Transform Chart.js data to Recharts format
+interface ChartDataPoint {
+  name: string;
+  value: number;
+  color?: string;
+}
+
+interface BehaviorTimelineDataPoint {
+  date: string;
+  positiveCount: number;
+  negativeCount: number;
+}
+
+interface CategoryChartDataPoint {
+  name: string;
+  value: number;
+  color: string;
+}
+
+let activityChartData: ChartDataPoint[] = [];
+let trainingChartData: ChartDataPoint[] = [];
+let behaviorTimelineChartData: BehaviorTimelineDataPoint[] = [];
+let behaviorFrequencyChartData: ChartDataPoint[] = [];
+let aiActivityChartData: CategoryChartDataPoint[] = [];
+let aiTrainingChartData: CategoryChartDataPoint[] = [];
+
+// Activity Frequency - Transform from Chart.js config
+if (activityFrequencyViz) {
+  activityChartData = activityFrequencyViz.data.labels.map((label: string, i: number) => ({
+    name: label,
+    value: activityFrequencyViz.data.datasets[0].data[i],
+  }));
+}
+
+// Training Frequency - Transform from Chart.js config
+if (trainingFrequencyViz) {
+  trainingChartData = trainingFrequencyViz.data.labels.map((label: string, i: number) => ({
+    name: label,
+    value: trainingFrequencyViz.data.datasets[0].data[i],
+  }));
+}
+
+// Behavior Timeline - Transform from Chart.js config
+if (behaviorTimelineViz) {
+  const labels = behaviorTimelineViz.data.labels;
+  interface DataSet {
+    label: string;
+    data: number[];
+  }
+  const positiveData =
+    (behaviorTimelineViz.data.datasets as DataSet[]).find((ds) => ds.label === 'Caught Being Good')
+      ?.data || [];
+  const negativeData =
+    (behaviorTimelineViz.data.datasets as DataSet[]).find((ds) => ds.label === 'Ooops')?.data || [];
+
+  behaviorTimelineChartData = labels.map((date: string, i: number) => ({
+    date,
+    positiveCount: positiveData[i] || 0,
+    negativeCount: negativeData[i] || 0,
+  }));
+}
+
+// Behavior Frequency - Transform with colors
+if (behaviorFrequencyViz) {
+  behaviorFrequencyChartData = behaviorFrequencyViz.data.labels.map((label: string, i: number) => ({
+    name: label,
+    value: behaviorFrequencyViz.data.datasets[0].data[i],
+    color: behaviorFrequencyViz.data.datasets[0].backgroundColor[i],
+  }));
+}
+
+// AI Activity Categories - Transform with colors
+if (aiActivityCategoriesViz) {
+  aiActivityChartData = aiActivityCategoriesViz.data.labels.map((label: string, i: number) => ({
+    name: label,
+    value: aiActivityCategoriesViz.data.datasets[0].data[i],
+    color: aiActivityCategoriesViz.data.datasets[0].backgroundColor[i],
+  })) as CategoryChartDataPoint[];
+}
+
+// AI Training Categories - Transform with colors
+if (aiTrainingCategoriesViz) {
+  aiTrainingChartData = aiTrainingCategoriesViz.data.labels.map((label: string, i: number) => ({
+    name: label,
+    value: aiTrainingCategoriesViz.data.datasets[0].data[i],
+    color: aiTrainingCategoriesViz.data.datasets[0].backgroundColor[i],
+  })) as CategoryChartDataPoint[];
+}
+
 // Calculate grade percentage
 const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
 ---
@@ -234,19 +329,25 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
         <!-- Top Activities Bar Chart -->
         <div class="chart-card">
           <h3>Top Activities</h3>
-          <canvas
-            id="activityFrequencyChart"
-            data-chart-config={JSON.stringify(activityFrequencyViz)}
-          ></canvas>
+          <HorizontalBarChart
+            data={activityChartData}
+            barColor="rgba(59, 130, 246, 0.8)"
+            xAxisLabel="Number of Days"
+            height={400}
+            client:load
+          />
         </div>
 
         <!-- Top Training Skills Bar Chart -->
         <div class="chart-card">
           <h3>Top Training Skills</h3>
-          <canvas
-            id="trainingFrequencyChart"
-            data-chart-config={JSON.stringify(trainingFrequencyViz)}
-          ></canvas>
+          <HorizontalBarChart
+            data={trainingChartData}
+            barColor="rgba(16, 185, 129, 0.8)"
+            xAxisLabel="Number of Days"
+            height={400}
+            client:load
+          />
         </div>
       </div>
     )}
@@ -268,10 +369,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
               Activity Categories
               <button class="info-icon" data-modal="aiActivityModal" title="View activity details">ℹ️</button>
             </h3>
-            <canvas
-              id="aiActivityCategoriesChart"
-              data-chart-config={JSON.stringify(aiActivityCategoriesViz)}
-            ></canvas>
+            <AIActivityCategoriesChart
+              data={aiActivityChartData}
+              categoryItems={activityCategoryItems}
+              client:load
+            />
           </div>
 
           <!-- Training Categories Chart -->
@@ -280,10 +382,11 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
               Training Categories
               <button class="info-icon" data-modal="aiTrainingModal" title="View training details">ℹ️</button>
             </h3>
-            <canvas
-              id="aiTrainingCategoriesChart"
-              data-chart-config={JSON.stringify(aiTrainingCategoriesViz)}
-            ></canvas>
+            <AITrainingCategoriesChart
+              data={aiTrainingChartData}
+              categoryItems={trainingCategoryItems}
+              client:load
+            />
           </div>
         </div>
       </>
@@ -329,19 +432,18 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
           <!-- Behavior Timeline -->
           <div class="chart-card full-width">
             <h3>Behavior Over Time</h3>
-            <canvas
-              id="behaviorTimelineChart"
-              data-chart-config={JSON.stringify(behaviorTimelineViz)}
-            ></canvas>
+            <BehaviorTimelineChart data={behaviorTimelineChartData} client:load />
           </div>
 
           <!-- Behavior Frequency -->
           <div class="chart-card full-width">
             <h3>All Behaviors by Frequency</h3>
-            <canvas
-              id="behaviorFrequencyChart"
-              data-chart-config={JSON.stringify(behaviorFrequencyViz)}
-            ></canvas>
+            <HorizontalBarChart
+              data={behaviorFrequencyChartData}
+              xAxisLabel="Frequency"
+              height={450}
+              client:load
+            />
           </div>
         </div>
 
@@ -455,9 +557,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
     </div>
   </div>
 
-  <!-- Hidden data for JavaScript (category mappings from learned mappings) -->
-  <script id="aiActivityCategoryData" type="application/json" set:html={JSON.stringify(activityCategoryItems)} />
-  <script id="aiTrainingCategoryData" type="application/json" set:html={JSON.stringify(trainingCategoryItems)} />
 </Layout>
 
 <style>
@@ -1060,117 +1159,6 @@ const gradeToPercent = (grade: number) => ((grade / 4.0) * 100).toFixed(0);
 </style>
 
 <script>
-  import { Chart, registerables } from 'chart.js';
-
-  // Register Chart.js components
-  Chart.register(...registerables);
-
-  // Initialize activity frequency chart
-  const activityFrequencyCanvas = document.getElementById('activityFrequencyChart') as HTMLCanvasElement | null;
-  if (activityFrequencyCanvas) {
-    const configStr = activityFrequencyCanvas.dataset.chartConfig;
-    if (configStr) {
-      const config = JSON.parse(configStr);
-      config.options = config.options || {};
-      config.options.animation = false;
-      config.options.plugins = config.options.plugins || {};
-      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
-      config.options.plugins.tooltip.animation = false;
-      new Chart(activityFrequencyCanvas, config);
-    }
-  }
-
-  // Initialize training frequency chart
-  const trainingFrequencyCanvas = document.getElementById('trainingFrequencyChart') as HTMLCanvasElement | null;
-  if (trainingFrequencyCanvas) {
-    const configStr = trainingFrequencyCanvas.dataset.chartConfig;
-    if (configStr) {
-      const config = JSON.parse(configStr);
-      config.options = config.options || {};
-      config.options.animation = false;
-      config.options.plugins = config.options.plugins || {};
-      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
-      config.options.plugins.tooltip.animation = false;
-      new Chart(trainingFrequencyCanvas, config);
-    }
-  }
-
-  // Initialize behavior timeline chart
-  const behaviorTimelineCanvas = document.getElementById('behaviorTimelineChart') as HTMLCanvasElement | null;
-  if (behaviorTimelineCanvas) {
-    const configStr = behaviorTimelineCanvas.dataset.chartConfig;
-    if (configStr) {
-      const config = JSON.parse(configStr);
-      config.options = config.options || {};
-      config.options.animation = false;
-      config.options.plugins = config.options.plugins || {};
-      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
-      config.options.plugins.tooltip.animation = false;
-      new Chart(behaviorTimelineCanvas, config);
-    }
-  }
-
-  // Initialize behavior frequency chart
-  const behaviorFrequencyCanvas = document.getElementById('behaviorFrequencyChart') as HTMLCanvasElement | null;
-  if (behaviorFrequencyCanvas) {
-    const configStr = behaviorFrequencyCanvas.dataset.chartConfig;
-    if (configStr) {
-      const config = JSON.parse(configStr);
-      config.options = config.options || {};
-      config.options.animation = false;
-      config.options.plugins = config.options.plugins || {};
-      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
-      config.options.plugins.tooltip.animation = false;
-      new Chart(behaviorFrequencyCanvas, config);
-    }
-  }
-
-  // AI category to items mappings (dynamically loaded from learned mappings in frontmatter)
-  const aiActivityCategoryItems = JSON.parse(document.getElementById('aiActivityCategoryData')?.textContent || '{}');
-  const aiTrainingCategoryItems = JSON.parse(document.getElementById('aiTrainingCategoryData')?.textContent || '{}');
-
-  // Initialize AI activity categories chart
-  const aiActivityCategoriesCanvas = document.getElementById('aiActivityCategoriesChart') as HTMLCanvasElement | null;
-  if (aiActivityCategoriesCanvas) {
-    const configStr = aiActivityCategoriesCanvas.dataset.chartConfig;
-    if (configStr) {
-      const config = JSON.parse(configStr);
-      config.options = config.options || {};
-      config.options.animation = false;
-      config.options.plugins = config.options.plugins || {};
-      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
-      config.options.plugins.tooltip.animation = false;
-      config.options.plugins.tooltip.callbacks = config.options.plugins.tooltip.callbacks || {};
-      config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
-        const label = context.label as string;
-        const items = aiActivityCategoryItems[label as keyof typeof aiActivityCategoryItems] || [];
-        return items.map((item: string) => '• ' + item);
-      };
-      new Chart(aiActivityCategoriesCanvas, config);
-    }
-  }
-
-  // Initialize AI training categories chart
-  const aiTrainingCategoriesCanvas = document.getElementById('aiTrainingCategoriesChart') as HTMLCanvasElement | null;
-  if (aiTrainingCategoriesCanvas) {
-    const configStr = aiTrainingCategoriesCanvas.dataset.chartConfig;
-    if (configStr) {
-      const config = JSON.parse(configStr);
-      config.options = config.options || {};
-      config.options.animation = false;
-      config.options.plugins = config.options.plugins || {};
-      config.options.plugins.tooltip = config.options.plugins.tooltip || {};
-      config.options.plugins.tooltip.animation = false;
-      config.options.plugins.tooltip.callbacks = config.options.plugins.tooltip.callbacks || {};
-      config.options.plugins.tooltip.callbacks.afterLabel = function(context: any) {
-        const label = context.label as string;
-        const items = aiTrainingCategoryItems[label as keyof typeof aiTrainingCategoryItems] || [];
-        return items.map((item: string) => '• ' + item);
-      };
-      new Chart(aiTrainingCategoriesCanvas, config);
-    }
-  }
-
   // Modal functionality
   const infoButtons = document.querySelectorAll('.info-icon');
   const modals = document.querySelectorAll('.modal');
