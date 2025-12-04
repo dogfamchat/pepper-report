@@ -128,66 +128,6 @@ interface BehaviorTrends {
   }>;
 }
 
-interface AggregateOptions {
-  verbose?: boolean;
-}
-
-/**
- * Parse command line arguments
- */
-function parseArgs(): AggregateOptions {
-  const args = process.argv.slice(2);
-  const options: AggregateOptions = {
-    verbose: false,
-  };
-
-  for (let i = 0; i < args.length; i++) {
-    switch (args[i]) {
-      case '--verbose':
-      case '-v':
-        options.verbose = true;
-        break;
-      case '--help':
-      case '-h':
-        console.log(`
-Aggregate Analysis - Combine daily analysis files into aggregates
-
-Usage:
-  bun run scripts/analysis/aggregate.ts [options]
-
-Options:
-  --verbose, -v       Verbose logging
-  --help, -h          Show this help message
-
-Description:
-  Reads all daily analysis files from data/analysis/daily/ and:
-  - Calculates weekly and monthly grade trends
-  - Aggregates friend mentions and rankings
-  - Generates visualization data for Chart.js
-
-  Output files:
-  - data/analysis/aggregates/grade-trends.json
-  - data/analysis/aggregates/top-friends.json
-  - data/analysis/aggregates/weekly-summary.json
-  - data/analysis/aggregates/activity-breakdown.json
-  - data/viz/grade-timeline.json
-  - data/viz/friend-network.json
-  - data/viz/activity-categories.json
-  - data/viz/training-categories.json
-  - data/viz/activity-frequency.json
-  - data/viz/training-frequency.json
-
-Examples:
-  bun run scripts/analysis/aggregate.ts
-  bun run scripts/analysis/aggregate.ts --verbose
-`);
-        process.exit(0);
-    }
-  }
-
-  return options;
-}
-
 /**
  * Read all daily analysis files
  */
@@ -1168,8 +1108,6 @@ function saveResults(
  * Main execution
  */
 async function main() {
-  const _options = parseArgs();
-
   console.log('📊 Aggregate Analysis\n');
   console.log('═══════════════════════════════════════\n');
 
