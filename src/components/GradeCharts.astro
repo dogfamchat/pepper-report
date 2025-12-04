@@ -1,4 +1,5 @@
 ---
+import GradeDistributionChart from './charts/GradeDistributionChart';
 import GradeTimelineChart from './charts/GradeTimelineChart';
 
 interface TimelineData {
@@ -46,7 +47,11 @@ const { timeline, trends } = Astro.props;
   <div class="chart-card">
     <h2>Grade Distribution</h2>
     <div class="chart-container" style="max-width: 400px; margin: 0 auto;">
-      <canvas id="gradeDistributionChart" data-trends={JSON.stringify(trends)}></canvas>
+      <GradeDistributionChart
+        distributionData={trends.summary.overallGradeDistribution}
+        totalReports={trends.summary.totalReports}
+        client:load
+      />
     </div>
     <div class="distribution-stats">
       <div class="dist-stat grade-a-stat">
@@ -62,51 +67,6 @@ const { timeline, trends } = Astro.props;
     </div>
   </div>
 </div>
-
-<script>
-  import { Chart, registerables } from 'chart.js';
-
-  Chart.register(...registerables);
-
-  // Grade Distribution Chart
-  const distributionCanvas = document.getElementById('gradeDistributionChart') as HTMLCanvasElement;
-  if (distributionCanvas) {
-    const trends = JSON.parse(distributionCanvas.dataset.trends || '{}');
-    const dist = trends.summary.overallGradeDistribution;
-
-    new Chart(distributionCanvas, {
-      type: 'doughnut',
-      data: {
-        labels: ['A', 'B'],
-        datasets: [{
-          data: [dist.A, dist.B],
-          backgroundColor: ['#667eea', '#f093fb'],
-          borderWidth: 0
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        aspectRatio: 1,
-        animation: false,
-        plugins: {
-          legend: { display: false },
-          tooltip: {
-            enabled: true,
-            animation: false,
-            callbacks: {
-              label: (context) => {
-                const total = dist.A + dist.B;
-                const percent = ((context.parsed / total) * 100).toFixed(0);
-                return `${context.label}: ${context.parsed} days (${percent}%)`;
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-</script>
 
 <style>
   .charts-wrapper {
