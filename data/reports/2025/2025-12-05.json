@@ -1,0 +1,41 @@
+{
+  "date": "2025-12-05",
+  "completedDateTime": "2025-12-05T20:59:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Cedar Field"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "hanging out with my bestie.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "loose-leash walking",
+    "sit (stay)",
+    "recall"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Friday!! I had a great day today, we started off with a play session and some time outside for a potty break. Later we practiced loose leash walking. I did very well. In the afternoon we had another play session followed by a nap and some time to relax with my friends.",
+  "photos": [
+    "2025-12-05-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}
