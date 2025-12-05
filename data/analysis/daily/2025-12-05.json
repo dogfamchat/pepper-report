@@ -1,0 +1,71 @@
+{
+  "date": "2025-12-05",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Happy Friday!! I had a great day today, we started off with a play session and some time outside for a potty break. Later we practiced loose leash walking. I did very well. In the afternoon we had another play session followed by a nap and some time to relax with my friends.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "loose-leash walking",
+    "sit (stay)",
+    "recall"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "loose-leash walking",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    }
+  ],
+  "analyzedAt": "2025-12-05T22:43:17.665Z",
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "made good choices"
+  ],
+  "ooops": []
+}

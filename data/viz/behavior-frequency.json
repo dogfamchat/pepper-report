@@ -2,10 +2,10 @@
   "type": "bar",
   "data": {
     "labels": [
-      "sharing nicely (water bowl, toys, food)",
       "listened and respected my trainer",
-      "loved every dog I met",
+      "sharing nicely (water bowl, toys, food)",
       "practiced balanced and fair play",
+      "loved every dog I met",
       "verbally expressed myself",
       "respected thresholds",
       "made good choices",
@@ -19,13 +19,13 @@
       {
         "label": "Frequency",
         "data": [
-          29,
+          30,
           29,
           21,
-          20,
+          21,
           11,
+          10,
           9,
-          8,
           4,
           4,
           3,

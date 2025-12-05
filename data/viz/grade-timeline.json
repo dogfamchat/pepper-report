@@ -208,5 +208,10 @@
     "date": "2025-12-03",
     "grade": "A",
     "gradeValue": 4
+  },
+  {
+    "date": "2025-12-05",
+    "grade": "A",
+    "gradeValue": 4
   }
 ]
