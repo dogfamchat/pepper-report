@@ -1,4 +1,5 @@
 ---
+
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import photosData from '../../photos.json';
@@ -58,6 +59,22 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
       </div>
     </div>
 
+    <!-- Quick Links -->
+    <div class="quick-links">
+      <a href="/pepper-report/trends" class="link-card">
+        <span class="link-icon">📊</span>
+        <span class="link-text">View Trends</span>
+      </a>
+      <a href="/pepper-report/timeline" class="link-card">
+        <span class="link-icon">📅</span>
+        <span class="link-text">Full Timeline</span>
+      </a>
+      <a href="/pepper-report/gallery" class="link-card">
+        <span class="link-icon">📷</span>
+        <span class="link-text">Photo Gallery</span>
+      </a>
+    </div>
+
     <!-- Latest Report Card -->
     <div class="latest-report">
       <div class="report-header">
@@ -68,71 +85,69 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
         <span class="report-date">{formatDate(latestReport.date)}</span>
       </div>
 
-      <div class="grade-banner grade-{latestReport.grade.toLowerCase()}">
+      <div class=`grade-banner grade-${latestReport.grade.toLowerCase()}`>
         <div class="grade-letter">{latestReport.grade}</div>
         <div class="grade-description">{latestReport.gradeDescription}</div>
       </div>
 
-      <div class="report-section">
-        <h3>Staff</h3>
-        <p>{latestReport.staffNames.join(', ')}</p>
-      </div>
+      <div class="report-columns">
+        <div class="report-section">
+          <h3>Staff</h3>
+          <p>{latestReport.staffNames.join(', ')}</p>
+        </div>
 
-      <div class="report-section">
-        <h3>Best Part of Day</h3>
-        <p class="highlight">{latestReport.bestPartOfDay}</p>
+        <div class="report-section">
+          <h3>Best Part of Day</h3>
+          <p class="highlight">{latestReport.bestPartOfDay}</p>
+        </div>
+
+        {latestReport.caughtBeingGood.length > 0 && (
+          <div class="report-section">
+            <h3>Caught Being Good</h3>
+            <ul class="activity-list behavior">
+              {latestReport.caughtBeingGood.map((behavior: string) => (
+                <li>✨ {behavior}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {latestReport.ooops.length > 0 && (
+          <div class="report-section">
+            <h3>Ooops</h3>
+            <ul class="ooops-list">
+              {latestReport.ooops.map((ooop: string) => (
+                <li>😅 {ooop}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div class="report-section">
+          <h3>What I Did Today</h3>
+          <ul class="activity-list activities">
+            {latestReport.whatIDidToday.map((activity: string) => (
+              <li>🎾 {activity}</li>
+            ))}
+          </ul>
+        </div>
+
+        {latestReport.trainingSkills.length > 0 && (
+          <div class="report-section">
+            <h3>Training Skills</h3>
+            <ul class="activity-list training">
+              {latestReport.trainingSkills.map((skill: string) => (
+                <li>🏋️‍♀️ {skill}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
 
       {latestReport.noteworthyComments && (
         <div class="report-section">
           <h3>Noteworthy Comments</h3>
           <p class="noteworthy">{latestReport.noteworthyComments}</p>
-        </div>
-      )}
-
-      <div class="report-section">
-        <PhotoGallery date={latestReport.date} showTitle={true} size="large" />
-      </div>
-
-      <div class="report-section">
-        <h3>What I Did Today</h3>
-        <ul class="activity-list">
-          {latestReport.whatIDidToday.map((activity: string) => (
-            <li>{activity}</li>
-          ))}
-        </ul>
-      </div>
-
-      {latestReport.trainingSkills.length > 0 && (
-        <div class="report-section">
-          <h3>Training Skills</h3>
-          <ul class="activity-list">
-            {latestReport.trainingSkills.map((skill: string) => (
-              <li>{skill}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {latestReport.caughtBeingGood.length > 0 && (
-        <div class="report-section">
-          <h3>Caught Being Good</h3>
-          <ul class="good-behavior-list">
-            {latestReport.caughtBeingGood.map((behavior: string) => (
-              <li>✨ {behavior}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {latestReport.ooops.length > 0 && (
-        <div class="report-section">
-          <h3>Ooops</h3>
-          <ul class="ooops-list">
-            {latestReport.ooops.map((ooop: string) => (
-              <li>{ooop}</li>
-            ))}
-          </ul>
         </div>
       )}
     </div>
@@ -165,22 +180,6 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
         </a>
       </div>
     )}
-
-    <!-- Quick Links -->
-    <div class="quick-links">
-      <a href="/pepper-report/trends" class="link-card">
-        <span class="link-icon">📊</span>
-        <span class="link-text">View Trends</span>
-      </a>
-      <a href="/pepper-report/timeline" class="link-card">
-        <span class="link-icon">📅</span>
-        <span class="link-text">Full Timeline</span>
-      </a>
-      <a href="/pepper-report/gallery" class="link-card">
-        <span class="link-icon">📷</span>
-        <span class="link-text">Photo Gallery</span>
-      </a>
-    </div>
   </main>
 </Layout>
 
@@ -212,7 +211,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1.5rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
   }
 
   .stat-card {
@@ -369,18 +368,18 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   .grade-banner {
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-    padding: 1.5rem;
+    gap: 1.25rem;
+    padding: 1.25rem;
     border-radius: 8px;
     margin-bottom: 2rem;
   }
 
-  .grade-banner.grade-a {
+  .grade-a {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
   }
 
-  .grade-banner.grade-b {
+  .grade-b {
     background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
     color: white;
   }
@@ -394,6 +393,12 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   .grade-description {
     font-size: 1.1rem;
     flex: 1;
+  }
+
+  .report-columns {
+    column-count: 2;
+    column-width: auto;
+    margin-bottom: 1.5rem;
   }
 
   .report-section {
@@ -425,30 +430,23 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     font-style: italic;
   }
 
-  .activity-list, .good-behavior-list, .ooops-list {
+  .activity-list, .ooops-list {
+    list-style: none;
     margin: 0;
-    padding-left: 1.5rem;
+    padding-left: 0;
     color: #333;
   }
 
-  .activity-list li, .good-behavior-list li, .ooops-list li {
+  .activity-list li, .ooops-list li {
     margin-bottom: 0.5rem;
     line-height: 1.5;
-  }
-
-  .good-behavior-list {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .good-behavior-list li {
-    padding-left: 1.5rem;
   }
 
   .quick-links {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .link-card {
@@ -492,7 +490,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     }
 
     .stats-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 1rem;
     }
 
@@ -541,8 +539,21 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
       font-size: 1rem;
     }
 
+    .report-columns {
+      column-count: 1;
+      margin-bottom: 0;
+    }
+
     .quick-links {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .link-card {
+      justify-content: center;
+    }
+
+    .link-card .link-text {
+      display: none;
     }
 
     .noteworthy {

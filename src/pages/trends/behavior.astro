@@ -1,0 +1,116 @@
+---
+
+import BehaviorTimelineChart from '../../components/charts/BehaviorTimelineChart';
+import HorizontalBarChart from '../../components/charts/HorizontalBarChart';
+import BehaviorSummaryCards from '../../components/trends/BehaviorSummaryCards.astro';
+import TrendsLayout from '../../layouts/TrendsLayout.astro';
+import { loadBehaviorData } from '../../utils/trends-data';
+
+const behaviorData = loadBehaviorData();
+---
+
+<TrendsLayout title="Behavior Tracking - Pepper's Daycare" activeTab="behavior">
+  {
+    behaviorData ? (
+      <>
+        <div class="section-header">
+          <h2>🌟 Behavior Tracking</h2>
+          <p class="section-subtitle">
+            {behaviorData.summary.totalPositiveBehaviors} positive behaviors tracked across{' '}
+            {behaviorData.summary.totalReports} reports
+          </p>
+        </div>
+
+        {/* Behavior Summary Cards */}
+        <BehaviorSummaryCards behaviorData={behaviorData} />
+
+        {/* Behavior Charts */}
+        <div class="behavior-charts-grid">
+          {/* Behavior Timeline */}
+          <div class="chart-card full-width">
+            <h3>Behavior Over Time</h3>
+            <BehaviorTimelineChart data={behaviorData.timelineChartData} client:load />
+          </div>
+
+          {/* Behavior Frequency */}
+          <div class="chart-card full-width">
+            <h3>All Behaviors by Frequency</h3>
+            <HorizontalBarChart
+              data={behaviorData.frequencyChartData}
+              xAxisLabel="Frequency"
+              height={450}
+              client:load
+            />
+          </div>
+        </div>
+      </>
+    ) : (
+      <div class="empty-state">
+        <p>No behavior data available yet.</p>
+      </div>
+    )
+  }
+</TrendsLayout>
+
+<style>
+  .section-header {
+    margin: 0 0 1.5rem 0;
+  }
+
+  .section-header h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0.5rem 0 0 0;
+    font-weight: normal;
+  }
+
+  .behavior-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .behavior-charts-grid .full-width {
+    grid-column: 1 / -1;
+  }
+
+  .chart-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+  }
+
+  .chart-card h3 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  .empty-state {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .empty-state p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .behavior-charts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

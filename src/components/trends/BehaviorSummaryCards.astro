@@ -1,0 +1,95 @@
+---
+
+interface Props {
+  behaviorData: {
+    summary: {
+      totalPositiveBehaviors: number;
+      reportsWithPositive: number;
+      positivePercentage: number;
+      totalNegativeBehaviors: number;
+      reportsWithNegative: number;
+      negativePercentage: number;
+    };
+  };
+}
+
+const { behaviorData } = Astro.props;
+---
+
+<div class="behavior-summary">
+  <div class="behavior-stat positive">
+    <div class="stat-label">Caught Being Good</div>
+    <div class="stat-value">{behaviorData.summary.totalPositiveBehaviors}</div>
+    <div class="stat-detail">
+      in {behaviorData.summary.reportsWithPositive} reports ({behaviorData.summary.positivePercentage.toFixed(
+        0,
+      )}%)
+    </div>
+  </div>
+  <div class="behavior-stat negative">
+    <div class="stat-label">Ooops Moments</div>
+    <div class="stat-value">{behaviorData.summary.totalNegativeBehaviors}</div>
+    <div class="stat-detail">
+      in {behaviorData.summary.reportsWithNegative} reports ({behaviorData.summary.negativePercentage.toFixed(
+        0,
+      )}%)
+    </div>
+  </div>
+  <div class="behavior-stat ratio">
+    <div class="stat-label">Positive:Negative Ratio</div>
+    <div class="stat-value">
+      {(
+        behaviorData.summary.totalPositiveBehaviors /
+        Math.max(behaviorData.summary.totalNegativeBehaviors, 1)
+      ).toFixed(1)}:1
+    </div>
+    <div class="stat-detail">Overwhelmingly positive!</div>
+  </div>
+</div>
+
+<style>
+  .behavior-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .behavior-stat {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .behavior-stat.positive {
+    border-left: 4px solid #22c55e;
+  }
+
+  .behavior-stat.negative {
+    border-left: 4px solid #ef4444;
+  }
+
+  .behavior-stat.ratio {
+    border-left: 4px solid #667eea;
+  }
+
+  .behavior-stat .stat-label {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+  }
+
+  .behavior-stat .stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+
+  .behavior-stat .stat-detail {
+    font-size: 0.85rem;
+    color: #888;
+  }
+</style>
