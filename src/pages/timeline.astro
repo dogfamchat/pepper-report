@@ -1,4 +1,5 @@
 ---
+
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import photosData from '../../photos.json';
@@ -101,14 +102,58 @@ const months = Object.keys(reportsByMonth);
                     </div>
                   </div>
 
-                  <div class="detail-section">
-                    <h3>Staff</h3>
-                    <p>{report.staffNames.join(', ')}</p>
-                  </div>
+                  <div class="detail-columns">
+                    <div class="detail-section">
+                      <h3>Staff</h3>
+                      <p>{report.staffNames.join(', ')}</p>
+                    </div>
 
-                  <div class="detail-section">
-                    <h3>Best Part of Day</h3>
-                    <p class="highlight">{report.bestPartOfDay}</p>
+                    <div class="detail-section">
+                      <h3>Best Part of Day</h3>
+                      <p class="highlight">{report.bestPartOfDay}</p>
+                    </div>
+
+                    {report.caughtBeingGood.length > 0 && (
+                      <div class="detail-section">
+                        <h3>Caught Being Good</h3>
+                        <ul class="activity-list behavior">
+                          {report.caughtBeingGood.map((behavior: string) => (
+                            <li>✨ {behavior}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {report.ooops.length > 0 && (
+                      <div class="detail-section">
+                        <h3>Ooops</h3>
+                        <ul class="ooops-list">
+                          {report.ooops.map((ooop: string) => (
+                            <li>😅 {ooop}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div class="detail-section">
+                      <h3>What I Did Today</h3>
+                      <ul class="activity-list activity">
+                        {report.whatIDidToday.map((activity: string) => (
+                          <li>🎾 {activity}</li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    {report.trainingSkills.length > 0 && (
+                      <div class="detail-section">
+                        <h3>Training Skills</h3>
+                        <ul class="activity-list training">
+                          {report.trainingSkills.map((skill: string) => (
+                            <li>🏋️‍♀️ {skill}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
                   </div>
 
                   {report.noteworthyComments && (
@@ -121,48 +166,6 @@ const months = Object.keys(reportsByMonth);
                   <div class="detail-section">
                     <PhotoGallery date={report.date} showTitle={true} size="medium" />
                   </div>
-
-                  <div class="detail-section">
-                    <h3>What I Did Today</h3>
-                    <ul class="activity-list">
-                      {report.whatIDidToday.map((activity: string) => (
-                        <li>{activity}</li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {report.trainingSkills.length > 0 && (
-                    <div class="detail-section">
-                      <h3>Training Skills</h3>
-                      <ul class="activity-list">
-                        {report.trainingSkills.map((skill: string) => (
-                          <li>{skill}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {report.caughtBeingGood.length > 0 && (
-                    <div class="detail-section">
-                      <h3>Caught Being Good</h3>
-                      <ul class="good-behavior-list">
-                        {report.caughtBeingGood.map((behavior: string) => (
-                          <li>✨ {behavior}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {report.ooops.length > 0 && (
-                    <div class="detail-section">
-                      <h3>Ooops</h3>
-                      <ul class="ooops-list">
-                        {report.ooops.map((ooop: string) => (
-                          <li>{ooop}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </div>
               </details>
             ))}
@@ -377,7 +380,14 @@ const months = Object.keys(reportsByMonth);
     flex: 1;
   }
 
+  .detail-columns {
+    column-count: 2;
+    column-width: auto;
+    margin-bottom: 1.25rem;
+  }
+
   .detail-section {
+    break-inside: avoid;
     margin-bottom: 1.25rem;
   }
 
@@ -410,28 +420,16 @@ const months = Object.keys(reportsByMonth);
     font-style: italic;
   }
 
-  .activity-list,
-  .good-behavior-list,
-  .ooops-list {
+  .activity-list, .ooops-list {
+    list-style: none;
     margin: 0;
-    padding-left: 1.5rem;
+    padding-left: 0;
     color: #333;
   }
 
-  .activity-list li,
-  .good-behavior-list li,
-  .ooops-list li {
-    margin-bottom: 0.4rem;
+  .activity-list li, .ooops-list li {
+    margin-bottom: 0.5rem;
     line-height: 1.5;
-  }
-
-  .good-behavior-list {
-    list-style: none;
-    padding-left: 0;
-  }
-
-  .good-behavior-list li {
-    padding-left: 1.5rem;
   }
 
   @media (max-width: 768px) {
