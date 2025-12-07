@@ -1,0 +1,109 @@
+---
+import { formatMonth } from '../../../scripts/utils/date-utils';
+import GradeCharts from '../../components/GradeCharts.astro';
+import TrendsLayout from '../../layouts/TrendsLayout.astro';
+import { gradeToPercent, loadGradeData } from '../../utils/trends-data';
+
+const { timeline, trends } = loadGradeData();
+---
+
+<TrendsLayout title="Grade Trends - Pepper's Daycare" activeTab="grades">
+  <!-- Grade Charts -->
+  <GradeCharts timeline={timeline} trends={trends} />
+
+  <!-- Monthly Breakdown -->
+  <div class="section-header">
+    <h2>Monthly Performance</h2>
+  </div>
+  <div class="monthly-grid">
+    {
+      trends.monthly.map((month: any) => (
+        <div class="month-card">
+          <h3>{formatMonth(month.month)}</h3>
+          <div class="month-stat">
+            <span class="month-label">Average Grade</span>
+            <span class="month-value">{month.averageGrade.toFixed(2)}/4.0</span>
+            <span class="month-percent">{gradeToPercent(month.averageGrade)}%</span>
+          </div>
+          <div class="month-detail">
+            <span>{month.daysAttended} days</span>
+            <span>
+              {month.gradeDistribution.A} A's, {month.gradeDistribution.B} B's
+            </span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</TrendsLayout>
+
+<style>
+  .section-header {
+    margin: 3rem 0 1.5rem 0;
+  }
+
+  .section-header h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .monthly-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .month-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+  }
+
+  .month-card h3 {
+    margin: 0 0 1rem 0;
+    color: #667eea;
+    font-size: 1.2rem;
+  }
+
+  .month-stat {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
+
+  .month-label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+  }
+
+  .month-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.25rem;
+  }
+
+  .month-percent {
+    font-size: 0.9rem;
+    color: #667eea;
+    font-weight: 500;
+  }
+
+  .month-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .monthly-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

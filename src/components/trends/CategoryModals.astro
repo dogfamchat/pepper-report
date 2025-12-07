@@ -1,0 +1,203 @@
+---
+interface Props {
+  activityCategoryItems: Record<string, string[]>;
+  trainingCategoryItems: Record<string, string[]>;
+  ACTIVITY_EMOJIS: Record<string, string>;
+  TRAINING_EMOJIS: Record<string, string>;
+}
+
+const { activityCategoryItems, trainingCategoryItems, ACTIVITY_EMOJIS, TRAINING_EMOJIS } =
+  Astro.props;
+---
+
+<!-- Activity Categories Modal -->
+<div id="aiActivityModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <h2>📊 Activity Categories</h2>
+    <div class="modal-body">
+      {
+        Object.entries(activityCategoryItems).map(([category, items]) => (
+          <div class="category-section">
+            <h3>
+              {ACTIVITY_EMOJIS[category] || '📌'} {category}
+            </h3>
+            <ul>
+              {items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Training Categories Modal -->
+<div id="aiTrainingModal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <h2>📊 Training Categories</h2>
+    <div class="modal-body">
+      {
+        Object.entries(trainingCategoryItems).map(([category, items]) => (
+          <div class="category-section">
+            <h3>
+              {TRAINING_EMOJIS[category] || '📌'} {category}
+            </h3>
+            <ul>
+              {items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+  }
+
+  .modal.active {
+    display: block;
+  }
+
+  .modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .modal-close {
+    position: absolute;
+    right: 1.5rem;
+    top: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    line-height: 1;
+  }
+
+  .modal-close:hover {
+    color: #333;
+  }
+
+  .modal-content h2 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+  }
+
+  .modal-body {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .category-section {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .category-section h3 {
+    margin: 0 0 0.75rem 0;
+    color: #555;
+    font-size: 1rem;
+  }
+
+  .category-section ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style: disc;
+  }
+
+  .category-section li {
+    color: #666;
+    margin-bottom: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 768px) {
+    .modal-content {
+      margin: 10% 5%;
+      padding: 1.5rem;
+      max-width: 95%;
+    }
+
+    .modal-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Modal functionality
+  const infoButtons = document.querySelectorAll('.info-icon');
+  const modals = document.querySelectorAll('.modal');
+  const closeButtons = document.querySelectorAll('.modal-close');
+
+  // Open modal
+  infoButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const modalId = (button as HTMLElement).dataset.modal;
+      if (modalId) {
+        const modal = document.getElementById(modalId);
+        if (modal) {
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Prevent scrolling
+        }
+      }
+    });
+  });
+
+  // Close modal
+  closeButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const modal = button.closest('.modal');
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    });
+  });
+
+  // Close modal when clicking outside
+  modals.forEach((modal) => {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+    });
+  });
+
+  // Close modal on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      modals.forEach((modal) => {
+        modal.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+      });
+    }
+  });
+</script>

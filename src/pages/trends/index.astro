@@ -1,0 +1,108 @@
+---
+import { formatDateNoYear } from '../../../scripts/utils/date-utils';
+import BehaviorLists from '../../components/trends/BehaviorLists.astro';
+import BehaviorSummaryCards from '../../components/trends/BehaviorSummaryCards.astro';
+import TrendsLayout from '../../layouts/TrendsLayout.astro';
+import { gradeToPercent, loadBehaviorData, loadGradeData } from '../../utils/trends-data';
+
+const { trends } = loadGradeData();
+const behaviorData = loadBehaviorData();
+---
+
+<TrendsLayout title="Trends Overview - Pepper's Daycare" activeTab="overview">
+  <!-- Overall Statistics -->
+  <div class="summary-card">
+    <h2>Overall Performance</h2>
+    <div class="summary-stats">
+      <div class="summary-stat">
+        <span class="stat-label">Average Grade</span>
+        <span class="stat-value">{trends.summary.overallAverageGrade.toFixed(2)}/4.0</span>
+        <span class="stat-percent">{gradeToPercent(trends.summary.overallAverageGrade)}%</span>
+      </div>
+      <div class="summary-stat">
+        <span class="stat-label">Total Days</span>
+        <span class="stat-value">{trends.summary.totalReports}</span>
+      </div>
+      <div class="summary-stat">
+        <span class="stat-label">Date Range</span>
+        <span class="stat-value"
+          >{formatDateNoYear(trends.summary.dateRange.start)} - {formatDateNoYear(
+            trends.summary.dateRange.end,
+          )}</span
+        >
+      </div>
+    </div>
+  </div>
+
+  <!-- Behavior Summary and Lists -->
+  {
+    behaviorData && (
+      <>
+        <BehaviorSummaryCards behaviorData={behaviorData} />
+        <BehaviorLists
+          positiveBehaviors={behaviorData.positiveBehaviors}
+          negativeBehaviors={behaviorData.negativeBehaviors}
+        />
+      </>
+    )
+  }
+</TrendsLayout>
+
+<style>
+  .summary-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .summary-card h2 {
+    margin: 0 0 1.5rem 0;
+    font-size: 1.5rem;
+  }
+
+  .summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+  }
+
+  .summary-stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-percent {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .summary-card {
+      padding: 1.5rem;
+    }
+
+    .summary-stats {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+    }
+  }
+</style>

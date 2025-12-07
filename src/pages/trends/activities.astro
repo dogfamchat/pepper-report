@@ -1,0 +1,190 @@
+---
+import AIActivityCategoriesChart from '../../components/charts/AIActivityCategoriesChart';
+import AITrainingCategoriesChart from '../../components/charts/AITrainingCategoriesChart';
+import HorizontalBarChart from '../../components/charts/HorizontalBarChart';
+import CategoryModals from '../../components/trends/CategoryModals.astro';
+import TrendsLayout from '../../layouts/TrendsLayout.astro';
+import {
+  ACTIVITY_EMOJIS,
+  loadActivityData,
+  loadCategoryData,
+  TRAINING_EMOJIS,
+} from '../../utils/trends-data';
+
+const activityData = loadActivityData();
+const categoryData = loadCategoryData();
+---
+
+<TrendsLayout title="Activities - Pepper's Daycare" activeTab="activities">
+  {
+    activityData && categoryData ? (
+      <>
+        {/* Activity Breakdown Section */}
+        <div class="section-header">
+          <h2>🎾 Activity Breakdown</h2>
+          <p class="section-subtitle">
+            Total activities: {activityData.summary.totalActivityInstances} • Total training:{' '}
+            {activityData.summary.totalTrainingInstances}
+          </p>
+        </div>
+
+        <div class="activity-charts-grid">
+          {/* Top Activities Bar Chart */}
+          <div class="chart-card">
+            <h3>Top Activities</h3>
+            <HorizontalBarChart
+              data={activityData.activityChartData}
+              barColor="rgba(59, 130, 246, 0.8)"
+              xAxisLabel="Number of Days"
+              height={400}
+              client:load
+            />
+          </div>
+
+          {/* Top Training Skills Bar Chart */}
+          <div class="chart-card">
+            <h3>Top Training Skills</h3>
+            <HorizontalBarChart
+              data={activityData.trainingChartData}
+              barColor="rgba(16, 185, 129, 0.8)"
+              xAxisLabel="Number of Days"
+              height={400}
+              client:load
+            />
+          </div>
+        </div>
+
+        {/* Categories Section */}
+        <div class="section-header">
+          <h2>📊 Categories</h2>
+          <p class="section-subtitle">
+            {Object.keys(categoryData.learnedActivityMappings).length} activities •{' '}
+            {Object.keys(categoryData.learnedTrainingMappings).length} training skills
+          </p>
+        </div>
+
+        <div class="activity-charts-grid">
+          {/* Activity Categories Chart */}
+          <div class="chart-card">
+            <h3>
+              Activity Categories
+              <button class="info-icon" data-modal="aiActivityModal" title="View activity details">
+                ℹ️
+              </button>
+            </h3>
+            <AIActivityCategoriesChart
+              data={categoryData.aiActivityChartData}
+              categoryItems={categoryData.activityCategoryItems}
+              client:load
+            />
+          </div>
+
+          {/* Training Categories Chart */}
+          <div class="chart-card">
+            <h3>
+              Training Categories
+              <button class="info-icon" data-modal="aiTrainingModal" title="View training details">
+                ℹ️
+              </button>
+            </h3>
+            <AITrainingCategoriesChart
+              data={categoryData.aiTrainingChartData}
+              categoryItems={categoryData.trainingCategoryItems}
+              client:load
+            />
+          </div>
+        </div>
+
+        {/* Category Modals */}
+        <CategoryModals
+          activityCategoryItems={categoryData.activityCategoryItems}
+          trainingCategoryItems={categoryData.trainingCategoryItems}
+          ACTIVITY_EMOJIS={ACTIVITY_EMOJIS}
+          TRAINING_EMOJIS={TRAINING_EMOJIS}
+        />
+      </>
+    ) : (
+      <div class="empty-state">
+        <p>No activity data available yet.</p>
+      </div>
+    )
+  }
+</TrendsLayout>
+
+<style>
+  .section-header {
+    margin: 3rem 0 1.5rem 0;
+  }
+
+  .section-header:first-child {
+    margin-top: 0;
+  }
+
+  .section-header h2 {
+    color: #333;
+    font-size: 1.5rem;
+    margin: 0;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin: 0.5rem 0 0 0;
+    font-weight: normal;
+  }
+
+  .activity-charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .chart-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    min-height: 400px;
+  }
+
+  .chart-card h3 {
+    margin: 0 0 1.5rem 0;
+    color: #333;
+    font-size: 1.2rem;
+  }
+
+  .info-icon {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.25rem;
+    opacity: 0.6;
+  }
+
+  .info-icon:hover {
+    opacity: 1;
+  }
+
+  .empty-state {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .empty-state p {
+    color: #666;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .activity-charts-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+  }
+</style>
