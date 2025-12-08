@@ -4,8 +4,7 @@ import { defineConfig } from 'astro/config';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
-  site: 'https://dogfamchat.github.io',
-  base: '/pepper-report',
+  site: 'https://pepper-report.pages.dev',
   output: 'static',
   vite: {
     resolve: {
