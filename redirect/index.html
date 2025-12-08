@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="0;url=https://pepper-report.pages.dev">
+    <title>Redirecting to Pepper Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+        }
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        a {
+            color: #fff;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid white;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <script>
+        // Immediate redirect
+        window.location.replace('https://pepper-report.pages.dev');
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>🐕 Pepper Report has moved!</h1>
+        <p>Redirecting you to our new home...</p>
+        <div class="spinner"></div>
+        <p style="margin-top: 2rem; font-size: 0.9rem;">
+            If you're not redirected automatically,
+            <a href="https://pepper-report.pages.dev">click here</a>.
+        </p>
+    </div>
+</body>
+</html>

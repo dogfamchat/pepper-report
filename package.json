@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "build:pages": "bun install && astro build",
     "preview": "astro preview",
     "scrape:schedule": "bun tsx --env-file=.env scripts/scrapers/scrape-schedule.ts",
     "scrape:report": "bun tsx --env-file=.env scripts/scrapers/scrape-report.ts",

@@ -440,7 +440,7 @@ We need to know when Pepper gets a new report card!
                   "type": "plain_text",
                   "text": "📊 View Dashboard"
                 },
-                "url": "https://dogfamchat.github.io/pepper-report"
+                "url": "https://pepper-report.pages.dev"
               }
             ]
           }

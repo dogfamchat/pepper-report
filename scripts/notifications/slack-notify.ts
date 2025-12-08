@@ -249,7 +249,7 @@ function formatSlackMessage(
           text: '📊 View Full Dashboard',
           emoji: true,
         },
-        url: 'https://dogfamchat.github.io/pepper-report',
+        url: 'https://pepper-report.pages.dev',
         style: 'primary',
       },
     ],

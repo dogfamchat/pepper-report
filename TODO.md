@@ -407,7 +407,7 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 - Trends page with interactive Chart.js visualizations
 - Timeline page with all 31 report cards
 - GitHub Actions automation (analysis + deployment)
-- Production deployment to GitHub Pages: https://dogfamchat.github.io/pepper-report
+- Production deployment to Cloudflare Pages: https://pepper-report.pages.dev
 - **Friend analysis with Claude Haiku 4.5 API**
   - AI-powered friend name extraction from report comments
   - Structured outputs using tool_choice for guaranteed JSON
@@ -856,7 +856,7 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 
 ## Production Site Status
 
-**Live URL:** https://dogfamchat.github.io/pepper-report
+**Live URL:** https://pepper-report.pages.dev
 
 **Working Features:**
 - Homepage with latest report card and statistics
