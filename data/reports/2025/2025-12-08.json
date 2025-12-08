@@ -1,0 +1,38 @@
+{
+  "date": "2025-12-08",
+  "completedDateTime": "2025-12-08T21:22:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Aspen Creek"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "brain building games and challenges",
+    "nose work games and challenges"
+  ],
+  "trainingSkills": [
+    "handling (exam style)",
+    "boundries, door-ways, and thresholds",
+    "nose targeting"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Monday! Today we broke out some puzzle games to get the dogs using their noses and brains!",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}
