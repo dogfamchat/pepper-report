@@ -1,0 +1,74 @@
+{
+  "date": "2025-12-08",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Happy Monday! Today we broke out some puzzle games to get the dogs using their noses and brains!",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "brain building games and challenges",
+    "nose work games and challenges"
+  ],
+  "rawTrainingSkills": [
+    "handling (exam style)",
+    "boundries, door-ways, and thresholds",
+    "nose targeting"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "brain building games and challenges",
+      "category": "enrichment"
+    },
+    {
+      "item": "nose work games and challenges",
+      "category": "enrichment"
+    },
+    {
+      "item": "nose work games and challenges",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "nose targeting",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2025-12-08T22:44:56.967Z",
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": []
+}
