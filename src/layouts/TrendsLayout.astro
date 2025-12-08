@@ -8,7 +8,7 @@ interface Props {
 }
 
 const { title, activeTab } = Astro.props;
-const baseUrl = '/pepper-report/trends';
+const baseUrl = '/trends';
 
 const tabs = [
   { id: 'overview', label: '📊 Overview', href: baseUrl },
@@ -22,7 +22,7 @@ const tabs = [
 <Layout title={title}>
   <main>
     <div class="header">
-      <a href="/pepper-report" class="back-link">← Back to Dashboard</a>
+      <a href="/" class="back-link">← Back to Dashboard</a>
       <h1>📊 Trends</h1>
       <p class="subtitle">Tracking performance over time</p>
     </div>
