@@ -1,0 +1,56 @@
+{
+  "date": "2025-12-12",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "I had a great Friday!! We started our day with a play session followed by a quick potty break. Afterwards we had our training session, we worked on surfaces and balancing. I did great. We finished our day with another play session and a well deserved nap",
+  "rawActivities": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "confidence building",
+    "balancing skills"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    },
+    {
+      "item": "balancing skills",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2025-12-12T22:45:11.303Z",
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": []
+}
