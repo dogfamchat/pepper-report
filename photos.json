@@ -250,8 +250,18 @@
       "width": 1024,
       "height": 1024,
       "uploaded": "2025-12-05T22:43:03.183Z"
+    },
+    {
+      "filename": "2025-12-12-001.jpg",
+      "date": "2025-12-12",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-12-12/2025-12-12-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-12-12/thumbnails/2025-12-12-001.jpg",
+      "size": 169350,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2025-12-12T22:44:57.491Z"
     }
   ],
-  "totalSize": 5319379,
-  "count": 25
+  "totalSize": 5488729,
+  "count": 26
 }

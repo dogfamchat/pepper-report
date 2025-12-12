@@ -1,0 +1,38 @@
+{
+  "date": "2025-12-12",
+  "completedDateTime": "2025-12-12T22:22:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Cedar Field"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "cuddling with friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "confidence building",
+    "balancing skills"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": [],
+  "noteworthyComments": "I had a great Friday!! We started our day with a play session followed by a quick potty break. Afterwards we had our training session, we worked on surfaces and balancing. I did great. We finished our day with another play session and a well deserved nap",
+  "photos": [
+    "2025-12-12-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}
