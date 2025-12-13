@@ -1,0 +1,70 @@
+{
+  "date": "2025-12-13",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Happy Saturday! Today was the best day!! I got sooo many cuddles from my trainers Paige, Jo, & Tina it was the best 🫶🏻 I also enjoyed zooming around with my friends & playing with toys 💗",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "handling (exam style)"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    }
+  ],
+  "analyzedAt": "2025-12-13T22:55:45.929Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": []
+}

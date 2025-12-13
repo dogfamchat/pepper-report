@@ -10,22 +10,22 @@
       "one-on-one time with the trainer",
       "played with my favorite toy",
       "engagement games",
-      "had a pool party",
-      "played on the agility equipment"
+      "played on the agility equipment",
+      "had a pool party"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          37,
-          34,
-          31,
+          38,
+          35,
+          32,
           28,
           23,
-          17,
-          15,
+          18,
+          16,
           8,
-          7,
+          8,
           7
         ],
         "backgroundColor": "rgba(59, 130, 246, 0.8)",
