@@ -169,8 +169,15 @@ async function analyzePhoto(
   photo: PhotoMetadata,
   anthropic: Anthropic,
   verbose = false,
+  recentDescriptions: string[] = [],
 ): Promise<PhotoAnalysis> {
   console.log(`   📸 Analyzing ${photo.filename}...`);
+
+  // Build context about recent descriptions to avoid repetition
+  const recentContext =
+    recentDescriptions.length > 0
+      ? `\nRECENT DESCRIPTIONS (write something DIFFERENT - avoid similar phrasing, sentence structures, and opening words):\n${recentDescriptions.map((d, i) => `${i + 1}. "${d}"`).join('\n')}\n`
+      : '';
 
   const message = await anthropic.messages.create({
     model: 'claude-sonnet-4-20250514',
@@ -208,17 +215,19 @@ SCORING GUIDELINES (use the FULL 1-10 range critically):
 Most daycare photos should score 4-7. Reserve 8+ for truly standout shots.
 
 DESCRIPTION GUIDELINES:
-- Be FACTUAL and OBSERVATIONAL - describe what you see, not how cute it is
-- AVOID flowery/emotional words like: adorable, sweet, gorgeous, soulful, precious, irresistible, heart-melting, cute
-- DO NOT mention eyes unless they're the actual focus of the photo
-- Focus on: location, action, other dogs present, lighting conditions, what Pepper is doing
-- Keep it simple and direct
-- Good examples: "Pepper mid-play with a white terrier on the turf.", "Close-up shot in the outdoor yard.", "Group nap time - Pepper resting with three other dogs."
-- Bad examples: "Those adorable eyes...", "Sweet Pepper looks so cute...", "Gorgeous amber eyes..."
-
+- Capture what makes THIS photo interesting or unique - the moment, the mood, the action
+- Write with warmth and personality, but stay grounded in what you actually see
+- AVOID overused clichés: adorable, sweet, gorgeous, soulful, precious, cute, beautiful
+- AVOID repetitive phrases across photos - do NOT keep using: "classic head tilt", "amber eyes", "something caught her attention", "those expressive eyes"
+- VARY your sentence structure - don't start every caption with "Pepper..." or "Close-up of..." or "That classic..."
+- Focus on the story or moment: What's happening? What's the vibe? What makes this photo different from others?
+- Find FRESH ways to describe similar poses - if it's a head tilt, what ELSE is interesting about it?
+- Good examples: "Mid-wrestle with a golden retriever friend.", "Late afternoon light casts fence shadows as Pepper surveys her kingdom.", "Nap time for most of the pack, but Pepper's staying alert.", "Someone mentioned the T-word (treats) and now she's locked in."
+- Bad examples: "Close-up shot of Pepper in the outdoor area.", "Classic head tilt moment.", "Those amber eyes...", "Something has caught her attention."
+${recentContext}
 Provide:
 1. Quality scores (qualityScore, cutenessScore, compositionScore) - BE CRITICAL, use full 1-10 range
-2. A brief factual caption (1-2 sentences) - NO flowery language
+2. A brief engaging caption (1-2 sentences) - warm but not clichéd
 3. Tags describing the scene
 4. Main activity (playing, resting, training, socializing, eating, exploring, posing, other)
 5. Names of other dogs visible (if identifiable)
@@ -412,14 +421,22 @@ async function main(): Promise<void> {
   console.log(`\n🤖 Analyzing ${photosToAnalyze.length} photos with Claude Vision...\n`);
 
   const newAnalyses: PhotoAnalysis[] = [];
+  const recentDescriptions: string[] = []; // track recent descriptions to avoid repetition
+  const MAX_RECENT = 8; // how many recent descriptions to include as context
   let successCount = 0;
   let errorCount = 0;
 
   for (const photo of photosToAnalyze) {
     try {
-      const analysis = await analyzePhoto(photo, anthropic, options.verbose);
+      const analysis = await analyzePhoto(photo, anthropic, options.verbose, recentDescriptions);
       newAnalyses.push(analysis);
       successCount++;
+
+      // Add this description to recent list (keep last N)
+      recentDescriptions.push(analysis.description);
+      if (recentDescriptions.length > MAX_RECENT) {
+        recentDescriptions.shift();
+      }
 
       console.log(
         `      Score: ${analysis.overallScore}/10 | ${analysis.activity} | "${analysis.description.slice(0, 50)}..."`,

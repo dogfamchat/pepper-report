@@ -40,7 +40,7 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - Structured outputs with `tool_choice` for guaranteed JSON schema
 - Prompt includes Pepper's details (Vizsla, reddish coat, female)
 - Scoring guidelines ensure differentiated ratings (4-7 for typical daycare photos)
-- Description guidelines enforce factual, observational tone
+- Context-aware descriptions: each photo sees last 8 descriptions to avoid repetition
 
 **Description Style Evolution:**
 The photo descriptions went through several iterations:
@@ -50,14 +50,18 @@ The photo descriptions went through several iterations:
    - Pros: Warm, engaging, fun to read
    - Cons: Too similar across photos (many mentioned eyes, used words like "adorable", "sweet", "gorgeous")
 
-2. **Current style** (after refinement): Factual, observational captions
+2. **Factual style** (second iteration): Dry, observational captions
    - Examples: "Close-up shot of Pepper investigating the camera on the artificial turf", "Pepper mid-play with a white terrier"
    - Pros: More varied, focuses on what's actually happening
-   - Cons: May feel a bit dry/clinical
+   - Cons: Too dry/clinical, still some repetition ("classic head tilt", "amber eyes")
 
-**Future consideration:** May want to find a middle ground - descriptions that are engaging but not repetitive. Could relax some of the strict "no flowery language" rules while keeping the focus on variety and what's actually in the photo.
+3. **Current style** (middle ground with context): Warm, varied, unique captions
+   - Examples: "Close-up selfie mode activated!", "The calm in the storm of daycare chaos", "Wrestling match escalates as Pepper joins a golden-coated friend"
+   - Implementation: Each API call receives the last 8 descriptions as context, with instructions to write something different
+   - Pros: Engaging AND varied - each description feels unique
+   - Cons: Slightly higher API cost (~$0.01-0.02 more per full run due to extra context tokens)
 
-To adjust description style, edit the `DESCRIPTION GUIDELINES` section in `scripts/analysis/analyze-photos.ts` (around line 210-216) and re-run with `--force` flag.
+To adjust description style, edit the `DESCRIPTION GUIDELINES` section in `scripts/analysis/analyze-photos.ts` (around line 215-227) and re-run with `--force` flag.
 
 **New npm script:** `bun run analyze:photos`
 
