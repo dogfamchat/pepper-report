@@ -1,0 +1,40 @@
+{
+  "date": "2025-12-13",
+  "completedDateTime": "2025-12-13T22:09:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Ocean Willow"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "handling (exam style)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Saturday! Today was the best day!! I got sooo many cuddles from my trainers Paige, Jo, & Tina it was the best 🫶🏻 I also enjoyed zooming around with my friends & playing with toys 💗",
+  "photos": [
+    "2025-12-13-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Ocean Willow",
+    "completedBy": "Ocean Willow"
+  }
+}
