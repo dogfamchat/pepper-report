@@ -1,8 +1,8 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-11-16
-**Current Phase:** Analysis & Visualization (Phase 3 - Complete)
-**Current Branch:** layout-tweaks (ready for PR)
+**Last Updated:** 2025-12-13
+**Current Phase:** Maintenance & Enhancements (All Core Features Complete)
+**Current Branch:** main
 
 ## Overview
 
@@ -10,9 +10,108 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 
 ## Recent Progress
 
-### Nov 16, 2025 - Layout & Responsive Design Improvements 🚧 IN PROGRESS
+### Dec 13, 2025 - AI-Powered Photo Analysis ✅ COMPLETE
 
-**Branch:** `layout-tweaks` (ready for PR)
+**Implementation:**
+- ✅ **Photo Analyzer with Claude Vision API** (`scripts/analysis/analyze-photos.ts`)
+  - Analyzes all daycare photos using Claude Sonnet vision capabilities
+  - Scores each photo on quality, cuteness, and composition (1-10 scale)
+  - Generates factual descriptions (no flowery language)
+  - Auto-tags activities and identifies visible dog friends
+  - Incremental architecture: only new photos trigger API calls
+  - Cost: ~$0.01 per photo analysis
+
+- ✅ **Enhanced Gallery Page** (`src/pages/gallery.astro`)
+  - New "Top Rated Photos" section with gradient cards
+  - #1 photo spans 2 columns × 2 rows (hero treatment)
+  - Score badges on all photos (rainbow gradient styling)
+  - AI-generated descriptions on all photo cards
+  - Enhanced lightbox with scores, description, and tags
+  - Activity tags displayed below descriptions
+
+- ✅ **Analysis Data** (`data/analysis/photo-analysis.json`)
+  - Contains analysis for 26 photos
+  - Average score: 6.6/10 (using full 1-10 range critically)
+  - Best photo: Oct 24, 2025 (8/10)
+  - Tracks: quality scores, descriptions, tags, activities, visible friends
+
+**Key Technical Details:**
+- Model: `claude-sonnet-4-20250514` with vision capabilities
+- Structured outputs with `tool_choice` for guaranteed JSON schema
+- Prompt includes Pepper's details (Vizsla, reddish coat, female)
+- Scoring guidelines ensure differentiated ratings (4-7 for typical daycare photos)
+- Description guidelines enforce factual, observational tone
+
+**Description Style Evolution:**
+The photo descriptions went through several iterations:
+
+1. **Original style** (first run): Engaging, emotional captions
+   - Examples: "Pepper strikes a pose with those soulful amber eyes", "Sweet Pepper looking adorable in the play yard"
+   - Pros: Warm, engaging, fun to read
+   - Cons: Too similar across photos (many mentioned eyes, used words like "adorable", "sweet", "gorgeous")
+
+2. **Current style** (after refinement): Factual, observational captions
+   - Examples: "Close-up shot of Pepper investigating the camera on the artificial turf", "Pepper mid-play with a white terrier"
+   - Pros: More varied, focuses on what's actually happening
+   - Cons: May feel a bit dry/clinical
+
+**Future consideration:** May want to find a middle ground - descriptions that are engaging but not repetitive. Could relax some of the strict "no flowery language" rules while keeping the focus on variety and what's actually in the photo.
+
+To adjust description style, edit the `DESCRIPTION GUIDELINES` section in `scripts/analysis/analyze-photos.ts` (around line 210-216) and re-run with `--force` flag.
+
+**New npm script:** `bun run analyze:photos`
+
+### Dec 7, 2025 - Layout Updates ✅ COMPLETE
+
+**PR:** #20 (merged Dec 7)
+
+- ✅ Additional layout refinements and improvements
+- ✅ UI polish across pages
+
+### Dec 4-5, 2025 - Cloudflare Pages Migration ✅ COMPLETE
+
+**Commits:** `c80a042`, `363d5f0`, `8c64bd2`
+
+**Completed:**
+- ✅ **Migrated from GitHub Pages to Cloudflare Pages**
+  - New production URL: https://pepper-report.pages.dev
+  - Added GitHub Pages redirect to new URL
+  - Updated all internal navigation links
+  - Fixed base path handling for Cloudflare
+
+### Dec 4, 2025 - Recharts Migration ✅ COMPLETE
+
+**PR:** #18 (merged Dec 4)
+
+**Completed:**
+- ✅ **Migrated from Chart.js to Recharts**
+  - Replaced all Chart.js visualizations with Recharts components
+  - SVG-based rendering for better performance and accessibility
+  - Improved mobile responsiveness
+  - Cleaner component architecture
+
+- ✅ **GitHub Actions Fixes** (PR #19)
+  - Fixed failing workflow issues
+  - Improved reliability of automated scraping
+
+### Dec 3, 2025 - Workflow Fixes ✅ COMPLETE
+
+**PR:** #17 (merged Dec 3)
+
+- ✅ Fixed data/viz files not updating in report workflow
+- ✅ Ensured analysis data regenerates correctly
+
+### Nov 17, 2025 - Mobile & Photo Styling ✅ COMPLETE
+
+**PRs:** #15, #16 (merged Nov 17)
+
+- ✅ Fixed mobile rendering issue with report photos
+- ✅ Applied styling changes to photo elements
+- ✅ Improved responsive design
+
+### Nov 16, 2025 - Layout & Responsive Design Improvements ✅ COMPLETE
+
+**PR:** #14 (merged Nov 16)
 
 **Completed:**
 - ✅ **Responsive Layout Enhancements** (`src/pages/*.astro`)
@@ -49,19 +148,9 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
 - `src/pages/timeline.astro` - Timeline cleanup
 - `src/pages/trends.astro` - Trends page responsive improvements (95+ line changes)
 
-**Statistics:**
-- 10 files changed, 190 insertions(+), 80 deletions(-)
-- 3 commits total
-- Net: +110 lines (improved layout and responsiveness)
-
-**Key Commits:**
-- `29dd95e` - Disable animation
-- `8c86322` - Responsive layout
-- `5b2d6db` - Fix chrome mcp config
-
 ### Nov 16, 2025 - Code Cleanup & Label Formatting Consistency ✅ COMPLETE
 
-**Branch:** `fix-activities-and-training` (ready for PR - pending GitHub Actions update)
+**PR:** #13 (merged Nov 16)
 
 **Completed:**
 - ✅ **Additional Code Cleanup** (`scripts/analysis/`)
@@ -421,33 +510,40 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - **Performance:** New reports process in ~1s (vs ~34s for full batch)
   - **Cost:** $0.00004 per new report (vs $0.0012 per full run)
 
-**📊 Current Stats (as of Nov 15, 2025):**
-- 34 report cards scraped (Aug 8 - Nov 14, 2025)
-- Overall average: 3.58/4.0 (89.5%)
-- 14 weeks tracked, 4 months of data
-- **14 photos uploaded to Cloudflare R2** (all displayed with lightbox modal)
-- **12 unique friends identified** (filtered, sorted by recency)
-- **255 activity instances tracked** across 7 categories ✅ visualized
-- **135 training instances tracked** across 6 categories ✅ visualized
-- **100 positive behaviors** ("Caught Being Good") ✅ visualized
-- **15 "ooops" behaviors** ✅ visualized
+**📊 Current Stats (as of Dec 13, 2025):**
+- 45 report cards scraped (Aug 8 - Dec 12, 2025)
+- 18+ weeks tracked, 5 months of data
+- **Photos uploaded to Cloudflare R2** (all displayed with lightbox modal)
+- **Unique friends identified** (filtered, sorted by recency)
+- **Activity instances tracked** across 7 categories ✅ visualized
+- **Training instances tracked** across 6 categories ✅ visualized
+- **Positive behaviors** ("Caught Being Good") ✅ visualized
+- **"Ooops" behaviors** ✅ visualized
 
 ## Current Status
 
 **All major analysis features are now complete!** ✅ Full visualization pipeline implemented:
-- Grade trends ✅ (line chart + donut chart + weekly/monthly breakdowns)
-- Friend analysis ✅ (leaderboard with 12 friends)
-- Activity categorization ✅ (AI-powered with learned mappings, 2 category bars + 2 frequency bars + info modals)
-- Behavior tracking ✅ (2 charts: timeline + frequency + stat cards + top behaviors lists)
+- Grade trends ✅ (Recharts line/bar charts + weekly/monthly breakdowns)
+- Friend analysis ✅ (leaderboard sorted by recency)
+- Activity categorization ✅ (AI-powered with learned mappings, category + frequency charts + info modals)
+- Behavior tracking ✅ (timeline + frequency charts + stat cards + top behaviors lists)
 - Photo display ✅ (lightbox modal + timeline indicators + gallery page)
 
-**Pending branches:**
-- `layout-tweaks` - Ready for PR (3 commits, responsive design improvements)
-- `fix-activities-and-training` - PR #13 open (12 commits, ready for review)
+**Infrastructure:**
+- ✅ Migrated from Chart.js to Recharts (PR #18, Dec 4)
+- ✅ Migrated from GitHub Pages to Cloudflare Pages (Dec 5)
+- ✅ Automated daily scraping and analysis via GitHub Actions
 
-**Recently merged:**
-- `behaviour-tracking` - PR #12 ✅ MERGED to main (Nov 16, 2025)
-- `activity-categorization` - PR #10 ✅ MERGED to main (Nov 11, 2025)
+**Recently merged PRs:**
+- PR #20 - Layout updates (Dec 7)
+- PR #19 - Fix GitHub Actions workflow (Dec 4)
+- PR #18 - Recharts migration (Dec 4)
+- PR #17 - Fix data/viz workflow (Dec 3)
+- PR #16 - Photo styling (Nov 17)
+- PR #15 - Mobile rendering fix (Nov 17)
+- PR #14 - Layout tweaks (Nov 16)
+- PR #13 - AI activity categorization (Nov 16)
+- PR #12 - Behavior tracking (Nov 16)
 
 ### Immediate Tasks (Next Session)
 
@@ -460,11 +556,9 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - ✓ Behavior charts now in production
   - ✓ All behavior tracking features deployed
 
-- [ ] **Review and merge fix-activities-and-training PR**
-  - PR #13 open and ready for review
-  - AI-powered categorization with learned mappings
-  - 39 new tests (116 total passing)
-  - Ready to merge and deploy to production
+- [x] **Review and merge fix-activities-and-training PR** ✅ COMPLETED Nov 16
+  - ✓ PR #13 merged successfully
+  - ✓ AI-powered categorization with learned mappings deployed
 
 - [x] **Implement behavior tracking charts** ✅ COMPLETED Nov 15
   - **Branch:** `behaviour-tracking` (ready for PR)
@@ -740,24 +834,24 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 
 - [ ] **Photo enhancements**
   - Photo carousel on homepage
-  - Automatic tagging (if Claude API can identify dogs)
   - Photo collages or montages
   - Download all photos as ZIP
   - Slideshow view
 
-- [ ] **Automated photobook & advanced photo analysis**
-  - **Photo quality analyzer using Claude Vision API**
-    - Analyze each photo for composition, clarity, cuteness
-    - Score photos automatically (0-10 scale)
-    - Generate metadata: activity detection ("Pepper playing with a ball"), mood, setting
-    - Cost: ~$0.01-0.02 per image analysis
-    - Output: `data/analysis/photo-quality.json`
+- [x] **Photo quality analyzer using Claude Vision API** ✅ COMPLETED Dec 13, 2025
+  - ✓ Analyze each photo for composition, clarity, cuteness
+  - ✓ Score photos automatically (1-10 scale with critical scoring guidelines)
+  - ✓ Generate metadata: activity detection, tags, visible friends
+  - ✓ Cost: ~$0.01 per image analysis (Claude Sonnet vision)
+  - ✓ Output: `data/analysis/photo-analysis.json`
+  - ✓ "Top Rated Photos" section on gallery page
+  - ✓ AI descriptions and tags displayed on all photos
 
-  - **"Best of" photo generator**
-    - Select top photos based on quality scores
-    - Auto-generate monthly or semi-annual highlights
-    - Overlay stats on images (grade averages, friend counts)
-    - Generate themed collections: "Pepper's Best Friends", "Playtime Highlights"
+- [ ] **"Best of" photo generator** (partially complete)
+  - ✓ Select top 10 photos based on quality scores (implemented)
+  - [ ] Auto-generate monthly or semi-annual highlights
+  - [ ] Overlay stats on images (grade averages, friend counts)
+  - [ ] Generate themed collections: "Pepper's Best Friends", "Playtime Highlights"
 
   - **Semi-annual photobook automation via Blurb API**
     - Use Claude Vision to score all photos from the 6-month period
@@ -856,31 +950,38 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 
 ## Production Site Status
 
-**Live URL:** https://pepper-report.pages.dev
+**Live URL:** https://pepper-report.pages.dev (migrated from GitHub Pages Dec 2025)
 
 **Working Features:**
 - Homepage with latest report card and statistics
-- Trends page with interactive Chart.js visualizations:
+- Trends page with interactive Recharts visualizations:
   - Grade timeline (line chart)
-  - Grade distribution (donut chart)
-  - Friend leaderboard (12 friends)
-  - **Activity category chart (horizontal bar)** ✨ New in PR #10
-  - **Training category chart (horizontal bar)** ✨ New in PR #10
-  - **Top 10 activities chart (horizontal bar)** ✨ New in PR #10
-  - **Top 10 training skills chart (horizontal bar)** ✨ New in PR #10
-  - **Info modals (ℹ️) with category breakdowns** ✨ New in PR #10
-- Timeline page with all 32 report cards (expandable cards)
-- Gallery page with 14 photos and full-screen lightbox modal
+  - Grade distribution (bar chart)
+  - Friend leaderboard (sorted by recency)
+  - Activity category charts (horizontal bars)
+  - Training category charts (horizontal bars)
+  - Top activities/training frequency charts
+  - Info modals (ℹ️) with category breakdowns
+  - Behavior timeline and frequency charts
+  - Behavior stat cards and top behaviors lists
+- Timeline page with all 45 report cards (expandable cards)
+- Gallery page with AI-powered features:
+  - "Top Rated Photos" section with quality scores
+  - AI-generated descriptions and tags on all photos
+  - Full-screen lightbox modal with enhanced details
 - Photo indicator badges (📷) on timeline for dates with photos
 - Automated daily scraping and analysis via GitHub Actions
 - Automated deployment on every push to main
 
-**Recently Added Features:**
-- **Nov 11, 2025:** Activity categorization with 4 new charts (in PR #10)
+**Major Updates (Nov-Dec 2025):**
+- **Dec 13, 2025:** AI-powered photo analysis with Claude Vision API
+- **Dec 4, 2025:** Migrated from Chart.js to Recharts (SVG rendering)
+- **Dec 5, 2025:** Migrated from GitHub Pages to Cloudflare Pages
+- **Nov 16, 2025:** AI-powered activity categorization with learned mappings
+- **Nov 16, 2025:** Behavior tracking charts
 - **Nov 10, 2025:** Photo display with lightbox modal + timeline indicators
 
-**Future Enhancements:**
-- Behavior tracking charts ("Caught Being Good" / "Ooops") - Next priority
+**Future Enhancements (Optional):**
 - Friends page (optional - leaderboard currently on trends page)
 - Individual report card pages (optional - details shown on timeline)
 - Gallery filtering by date/month
@@ -918,11 +1019,11 @@ Separate directories for different purposes:
 - New reports only trigger extraction for that specific date
 - Scales efficiently as dataset grows
 
-### Chart.js Integration
-- Self-contained `GradeCharts.astro` component
-- Pass data via `data-*` attributes on canvas elements
-- Use module script that imports Chart.js directly from npm
-- Read data from DOM using dataset API
+### Recharts Integration (migrated from Chart.js Dec 2025)
+- Replaced Chart.js with Recharts for SVG-based rendering
+- Better performance and accessibility
+- Improved mobile responsiveness
+- Cleaner React-like component architecture within Astro
 
 ### Claude API Structured Outputs (Friend Analysis)
 Using **tool_choice** for guaranteed JSON schema compliance:

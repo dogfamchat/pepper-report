@@ -13,6 +13,7 @@
     "backfill:schedule": "bun tsx --env-file=.env scripts/backfill-schedule.ts",
     "backfill:reports": "bun tsx --env-file=.env scripts/backfill.ts",
     "analyze": "bun run scripts/analysis/analyze-all.ts",
+    "analyze:photos": "bun tsx --env-file=.env scripts/analysis/analyze-photos.ts",
     "anonymize": "bun run scripts/anonymize.ts",
     "test": "bun test",
     "test:staff": "bun run scripts/test-staff-discovery.ts",

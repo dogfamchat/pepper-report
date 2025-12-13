@@ -1,11 +1,62 @@
 ---
 
+import { existsSync, readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import photosData from '../../photos.json';
 import { formatMonth, formatShortDate } from '../../scripts/utils/date-utils';
 import Layout from '../layouts/Layout.astro';
 
+// Load photo analysis data
+interface PhotoAnalysis {
+  filename: string;
+  date: string;
+  r2Url: string;
+  qualityScore: number;
+  cutenessScore: number;
+  compositionScore: number;
+  overallScore: number;
+  description: string;
+  tags: string[];
+  activity: string;
+  visibleFriends: string[];
+  pepperVisible: boolean;
+  analyzedAt: string;
+}
+
+interface PhotoAnalysisData {
+  photos: PhotoAnalysis[];
+  bestPhotos: string[];
+  averageScore: number;
+  totalPhotos: number;
+}
+
+let analysisData: PhotoAnalysisData | null = null;
+const analysisPath = join(process.cwd(), 'data', 'analysis', 'photo-analysis.json');
+if (existsSync(analysisPath)) {
+  analysisData = JSON.parse(readFileSync(analysisPath, 'utf-8'));
+}
+
+// Create a map for quick analysis lookup
+const analysisMap = new Map<string, PhotoAnalysis>();
+if (analysisData) {
+  for (const photo of analysisData.photos) {
+    analysisMap.set(photo.filename, photo);
+  }
+}
+
 // Sort photos by date (newest first)
 const photos = [...photosData.photos].sort((a, b) => b.date.localeCompare(a.date));
+
+// Get best photos (top 10 by score)
+type BestPhoto = (typeof photosData.photos)[number] & { analysis: PhotoAnalysis };
+const bestPhotos: BestPhoto[] =
+  analysisData?.bestPhotos
+    .map((filename) => {
+      const photoMeta = photosData.photos.find((p) => p.filename === filename);
+      const analysis = analysisMap.get(filename);
+      return photoMeta && analysis ? { ...photoMeta, analysis } : null;
+    })
+    .filter((p): p is BestPhoto => p !== null) || [];
 
 // Group photos by month for section headers
 interface PhotosByMonth {
@@ -22,22 +73,33 @@ const photosByMonth = photos.reduce((acc, photo) => {
 }, {} as PhotosByMonth);
 
 const months = Object.keys(photosByMonth);
+
+// Prepare photo data with analysis for client-side
+const photosWithAnalysis = photos.map((p) => ({
+  ...p,
+  analysis: analysisMap.get(p.filename) || null,
+}));
 ---
 
 <Layout title="Photo Gallery - Pepper's Daycare">
   <main>
     <div class="header">
-      <a href="/pepper-report" class="back-link">← Back to Dashboard</a>
-      <h1>📷 Photo Gallery</h1>
-      <p class="subtitle">{photos.length} photos from daycare</p>
+      <a href="/pepper-report" class="back-link">&larr; Back to Dashboard</a>
+      <h1>Photo Gallery</h1>
+      <p class="subtitle">
+        {photos.length} photos from daycare
+        {analysisData && <span class="avg-score">• Average score: {analysisData.averageScore}/10</span>}
+      </p>
     </div>
 
-    {months.map(month => (
-      <div class="month-section">
-        <h2 class="month-header">{formatMonth(month)}</h2>
-        <div class="photo-grid">
-          {photosByMonth[month].map((photo) => (
-            <div class="photo-card">
+    {/* Best Photos Section */}
+    {bestPhotos.length > 0 && (
+      <section class="best-photos-section">
+        <h2 class="section-title">Top Rated Photos</h2>
+        <div class="best-photos-grid">
+          {bestPhotos.map((photo, index) => (
+            <div class="best-photo-card" data-rank={index + 1}>
+              <div class="rank-badge">{index === 0 ? '' : `#${index + 1}`}</div>
               <button
                 type="button"
                 class="photo-link"
@@ -47,28 +109,87 @@ const months = Object.keys(photosByMonth);
               >
                 <img
                   src={photo.thumbnailUrl}
-                  alt={`Pepper's photo from ${photo.date}`}
+                  alt={photo.analysis?.description || `Pepper's photo from ${photo.date}`}
                   class="photo-img"
                   loading="lazy"
                 />
                 <div class="photo-overlay">
+                  <div class="score-badge">{photo.analysis?.overallScore}/10</div>
                   <span class="photo-date">{formatShortDate(photo.date)}</span>
                 </div>
               </button>
+              {photo.analysis && (
+                <div class="photo-description">
+                  <p>{photo.analysis.description}</p>
+                </div>
+              )}
             </div>
           ))}
         </div>
-      </div>
-    ))}
+      </section>
+    )}
+
+    {/* All Photos by Month */}
+    <section class="all-photos-section">
+      <h2 class="section-title">All Photos</h2>
+      {months.map(month => (
+        <div class="month-section">
+          <h3 class="month-header">{formatMonth(month)}</h3>
+          <div class="photo-grid">
+            {photosByMonth[month].map((photo) => {
+              const analysis = analysisMap.get(photo.filename);
+              return (
+                <div class="photo-card">
+                  <button
+                    type="button"
+                    class="photo-link"
+                    data-photo-url={photo.r2Url}
+                    data-photo-index={photos.findIndex(p => p.date === photo.date)}
+                    aria-label={`View photo from ${photo.date}`}
+                  >
+                    <img
+                      src={photo.thumbnailUrl}
+                      alt={analysis?.description || `Pepper's photo from ${photo.date}`}
+                      class="photo-img"
+                      loading="lazy"
+                    />
+                    <div class="photo-overlay">
+                      {analysis && <div class="score-badge">{analysis.overallScore}/10</div>}
+                      <span class="photo-date">{formatShortDate(photo.date)}</span>
+                      {analysis && <span class="activity-tag">{analysis.activity}</span>}
+                    </div>
+                  </button>
+                  {analysis && (
+                    <div class="card-info">
+                      <p class="description">{analysis.description}</p>
+                      <div class="tags">
+                        {analysis.tags.slice(0, 4).map(tag => (
+                          <span class="tag">{tag}</span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </section>
 
     <!-- Lightbox Modal -->
     <div id="lightbox" class="lightbox" aria-hidden="true">
       <button type="button" class="lightbox-close" aria-label="Close lightbox">&times;</button>
-      <button type="button" class="lightbox-prev" aria-label="Previous photo">‹</button>
-      <button type="button" class="lightbox-next" aria-label="Next photo">›</button>
+      <button type="button" class="lightbox-prev" aria-label="Previous photo">&#8249;</button>
+      <button type="button" class="lightbox-next" aria-label="Next photo">&#8250;</button>
       <div class="lightbox-content">
         <img id="lightbox-img" src="" alt="" />
-        <div class="lightbox-caption" id="lightbox-caption"></div>
+        <div class="lightbox-info">
+          <div class="lightbox-caption" id="lightbox-caption"></div>
+          <div class="lightbox-scores" id="lightbox-scores"></div>
+          <div class="lightbox-description" id="lightbox-description"></div>
+          <div class="lightbox-tags" id="lightbox-tags"></div>
+        </div>
       </div>
     </div>
   </main>
@@ -111,12 +232,101 @@ const months = Object.keys(photosByMonth);
     margin: 0;
   }
 
+  .avg-score {
+    color: #667eea;
+    font-weight: 500;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #667eea;
+    display: inline-block;
+  }
+
+  /* Best Photos Section */
+  .best-photos-section {
+    margin-bottom: 4rem;
+  }
+
+  .best-photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .best-photo-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    position: relative;
+  }
+
+  .best-photo-card[data-rank="1"] {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  .best-photo-card[data-rank="1"] .photo-img {
+    height: 100%;
+    min-height: 400px;
+  }
+
+  .rank-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    color: #667eea;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    z-index: 10;
+  }
+
+  .best-photo-card[data-rank="1"] .rank-badge {
+    background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+    color: #333;
+    font-size: 1rem;
+  }
+
+  .best-photo-card[data-rank="1"] .rank-badge::before {
+    content: "Best Photo";
+  }
+
+  .best-photo-card .photo-description {
+    padding: 1rem;
+    background: white;
+  }
+
+  .best-photo-card .photo-description p {
+    margin: 0;
+    color: #444;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .best-photo-card[data-rank="1"] {
+      grid-column: span 1;
+    }
+  }
+
+  /* All Photos Section */
+  .all-photos-section {
+    margin-top: 2rem;
+  }
+
   .month-section {
     margin-bottom: 3rem;
   }
 
   .month-header {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: #667eea;
     margin: 0 0 1.5rem 0;
     padding-bottom: 0.5rem;
@@ -125,7 +335,7 @@ const months = Object.keys(photosByMonth);
 
   .photo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
   }
 
@@ -134,6 +344,12 @@ const months = Object.keys(photosByMonth);
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .photo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
   }
 
   .photo-link {
@@ -161,24 +377,72 @@ const months = Object.keys(photosByMonth);
     right: 0;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     padding: 2rem 1rem 1rem;
-    opacity: 1;
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+  }
+
+  .score-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: bold;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
   }
 
   .photo-date {
     color: white;
     font-size: 0.9rem;
     font-weight: 500;
-    display: block;
+  }
+
+  .activity-tag {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.15rem 0.5rem;
+    border-radius: 8px;
+    margin-left: auto;
+  }
+
+  .card-info {
+    padding: 1rem;
+  }
+
+  .card-info .description {
+    margin: 0 0 0.75rem 0;
+    color: #444;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    background: #f0f0f0;
+    color: #666;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
   }
 
   @media (max-width: 768px) {
     .photo-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 1rem;
     }
 
     .photo-img {
-      height: 200px;
+      height: 220px;
     }
   }
 
@@ -211,16 +475,59 @@ const months = Object.keys(photosByMonth);
 
   #lightbox-img {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: 70vh;
     object-fit: contain;
     border-radius: 8px;
+  }
+
+  .lightbox-info {
+    margin-top: 1rem;
+    text-align: center;
+    max-width: 600px;
   }
 
   .lightbox-caption {
     color: white;
     font-size: 1.1rem;
-    margin-top: 1rem;
-    text-align: center;
+    font-weight: 500;
+  }
+
+  .lightbox-scores {
+    margin-top: 0.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+  }
+
+  .lightbox-scores span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+  }
+
+  .lightbox-description {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1rem;
+    margin-top: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .lightbox-tags {
+    margin-top: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4rem;
+  }
+
+  .lightbox-tags span {
+    background: rgba(102, 126, 234, 0.5);
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 8px;
   }
 
   .lightbox-close,
@@ -234,6 +541,13 @@ const months = Object.keys(photosByMonth);
     cursor: pointer;
     padding: 0.5rem 1rem;
     border-radius: 4px;
+    transition: background 0.2s;
+  }
+
+  .lightbox-close:hover,
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    background: rgba(255, 255, 255, 0.3);
   }
 
   .lightbox-close {
@@ -274,11 +588,15 @@ const months = Object.keys(photosByMonth);
       top: 0.5rem;
       right: 0.5rem;
     }
+
+    .lightbox-info {
+      padding: 0 1rem;
+    }
   }
 </style>
 
-<script define:vars={{ photosData: photos }}>
-  // Photo data from server
+<script define:vars={{ photosData: photosWithAnalysis }}>
+  // Photo data from server (with analysis)
   const photos = photosData;
 
   let currentPhotoIndex = 0;
@@ -286,6 +604,9 @@ const months = Object.keys(photosByMonth);
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxScores = document.getElementById('lightbox-scores');
+  const lightboxDescription = document.getElementById('lightbox-description');
+  const lightboxTags = document.getElementById('lightbox-tags');
   const closeBtn = document.querySelector('.lightbox-close');
   const prevBtn = document.querySelector('.lightbox-prev');
   const nextBtn = document.querySelector('.lightbox-next');
@@ -306,8 +627,10 @@ const months = Object.keys(photosByMonth);
 
   function showPhoto(index) {
     const photo = photos[index];
+    const analysis = photo.analysis;
+
     lightboxImg.src = photo.r2Url;
-    lightboxImg.alt = `Pepper's photo from ${photo.date}`;
+    lightboxImg.alt = analysis?.description || `Pepper's photo from ${photo.date}`;
 
     const date = new Date(photo.date);
     const formattedDate = date.toLocaleDateString('en-US', {
@@ -316,6 +639,23 @@ const months = Object.keys(photosByMonth);
       year: 'numeric'
     });
     lightboxCaption.textContent = formattedDate;
+
+    // Show analysis data if available
+    if (analysis) {
+      lightboxScores.innerHTML = `
+        <span>Quality: ${analysis.qualityScore}/10</span>
+        <span>Cuteness: ${analysis.cutenessScore}/10</span>
+        <span>Composition: ${analysis.compositionScore}/10</span>
+      `;
+      lightboxDescription.textContent = analysis.description;
+      lightboxTags.innerHTML = analysis.tags
+        .map(tag => `<span>${tag}</span>`)
+        .join('');
+    } else {
+      lightboxScores.innerHTML = '';
+      lightboxDescription.textContent = '';
+      lightboxTags.innerHTML = '';
+    }
   }
 
   function nextPhoto() {
