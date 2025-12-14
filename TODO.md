@@ -1,14 +1,29 @@
 # TODO - Pepper Report Project
 
-**Last Updated:** 2025-12-13
+**Last Updated:** 2025-12-14
 **Current Phase:** Maintenance & Enhancements (All Core Features Complete)
-**Current Branch:** main
+**Current Branch:** photo-analysis (PR #21 open)
 
 ## Overview
 
 This tracks remaining work to complete the Pepper Report project. See [docs/design-proposal.md](docs/design-proposal.md) for full architecture and [docs/report-card-data-structure.md](docs/report-card-data-structure.md) for data schema details.
 
 ## Recent Progress
+
+### Dec 14, 2025 - Photo Analysis Pipeline Integration ✅ COMPLETE
+
+**PR:** #21 (open)
+
+- ✅ **Integrated photo analysis into main pipeline** (`scripts/analysis/analyze-all.ts`)
+  - Added `runPhotoAnalysis()` export function to `analyze-photos.ts`
+  - Photo analysis now runs automatically with `bun run analyze`
+  - Runs after report extraction, before aggregation (Step 1.5)
+  - Respects `--full` flag for force re-analysis
+  - Photo stats included in pipeline summary output
+
+- ✅ **Fixed broken navigation links**
+  - Updated "Back to Dashboard" links in `gallery.astro` and `timeline.astro`
+  - Changed from `/pepper-report` to `/` after Cloudflare Pages migration
 
 ### Dec 13, 2025 - AI-Powered Photo Analysis ✅ COMPLETE
 
@@ -30,9 +45,9 @@ This tracks remaining work to complete the Pepper Report project. See [docs/desi
   - Activity tags displayed below descriptions
 
 - ✅ **Analysis Data** (`data/analysis/photo-analysis.json`)
-  - Contains analysis for 26 photos
+  - Contains analysis for 27 photos
   - Average score: 6.6/10 (using full 1-10 range critically)
-  - Best photo: Oct 24, 2025 (8/10)
+  - Best photo: Sep 12, 2025 and Oct 24, 2025 (8.3/10)
   - Tracks: quality scores, descriptions, tags, activities, visible friends
 
 **Key Technical Details:**
@@ -514,9 +529,9 @@ After merging PR #10 (activity-categorization), we discovered that activities an
   - **Performance:** New reports process in ~1s (vs ~34s for full batch)
   - **Cost:** $0.00004 per new report (vs $0.0012 per full run)
 
-**📊 Current Stats (as of Dec 13, 2025):**
-- 45 report cards scraped (Aug 8 - Dec 12, 2025)
-- 18+ weeks tracked, 5 months of data
+**📊 Current Stats (as of Dec 14, 2025):**
+- 46 report cards scraped (Aug 8 - Dec 13, 2025)
+- 19 weeks tracked, 5 months of data
 - **Photos uploaded to Cloudflare R2** (all displayed with lightbox modal)
 - **Unique friends identified** (filtered, sorted by recency)
 - **Activity instances tracked** across 7 categories ✅ visualized
@@ -532,6 +547,7 @@ After merging PR #10 (activity-categorization), we discovered that activities an
 - Activity categorization ✅ (AI-powered with learned mappings, category + frequency charts + info modals)
 - Behavior tracking ✅ (timeline + frequency charts + stat cards + top behaviors lists)
 - Photo display ✅ (lightbox modal + timeline indicators + gallery page)
+- Photo analysis ✅ (Claude Vision scoring, descriptions, tags - integrated into `bun run analyze`)
 
 **Infrastructure:**
 - ✅ Migrated from Chart.js to Recharts (PR #18, Dec 4)
