@@ -33,6 +33,7 @@ import {
   generateGradeTimeline,
   generateTrainingFrequencyViz,
 } from './aggregate';
+import { runPhotoAnalysis } from './analyze-photos';
 import type { DailyAnalysis } from './extract-daily';
 import { dailyAnalysisExists, extractDaily, saveDailyAnalysis } from './extract-daily';
 import { readAllReportCards, readReportCard } from './report-reader';
@@ -166,6 +167,9 @@ async function main() {
     console.log('📖 Finding reports to process...');
     const reportsToProcess = findReportsNeedingExtraction(options);
 
+    // Initialize Anthropic client (used for extraction and photo analysis)
+    const anthropic = new Anthropic({ apiKey });
+
     if (reportsToProcess.length === 0) {
       console.log('✅ All reports already have daily analysis');
       console.log('   Skipping extraction step (no API calls needed)\n');
@@ -183,7 +187,6 @@ async function main() {
       }
 
       console.log(`\n🤖 Extracting daily analysis with Claude API...`);
-      const anthropic = new Anthropic({ apiKey });
       const startTime = Date.now();
 
       let successCount = 0;
@@ -233,6 +236,19 @@ async function main() {
       console.log(`💰 Estimated API cost: $${estimatedCost.toFixed(4)}`);
       console.log(`   (${estimatedTokens.toLocaleString()} tokens at Haiku rates)\n`);
     }
+
+    // STEP 1.5: Photo Analysis (Claude Vision API)
+    console.log('🖼️  Analyzing photos with Claude Vision...');
+    const photoResults = await runPhotoAnalysis(anthropic, {
+      force: options.full,
+      verbose: options.verbose,
+    });
+    if (photoResults.analyzed > 0) {
+      // Estimate photo analysis cost (~$0.01 per photo with Sonnet vision)
+      const photoCost = photoResults.analyzed * 0.01;
+      console.log(`💰 Estimated photo analysis cost: $${photoCost.toFixed(2)}`);
+    }
+    console.log('');
 
     // STEP 2: Aggregate all daily analyses (no API calls!)
     console.log('📈 Aggregating daily analysis files...');
@@ -394,7 +410,8 @@ async function main() {
     console.log(`   Reports analyzed: ${analyses.length}`);
     console.log(`   Weekly trends: ${trends.weekly.length} weeks`);
     console.log(`   Monthly trends: ${trends.monthly.length} months`);
-    console.log(`   Top friends: ${topFriends.friends.length} unique\n`);
+    console.log(`   Top friends: ${topFriends.friends.length} unique`);
+    console.log(`   Photos: ${photoResults.total} total (${photoResults.analyzed} new)\n`);
     console.log('💡 Next steps:');
     console.log('   - View the website: bun run dev');
     console.log('   - Deploy: bun run build\n');

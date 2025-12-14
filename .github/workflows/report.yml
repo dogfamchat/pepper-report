@@ -173,7 +173,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Check if there are changes to analysis files or learned mappings
+          # Check if there are changes to analysis files, learned mappings, or photo analysis
           if [ -n "$(git status --porcelain data/analysis/ data/viz/ scripts/analysis/learned-*-mappings.json 2>/dev/null)" ]; then
             git add data/analysis/
             git add data/viz/

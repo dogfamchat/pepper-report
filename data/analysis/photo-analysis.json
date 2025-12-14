@@ -632,21 +632,45 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2025-12-13T20:28:57.292Z"
+    },
+    {
+      "filename": "2025-12-13-001.jpg",
+      "date": "2025-12-13",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-12-13/2025-12-13-001.jpg",
+      "qualityScore": 8,
+      "cutenessScore": 7,
+      "compositionScore": 8,
+      "overallScore": 7.7,
+      "description": "Pepper strikes a perfect portrait pose with an inquisitive head tilt, her collar tags catching the clean studio lighting. The neutral background keeps all focus on her expressive amber gaze and that signature rust-colored coat.",
+      "tags": [
+        "portrait",
+        "head tilt",
+        "studio lighting",
+        "neutral background",
+        "collar",
+        "amber eyes",
+        "rust colored coat",
+        "indoor"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2025-12-14T23:38:42.447Z"
     }
   ],
   "bestPhotos": [
     "2025-09-12-001.jpg",
     "2025-10-24-001.jpg",
     "2025-10-20-001.jpg",
+    "2025-12-13-001.jpg",
     "2025-08-22-001.jpg",
     "2025-09-10-001.jpg",
     "2025-09-15-001.jpg",
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg",
-    "2025-11-10-001.jpg",
-    "2025-11-14-001.jpg"
+    "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2025-12-13T20:28:57.304Z",
-  "totalPhotos": 26,
-  "averageScore": 6.6
+  "analyzedAt": "2025-12-14T23:38:42.448Z",
+  "totalPhotos": 27,
+  "averageScore": 6.7
 }
