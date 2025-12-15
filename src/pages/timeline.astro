@@ -1,28 +1,22 @@
 ---
 
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
 import photosData from '../../photos.json';
+import {
+  groupReportsByMonth,
+  groupReportsByYear,
+  readAllReportCards,
+} from '../../scripts/analysis/report-reader';
 import { formatMonth, formatShortDate } from '../../scripts/utils/date-utils';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Read all report cards
-const reportsDir = join(process.cwd(), 'data', 'reports', '2025');
-const reportFiles = readdirSync(reportsDir)
-  .filter((f) => f.endsWith('.json'))
-  .sort()
-  .reverse(); // Newest first
-
-const reports = reportFiles.map((filename) => {
-  const filepath = join(reportsDir, filename);
-  return JSON.parse(readFileSync(filepath, 'utf-8'));
-});
+const reports = readAllReportCards().reverse(); // Newest first
 
 // Create a Set of dates that have photos
 const datesWithPhotos = new Set(photosData.photos.map((photo) => photo.date));
 
-// Group reports by month
+// Group by year first, then by month within each year
 interface ReportCard {
   date: string;
   grade: string;
@@ -36,19 +30,22 @@ interface ReportCard {
   ooops: string[];
 }
 
-const reportsByMonth = reports.reduce(
-  (acc, report) => {
-    const month = report.date.substring(0, 7); // YYYY-MM
-    if (!acc[month]) {
-      acc[month] = [];
-    }
-    acc[month].push(report);
-    return acc;
-  },
-  {} as Record<string, ReportCard[]>,
-);
+const reportsByYear = groupReportsByYear(reports);
+const years = Array.from(reportsByYear.keys()).sort().reverse(); // Newest first
 
-const months = Object.keys(reportsByMonth);
+// Create nested structure: year -> month -> reports
+const yearMonthStructure = years.map((year) => {
+  const yearReports = reportsByYear.get(year) || [];
+  const monthsMap = groupReportsByMonth(yearReports);
+  const months = Array.from(monthsMap.keys()).sort().reverse();
+  return {
+    year,
+    months: months.map((month) => ({
+      month,
+      reports: monthsMap.get(month) || [],
+    })),
+  };
+});
 ---
 
 <Layout title="Timeline - Pepper's Daycare">
@@ -61,11 +58,21 @@ const months = Object.keys(reportsByMonth);
 
     <!-- Timeline -->
     <div class="timeline">
-      {months.map((month) => (
-        <div class="month-section">
-          <h2 class="month-header">{formatMonth(month)}</h2>
-          <div class="reports-list">
-            {reportsByMonth[month].map((report: any) => (
+      {yearMonthStructure.map(({ year, months }) => (
+        <>
+          {/* Year header - only show if there's more than one year */}
+          {years.length > 1 && (
+            <div class="year-section">
+              <h2 class="year-header">{year}</h2>
+            </div>
+          )}
+
+          {/* Month sections within this year */}
+          {months.map(({ month, reports: monthReports }) => (
+            <div class="month-section">
+              <h2 class="month-header">{formatMonth(month)}</h2>
+              <div class="reports-list">
+                {monthReports.map((report: any) => (
               <details class="report-card">
                 <summary class="report-summary">
                   <div class="summary-content">
@@ -168,9 +175,11 @@ const months = Object.keys(reportsByMonth);
                   </div>
                 </div>
               </details>
-            ))}
-          </div>
-        </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </>
       ))}
     </div>
   </main>
@@ -430,6 +439,39 @@ const months = Object.keys(reportsByMonth);
   .activity-list li, .ooops-list li {
     margin-bottom: 0.5rem;
     line-height: 1.5;
+  }
+
+  .year-section {
+    margin-top: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  .year-section:first-child {
+    margin-top: 0; /* No top margin for first year */
+  }
+
+  .year-header {
+    color: #667eea;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-radius: 12px;
+    border-bottom: 4px solid #667eea;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 768px) {
+    .year-header {
+      font-size: 1.5rem;
+      padding: 1rem 1.5rem;
+    }
+
+    .year-section {
+      margin-top: 3rem;
+    }
   }
 
   @media (max-width: 768px) {

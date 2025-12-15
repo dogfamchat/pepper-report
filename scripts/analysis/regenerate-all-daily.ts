@@ -7,11 +7,9 @@
  * Use this when the DailyAnalysis interface changes.
  */
 
-import { readdirSync } from 'node:fs';
-import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
 import { extractDaily, saveDailyAnalysis } from './extract-daily';
-import { readReportCard } from './report-reader';
+import { readAllReportCards, readReportCard } from './report-reader';
 
 async function main() {
   console.log('🔄 Regenerating All Daily Analysis Files\n');
@@ -28,8 +26,8 @@ async function main() {
   const anthropic = new Anthropic({ apiKey });
 
   // Find all report cards
-  const reportsDir = join(process.cwd(), 'data', 'reports', '2025');
-  const reportFiles = readdirSync(reportsDir).filter((f) => f.endsWith('.json'));
+  const allReports = readAllReportCards();
+  const reportFiles = allReports.map((r) => `${r.date}.json`);
 
   console.log(`📖 Found ${reportFiles.length} report cards to process\n`);
 

@@ -4,6 +4,7 @@
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import dayjs from 'dayjs';
 import type { ReportCard } from '../types';
 import { getISOWeekString } from '../utils/date-utils';
 
@@ -111,6 +112,52 @@ export function groupReportsByMonth(reports: ReportCard[]): Map<string, ReportCa
   }
 
   return grouped;
+}
+
+/**
+ * Group report cards by year (YYYY)
+ */
+export function groupReportsByYear(reports: ReportCard[]): Map<string, ReportCard[]> {
+  const grouped = new Map<string, ReportCard[]>();
+
+  for (const report of reports) {
+    const year = report.date.substring(0, 4); // YYYY
+
+    if (!grouped.has(year)) {
+      grouped.set(year, []);
+    }
+    grouped.get(year)?.push(report);
+  }
+
+  return grouped;
+}
+
+/**
+ * Generate human-readable date range from reports
+ * Examples: "August 2025" | "August - December 2025" | "August 2025 - March 2026"
+ */
+export function getDateRangeText(reports: ReportCard[]): string {
+  if (reports.length === 0) return '';
+
+  const sorted = [...reports].sort((a, b) => a.date.localeCompare(b.date));
+  const first = sorted[0].date;
+  const last = sorted[sorted.length - 1].date;
+
+  const firstDate = dayjs(first);
+  const lastDate = dayjs(last);
+
+  // Same month and year
+  if (firstDate.isSame(lastDate, 'month')) {
+    return firstDate.format('MMMM YYYY');
+  }
+
+  // Same year, different months
+  if (firstDate.isSame(lastDate, 'year')) {
+    return `${firstDate.format('MMMM')} - ${lastDate.format('MMMM YYYY')}`;
+  }
+
+  // Different years
+  return `${firstDate.format('MMMM YYYY')} - ${lastDate.format('MMMM YYYY')}`;
 }
 
 /**

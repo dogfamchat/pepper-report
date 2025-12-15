@@ -1,22 +1,16 @@
 ---
 
-import { readdirSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import photosData from '../../photos.json';
+import { getDateRangeText, readAllReportCards } from '../../scripts/analysis/report-reader';
 import { formatDate } from '../../scripts/utils/date-utils';
 import PhotoGallery from '../components/PhotoGallery.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Read the latest report card
-const reportsDir = join(process.cwd(), 'data', 'reports', '2025');
-const reportFiles = readdirSync(reportsDir)
-  .filter((f) => f.endsWith('.json'))
-  .sort()
-  .reverse();
-
-const latestReportFile = reportFiles[0];
-const latestReportPath = join(reportsDir, latestReportFile);
-const latestReport = JSON.parse(readFileSync(latestReportPath, 'utf-8'));
+// Read all report cards
+const allReports = readAllReportCards();
+const latestReport = allReports[allReports.length - 1]; // Already sorted
 
 // Load photos data to find most recent photo
 const sortedPhotos = [...photosData.photos].sort((a, b) => b.date.localeCompare(a.date));
@@ -34,7 +28,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   <main>
     <div class="header">
       <h1>🐕 Pepper's Daycare Dashboard</h1>
-      <p class="subtitle">Tracking {latestReport.dog.name}'s daycare adventures since August 2025</p>
+      <p class="subtitle">Tracking {latestReport.dog.name}'s daycare adventures {getDateRangeText(allReports)}</p>
     </div>
 
     <!-- Overall Stats -->
