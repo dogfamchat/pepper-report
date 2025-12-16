@@ -656,6 +656,31 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2025-12-14T23:38:42.447Z"
+    },
+    {
+      "filename": "2025-12-16-001.jpg",
+      "date": "2025-12-16",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-12-16/2025-12-16-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Two very different personalities sharing the play area - Pepper stands tall and alert while her smaller companion stays low to the ground in a playful stance.",
+      "tags": [
+        "indoor",
+        "two dogs",
+        "size difference",
+        "play area",
+        "kennels",
+        "daycare facility",
+        "colorful playground equipment",
+        "standing",
+        "crouching"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2025-12-16T22:44:29.266Z"
     }
   ],
   "bestPhotos": [
@@ -670,7 +695,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2025-12-14T23:38:42.448Z",
-  "totalPhotos": 27,
+  "analyzedAt": "2025-12-16T22:44:29.267Z",
+  "totalPhotos": 28,
   "averageScore": 6.7
 }

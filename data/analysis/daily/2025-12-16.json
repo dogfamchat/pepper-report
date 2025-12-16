@@ -1,0 +1,60 @@
+{
+  "date": "2025-12-16",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "I had a good day today, we started off our day with spending some time outside. Later we came inside for a play session and our training session. Today we focused on touch at a distance. I did really good. In the afternoon we went out for another potty break. We ended our day relaxing and napping with my friends.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "nose targeting"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "nose targeting",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2025-12-16T22:44:23.558Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": []
+}
