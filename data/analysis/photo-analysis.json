@@ -681,6 +681,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2025-12-16T22:44:29.266Z"
+    },
+    {
+      "filename": "2025-12-19-001.jpg",
+      "date": "2025-12-19",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-12-19/2025-12-19-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 8,
+      "compositionScore": 7,
+      "overallScore": 7,
+      "description": "Pepper strikes a perfect sit-stay pose, her turquoise collar adding a pop of color against her rust-colored coat. The camera angle captures her looking up expectantly, as if waiting for the next command or maybe just hoping for a treat.",
+      "tags": [
+        "indoor",
+        "sitting",
+        "turquoise collar",
+        "looking up",
+        "expectant expression",
+        "training position",
+        "clean floor"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2025-12-19T22:45:35.094Z"
     }
   ],
   "bestPhotos": [
@@ -695,7 +718,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2025-12-16T22:44:29.267Z",
-  "totalPhotos": 28,
+  "analyzedAt": "2025-12-19T22:45:35.094Z",
+  "totalPhotos": 29,
   "averageScore": 6.7
 }
