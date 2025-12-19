@@ -1,0 +1,41 @@
+{
+  "date": "2025-12-19",
+  "completedDateTime": "2025-12-19T21:04:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today we worked on confidence building with a Christmas wreath! I practiced bravely putting my head through it so we could get festive photos. At first it was a little weird, but I gained confidence and did a great job. Lots of praise and holiday spirit! My bestie was Riker today",
+  "photos": [
+    "2025-12-19-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Vale Elm",
+    "completedBy": "Vale Elm"
+  }
+}
