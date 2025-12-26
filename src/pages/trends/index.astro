@@ -51,59 +51,95 @@ const behaviorData = loadBehaviorData();
 
 <style>
   .summary-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    background: white;
+    border: 2px solid var(--cream-dark);
+    padding: 3rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .summary-card::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 2rem;
+    right: 2rem;
+    height: 4px;
+    background: var(--gradient-elegant);
   }
 
   .summary-card h2 {
-    margin: 0 0 1.5rem 0;
-    font-size: 1.5rem;
+    margin: 0 0 2rem 0;
+    font-size: 2.5rem;
+    color: var(--burgundy);
+    font-weight: 700;
   }
 
   .summary-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 3rem;
   }
 
   .summary-stat {
     display: flex;
     flex-direction: column;
+    padding: 1.5rem;
+    background: rgba(139, 38, 53, 0.03);
+    border-left: 4px solid var(--gold);
   }
 
   .stat-label {
-    font-size: 0.9rem;
-    opacity: 0.9;
-    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--warm-gray);
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
   }
 
   .stat-value {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 0.25rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--gradient-elegant);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   .stat-percent {
-    font-size: 1rem;
-    opacity: 0.8;
+    font-size: 1.1rem;
+    color: var(--forest);
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
     .summary-card {
-      padding: 1.5rem;
+      padding: 2rem 1.5rem;
+    }
+
+    .summary-card::before {
+      left: 1rem;
+      right: 1rem;
+    }
+
+    .summary-card h2 {
+      font-size: 2rem;
     }
 
     .summary-stats {
       grid-template-columns: 1fr;
-      gap: 1rem;
+      gap: 1.5rem;
+    }
+
+    .summary-stat {
+      padding: 1.25rem;
     }
 
     .stat-value {
-      font-size: 1.5rem;
+      font-size: 2rem;
     }
   }
 </style>
