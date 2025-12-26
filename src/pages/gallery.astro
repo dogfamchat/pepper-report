@@ -84,12 +84,17 @@ const photosWithAnalysis = photos.map((p) => ({
 <Layout title="Photo Gallery - Pepper's Daycare">
   <main>
     <div class="header">
-      <a href="/" class="back-link">&larr; Back to Dashboard</a>
+      <a href="/" class="back-link">← Back to Dashboard</a>
+      <div class="title-ornament">✦</div>
       <h1>Photo Gallery</h1>
-      <p class="subtitle">
-        {photos.length} photos from daycare
-        {analysisData && <span class="avg-score">• Average score: {analysisData.averageScore}/10</span>}
-      </p>
+      <div class="subtitle-wrapper">
+        <div class="divider-line"></div>
+        <p class="subtitle">
+          {photos.length} photos from daycare
+          {analysisData && <span class="avg-score"> • Average score: {analysisData.averageScore}/10</span>}
+        </p>
+        <div class="divider-line"></div>
+      </div>
     </div>
 
     {/* Best Photos Section */}
@@ -199,51 +204,113 @@ const photosWithAnalysis = photos.map((p) => ({
   main {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem;
+    animation: fadeInUp 0.8s ease-out;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+    position: relative;
+    padding: 2rem 0;
   }
 
   .back-link {
     display: inline-block;
-    color: #667eea;
+    color: var(--forest);
     text-decoration: none;
-    font-size: 0.95rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .back-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .back-link:hover::before {
+    width: 100%;
   }
 
   .back-link:hover {
-    color: #764ba2;
-    text-decoration: underline;
+    color: var(--burgundy);
+  }
+
+  .title-ornament {
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    animation: shimmer 3s ease-in-out infinite;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   h1 {
-    font-size: 2.5rem;
-    margin: 0 0 0.5rem 0;
-    color: #333;
+    font-size: 3.5rem;
+    margin: 0 0 1.5rem 0;
+    color: var(--burgundy);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .subtitle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .divider-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--warm-gray), transparent);
   }
 
   .subtitle {
-    font-size: 1.1rem;
-    color: #666;
+    font-size: 1.15rem;
+    color: var(--warm-gray);
     margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.02em;
   }
 
   .avg-score {
-    color: #667eea;
-    font-weight: 500;
+    color: var(--burgundy);
+    font-weight: 600;
   }
 
   .section-title {
-    font-size: 1.8rem;
-    color: #333;
-    margin: 0 0 1.5rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 3px solid #667eea;
+    font-size: 2.5rem;
+    color: var(--burgundy);
+    margin: 0 0 2rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--gold);
     display: inline-block;
+    font-weight: 600;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: var(--gradient-elegant);
   }
 
   /* Best Photos Section */
@@ -258,16 +325,24 @@ const photosWithAnalysis = photos.map((p) => ({
   }
 
   .best-photo-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 16px;
+    background: white;
+    border: 3px solid var(--gold);
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    box-shadow: 0 8px 30px rgba(139, 38, 53, 0.15);
     position: relative;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .best-photo-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(139, 38, 53, 0.25);
+    border-color: var(--burgundy);
   }
 
   .best-photo-card[data-rank="1"] {
     grid-column: span 2;
     grid-row: span 2;
+    border-width: 4px;
   }
 
   .best-photo-card[data-rank="1"] .photo-img {
@@ -279,23 +354,26 @@ const photosWithAnalysis = photos.map((p) => ({
     position: absolute;
     top: 1rem;
     left: 1rem;
-    background: rgba(255, 255, 255, 0.95);
-    color: #667eea;
-    font-weight: bold;
-    font-size: 0.9rem;
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
+    background: white;
+    color: var(--forest);
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--forest);
     z-index: 10;
+    font-family: 'Cormorant Garamond', serif;
   }
 
   .best-photo-card[data-rank="1"] .rank-badge {
-    background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
-    color: #333;
-    font-size: 1rem;
+    background: var(--gold);
+    color: white;
+    font-size: 1.1rem;
+    border-color: var(--gold-dark);
+    padding: 0.75rem 1.5rem;
   }
 
   .best-photo-card[data-rank="1"] .rank-badge::before {
-    content: "Best Photo";
+    content: "✦ Best Photo ✦";
   }
 
   .best-photo-card .photo-description {
@@ -326,30 +404,43 @@ const photosWithAnalysis = photos.map((p) => ({
   }
 
   .month-header {
-    font-size: 1.3rem;
-    color: #667eea;
-    margin: 0 0 1.5rem 0;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #f0f0f0;
+    font-size: 1.75rem;
+    color: var(--burgundy);
+    margin: 0 0 2rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--gold);
+    font-weight: 600;
+    position: relative;
+  }
+
+  .month-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: var(--gradient-elegant);
   }
 
   .photo-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    gap: 2rem;
   }
 
   .photo-card {
     background: white;
-    border-radius: 12px;
+    border: 2px solid var(--cream-dark);
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 12px rgba(139, 38, 53, 0.08);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .photo-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 30px rgba(139, 38, 53, 0.15);
+    border-color: var(--gold);
   }
 
   .photo-link {
@@ -375,35 +466,38 @@ const photosWithAnalysis = photos.map((p) => ({
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-    padding: 2rem 1rem 1rem;
+    background: linear-gradient(to top, rgba(139, 38, 53, 0.9), transparent);
+    padding: 2.5rem 1rem 1rem;
     display: flex;
     align-items: flex-end;
     gap: 0.75rem;
   }
 
   .score-badge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gold);
     color: white;
-    font-weight: bold;
-    font-size: 0.85rem;
-    padding: 0.25rem 0.6rem;
-    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    border: 2px solid white;
+    font-family: 'Cormorant Garamond', serif;
   }
 
   .photo-date {
     color: white;
-    font-size: 0.9rem;
-    font-weight: 500;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
   }
 
   .activity-tag {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.8rem;
-    background: rgba(255, 255, 255, 0.2);
-    padding: 0.15rem 0.5rem;
-    border-radius: 8px;
+    color: white;
+    font-size: 0.85rem;
+    background: rgba(255, 255, 255, 0.25);
+    padding: 0.3rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
     margin-left: auto;
+    font-weight: 500;
   }
 
   .card-info {

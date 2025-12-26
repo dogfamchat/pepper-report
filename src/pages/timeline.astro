@@ -52,8 +52,13 @@ const yearMonthStructure = years.map((year) => {
   <main>
     <div class="header">
       <a href="/" class="back-link">← Back to Dashboard</a>
-      <h1>📅 Full Timeline</h1>
-      <p class="subtitle">All {reports.length} report cards from daycare</p>
+      <div class="title-ornament">✦</div>
+      <h1>Chronicle Timeline</h1>
+      <div class="subtitle-wrapper">
+        <div class="divider-line"></div>
+        <p class="subtitle">All {reports.length} report cards from daycare</p>
+        <div class="divider-line"></div>
+      </div>
     </div>
 
     <!-- Timeline -->
@@ -187,38 +192,89 @@ const yearMonthStructure = years.map((year) => {
 
 <style>
   main {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem;
+    animation: fadeInUp 0.8s ease-out;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 4rem;
+    position: relative;
+    padding: 2rem 0;
   }
 
   .back-link {
     display: inline-block;
-    color: #667eea;
+    color: var(--forest);
     text-decoration: none;
-    margin-bottom: 1rem;
-    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .back-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .back-link:hover::before {
+    width: 100%;
   }
 
   .back-link:hover {
-    text-decoration: underline;
+    color: var(--burgundy);
+  }
+
+  .title-ornament {
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    animation: shimmer 3s ease-in-out infinite;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   h1 {
-    font-size: 2.5rem;
-    margin: 0 0 0.5rem 0;
-    color: #333;
+    font-size: 3.5rem;
+    margin: 0 0 1.5rem 0;
+    color: var(--burgundy);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .subtitle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .divider-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--warm-gray), transparent);
   }
 
   .subtitle {
-    font-size: 1.1rem;
-    color: #666;
+    font-size: 1.15rem;
+    color: var(--warm-gray);
     margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.02em;
   }
 
   .timeline {
@@ -234,23 +290,40 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .month-header {
-    color: #667eea;
-    font-size: 1.5rem;
+    color: var(--burgundy);
+    font-size: 2rem;
     margin: 0;
-    padding-bottom: 0.75rem;
-    border-bottom: 3px solid #667eea;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--gold);
+    font-weight: 600;
+    position: relative;
+  }
+
+  .month-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: var(--gradient-elegant);
   }
 
   .reports-list {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
   }
 
   .report-card {
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--cream-dark);
+    transition: all 0.3s ease;
+  }
+
+  .report-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 8px 24px rgba(139, 38, 53, 0.12);
   }
 
   .report-summary {
@@ -278,46 +351,52 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .report-date {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #333;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--charcoal);
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    font-family: 'Cormorant Garamond', serif;
   }
 
   .photo-indicator {
     font-size: 1.2rem;
-    opacity: 0.8;
+    opacity: 0.6;
     transform: translateY(-2px);
   }
 
   .day-of-week {
     font-size: 0.9rem;
-    color: #666;
+    color: var(--warm-gray);
+    font-weight: 500;
+    letter-spacing: 0.05em;
   }
 
   .grade-badge {
-    padding: 0.35rem 0.85rem;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    font-weight: 700;
+    font-size: 1.1rem;
     color: white;
+    font-family: 'Cormorant Garamond', serif;
+    border: 2px solid;
   }
 
   .grade-badge.grade-a {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: var(--gradient-regal);
+    border-color: var(--gold);
   }
 
   .grade-badge.grade-b {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: var(--gradient-forest);
+    border-color: var(--forest);
   }
 
   .summary-preview {
     display: flex;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    margin-bottom: 0.35rem;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
   }
 
   .summary-preview:last-of-type {
@@ -325,13 +404,13 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .preview-label {
-    color: #667eea;
-    font-weight: 500;
+    color: var(--forest);
+    font-weight: 600;
     flex-shrink: 0;
   }
 
   .preview-text {
-    color: #666;
+    color: var(--charcoal);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -341,9 +420,9 @@ const yearMonthStructure = years.map((year) => {
     position: absolute;
     right: 2.35rem;
     bottom: 1.25rem;
-    color: #667eea;
-    font-size: 0.8rem;
-    transition: transform 0.1s ease-in-out;
+    color: var(--gold);
+    font-size: 0.9rem;
+    transition: transform 0.2s ease-in-out;
     transform: rotate(0deg);
   }
 
@@ -353,51 +432,86 @@ const yearMonthStructure = years.map((year) => {
 
   .report-details {
     padding: 0 1.5rem 1.5rem 1.5rem;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--cream-dark);
   }
 
   .grade-section {
-    margin-top: 1rem;
-    margin-bottom: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
   }
 
   .grade-banner {
     display: flex;
     align-items: center;
-    gap: 1.25rem;
-    padding: 1.25rem;
-    border-radius: 8px;
+    gap: 2rem;
+    padding: 1.5rem;
     color: white;
+    border: 2px solid;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .grade-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.1;
+    z-index: 0;
   }
 
   .grade-banner-a {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: white;
+    border-color: var(--gold);
+    color: var(--charcoal);
+  }
+
+  .grade-banner-a::before {
+    background: var(--gradient-regal);
   }
 
   .grade-banner-b {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    background: white;
+    border-color: var(--forest);
+    color: var(--charcoal);
+  }
+
+  .grade-banner-b::before {
+    background: var(--gradient-forest);
   }
 
   .grade-letter {
-    font-size: 2.5rem;
-    font-weight: bold;
+    font-size: 3.5rem;
+    font-weight: 700;
     line-height: 1;
+    font-family: 'Cormorant Garamond', serif;
+    background: var(--gradient-elegant);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    z-index: 1;
   }
 
   .grade-description {
-    font-size: 1rem;
+    font-size: 1.1rem;
     flex: 1;
+    position: relative;
+    z-index: 1;
+    font-weight: 500;
   }
 
   .detail-columns {
     column-count: 2;
-    column-width: auto;
-    margin-bottom: 1.25rem;
+    column-gap: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .detail-section {
     break-inside: avoid;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   .detail-section:last-child {
@@ -405,92 +519,138 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .detail-section h3 {
-    color: #667eea;
-    font-size: 1rem;
-    margin: 0 0 0.6rem 0;
+    color: var(--forest);
+    font-size: 1.2rem;
+    margin: 0 0 0.75rem 0;
+    font-weight: 600;
+    position: relative;
+    padding-left: 1rem;
+  }
+
+  .detail-section h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 60%;
+    background: var(--gold);
   }
 
   .detail-section p {
     margin: 0;
-    color: #333;
-    line-height: 1.6;
+    color: var(--charcoal);
+    line-height: 1.7;
   }
 
   .highlight {
     font-size: 1.05rem;
-    font-weight: 500;
+    font-weight: 600;
+    color: var(--burgundy);
   }
 
   .noteworthy {
-    background: #f9f9f9;
-    padding: 0.9rem;
-    border-radius: 8px;
-    border-left: 4px solid #667eea;
+    background: rgba(139, 38, 53, 0.04);
+    padding: 1.25rem;
+    border-left: 4px solid var(--burgundy);
     font-style: italic;
+    line-height: 1.7;
+    color: var(--charcoal);
   }
 
   .activity-list, .ooops-list {
     list-style: none;
     margin: 0;
     padding-left: 0;
-    color: #333;
+    color: var(--charcoal);
   }
 
   .activity-list li, .ooops-list li {
-    margin-bottom: 0.5rem;
-    line-height: 1.5;
+    margin-bottom: 0.65rem;
+    line-height: 1.6;
+    padding-left: 0.5rem;
   }
 
   .year-section {
-    margin-top: 4rem;
-    margin-bottom: 2rem;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
   }
 
   .year-section:first-child {
-    margin-top: 0; /* No top margin for first year */
+    margin-top: 0;
   }
 
   .year-header {
-    color: #667eea;
-    font-size: 2rem;
-    font-weight: bold;
+    color: var(--burgundy);
+    font-size: 3rem;
+    font-weight: 700;
     text-align: center;
     margin: 0;
-    padding: 1.5rem 2rem;
-    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
-    border-radius: 12px;
-    border-bottom: 4px solid #667eea;
-    letter-spacing: 0.05em;
+    padding: 2rem 2rem;
+    background: white;
+    border: 2px solid var(--gold);
+    border-top-width: 4px;
+    letter-spacing: 0.02em;
+    position: relative;
+  }
+
+  .year-header::before {
+    content: '✦';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--gold);
+    font-size: 1.5rem;
+    background: var(--cream);
+    padding: 0 1rem;
   }
 
   @media (max-width: 768px) {
+    main {
+      padding: 2rem 1rem;
+    }
+
+    .header {
+      padding: 1rem 0;
+      margin-bottom: 2.5rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .subtitle-wrapper {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .divider-line {
+      width: 60px;
+    }
+
     .year-header {
-      font-size: 1.5rem;
-      padding: 1rem 1.5rem;
+      font-size: 2rem;
+      padding: 1.5rem 1.5rem;
     }
 
     .year-section {
       margin-top: 3rem;
     }
-  }
 
-  @media (max-width: 768px) {
-    main {
-      padding: 1rem;
-    }
-
-    h1 {
-      font-size: 2rem;
+    .month-header {
+      font-size: 1.5rem;
     }
 
     .report-summary {
-      padding: 1rem;
+      padding: 1.25rem;
     }
 
     .summary-content {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
 
     .grade-badge {
@@ -498,15 +658,23 @@ const yearMonthStructure = years.map((year) => {
     }
 
     .expand-icon {
-      bottom: 1rem;
+      bottom: 1.25rem;
     }
 
     .report-details {
-      padding: 0 1rem 1rem 1rem;
+      padding: 0 1.25rem 1.25rem 1.25rem;
+    }
+
+    .detail-columns {
+      column-count: 1;
     }
 
     .grade-letter {
-      font-size: 2rem;
+      font-size: 3rem;
+    }
+
+    .grade-description {
+      font-size: 1rem;
     }
   }
 </style>
