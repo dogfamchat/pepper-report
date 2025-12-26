@@ -689,7 +689,7 @@ const photosWithAnalysis = photos.map((p) => ({
   }
 </style>
 
-<script define:vars={{ photosData: photosWithAnalysis }}>
+<script define:vars={{ photosData: photosWithAnalysis }} is:inline>
   // Photo data from server (with analysis)
   const photos = photosData;
 

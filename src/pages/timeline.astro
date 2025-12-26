@@ -16,20 +16,6 @@ const reports = readAllReportCards().reverse(); // Newest first
 // Create a Set of dates that have photos
 const datesWithPhotos = new Set(photosData.photos.map((photo) => photo.date));
 
-// Group by year first, then by month within each year
-interface ReportCard {
-  date: string;
-  grade: string;
-  gradeDescription: string;
-  staffNames: string[];
-  bestPartOfDay: string;
-  noteworthyComments?: string;
-  whatIDidToday: string[];
-  trainingSkills: string[];
-  caughtBeingGood: string[];
-  ooops: string[];
-}
-
 const reportsByYear = groupReportsByYear(reports);
 const years = Array.from(reportsByYear.keys()).sort().reverse(); // Newest first
 
