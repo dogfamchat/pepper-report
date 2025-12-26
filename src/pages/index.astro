@@ -188,7 +188,6 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     max-width: 1400px;
     margin: 0 auto;
     padding: 3rem 2rem;
-    animation: fadeInUp 0.8s ease-out;
   }
 
   .header {
@@ -278,13 +277,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     overflow: hidden;
     border: 2px solid var(--cream-dark);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    animation: fadeInUp 0.6s ease-out backwards;
   }
-
-  .stat-card:nth-child(1) { animation-delay: 0.1s; }
-  .stat-card:nth-child(2) { animation-delay: 0.2s; }
-  .stat-card:nth-child(3) { animation-delay: 0.3s; }
-  .stat-card:nth-child(4) { animation-delay: 0.4s; }
 
   .stat-card::before {
     content: '';
