@@ -23,8 +23,13 @@ const tabs = [
   <main>
     <div class="header">
       <a href="/" class="back-link">← Back to Dashboard</a>
-      <h1>📊 Trends</h1>
-      <p class="subtitle">Tracking performance over time</p>
+      <div class="title-ornament">✦</div>
+      <h1>Trends & Analytics</h1>
+      <div class="subtitle-wrapper">
+        <div class="divider-line"></div>
+        <p class="subtitle">Tracking performance over time</p>
+        <div class="divider-line"></div>
+      </div>
     </div>
 
     <!-- Tab Navigation -->
@@ -47,82 +52,139 @@ const tabs = [
 
 <style>
   main {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 3rem 2rem;
+    animation: fadeInUp 0.8s ease-out;
   }
 
   .header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+    padding: 2rem 0;
   }
 
   .back-link {
     display: inline-block;
-    color: #667eea;
+    color: var(--forest);
     text-decoration: none;
-    margin-bottom: 1rem;
-    font-weight: 500;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+
+  .back-link::before {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .back-link:hover::before {
+    width: 100%;
   }
 
   .back-link:hover {
-    text-decoration: underline;
+    color: var(--burgundy);
+  }
+
+  .title-ornament {
+    font-size: 2rem;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    animation: shimmer 3s ease-in-out infinite;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-dark));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   h1 {
-    font-size: 2.5rem;
-    margin: 0 0 0.5rem 0;
-    color: #333;
+    font-size: 3.5rem;
+    margin: 0 0 1.5rem 0;
+    color: var(--burgundy);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .subtitle-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .divider-line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--warm-gray), transparent);
   }
 
   .subtitle {
-    font-size: 1.1rem;
-    color: #666;
+    font-size: 1.15rem;
+    color: var(--warm-gray);
     margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.02em;
   }
 
   /* Tab Navigation Styles */
   .tabs-nav {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
     justify-content: center;
-  }
-
-  .tabs-nav::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background-color: #e5e7eb;
-    z-index: 0;
+    background: white;
+    border: 2px solid var(--cream-dark);
+    padding: 0.5rem;
   }
 
   .tab-link {
-    padding: 0.75rem 1.5rem;
-    color: #666;
+    padding: 1rem 2rem;
+    color: var(--warm-gray);
     text-decoration: none;
-    font-weight: 500;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s ease;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
     position: relative;
-    z-index: 1;
+    font-size: 1rem;
+  }
+
+  .tab-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 3px;
+    background: var(--gradient-elegant);
+    transition: transform 0.3s ease;
   }
 
   .tab-link:hover {
-    color: #667eea;
-    background: rgba(102, 126, 234, 0.05);
+    color: var(--burgundy);
+    background: rgba(139, 38, 53, 0.05);
   }
 
   .tab-link.active {
-    color: #667eea;
-    border-bottom-color: #667eea;
+    color: var(--burgundy);
+  }
+
+  .tab-link.active::before {
+    transform: translateX(-50%) scaleX(1);
   }
 
   .tab-content {
@@ -131,19 +193,40 @@ const tabs = [
 
   @media (max-width: 768px) {
     main {
-      padding: 1rem;
+      padding: 2rem 1rem;
+    }
+
+    .header {
+      padding: 1rem 0;
+      margin-bottom: 2rem;
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 2.5rem;
+    }
+
+    .subtitle-wrapper {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .divider-line {
+      width: 60px;
+    }
+
+    .subtitle {
+      font-size: 1rem;
     }
 
     .tabs-nav {
       gap: 0.25rem;
+      padding: 0.25rem;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
     }
 
     .tab-link {
-      padding: 0.5rem 1rem;
+      padding: 0.75rem 1.25rem;
       font-size: 0.9rem;
     }
   }
