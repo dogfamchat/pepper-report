@@ -704,6 +704,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2025-12-19T22:45:35.094Z"
+    },
+    {
+      "filename": "2026-01-06-001.jpg",
+      "date": "2026-01-06",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-06/2026-01-06-001.jpg",
+      "qualityScore": 4,
+      "cutenessScore": 7,
+      "compositionScore": 3,
+      "overallScore": 4.7,
+      "description": "Pepper gets up close and personal with a golden friend during indoor playtime. The pack gathers around as these two share a gentle nose-to-nose moment.",
+      "tags": [
+        "indoor",
+        "close-up",
+        "nose-to-nose",
+        "golden retriever",
+        "group",
+        "interaction",
+        "pack"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-06T22:48:55.352Z"
     }
   ],
   "bestPhotos": [
@@ -718,7 +741,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2025-12-19T22:45:35.094Z",
-  "totalPhotos": 29,
-  "averageScore": 6.7
+  "analyzedAt": "2026-01-06T22:48:55.353Z",
+  "totalPhotos": 30,
+  "averageScore": 6.6
 }
