@@ -1,0 +1,40 @@
+{
+  "date": "2026-01-09",
+  "completedDateTime": "2026-01-09T22:51:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I practiced my very best patience with 2-minute sit stays! ⏱️ I held my sit while my humans waited and tried really hard not to wiggle. Lots of praise and tail wags for staying focused! 🐶✨ My bestie was Riker today",
+  "photos": [
+    "2026-01-09-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Vale Elm",
+    "completedBy": "Vale Elm"
+  }
+}
