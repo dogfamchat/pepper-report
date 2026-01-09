@@ -1,0 +1,68 @@
+{
+  "date": "2026-01-09",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [
+    "Riker"
+  ],
+  "comment": "Today I practiced my very best patience with 2-minute sit stays! ⏱️ I held my sit while my humans waited and tried really hard not to wiggle. Lots of praise and tail wags for staying focused! 🐶✨ My bestie was Riker today",
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-01-09T23:41:29.007Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": []
+}

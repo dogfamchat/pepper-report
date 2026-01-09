@@ -1,16 +1,16 @@
 {
   "summary": {
-    "totalReports": 49,
+    "totalReports": 50,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-01-06"
+      "end": "2026-01-09"
     },
-    "totalPositiveBehaviors": 146,
+    "totalPositiveBehaviors": 149,
     "totalNegativeBehaviors": 17,
-    "reportsWithPositive": 49,
+    "reportsWithPositive": 50,
     "reportsWithNegative": 15,
     "positivePercentage": 100,
-    "negativePercentage": 30.612244897959183
+    "negativePercentage": 30
   },
   "timeline": [
     {
@@ -257,48 +257,53 @@
       "date": "2026-01-06",
       "positiveCount": 3,
       "negativeCount": 0
+    },
+    {
+      "date": "2026-01-09",
+      "positiveCount": 3,
+      "negativeCount": 0
     }
   ],
   "positiveBehaviors": [
     {
       "name": "listened and respected my trainer",
-      "count": 35,
-      "percentage": 23.972602739726025
+      "count": 36,
+      "percentage": 24.161073825503358
     },
     {
       "name": "sharing nicely (water bowl, toys, food)",
-      "count": 33,
-      "percentage": 22.602739726027394
+      "count": 34,
+      "percentage": 22.818791946308725
     },
     {
       "name": "practiced balanced and fair play",
-      "count": 27,
-      "percentage": 18.493150684931507
+      "count": 28,
+      "percentage": 18.79194630872483
     },
     {
       "name": "loved every dog I met",
       "count": 22,
-      "percentage": 15.068493150684931
+      "percentage": 14.76510067114094
     },
     {
       "name": "respected thresholds",
       "count": 13,
-      "percentage": 8.904109589041095
+      "percentage": 8.724832214765101
     },
     {
       "name": "made good choices",
       "count": 9,
-      "percentage": 6.164383561643835
+      "percentage": 6.0402684563758395
     },
     {
       "name": "respected other's space",
       "count": 4,
-      "percentage": 2.73972602739726
+      "percentage": 2.684563758389262
     },
     {
       "name": "helped the new kids fit in",
       "count": 3,
-      "percentage": 2.054794520547945
+      "percentage": 2.013422818791946
     }
   ],
   "negativeBehaviors": [

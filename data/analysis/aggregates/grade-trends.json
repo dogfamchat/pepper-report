@@ -1,13 +1,13 @@
 {
   "summary": {
-    "totalReports": 49,
+    "totalReports": 50,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-01-06"
+      "end": "2026-01-09"
     },
-    "overallAverageGrade": 3.5510204081632653,
+    "overallAverageGrade": 3.56,
     "overallGradeDistribution": {
-      "A": 27,
+      "A": 28,
       "B": 22,
       "C": 0,
       "D": 0
@@ -278,10 +278,10 @@
       "week": "2026-W02",
       "startDate": "2026-01-05",
       "endDate": "2026-01-12",
-      "daysAttended": 1,
-      "averageGrade": 3,
+      "daysAttended": 2,
+      "averageGrade": 3.5,
       "gradeDistribution": {
-        "A": 0,
+        "A": 1,
         "B": 1,
         "C": 0,
         "D": 0
@@ -377,10 +377,10 @@
     },
     {
       "month": "2026-01",
-      "daysAttended": 1,
-      "averageGrade": 3,
+      "daysAttended": 2,
+      "averageGrade": 3.5,
       "gradeDistribution": {
-        "A": 0,
+        "A": 1,
         "B": 1,
         "C": 0,
         "D": 0

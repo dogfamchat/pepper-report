@@ -727,6 +727,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-01-06T22:48:55.352Z"
+    },
+    {
+      "filename": "2026-01-09-001.jpg",
+      "date": "2026-01-09",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-09/2026-01-09-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Looking up from her indoor play session, Pepper's expression suggests someone just called her name or rustled a treat bag.",
+      "tags": [
+        "indoor",
+        "close-up",
+        "face shot",
+        "looking up",
+        "collar",
+        "daycare floor",
+        "toys in background"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-09T23:41:34.286Z"
     }
   ],
   "bestPhotos": [
@@ -741,7 +764,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-01-06T22:48:55.353Z",
-  "totalPhotos": 30,
+  "analyzedAt": "2026-01-09T23:41:34.286Z",
+  "totalPhotos": 31,
   "averageScore": 6.6
 }
