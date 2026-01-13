@@ -1,0 +1,55 @@
+{
+  "date": "2026-01-13",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "Daycare was full of playtime, tail wags, and brain games today. I struggled with keeping my energy lower today. I was nipping at my trainers due to over stimulation and needed a couple breaks to help bring my energy down.",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "impulse control",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2026-01-13T22:49:20.135Z",
+  "caughtBeingGood": [
+    "respected thresholds"
+  ],
+  "ooops": [
+    "challenge with self regulation"
+  ]
+}

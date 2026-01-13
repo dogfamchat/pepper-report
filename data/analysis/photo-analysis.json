@@ -750,6 +750,32 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-01-09T23:41:34.286Z"
+    },
+    {
+      "filename": "2026-01-13-001.jpg",
+      "date": "2026-01-13",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-13/2026-01-13-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Standing tall in the indoor play area, Pepper surveys the scene while a black companion relaxes nearby. The contrast between her alert stance and her friend's lounging creates a nice moment of different energy levels.",
+      "tags": [
+        "indoor",
+        "standing",
+        "alert",
+        "daycare facility",
+        "two dogs",
+        "contrast",
+        "vizsla",
+        "black dog",
+        "clean floor",
+        "relaxed atmosphere"
+      ],
+      "activity": "exploring",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-13T22:49:26.146Z"
     }
   ],
   "bestPhotos": [
@@ -764,7 +790,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-01-09T23:41:34.286Z",
-  "totalPhotos": 31,
+  "analyzedAt": "2026-01-13T22:49:26.147Z",
+  "totalPhotos": 32,
   "averageScore": 6.6
 }
