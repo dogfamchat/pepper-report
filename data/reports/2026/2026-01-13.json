@@ -1,0 +1,37 @@
+{
+  "date": "2026-01-13",
+  "completedDateTime": "2026-01-13T22:26:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Oak"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "impulse control",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "respected thresholds"
+  ],
+  "ooops": [
+    "challenge with self regulation"
+  ],
+  "noteworthyComments": "Daycare was full of playtime, tail wags, and brain games today. I struggled with keeping my energy lower today. I was nipping at my trainers due to over stimulation and needed a couple breaks to help bring my energy down.",
+  "photos": [
+    "2026-01-13-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Oak",
+    "completedBy": "Jasper Oak"
+  }
+}
