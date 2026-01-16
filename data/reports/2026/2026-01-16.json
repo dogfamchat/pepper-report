@@ -1,0 +1,43 @@
+{
+  "date": "2026-01-16",
+  "completedDateTime": "2026-01-16T19:45:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Ocean Willow"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "sit (stay)",
+    "impulse control",
+    "place work (go to matt/table)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Friyay!! Today I had the best time zooming around with my buddies, playing with toys 🧸, and jumping for bubbles 🫧 for training I worked on my sit stays/ place work I did an amazing job 🥰 it was really beneficial and helped me improve my impulse control!!",
+  "photos": [
+    "2026-01-16-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Ocean Willow",
+    "completedBy": "Ocean Willow"
+  }
+}
