@@ -776,6 +776,51 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-01-13T22:49:26.146Z"
+    },
+    {
+      "filename": "2026-01-16-001.jpg",
+      "date": "2026-01-16",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-16/2026-01-16-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pepper strikes a perfect sit-stay while her golden retriever friend takes a more relaxed approach to photo time. The contrast between their poses tells the whole story of their personalities.",
+      "tags": [
+        "outdoor",
+        "sit command",
+        "golden retriever",
+        "concrete",
+        "shadow",
+        "training pose",
+        "group photo"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-20T23:44:10.171Z"
+    },
+    {
+      "filename": "2026-01-20-001.jpg",
+      "date": "2026-01-20",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-20/2026-01-20-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Two pups have claimed the prime real estate under the daycare's covered area, with Pepper keeping watch while her companion settles in for some serious lounging time.",
+      "tags": [
+        "shaded area",
+        "concrete floor",
+        "resting",
+        "mixed breed dogs",
+        "indoor-outdoor space",
+        "daycare facility"
+      ],
+      "activity": "resting",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-20T23:44:16.460Z"
     }
   ],
   "bestPhotos": [
@@ -790,7 +835,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-01-13T22:49:26.147Z",
-  "totalPhotos": 32,
-  "averageScore": 6.6
+  "analyzedAt": "2026-01-20T23:44:16.461Z",
+  "totalPhotos": 34,
+  "averageScore": 6.5
 }

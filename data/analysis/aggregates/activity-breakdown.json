@@ -1,196 +1,196 @@
 {
   "summary": {
-    "totalReports": 51,
+    "totalReports": 53,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-01-13"
+      "end": "2026-01-20"
     },
-    "totalActivityInstances": 246,
-    "totalTrainingInstances": 218
+    "totalActivityInstances": 261,
+    "totalTrainingInstances": 230
   },
   "detailedFrequencies": {
     "activities": [
       {
         "name": "played outdoors",
-        "count": 39,
-        "percentage": 15.853658536585366
+        "count": 41,
+        "percentage": 15.708812260536398
       },
       {
         "name": "played with as many buddies as possible",
-        "count": 39,
-        "percentage": 15.853658536585366
+        "count": 41,
+        "percentage": 15.708812260536398
       },
       {
         "name": "napped with friends",
-        "count": 36,
-        "percentage": 14.634146341463413
+        "count": 38,
+        "percentage": 14.559386973180077
       },
       {
         "name": "party animal",
-        "count": 30,
-        "percentage": 12.195121951219512
+        "count": 31,
+        "percentage": 11.877394636015326
       },
       {
         "name": "hung out with my bestie",
-        "count": 27,
-        "percentage": 10.975609756097562
+        "count": 28,
+        "percentage": 10.727969348659004
       },
       {
         "name": "one-on-one time with the trainer",
-        "count": 21,
-        "percentage": 8.536585365853659
+        "count": 23,
+        "percentage": 8.812260536398467
       },
       {
         "name": "played with my favorite toy",
-        "count": 18,
-        "percentage": 7.317073170731707
+        "count": 20,
+        "percentage": 7.662835249042145
+      },
+      {
+        "name": "played on the agility equipment",
+        "count": 9,
+        "percentage": 3.4482758620689653
       },
       {
         "name": "engagement games",
         "count": 8,
-        "percentage": 3.2520325203252036
+        "percentage": 3.065134099616858
       },
       {
-        "name": "played on the agility equipment",
+        "name": "caught bubbles",
         "count": 8,
-        "percentage": 3.2520325203252036
+        "percentage": 3.065134099616858
       },
       {
         "name": "had a pool party",
         "count": 7,
-        "percentage": 2.8455284552845526
-      },
-      {
-        "name": "caught bubbles",
-        "count": 6,
-        "percentage": 2.4390243902439024
+        "percentage": 2.681992337164751
       },
       {
         "name": "nose work games and challenges",
         "count": 3,
-        "percentage": 1.2195121951219512
+        "percentage": 1.1494252873563218
       },
       {
         "name": "special event",
         "count": 2,
-        "percentage": 0.8130081300813009
+        "percentage": 0.7662835249042145
       },
       {
         "name": "brain building games and challenges",
         "count": 2,
-        "percentage": 0.8130081300813009
+        "percentage": 0.7662835249042145
       }
     ],
     "training": [
       {
         "name": "sit (stay)",
-        "count": 31,
-        "percentage": 14.220183486238533
+        "count": 33,
+        "percentage": 14.347826086956522
       },
       {
         "name": "boundries, door-ways, and thresholds",
-        "count": 29,
-        "percentage": 13.302752293577983
+        "count": 30,
+        "percentage": 13.043478260869565
       },
       {
         "name": "impulse control",
-        "count": 23,
-        "percentage": 10.550458715596331
+        "count": 25,
+        "percentage": 10.869565217391305
       },
       {
         "name": "recall",
-        "count": 22,
-        "percentage": 10.091743119266056
+        "count": 23,
+        "percentage": 10
       },
       {
         "name": "name recognition",
-        "count": 19,
-        "percentage": 8.715596330275229
+        "count": 20,
+        "percentage": 8.695652173913043
       },
       {
         "name": "confidence building",
         "count": 16,
-        "percentage": 7.339449541284404
+        "percentage": 6.956521739130435
       },
       {
         "name": "handling (exam style)",
         "count": 11,
-        "percentage": 5.045871559633028
+        "percentage": 4.782608695652174
       },
       {
         "name": "recall with distractions",
-        "count": 8,
-        "percentage": 3.669724770642202
+        "count": 9,
+        "percentage": 3.91304347826087
+      },
+      {
+        "name": "down (stay)",
+        "count": 9,
+        "percentage": 3.91304347826087
       },
       {
         "name": "collar grab games",
         "count": 8,
-        "percentage": 3.669724770642202
-      },
-      {
-        "name": "down (stay)",
-        "count": 8,
-        "percentage": 3.669724770642202
+        "percentage": 3.4782608695652173
       },
       {
         "name": "loose-leash walking",
         "count": 7,
-        "percentage": 3.211009174311927
+        "percentage": 3.0434782608695654
       },
       {
         "name": "focus work",
         "count": 7,
-        "percentage": 3.211009174311927
+        "percentage": 3.0434782608695654
       },
       {
         "name": "trick training",
-        "count": 6,
-        "percentage": 2.7522935779816518
+        "count": 7,
+        "percentage": 3.0434782608695654
       },
       {
         "name": "hands-free work",
         "count": 5,
-        "percentage": 2.293577981651376
+        "percentage": 2.1739130434782608
       },
       {
         "name": "balancing skills",
         "count": 4,
-        "percentage": 1.834862385321101
+        "percentage": 1.7391304347826086
+      },
+      {
+        "name": "stand (stay)",
+        "count": 4,
+        "percentage": 1.7391304347826086
       },
       {
         "name": "agility",
         "count": 3,
-        "percentage": 1.3761467889908259
-      },
-      {
-        "name": "stand (stay)",
-        "count": 3,
-        "percentage": 1.3761467889908259
+        "percentage": 1.3043478260869565
       },
       {
         "name": "nose targeting",
         "count": 3,
-        "percentage": 1.3761467889908259
+        "percentage": 1.3043478260869565
       },
       {
         "name": "jazz up, settle down",
         "count": 2,
-        "percentage": 0.9174311926605505
+        "percentage": 0.8695652173913043
+      },
+      {
+        "name": "place work (go to matt/table)",
+        "count": 2,
+        "percentage": 0.8695652173913043
       },
       {
         "name": "sequence (3 different skills in varying order)",
         "count": 1,
-        "percentage": 0.45871559633027525
+        "percentage": 0.43478260869565216
       },
       {
         "name": "crate training",
         "count": 1,
-        "percentage": 0.45871559633027525
-      },
-      {
-        "name": "place work (go to matt/table)",
-        "count": 1,
-        "percentage": 0.45871559633027525
+        "percentage": 0.43478260869565216
       }
     ]
   }

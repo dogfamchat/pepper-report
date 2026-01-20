@@ -10,22 +10,22 @@
       "confidence building",
       "handling (exam style)",
       "recall with distractions",
-      "collar grab games",
-      "down (stay)"
+      "down (stay)",
+      "collar grab games"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          31,
-          29,
+          33,
+          30,
+          25,
           23,
-          22,
-          19,
+          20,
           16,
           11,
-          8,
-          8,
+          9,
+          9,
           8
         ],
         "backgroundColor": "rgba(16, 185, 129, 0.8)",
