@@ -320,28 +320,8 @@
       "width": 1024,
       "height": 1024,
       "uploaded": "2026-01-13T22:48:57.008Z"
-    },
-    {
-      "filename": "2026-01-16-001.jpg",
-      "date": "2026-01-16",
-      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-16/2026-01-16-001.jpg",
-      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-16/thumbnails/2026-01-16-001.jpg",
-      "size": 267,
-      "width": 1,
-      "height": 1,
-      "uploaded": "2026-01-16T22:52:01.553Z"
-    },
-    {
-      "filename": "2026-01-20-001.jpg",
-      "date": "2026-01-20",
-      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-20/2026-01-20-001.jpg",
-      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-20/thumbnails/2026-01-20-001.jpg",
-      "size": 267,
-      "width": 1,
-      "height": 1,
-      "uploaded": "2026-01-20T23:43:46.497Z"
     }
   ],
-  "totalSize": 6274160,
-  "count": 34
+  "totalSize": 6273626,
+  "count": 32
 }

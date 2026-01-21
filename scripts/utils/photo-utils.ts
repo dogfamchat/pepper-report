@@ -9,11 +9,16 @@ import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import type { Page } from 'playwright';
+import sharp from 'sharp';
 import { uploadLocalPhotosToR2 } from '../storage/r2-uploader';
 
 // SHA256 hash of the stock photo used by the daycare
 // This is the placeholder image they use when no real photo is available
 const STOCK_PHOTO_HASH = '851b6bdcc30c5a3b92ecdfc3683fc296a51b6724661c72943930252ebd322281';
+
+// Minimum dimensions for a valid photo (to filter out 1x1 pixel placeholders)
+const MIN_PHOTO_WIDTH = 100;
+const MIN_PHOTO_HEIGHT = 100;
 
 export interface PhotoData {
   filename: string;
@@ -60,13 +65,32 @@ export async function extractPhotosFromModal(page: Page, reportDate: string): Pr
   const [, mimeType, base64Data] = match;
   const extension = mimeType.split('/')[1]; // e.g., "png" from "image/png"
 
-  // Calculate photo hash to detect stock photos
+  // Decode photo buffer for analysis
   const photoBuffer = Buffer.from(base64Data, 'base64');
+
+  // Calculate photo hash to detect stock photos
   const photoHash = createHash('sha256').update(photoBuffer).digest('hex');
 
   // Check if this is the stock photo
   if (photoHash === STOCK_PHOTO_HASH) {
     console.log('   ⏭️  Skipping stock photo (no real photo available)');
+    return photos;
+  }
+
+  // Check image dimensions to filter out blank/placeholder images
+  try {
+    const metadata = await sharp(photoBuffer).metadata();
+    const width = metadata.width || 0;
+    const height = metadata.height || 0;
+
+    if (width < MIN_PHOTO_WIDTH || height < MIN_PHOTO_HEIGHT) {
+      console.log(
+        `   ⏭️  Skipping blank photo (${width}x${height} pixels - too small to be a real photo)`,
+      );
+      return photos;
+    }
+  } catch (error) {
+    console.warn('   ⚠️  Could not read image dimensions, skipping photo:', error);
     return photos;
   }
 
