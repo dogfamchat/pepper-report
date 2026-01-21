@@ -2,11 +2,8 @@ name: Report Card Checker
 
 on:
   schedule:
-    # Run 3x daily: 3:30 PM, 4:30 PM, 5:30 PM MST (school days)
-    # These times are when report cards are typically posted
-    - cron: "30 22 * * 1-5" # 3:30 PM MST (10:30 PM UTC), Mon-Fri
-    - cron: "30 23 * * 1-5" # 4:30 PM MST (11:30 PM UTC), Mon-Fri
-    - cron: "30 0 * * 2-6" # 5:30 PM MST (12:30 AM UTC), Tue-Sat (runs for Mon-Fri in MST)
+    # Run every 15 minutes from 3pm to 5pm MST (school days)
+    - cron: "*/15 22-23 * * 1-5" # 3pm-4:45pm MST (10pm-11:45pm UTC), Mon-Fri
   workflow_dispatch: # Allow manual trigger
     inputs:
       date:
@@ -29,15 +26,40 @@ jobs:
           token: ${{ secrets.DEPLOY_TOKEN }}
           fetch-depth: 0 # Full history for proper commits
 
+      - name: Check if report already exists
+        id: check-existing
+        run: |
+          # Determine target date (use MST timezone for scheduled runs)
+          if [ -n "${{ github.event.inputs.date }}" ]; then
+            TARGET_DATE="${{ github.event.inputs.date }}"
+          else
+            TARGET_DATE=$(TZ=America/Denver date +%Y-%m-%d)
+          fi
+          YEAR=$(echo "$TARGET_DATE" | cut -d'-' -f1)
+          REPORT_PATH="data/reports/${YEAR}/${TARGET_DATE}.json"
+
+          echo "Checking for existing report: $REPORT_PATH"
+
+          if [ -f "$REPORT_PATH" ]; then
+            echo "Report already exists for $TARGET_DATE, skipping scrape"
+            echo "should_scrape=false" >> $GITHUB_OUTPUT
+          else
+            echo "No existing report for $TARGET_DATE, proceeding with scrape"
+            echo "should_scrape=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Bun
+        if: steps.check-existing.outputs.should_scrape == 'true'
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
 
       - name: Install dependencies
+        if: steps.check-existing.outputs.should_scrape == 'true'
         run: bun install
 
       - name: Cache Playwright browsers
+        if: steps.check-existing.outputs.should_scrape == 'true'
         uses: actions/cache@v4
         id: playwright-cache
         with:
@@ -45,9 +67,11 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('**/bun.lockb') }}
 
       - name: Install Playwright browsers
+        if: steps.check-existing.outputs.should_scrape == 'true'
         run: bunx playwright install chromium --with-deps
 
       - name: Load staff mapping from secret
+        if: steps.check-existing.outputs.should_scrape == 'true'
         run: |
           cat > staff.private.json << 'EOF'
           ${{ secrets.STAFF_PRIVATE_JSON }}
@@ -55,6 +79,7 @@ jobs:
         shell: bash
 
       - name: Scrape report card
+        if: steps.check-existing.outputs.should_scrape == 'true'
         id: scrape
         env:
           DAYCARE_REPORT_URL: ${{ secrets.DAYCARE_REPORT_URL }}
@@ -73,6 +98,7 @@ jobs:
           fi
 
       - name: Check for new report card
+        if: steps.check-existing.outputs.should_scrape == 'true'
         id: changes
         run: |
           # Check for both modified tracked files AND new untracked files
@@ -136,8 +162,12 @@ jobs:
           echo "Sending Slack notification for report: ${REPORT_DATE}"
           bun run scripts/notifications/slack-notify.ts --date "${REPORT_DATE}"
 
+      - name: Report already exists
+        if: steps.check-existing.outputs.should_scrape == 'false'
+        run: echo "Report already exists for today, skipping"
+
       - name: No new report
-        if: steps.changes.outputs.has_new_report == 'false'
+        if: steps.check-existing.outputs.should_scrape == 'true' && steps.changes.outputs.has_new_report == 'false'
         run: echo "No new report card found for today"
 
   analyze:
