@@ -821,6 +821,31 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-01-20T23:44:16.460Z"
+    },
+    {
+      "filename": "2026-01-23-001.jpg",
+      "date": "2026-01-23",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-23/2026-01-23-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 8,
+      "compositionScore": 6,
+      "overallScore": 7,
+      "description": "Pepper's got her game face on with a bright green rope toy, ready for some serious tug-of-war action. The daycare buzz continues around her, but she's fully focused on the task at hand.",
+      "tags": [
+        "rope toy",
+        "green toy",
+        "tug-of-war",
+        "indoor daycare",
+        "close-up",
+        "focused",
+        "playing",
+        "collar",
+        "rust colored coat"
+      ],
+      "activity": "playing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-23T22:46:19.863Z"
     }
   ],
   "bestPhotos": [
@@ -835,7 +860,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-01-20T23:44:16.461Z",
-  "totalPhotos": 34,
-  "averageScore": 6.5
+  "analyzedAt": "2026-01-23T22:46:19.863Z",
+  "totalPhotos": 35,
+  "averageScore": 6.6
 }

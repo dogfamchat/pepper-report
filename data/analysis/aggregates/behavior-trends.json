@@ -1,16 +1,16 @@
 {
   "summary": {
-    "totalReports": 53,
+    "totalReports": 54,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-01-20"
+      "end": "2026-01-23"
     },
-    "totalPositiveBehaviors": 157,
+    "totalPositiveBehaviors": 160,
     "totalNegativeBehaviors": 18,
-    "reportsWithPositive": 53,
+    "reportsWithPositive": 54,
     "reportsWithNegative": 16,
     "positivePercentage": 100,
-    "negativePercentage": 30.18867924528302
+    "negativePercentage": 29.629629629629626
   },
   "timeline": [
     {
@@ -277,48 +277,53 @@
       "date": "2026-01-20",
       "positiveCount": 3,
       "negativeCount": 0
+    },
+    {
+      "date": "2026-01-23",
+      "positiveCount": 3,
+      "negativeCount": 0
     }
   ],
   "positiveBehaviors": [
     {
       "name": "listened and respected my trainer",
-      "count": 38,
-      "percentage": 24.203821656050955
+      "count": 39,
+      "percentage": 24.375
     },
     {
       "name": "sharing nicely (water bowl, toys, food)",
-      "count": 36,
-      "percentage": 22.929936305732486
+      "count": 37,
+      "percentage": 23.125
     },
     {
       "name": "practiced balanced and fair play",
-      "count": 29,
-      "percentage": 18.471337579617835
+      "count": 30,
+      "percentage": 18.75
     },
     {
       "name": "loved every dog I met",
       "count": 23,
-      "percentage": 14.64968152866242
+      "percentage": 14.374999999999998
     },
     {
       "name": "respected thresholds",
       "count": 15,
-      "percentage": 9.554140127388536
+      "percentage": 9.375
     },
     {
       "name": "made good choices",
       "count": 9,
-      "percentage": 5.7324840764331215
+      "percentage": 5.625
     },
     {
       "name": "respected other's space",
       "count": 4,
-      "percentage": 2.547770700636943
+      "percentage": 2.5
     },
     {
       "name": "helped the new kids fit in",
       "count": 3,
-      "percentage": 1.910828025477707
+      "percentage": 1.875
     }
   ],
   "negativeBehaviors": [
