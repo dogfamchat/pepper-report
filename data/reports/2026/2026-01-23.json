@@ -1,0 +1,39 @@
+{
+  "date": "2026-01-23",
+  "completedDateTime": "2026-01-23T21:12:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I learned that staying put for two whole minutes is a job. I waited, I focused, and I didn’t move—even though I wanted to. 10/10 self-control 🐶✨. I also had the best bday, I got lots of pets and had a bday photo shoot",
+  "photos": [
+    "2026-01-23-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Vale Elm",
+    "completedBy": "Vale Elm"
+  }
+}
