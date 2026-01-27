@@ -1,16 +1,16 @@
 {
   "summary": {
-    "totalReports": 54,
+    "totalReports": 55,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-01-23"
+      "end": "2026-01-27"
     },
-    "totalPositiveBehaviors": 160,
+    "totalPositiveBehaviors": 164,
     "totalNegativeBehaviors": 18,
-    "reportsWithPositive": 54,
+    "reportsWithPositive": 55,
     "reportsWithNegative": 16,
     "positivePercentage": 100,
-    "negativePercentage": 29.629629629629626
+    "negativePercentage": 29.09090909090909
   },
   "timeline": [
     {
@@ -282,48 +282,53 @@
       "date": "2026-01-23",
       "positiveCount": 3,
       "negativeCount": 0
+    },
+    {
+      "date": "2026-01-27",
+      "positiveCount": 4,
+      "negativeCount": 0
     }
   ],
   "positiveBehaviors": [
     {
       "name": "listened and respected my trainer",
-      "count": 39,
-      "percentage": 24.375
+      "count": 40,
+      "percentage": 24.390243902439025
     },
     {
       "name": "sharing nicely (water bowl, toys, food)",
       "count": 37,
-      "percentage": 23.125
+      "percentage": 22.5609756097561
     },
     {
       "name": "practiced balanced and fair play",
-      "count": 30,
-      "percentage": 18.75
+      "count": 31,
+      "percentage": 18.902439024390244
     },
     {
       "name": "loved every dog I met",
-      "count": 23,
-      "percentage": 14.374999999999998
+      "count": 24,
+      "percentage": 14.634146341463413
     },
     {
       "name": "respected thresholds",
       "count": 15,
-      "percentage": 9.375
+      "percentage": 9.146341463414634
     },
     {
       "name": "made good choices",
-      "count": 9,
-      "percentage": 5.625
+      "count": 10,
+      "percentage": 6.097560975609756
     },
     {
       "name": "respected other's space",
       "count": 4,
-      "percentage": 2.5
+      "percentage": 2.4390243902439024
     },
     {
       "name": "helped the new kids fit in",
       "count": 3,
-      "percentage": 1.875
+      "percentage": 1.8292682926829267
     }
   ],
   "negativeBehaviors": [

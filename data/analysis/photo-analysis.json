@@ -846,6 +846,32 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-01-23T22:46:19.863Z"
+    },
+    {
+      "filename": "2026-01-27-001.jpg",
+      "date": "2026-01-27",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-27/2026-01-27-001.jpg",
+      "qualityScore": 4,
+      "cutenessScore": 7,
+      "compositionScore": 3,
+      "overallScore": 4.7,
+      "description": "Pepper and her black lab buddy share the spotlight in this close-up duo shot. The reddish Vizsla shows off her signature tongue-out expression while her friend strikes a more serious pose.",
+      "tags": [
+        "indoor",
+        "close-up",
+        "two dogs",
+        "tongue out",
+        "black lab",
+        "leash visible",
+        "friends",
+        "portrait style"
+      ],
+      "activity": "posing",
+      "visibleFriends": [
+        "black lab"
+      ],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-27T23:44:30.397Z"
     }
   ],
   "bestPhotos": [
@@ -860,7 +886,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-01-23T22:46:19.863Z",
-  "totalPhotos": 35,
-  "averageScore": 6.6
+  "analyzedAt": "2026-01-27T23:44:30.398Z",
+  "totalPhotos": 36,
+  "averageScore": 6.5
 }
