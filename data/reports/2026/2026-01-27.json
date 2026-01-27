@@ -1,0 +1,39 @@
+{
+  "date": "2026-01-27",
+  "completedDateTime": "2026-01-27T22:48:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Cedar Field"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "nose targeting"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "I had a great day today, we started off with a play session to get some energy out. Afterwards we went out for a potty break followed by our training session. Today we worked on nose training. I did amazing. We ended our day with another play session with my friends.",
+  "photos": [
+    "2026-01-27-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Clay Valley",
+    "completedBy": "Clay Valley"
+  }
+}
