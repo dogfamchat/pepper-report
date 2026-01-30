@@ -872,6 +872,30 @@
       ],
       "pepperVisible": true,
       "analyzedAt": "2026-01-27T23:44:30.397Z"
+    },
+    {
+      "filename": "2026-01-30-001.jpg",
+      "date": "2026-01-30",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-01-30/2026-01-30-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pepper's got a firm grip on her green toy while other pups explore the indoor play area behind her. That focused concentration says this particular toy isn't going anywhere without a fight!",
+      "tags": [
+        "indoor",
+        "toy",
+        "green toy",
+        "playing",
+        "daycare floor",
+        "other dogs",
+        "focused",
+        "grip"
+      ],
+      "activity": "playing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-01-30T22:27:25.766Z"
     }
   ],
   "bestPhotos": [
@@ -886,7 +910,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-01-27T23:44:30.398Z",
-  "totalPhotos": 36,
+  "analyzedAt": "2026-01-30T22:27:25.767Z",
+  "totalPhotos": 37,
   "averageScore": 6.5
 }

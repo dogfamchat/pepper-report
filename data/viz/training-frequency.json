@@ -9,22 +9,22 @@
       "name recognition",
       "confidence building",
       "handling (exam style)",
-      "recall with distractions",
       "down (stay)",
+      "recall with distractions",
       "collar grab games"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          34,
-          31,
+          35,
+          32,
           25,
           24,
           21,
-          16,
+          17,
           11,
-          9,
+          10,
           9,
           8
         ],

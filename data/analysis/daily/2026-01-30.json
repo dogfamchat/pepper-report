@@ -1,0 +1,106 @@
+{
+  "date": "2026-01-30",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "It’s Fri-yay! 🐾🎉\nWhat a paw-fect day! We kicked things off with big zoomies outside, soaking up the fresh air and sunshine ☀️💨 Then we showed off our brains by practicing sits, downs, and some fun tricks—such good pups! 🧠✨\n\nWe wrapped it all up with toy time and a spin on the agility equipment 🧸🏃‍♂️🐶\nTail wags all around… what a great day! 🐕💛",
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "down (stay)",
+    "trick training",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "down (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "trick training",
+      "category": "fun_skills"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2026-01-30T22:27:19.633Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": []
+}
