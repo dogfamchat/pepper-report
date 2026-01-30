@@ -1,0 +1,48 @@
+{
+  "date": "2026-01-30",
+  "completedDateTime": "2026-01-30T21:24:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Snow"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "down (stay)",
+    "trick training",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "It’s Fri-yay! 🐾🎉\nWhat a paw-fect day! We kicked things off with big zoomies outside, soaking up the fresh air and sunshine ☀️💨 Then we showed off our brains by practicing sits, downs, and some fun tricks—such good pups! 🧠✨\n\nWe wrapped it all up with toy time and a spin on the agility equipment 🧸🏃‍♂️🐶\nTail wags all around… what a great day! 🐕💛",
+  "photos": [
+    "2026-01-30-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Forest Snow",
+    "completedBy": "Forest Snow"
+  }
+}
