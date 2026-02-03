@@ -1,0 +1,35 @@
+{
+  "date": "2026-02-03",
+  "completedDateTime": "2026-02-03T22:21:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "learning something new.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "trick training"
+  ],
+  "caughtBeingGood": [
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I practiced weaving through the legs and worked on following cues through movement. We also spent time playing outside, getting fresh air and movement, which helped me burn off energy and finish the day feeling balanced and happy 🐾",
+  "photos": [
+    "2026-02-03-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Clay Valley",
+    "completedBy": "Clay Valley"
+  }
+}
