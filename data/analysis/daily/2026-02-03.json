@@ -1,0 +1,49 @@
+{
+  "date": "2026-02-03",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Today I practiced weaving through the legs and worked on following cues through movement. We also spent time playing outside, getting fresh air and movement, which helped me burn off energy and finish the day feeling balanced and happy 🐾",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "trick training"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "trick training",
+      "category": "fun_skills"
+    }
+  ],
+  "analyzedAt": "2026-02-03T22:31:39.503Z",
+  "caughtBeingGood": [
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": []
+}

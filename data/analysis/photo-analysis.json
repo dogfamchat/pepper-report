@@ -896,6 +896,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-01-30T22:27:25.766Z"
+    },
+    {
+      "filename": "2026-02-03-001.jpg",
+      "date": "2026-02-03",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-02-03/2026-02-03-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 8,
+      "compositionScore": 6,
+      "overallScore": 7,
+      "description": "Pepper strikes a perfect pose looking up at the camera, her rust-colored coat gleaming against the concrete floor. That focused expression suggests someone's got her full attention - probably the person holding her favorite treat.",
+      "tags": [
+        "indoor",
+        "concrete floor",
+        "looking up",
+        "focused expression",
+        "rust coat",
+        "standing pose",
+        "daycare facility"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-02-03T22:31:44.811Z"
     }
   ],
   "bestPhotos": [
@@ -910,7 +933,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-01-30T22:27:25.767Z",
-  "totalPhotos": 37,
+  "analyzedAt": "2026-02-03T22:31:44.812Z",
+  "totalPhotos": 38,
   "averageScore": 6.5
 }
