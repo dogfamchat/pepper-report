@@ -1,16 +1,16 @@
 {
   "summary": {
-    "totalReports": 57,
+    "totalReports": 58,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-02-03"
+      "end": "2026-02-06"
     },
     "totalPositiveBehaviors": 172,
     "totalNegativeBehaviors": 18,
     "reportsWithPositive": 57,
     "reportsWithNegative": 16,
-    "positivePercentage": 100,
-    "negativePercentage": 28.07017543859649
+    "positivePercentage": 98.27586206896551,
+    "negativePercentage": 27.586206896551722
   },
   "timeline": [
     {
@@ -296,6 +296,11 @@
     {
       "date": "2026-02-03",
       "positiveCount": 2,
+      "negativeCount": 0
+    },
+    {
+      "date": "2026-02-06",
+      "positiveCount": 0,
       "negativeCount": 0
     }
   ],

@@ -919,6 +919,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-02-03T22:31:44.811Z"
+    },
+    {
+      "filename": "2026-02-06-001.jpg",
+      "date": "2026-02-06",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-02-06/2026-02-06-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pepper stands proudly with her bright yellow toy while the pack mingles around the colorful playground equipment. Playtime is in full swing with friends scattered across the daycare floor.",
+      "tags": [
+        "indoor daycare",
+        "playground equipment",
+        "yellow toy",
+        "group play",
+        "multiple dogs",
+        "blue slide",
+        "colorful toys"
+      ],
+      "activity": "playing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-02-06T22:26:31.024Z"
     }
   ],
   "bestPhotos": [
@@ -933,7 +956,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-02-03T22:31:44.812Z",
-  "totalPhotos": 38,
+  "analyzedAt": "2026-02-06T22:26:31.025Z",
+  "totalPhotos": 39,
   "averageScore": 6.5
 }

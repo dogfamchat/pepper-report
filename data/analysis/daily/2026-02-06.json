@@ -1,0 +1,45 @@
+{
+  "date": "2026-02-06",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [
+    "Riker"
+  ],
+  "comment": "I really enjoyed playing with my friend Riker today. I also played fetch with the staff today, which I enjoyed. I did amazing for the handling exercise today.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "handling (exam style)",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "handling (exam style)",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2026-02-06T22:26:26.329Z",
+  "caughtBeingGood": [],
+  "ooops": []
+}
