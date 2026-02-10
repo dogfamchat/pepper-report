@@ -1,0 +1,39 @@
+{
+  "date": "2026-02-10",
+  "completedDateTime": "2026-02-10T21:55:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Sky Oak"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "practiced balanced and fair play",
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "School was a bunch of fun 🐾✨️\nI loved getting to see all of my friends 💕\n\nWe had time to get our zoomies out on the outdoor turf and later on in the day we practiced our impulse control with a treats 🦴",
+  "photos": [
+    "2026-02-10-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Sky Oak",
+    "completedBy": "Sky Oak"
+  }
+}
