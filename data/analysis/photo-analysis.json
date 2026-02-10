@@ -942,6 +942,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-02-06T22:26:31.024Z"
+    },
+    {
+      "filename": "2026-02-10-001.jpg",
+      "date": "2026-02-10",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-02-10/2026-02-10-001.jpg",
+      "qualityScore": 4,
+      "cutenessScore": 7,
+      "compositionScore": 3,
+      "overallScore": 4.7,
+      "description": "Pepper's intense focus during playtime - whatever has her attention has completely captured her concentration. A black and tan friend joins the scene, creating a nice contrast of coat colors.",
+      "tags": [
+        "indoor",
+        "two dogs",
+        "sitting",
+        "alert",
+        "focused",
+        "blue collar",
+        "contrast",
+        "different breeds"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-02-10T22:41:03.414Z"
     }
   ],
   "bestPhotos": [
@@ -956,7 +980,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-02-06T22:26:31.025Z",
-  "totalPhotos": 39,
-  "averageScore": 6.5
+  "analyzedAt": "2026-02-10T22:41:03.415Z",
+  "totalPhotos": 40,
+  "averageScore": 6.4
 }

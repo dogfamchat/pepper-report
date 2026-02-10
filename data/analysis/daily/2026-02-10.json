@@ -1,0 +1,65 @@
+{
+  "date": "2026-02-10",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "School was a bunch of fun 🐾✨️\nI loved getting to see all of my friends 💕\n\nWe had time to get our zoomies out on the outdoor turf and later on in the day we practiced our impulse control with a treats 🦴",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-02-10T22:40:58.684Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "practiced balanced and fair play",
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": []
+}
