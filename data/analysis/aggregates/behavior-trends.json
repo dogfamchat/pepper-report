@@ -1,16 +1,16 @@
 {
   "summary": {
-    "totalReports": 59,
+    "totalReports": 60,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-02-10"
+      "end": "2026-02-13"
     },
     "totalPositiveBehaviors": 176,
-    "totalNegativeBehaviors": 18,
+    "totalNegativeBehaviors": 19,
     "reportsWithPositive": 58,
-    "reportsWithNegative": 16,
-    "positivePercentage": 98.30508474576271,
-    "negativePercentage": 27.11864406779661
+    "reportsWithNegative": 17,
+    "positivePercentage": 96.66666666666667,
+    "negativePercentage": 28.333333333333332
   },
   "timeline": [
     {
@@ -307,6 +307,11 @@
       "date": "2026-02-10",
       "positiveCount": 4,
       "negativeCount": 0
+    },
+    {
+      "date": "2026-02-13",
+      "positiveCount": 0,
+      "negativeCount": 1
     }
   ],
   "positiveBehaviors": [
@@ -355,22 +360,27 @@
     {
       "name": "verbally expressed myself",
       "count": 11,
-      "percentage": 61.111111111111114
+      "percentage": 57.89473684210527
     },
     {
       "name": "bullying or pestering another dog",
       "count": 4,
-      "percentage": 22.22222222222222
+      "percentage": 21.052631578947366
     },
     {
       "name": "challenge with self regulation",
       "count": 2,
-      "percentage": 11.11111111111111
+      "percentage": 10.526315789473683
     },
     {
       "name": "cranky (lacking patience and a little irritable",
       "count": 1,
-      "percentage": 5.555555555555555
+      "percentage": 5.263157894736842
+    },
+    {
+      "name": "missed social cues",
+      "count": 1,
+      "percentage": 5.263157894736842
     }
   ]
 }

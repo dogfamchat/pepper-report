@@ -1,0 +1,61 @@
+{
+  "date": "2026-02-13",
+  "grade": "C",
+  "gradeNumeric": 2,
+  "friends": [
+    "Riker"
+  ],
+  "comment": "I had some issues with respecting my friends space while napping. And when my trainer tried to guide me away from play I redirected onto her. I spent most of my time plying with my friends like Riker. And I enjoyed the Valentines events today as well.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "one-on-one time with the trainer",
+    "special event"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "take-it, leave-it, drop-it"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "special event",
+      "category": "special_event"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "take-it, leave-it, drop-it",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-02-13T22:34:56.530Z",
+  "caughtBeingGood": [],
+  "ooops": [
+    "missed social cues"
+  ]
+}

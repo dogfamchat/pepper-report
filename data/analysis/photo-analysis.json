@@ -966,6 +966,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-02-10T22:41:03.414Z"
+    },
+    {
+      "filename": "2026-02-13-001.jpg",
+      "date": "2026-02-13",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-02-13/2026-02-13-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pack time in the indoor area - multiple dogs of all sizes gathering together, creating that bustling daycare energy. The mix of breeds and personalities creates a lively scene of canine camaraderie.",
+      "tags": [
+        "indoor",
+        "group",
+        "multiple dogs",
+        "mixed breeds",
+        "daycare floor",
+        "socializing",
+        "pack"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": false,
+      "analyzedAt": "2026-02-13T22:35:01.599Z"
     }
   ],
   "bestPhotos": [
@@ -980,7 +1003,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-02-10T22:41:03.415Z",
-  "totalPhotos": 40,
+  "analyzedAt": "2026-02-13T22:35:01.599Z",
+  "totalPhotos": 41,
   "averageScore": 6.4
 }
