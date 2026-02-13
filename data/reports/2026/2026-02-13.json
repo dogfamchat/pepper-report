@@ -1,0 +1,37 @@
+{
+  "date": "2026-02-13",
+  "completedDateTime": "2026-02-13T22:28:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Grove"
+  ],
+  "grade": "C",
+  "gradeDescription": "C = I needed a little help from the trainer.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "one-on-one time with the trainer",
+    "special event"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "take-it, leave-it, drop-it"
+  ],
+  "caughtBeingGood": [],
+  "ooops": [
+    "missed social cues"
+  ],
+  "noteworthyComments": "I had some issues with respecting my friends space while napping. And when my trainer tried to guide me away from play I redirected onto her. I spent most of my time plying with my friends like Riker. And I enjoyed the Valentines events today as well.",
+  "photos": [
+    "2026-02-13-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Clay Valley",
+    "completedBy": "Clay Valley"
+  }
+}
