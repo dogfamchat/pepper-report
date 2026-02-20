@@ -1,0 +1,56 @@
+{
+  "date": "2026-02-20",
+  "grade": "C",
+  "gradeNumeric": 2,
+  "friends": [],
+  "comment": "Today I wanted to play with my friends all day. I didn’t always listen when they asked for a break and I was would bark at my friends while they were trying to nap. The staff would walk me on their belt and I was good with the leash but generally returned to whichever dog I was playing with before after being released. \nI did pretty good with the focus exercise today; for today’s focus exercise we had a Winter Olympics and ran through a tunnel, I was hesitant about going through the tunnel and only took a few steps but I tried my best.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2026-02-20T22:28:08.985Z",
+  "caughtBeingGood": [],
+  "ooops": []
+}
