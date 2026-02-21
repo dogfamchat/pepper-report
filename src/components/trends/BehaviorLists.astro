@@ -16,7 +16,7 @@ const { positiveBehaviors, negativeBehaviors } = Astro.props;
 
 <div class="behavior-lists-grid">
   <div class="behavior-list positive">
-    <h3>✅ Most Common Positive Behaviors</h3>
+    <h3>Most Common Positive Behaviors</h3>
     <ol>
       {
         positiveBehaviors.slice(0, 5).map((behavior) => (
@@ -31,7 +31,7 @@ const { positiveBehaviors, negativeBehaviors } = Astro.props;
     </ol>
   </div>
   <div class="behavior-list negative">
-    <h3>⚠️ Ooops Behaviors</h3>
+    <h3>Ooops Behaviors</h3>
     <ol>
       {
         negativeBehaviors.map((behavior) => (
@@ -63,11 +63,11 @@ const { positiveBehaviors, negativeBehaviors } = Astro.props;
   }
 
   .behavior-list.positive {
-    border-left: 4px solid #22c55e;
+    border-left: 4px solid #5BADBF;
   }
 
   .behavior-list.negative {
-    border-left: 4px solid #ef4444;
+    border-left: 4px solid #BF6E45;
   }
 
   .behavior-list h3 {

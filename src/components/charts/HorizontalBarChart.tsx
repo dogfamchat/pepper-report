@@ -26,7 +26,7 @@ interface Props {
 
 export default function HorizontalBarChart({
   data,
-  barColor = '#3b82f6',
+  barColor = '#5BADBF',
   xAxisLabel,
   height = 400,
   customTooltip,

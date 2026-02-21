@@ -541,8 +541,8 @@ function generateFriendNetworkViz(topFriends: TopFriends): object {
         {
           label: 'Mentions',
           data: top10.map((f) => f.mentions),
-          backgroundColor: 'rgba(147, 51, 234, 0.8)', // Purple
-          borderColor: 'rgba(147, 51, 234, 1)',
+          backgroundColor: 'rgba(154, 96, 64, 0.8)', // Rust
+          borderColor: 'rgba(154, 96, 64, 1)',
           borderWidth: 1,
         },
       ],
@@ -581,6 +581,12 @@ function generateActivityFrequencyViz(breakdown: ActivityBreakdown): object {
   // Get top 10 activities
   const top10 = breakdown.detailedFrequencies.activities.slice(0, 10);
 
+  // generate fading teal colors for each bar (dark to light)
+  const activityColors = top10.map((_, i) => {
+    const opacity = 0.9 - (i / top10.length) * 0.5;
+    return `rgba(91, 173, 191, ${opacity.toFixed(2)})`;
+  });
+
   return {
     type: 'bar',
     data: {
@@ -589,9 +595,9 @@ function generateActivityFrequencyViz(breakdown: ActivityBreakdown): object {
         {
           label: 'Frequency',
           data: top10.map((a) => a.count),
-          backgroundColor: 'rgba(59, 130, 246, 0.8)', // Blue
-          borderColor: 'rgba(59, 130, 246, 1)',
-          borderWidth: 1,
+          backgroundColor: activityColors,
+          borderColor: 'rgba(91, 173, 191, 1)',
+          borderWidth: 0,
         },
       ],
     },
@@ -634,6 +640,12 @@ function generateTrainingFrequencyViz(breakdown: ActivityBreakdown): object {
   // Get top 10 training skills
   const top10 = breakdown.detailedFrequencies.training.slice(0, 10);
 
+  // generate fading amber colors for each bar (dark to light)
+  const trainingColors = top10.map((_, i) => {
+    const opacity = 0.9 - (i / top10.length) * 0.5;
+    return `rgba(214, 176, 122, ${opacity.toFixed(2)})`;
+  });
+
   return {
     type: 'bar',
     data: {
@@ -642,9 +654,9 @@ function generateTrainingFrequencyViz(breakdown: ActivityBreakdown): object {
         {
           label: 'Frequency',
           data: top10.map((t) => t.count),
-          backgroundColor: 'rgba(16, 185, 129, 0.8)', // Green
-          borderColor: 'rgba(16, 185, 129, 1)',
-          borderWidth: 1,
+          backgroundColor: trainingColors,
+          borderColor: 'rgba(214, 176, 122, 1)',
+          borderWidth: 0,
         },
       ],
     },
@@ -692,16 +704,16 @@ function generateBehaviorTimelineViz(behaviorTrends: BehaviorTrends): object {
         {
           label: 'Caught Being Good',
           data: behaviorTrends.timeline.map((t) => t.positiveCount),
-          borderColor: 'rgba(34, 197, 94, 1)', // Green
-          backgroundColor: 'rgba(34, 197, 94, 0.1)',
+          borderColor: 'rgba(91, 173, 191, 1)', // Teal
+          backgroundColor: 'rgba(91, 173, 191, 0.1)',
           tension: 0,
           fill: true,
         },
         {
           label: 'Ooops',
           data: behaviorTrends.timeline.map((t) => t.negativeCount),
-          borderColor: 'rgba(239, 68, 68, 1)', // Red
-          backgroundColor: 'rgba(239, 68, 68, 0.1)',
+          borderColor: 'rgba(191, 110, 69, 1)', // Copper
+          backgroundColor: 'rgba(191, 110, 69, 0.1)',
           tension: 0,
           fill: true,
         },
@@ -758,7 +770,7 @@ function generateBehaviorFrequencyViz(behaviorTrends: BehaviorTrends): object {
   const labels = allBehaviors.map((b) => b.name);
   const data = allBehaviors.map((b) => b.count);
   const colors = allBehaviors.map((b) =>
-    b.type === 'positive' ? 'rgba(34, 197, 94, 0.8)' : 'rgba(239, 68, 68, 0.8)',
+    b.type === 'positive' ? 'rgba(91, 173, 191, 0.8)' : 'rgba(191, 110, 69, 0.8)',
   );
 
   return {
@@ -835,8 +847,11 @@ function generateAIActivityCategoryViz(
     ((count / totalInstances) * 100).toFixed(1),
   );
 
-  // Use existing color palette or generate colors
-  const colors = ['#FF6B9D', '#9B59B6', '#5DADE2', '#26A69A', '#FFD93D', '#FF9800', '#FF9FF3'];
+  // Fading teal (dark to light) — matches top activities chart style
+  const colors = labels.map((_, i) => {
+    const opacity = 0.9 - (i / labels.length) * 0.5;
+    return `rgba(91, 173, 191, ${opacity.toFixed(2)})`;
+  });
 
   return {
     type: 'bar',
@@ -912,8 +927,11 @@ function generateAITrainingCategoryViz(
     ((count / totalInstances) * 100).toFixed(1),
   );
 
-  // Use existing color palette or generate colors
-  const colors = ['#6C5CE7', '#0984E3', '#00B894', '#FDCB6E', '#E17055', '#FD79A8'];
+  // Fading amber (dark to light) — matches top training chart style
+  const colors = labels.map((_, i) => {
+    const opacity = 0.9 - (i / labels.length) * 0.5;
+    return `rgba(214, 176, 122, ${opacity.toFixed(2)})`;
+  });
 
   return {
     type: 'bar',

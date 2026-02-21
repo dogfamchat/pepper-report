@@ -38,19 +38,19 @@ export default function BehaviorTimelineChart({ data }: Props) {
         <Line
           type="linear"
           dataKey="positiveCount"
-          stroke="#22c55e"
+          stroke="#5BADBF"
           strokeWidth={2}
           name="Caught Being Good"
-          dot={{ fill: '#22c55e', r: 3 }}
+          dot={{ fill: '#5BADBF', r: 3 }}
           isAnimationActive={false}
         />
         <Line
           type="linear"
           dataKey="negativeCount"
-          stroke="#ef4444"
+          stroke="#BF6E45"
           strokeWidth={2}
           name="Ooops"
-          dot={{ fill: '#ef4444', r: 3 }}
+          dot={{ fill: '#BF6E45', r: 3 }}
           isAnimationActive={false}
         />
       </LineChart>

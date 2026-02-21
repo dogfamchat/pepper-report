@@ -2,6 +2,7 @@
 
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import photoAnalysis from '../../data/analysis/photo-analysis.json';
 import photosData from '../../photos.json';
 import { getDateRangeText, readAllReportCards } from '../../scripts/analysis/report-reader';
 import { formatDate } from '../../scripts/utils/date-utils';
@@ -21,6 +22,15 @@ const gradeTrends = JSON.parse(readFileSync(gradeTrendsPath, 'utf-8'));
 
 // Calculate grade percentage
 const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
+
+// Find top-rated photo for avatar
+const topPhotoFilename = photoAnalysis.bestPhotos?.[0];
+const topPhoto = topPhotoFilename
+  ? photosData.photos.find((p: { filename: string }) => p.filename === topPhotoFilename)
+  : undefined;
+const avatarUrl =
+  topPhoto?.thumbnailUrl ??
+  'https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2025-09-12/thumbnails/2025-09-12-001.jpg';
 ---
 
 <Layout title="Pepper's Daycare Dashboard">
@@ -62,15 +72,15 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     <!-- Quick Links -->
     <div class="quick-links">
       <a href="/trends" class="link-card">
-        <span class="link-icon">📊</span>
+        <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 4 4-6"/></svg>
         <span class="link-text">View Trends</span>
       </a>
       <a href="/timeline" class="link-card">
-        <span class="link-icon">📅</span>
+        <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 2v4"/><path d="M16 2v4"/></svg>
         <span class="link-text">Full Timeline</span>
       </a>
       <a href="/gallery" class="link-card">
-        <span class="link-icon">📷</span>
+        <svg class="link-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M21 15l-4.5-4.5a2 2 0 00-2.83 0L6 18"/></svg>
         <span class="link-text">Photo Gallery</span>
       </a>
     </div>
@@ -79,8 +89,17 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     <div class="latest-report">
       <div class="report-header">
         <div class="header-left">
-          <h2>Latest Report Card</h2>
-          <a href="/timeline" class="view-all-link">View all reports →</a>
+          <div class="pepper-avatar">
+            <img
+              src={avatarUrl}
+              alt="Pepper"
+              class="avatar-img"
+            />
+          </div>
+          <div class="header-text">
+            <h2>Latest Report Card</h2>
+            <a href="/timeline" class="view-all-link">View all reports →</a>
+          </div>
         </div>
         <span class="report-date">{formatDate(latestReport.date)}</span>
       </div>
@@ -157,7 +176,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
       <div class="latest-photo-section">
         <div class="section-header">
           <div class="header-left">
-            <h2>📷 Latest Photo</h2>
+            <h2>Latest Photo</h2>
             <a href="/gallery" class="view-all-link">View all photos →</a>
           </div>
           <span class="photo-date">{formatDate(latestPhoto.date)}</span>
@@ -231,10 +250,35 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     background-clip: text;
   }
 
+  .pepper-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    padding: 3px;
+    background: linear-gradient(135deg, var(--gold), var(--rust));
+    box-shadow: 0 3px 14px rgba(154, 96, 64, 0.25);
+    flex-shrink: 0;
+  }
+
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    border: 2px solid var(--cream);
+  }
+
+  .header-text {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
   h1 {
     font-size: 4rem;
     margin: 0 0 1.5rem 0;
-    color: var(--burgundy);
+    color: var(--rust);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -286,7 +330,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-elegant);
+    background: var(--gradient-accent);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -299,7 +343,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   .stat-card:hover {
     transform: translateY(-8px);
     border-color: var(--gold);
-    box-shadow: 0 20px 40px rgba(139, 38, 53, 0.15);
+    box-shadow: 0 20px 40px rgba(154, 96, 64, 0.15);
   }
 
   .stat-value {
@@ -307,7 +351,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     font-weight: 700;
     font-family: 'Cormorant Garamond', serif;
     margin-bottom: 0.5rem;
-    background: var(--gradient-elegant);
+    background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -324,7 +368,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
 
   .stat-detail {
     font-size: 0.9rem;
-    color: var(--forest);
+    color: var(--teal);
     font-weight: 400;
   }
 
@@ -332,6 +376,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     background: white;
     border: 2px solid var(--cream-dark);
     padding: 3rem;
+    margin-top: 3rem;
     margin-bottom: 3rem;
     position: relative;
   }
@@ -339,11 +384,11 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   .latest-photo-section::before {
     content: '';
     position: absolute;
-    top: -10px;
+    top: -28px;
     left: 2rem;
     right: 2rem;
     height: 4px;
-    background: var(--gradient-forest);
+    background: var(--gradient-teal);
   }
 
   .section-header {
@@ -357,7 +402,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
 
   .section-header h2 {
     margin: 0;
-    color: var(--forest);
+    color: var(--teal);
     font-size: 2rem;
   }
 
@@ -381,7 +426,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   .latest-photo-link:hover {
     transform: scale(1.02);
     border-color: var(--gold);
-    box-shadow: 0 30px 60px rgba(139, 38, 53, 0.2);
+    box-shadow: 0 30px 60px rgba(154, 96, 64, 0.2);
   }
 
   .latest-photo-img {
@@ -402,7 +447,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(139, 38, 53, 0.9), transparent);
+    background: linear-gradient(to top, rgba(30, 20, 10, 0.85), transparent);
     padding: 3rem 2rem 2rem;
     opacity: 0;
     transition: opacity 0.4s ease;
@@ -425,6 +470,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     background: white;
     border: 2px solid var(--cream-dark);
     padding: 3rem;
+    margin-top: 3rem;
     margin-bottom: 3rem;
     position: relative;
   }
@@ -432,11 +478,11 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   .latest-report::before {
     content: '';
     position: absolute;
-    top: -10px;
+    top: -28px;
     left: 2rem;
     right: 2rem;
     height: 4px;
-    background: var(--gradient-regal);
+    background: var(--gradient-rust);
   }
 
   .report-header {
@@ -462,12 +508,12 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
 
   .report-header h2 {
     margin: 0;
-    color: var(--burgundy);
+    color: var(--rust);
     font-size: 2rem;
   }
 
   .view-all-link {
-    color: var(--forest);
+    color: var(--teal);
     font-size: 0.95rem;
     text-decoration: none;
     font-weight: 600;
@@ -491,7 +537,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   }
 
   .view-all-link:hover {
-    color: var(--burgundy);
+    color: var(--rust);
   }
 
   .report-date {
@@ -524,23 +570,23 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   }
 
   .grade-a {
-    border-color: var(--gold);
+    border-color: var(--teal);
     background: white;
     color: var(--charcoal);
   }
 
   .grade-a::before {
-    background: var(--gradient-regal);
+    background: var(--gradient-teal);
   }
 
   .grade-b {
-    border-color: var(--forest);
+    border-color: var(--gold);
     background: white;
     color: var(--charcoal);
   }
 
   .grade-b::before {
-    background: var(--gradient-forest);
+    background: var(--gradient-gold);
   }
 
   .grade-c {
@@ -554,13 +600,13 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   }
 
   .grade-d {
-    border-color: var(--steel);
+    border-color: var(--rust);
     background: white;
     color: var(--charcoal);
   }
 
   .grade-d::before {
-    background: var(--gradient-steel);
+    background: var(--gradient-rust);
   }
 
   .grade-letter {
@@ -568,7 +614,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     font-weight: 700;
     line-height: 1;
     font-family: 'Cormorant Garamond', serif;
-    background: var(--gradient-elegant);
+    background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -597,7 +643,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   }
 
   .report-section h3 {
-    color: var(--forest);
+    color: var(--teal);
     font-size: 1.3rem;
     margin: 0 0 1rem 0;
     font-weight: 600;
@@ -626,13 +672,13 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
   .highlight {
     font-size: 1.15rem;
     font-weight: 600;
-    color: var(--burgundy);
+    color: var(--rust);
   }
 
   .noteworthy {
-    background: rgba(139, 38, 53, 0.04);
+    background: rgba(154, 96, 64, 0.04);
     padding: 1.5rem;
-    border-left: 4px solid var(--burgundy);
+    border-left: 4px solid var(--rust);
     font-style: italic;
     font-size: 1.05rem;
     line-height: 1.7;
@@ -656,7 +702,7 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
 
   .link-card {
@@ -691,18 +737,20 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
 
   .link-card:hover {
     transform: translateX(8px);
-    border-color: var(--burgundy);
-    background: linear-gradient(135deg, rgba(139, 38, 53, 0.03) 0%, rgba(47, 82, 51, 0.03) 100%);
+    border-color: var(--rust);
+    background: linear-gradient(135deg, rgba(154, 96, 64, 0.03) 0%, rgba(91, 173, 191, 0.03) 100%);
   }
 
-  .link-icon {
-    font-size: 2.5rem;
-    filter: grayscale(30%);
+  .link-icon-svg {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--teal);
     transition: all 0.3s ease;
+    flex-shrink: 0;
   }
 
-  .link-card:hover .link-icon {
-    filter: grayscale(0%);
+  .link-card:hover .link-icon-svg {
+    color: var(--rust);
     transform: scale(1.1);
   }
 
@@ -837,8 +885,9 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
       right: 1.5rem;
     }
 
-    .link-icon {
-      font-size: 2rem;
+    .link-icon-svg {
+      width: 2rem;
+      height: 2rem;
     }
 
     .link-text {

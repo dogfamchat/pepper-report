@@ -22,7 +22,7 @@ const categoryData = loadCategoryData();
       <>
         {/* Activity Breakdown Section */}
         <div class="section-header">
-          <h2>🎾 Activity Breakdown</h2>
+          <h2>Activity Breakdown</h2>
           <p class="section-subtitle">
             Total activities: {activityData.summary.totalActivityInstances} • Total training:{' '}
             {activityData.summary.totalTrainingInstances}
@@ -35,7 +35,6 @@ const categoryData = loadCategoryData();
             <h3>Top Activities</h3>
             <HorizontalBarChart
               data={activityData.activityChartData}
-              barColor="rgba(59, 130, 246, 0.8)"
               xAxisLabel="Number of Days"
               height={400}
               client:load
@@ -47,7 +46,6 @@ const categoryData = loadCategoryData();
             <h3>Top Training Skills</h3>
             <HorizontalBarChart
               data={activityData.trainingChartData}
-              barColor="rgba(16, 185, 129, 0.8)"
               xAxisLabel="Number of Days"
               height={400}
               client:load
@@ -57,7 +55,7 @@ const categoryData = loadCategoryData();
 
         {/* Categories Section */}
         <div class="section-header">
-          <h2>📊 Categories</h2>
+          <h2>Categories</h2>
           <p class="section-subtitle">
             {Object.keys(categoryData.learnedActivityMappings).length} activities •{' '}
             {Object.keys(categoryData.learnedTrainingMappings).length} training skills
