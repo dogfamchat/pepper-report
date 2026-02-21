@@ -377,6 +377,16 @@ const yearMonthStructure = years.map((year) => {
     border-color: var(--forest);
   }
 
+  .grade-badge.grade-c {
+    background: var(--gradient-copper);
+    border-color: var(--copper);
+  }
+
+  .grade-badge.grade-d {
+    background: var(--gradient-steel);
+    border-color: var(--steel);
+  }
+
   .summary-preview {
     display: flex;
     gap: 0.75rem;
@@ -465,6 +475,26 @@ const yearMonthStructure = years.map((year) => {
 
   .grade-banner-b::before {
     background: var(--gradient-forest);
+  }
+
+  .grade-banner-c {
+    background: white;
+    border-color: var(--copper);
+    color: var(--charcoal);
+  }
+
+  .grade-banner-c::before {
+    background: var(--gradient-copper);
+  }
+
+  .grade-banner-d {
+    background: white;
+    border-color: var(--steel);
+    color: var(--charcoal);
+  }
+
+  .grade-banner-d::before {
+    background: var(--gradient-steel);
   }
 
   .grade-letter {

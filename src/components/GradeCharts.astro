@@ -14,7 +14,6 @@ interface GradeDistribution {
   B: number;
   C: number;
   D: number;
-  F: number;
 }
 
 interface TrendsSummary {
@@ -65,6 +64,20 @@ const { timeline, trends } = Astro.props;
         <span class="dist-value">{trends.summary.overallGradeDistribution.B}</span>
         <span class="dist-percent">{((trends.summary.overallGradeDistribution.B / trends.summary.totalReports) * 100).toFixed(0)}%</span>
       </div>
+      {trends.summary.overallGradeDistribution.C > 0 && (
+        <div class="dist-stat grade-c-stat">
+          <span class="dist-label">C Grades</span>
+          <span class="dist-value">{trends.summary.overallGradeDistribution.C}</span>
+          <span class="dist-percent">{((trends.summary.overallGradeDistribution.C / trends.summary.totalReports) * 100).toFixed(0)}%</span>
+        </div>
+      )}
+      {trends.summary.overallGradeDistribution.D > 0 && (
+        <div class="dist-stat grade-d-stat">
+          <span class="dist-label">D Grades</span>
+          <span class="dist-value">{trends.summary.overallGradeDistribution.D}</span>
+          <span class="dist-percent">{((trends.summary.overallGradeDistribution.D / trends.summary.totalReports) * 100).toFixed(0)}%</span>
+        </div>
+      )}
     </div>
   </div>
 </div>
@@ -95,7 +108,7 @@ const { timeline, trends } = Astro.props;
 
   .distribution-stats {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 1rem;
     margin-top: 2rem;
   }
@@ -116,6 +129,16 @@ const { timeline, trends } = Astro.props;
   .grade-b-stat {
     background: rgba(240, 147, 251, 0.1);
     border: 2px solid #f093fb;
+  }
+
+  .grade-c-stat {
+    background: rgba(67, 184, 160, 0.1);
+    border: 2px solid #43b8a0;
+  }
+
+  .grade-d-stat {
+    background: rgba(232, 116, 97, 0.1);
+    border: 2px solid #e87461;
   }
 
   .dist-label {
