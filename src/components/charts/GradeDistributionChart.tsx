@@ -12,6 +12,8 @@ interface Props {
   distributionData: {
     A: number;
     B: number;
+    C: number;
+    D: number;
   };
   totalReports: number;
 }
@@ -20,7 +22,9 @@ export default function GradeDistributionChart({ distributionData, totalReports 
   const data = [
     { name: 'A', value: distributionData.A, color: '#667eea' },
     { name: 'B', value: distributionData.B, color: '#f093fb' },
-  ];
+    { name: 'C', value: distributionData.C, color: '#43b8a0' },
+    { name: 'D', value: distributionData.D, color: '#e87461' },
+  ].filter((d) => d.value > 0);
 
   const CustomTooltip = ({ active, payload }: TooltipContentProps<Grade, string>) => {
     if (active && payload && payload.length) {

@@ -543,6 +543,26 @@ const gradePercent = (gradeTrends.summary.overallAverageGrade / 4.0) * 100;
     background: var(--gradient-forest);
   }
 
+  .grade-c {
+    border-color: var(--copper);
+    background: white;
+    color: var(--charcoal);
+  }
+
+  .grade-c::before {
+    background: var(--gradient-copper);
+  }
+
+  .grade-d {
+    border-color: var(--steel);
+    background: white;
+    color: var(--charcoal);
+  }
+
+  .grade-d::before {
+    background: var(--gradient-steel);
+  }
+
   .grade-letter {
     font-size: 5rem;
     font-weight: 700;

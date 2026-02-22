@@ -29,7 +29,12 @@ const { timeline, trends } = loadGradeData();
           <div class="month-detail">
             <span>{month.daysAttended} days</span>
             <span>
-              {month.gradeDistribution.A} A's, {month.gradeDistribution.B} B's
+              {[
+                month.gradeDistribution.A > 0 && `${month.gradeDistribution.A} A's`,
+                month.gradeDistribution.B > 0 && `${month.gradeDistribution.B} B's`,
+                month.gradeDistribution.C > 0 && `${month.gradeDistribution.C} C's`,
+                month.gradeDistribution.D > 0 && `${month.gradeDistribution.D} D's`,
+              ].filter(Boolean).join(', ')}
             </span>
           </div>
         </div>
