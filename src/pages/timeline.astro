@@ -71,7 +71,7 @@ const yearMonthStructure = years.map((year) => {
                       <span class="report-date">
                         {formatShortDate(report.date)}
                         {datesWithPhotos.has(report.date) && (
-                          <span class="photo-indicator" title="Has photo">📷</span>
+                          <svg class="photo-indicator" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M21 15l-4.5-4.5a2 2 0 00-2.83 0L6 18"/></svg>
                         )}
                       </span>
                       <span class="day-of-week">{(() => {
@@ -192,7 +192,7 @@ const yearMonthStructure = years.map((year) => {
 
   .back-link {
     display: inline-block;
-    color: var(--forest);
+    color: var(--teal);
     text-decoration: none;
     margin-bottom: 1.5rem;
     font-weight: 600;
@@ -216,7 +216,7 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .back-link:hover {
-    color: var(--burgundy);
+    color: var(--rust);
   }
 
   .title-ornament {
@@ -234,7 +234,7 @@ const yearMonthStructure = years.map((year) => {
   h1 {
     font-size: 3.5rem;
     margin: 0 0 1.5rem 0;
-    color: var(--burgundy);
+    color: var(--rust);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -275,7 +275,7 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .month-header {
-    color: var(--burgundy);
+    color: var(--rust);
     font-size: 2rem;
     margin: 0;
     padding-bottom: 1rem;
@@ -291,7 +291,7 @@ const yearMonthStructure = years.map((year) => {
     left: 0;
     width: 100px;
     height: 2px;
-    background: var(--gradient-elegant);
+    background: var(--gradient-accent);
   }
 
   .reports-list {
@@ -308,7 +308,7 @@ const yearMonthStructure = years.map((year) => {
 
   .report-card:hover {
     border-color: var(--gold);
-    box-shadow: 0 8px 24px rgba(139, 38, 53, 0.12);
+    box-shadow: 0 8px 24px rgba(154, 96, 64, 0.12);
   }
 
   .report-summary {
@@ -346,9 +346,13 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .photo-indicator {
-    font-size: 1.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
     opacity: 0.6;
-    transform: translateY(-2px);
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 0.25rem;
+    color: var(--teal);
   }
 
   .day-of-week {
@@ -368,13 +372,13 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .grade-badge.grade-a {
-    background: var(--gradient-regal);
-    border-color: var(--gold);
+    background: var(--gradient-teal);
+    border-color: var(--teal);
   }
 
   .grade-badge.grade-b {
-    background: var(--gradient-forest);
-    border-color: var(--forest);
+    background: var(--gradient-gold);
+    border-color: var(--gold);
   }
 
   .grade-badge.grade-c {
@@ -383,8 +387,8 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .grade-badge.grade-d {
-    background: var(--gradient-steel);
-    border-color: var(--steel);
+    background: var(--gradient-rust);
+    border-color: var(--rust);
   }
 
   .summary-preview {
@@ -399,7 +403,7 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .preview-label {
-    color: var(--forest);
+    color: var(--teal);
     font-weight: 600;
     flex-shrink: 0;
   }
@@ -459,22 +463,22 @@ const yearMonthStructure = years.map((year) => {
 
   .grade-banner-a {
     background: white;
-    border-color: var(--gold);
+    border-color: var(--teal);
     color: var(--charcoal);
   }
 
   .grade-banner-a::before {
-    background: var(--gradient-regal);
+    background: var(--gradient-teal);
   }
 
   .grade-banner-b {
     background: white;
-    border-color: var(--forest);
+    border-color: var(--gold);
     color: var(--charcoal);
   }
 
   .grade-banner-b::before {
-    background: var(--gradient-forest);
+    background: var(--gradient-gold);
   }
 
   .grade-banner-c {
@@ -489,12 +493,12 @@ const yearMonthStructure = years.map((year) => {
 
   .grade-banner-d {
     background: white;
-    border-color: var(--steel);
+    border-color: var(--rust);
     color: var(--charcoal);
   }
 
   .grade-banner-d::before {
-    background: var(--gradient-steel);
+    background: var(--gradient-rust);
   }
 
   .grade-letter {
@@ -502,7 +506,7 @@ const yearMonthStructure = years.map((year) => {
     font-weight: 700;
     line-height: 1;
     font-family: 'Cormorant Garamond', serif;
-    background: var(--gradient-elegant);
+    background: var(--gradient-accent);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -534,7 +538,7 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .detail-section h3 {
-    color: var(--forest);
+    color: var(--teal);
     font-size: 1.2rem;
     margin: 0 0 0.75rem 0;
     font-weight: 600;
@@ -562,13 +566,13 @@ const yearMonthStructure = years.map((year) => {
   .highlight {
     font-size: 1.05rem;
     font-weight: 600;
-    color: var(--burgundy);
+    color: var(--rust);
   }
 
   .noteworthy {
-    background: rgba(139, 38, 53, 0.04);
+    background: rgba(154, 96, 64, 0.04);
     padding: 1.25rem;
-    border-left: 4px solid var(--burgundy);
+    border-left: 4px solid var(--rust);
     font-style: italic;
     line-height: 1.7;
     color: var(--charcoal);
@@ -597,7 +601,7 @@ const yearMonthStructure = years.map((year) => {
   }
 
   .year-header {
-    color: var(--burgundy);
+    color: var(--rust);
     font-size: 3rem;
     font-weight: 700;
     text-align: center;

@@ -216,7 +216,7 @@ const photosWithAnalysis = photos.map((p) => ({
 
   .back-link {
     display: inline-block;
-    color: var(--forest);
+    color: var(--teal);
     text-decoration: none;
     margin-bottom: 1.5rem;
     font-weight: 600;
@@ -240,7 +240,7 @@ const photosWithAnalysis = photos.map((p) => ({
   }
 
   .back-link:hover {
-    color: var(--burgundy);
+    color: var(--rust);
   }
 
   .title-ornament {
@@ -258,7 +258,7 @@ const photosWithAnalysis = photos.map((p) => ({
   h1 {
     font-size: 3.5rem;
     margin: 0 0 1.5rem 0;
-    color: var(--burgundy);
+    color: var(--rust);
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.1;
@@ -287,13 +287,13 @@ const photosWithAnalysis = photos.map((p) => ({
   }
 
   .avg-score {
-    color: var(--burgundy);
+    color: var(--rust);
     font-weight: 600;
   }
 
   .section-title {
     font-size: 2.5rem;
-    color: var(--burgundy);
+    color: var(--rust);
     margin: 0 0 2rem 0;
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--gold);
@@ -309,7 +309,7 @@ const photosWithAnalysis = photos.map((p) => ({
     left: 0;
     width: 120px;
     height: 2px;
-    background: var(--gradient-elegant);
+    background: var(--gradient-accent);
   }
 
   /* Best Photos Section */
@@ -325,17 +325,17 @@ const photosWithAnalysis = photos.map((p) => ({
 
   .best-photo-card {
     background: white;
-    border: 3px solid var(--gold);
+    border: 3px solid var(--warm-gray);
     overflow: hidden;
-    box-shadow: 0 8px 30px rgba(139, 38, 53, 0.15);
+    box-shadow: 0 8px 30px rgba(154, 96, 64, 0.15);
     position: relative;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .best-photo-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 50px rgba(139, 38, 53, 0.25);
-    border-color: var(--burgundy);
+    box-shadow: 0 20px 50px rgba(154, 96, 64, 0.25);
+    border-color: var(--rust);
   }
 
   .best-photo-card[data-rank="1"] {
@@ -354,11 +354,11 @@ const photosWithAnalysis = photos.map((p) => ({
     top: 1rem;
     left: 1rem;
     background: white;
-    color: var(--forest);
+    color: var(--teal);
     font-weight: 700;
     font-size: 0.95rem;
     padding: 0.5rem 1rem;
-    border: 2px solid var(--forest);
+    border: 2px solid var(--teal);
     z-index: 10;
     font-family: 'Cormorant Garamond', serif;
   }
@@ -404,7 +404,7 @@ const photosWithAnalysis = photos.map((p) => ({
 
   .month-header {
     font-size: 1.75rem;
-    color: var(--burgundy);
+    color: var(--rust);
     margin: 0 0 2rem 0;
     padding-bottom: 1rem;
     border-bottom: 2px solid var(--gold);
@@ -419,7 +419,7 @@ const photosWithAnalysis = photos.map((p) => ({
     left: 0;
     width: 100px;
     height: 2px;
-    background: var(--gradient-elegant);
+    background: var(--gradient-accent);
   }
 
   .photo-grid {
@@ -432,13 +432,13 @@ const photosWithAnalysis = photos.map((p) => ({
     background: white;
     border: 2px solid var(--cream-dark);
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(139, 38, 53, 0.08);
+    box-shadow: 0 4px 12px rgba(154, 96, 64, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .photo-card:hover {
     transform: translateY(-6px);
-    box-shadow: 0 12px 30px rgba(139, 38, 53, 0.15);
+    box-shadow: 0 12px 30px rgba(154, 96, 64, 0.15);
     border-color: var(--gold);
   }
 
@@ -465,7 +465,7 @@ const photosWithAnalysis = photos.map((p) => ({
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(139, 38, 53, 0.9), transparent);
+    background: linear-gradient(to top, rgba(30, 20, 10, 0.85), transparent);
     padding: 2.5rem 1rem 1rem;
     display: flex;
     align-items: flex-end;
@@ -616,8 +616,8 @@ const photosWithAnalysis = photos.map((p) => ({
   }
 
   .lightbox-tags span {
-    background: rgba(102, 126, 234, 0.5);
-    color: white;
+    background: rgba(91, 173, 191, 0.4);
+    color: var(--cream);
     font-size: 0.8rem;
     padding: 0.2rem 0.6rem;
     border-radius: 8px;

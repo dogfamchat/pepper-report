@@ -23,6 +23,12 @@ interface Props {
 }
 
 const GRADE_LABELS = ['F', 'D', 'C', 'B', 'A'];
+const GRADE_COLORS: Record<number, string> = {
+  4: '#5BADBF', // A - muted teal
+  3: '#D6B07A', // B - warm amber
+  2: '#BF6E45', // C - muted orange
+  1: '#9A6040', // D - muted rust
+};
 
 export default function GradeTimelineChart({ data }: Props) {
   // Determine responsive aspect ratio
@@ -65,8 +71,8 @@ export default function GradeTimelineChart({ data }: Props) {
       <ComposedChart data={data} margin={{ top: 5, right: 20, bottom: 5, left: 0 }}>
         <defs>
           <linearGradient id="gradeGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#667eea" stopOpacity={0.1} />
-            <stop offset="100%" stopColor="#667eea" stopOpacity={0} />
+            <stop offset="0%" stopColor="#5BADBF" stopOpacity={0.1} />
+            <stop offset="100%" stopColor="#5BADBF" stopOpacity={0} />
           </linearGradient>
         </defs>
 
@@ -101,10 +107,14 @@ export default function GradeTimelineChart({ data }: Props) {
         <Line
           type="linear"
           dataKey="gradeValue"
-          stroke="#667eea"
+          stroke="#8B8078"
           strokeWidth={2}
-          dot={{ fill: '#667eea', r: 4 }}
-          activeDot={{ r: 4 }}
+          dot={(props: { cx?: number; cy?: number; payload?: TimelineDataPoint }) => {
+            const { cx = 0, cy = 0, payload } = props;
+            const color = payload ? GRADE_COLORS[payload.gradeValue] || '#8B8078' : '#8B8078';
+            return <circle key={`dot-${cx}`} cx={cx} cy={cy} r={4} fill={color} stroke="none" />;
+          }}
+          activeDot={{ r: 5 }}
           isAnimationActive={false}
         />
       </ComposedChart>

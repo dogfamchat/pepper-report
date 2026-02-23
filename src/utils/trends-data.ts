@@ -103,6 +103,9 @@ export function loadActivityData() {
       (label: string, i: number) => ({
         name: label,
         value: activityFrequencyViz.data.datasets[0].data[i],
+        color:
+          activityFrequencyViz.data.datasets[0].backgroundColor?.[i] ??
+          activityFrequencyViz.data.datasets[0].backgroundColor,
       }),
     );
 
@@ -110,6 +113,9 @@ export function loadActivityData() {
       (label: string, i: number) => ({
         name: label,
         value: trainingFrequencyViz.data.datasets[0].data[i],
+        color:
+          trainingFrequencyViz.data.datasets[0].backgroundColor?.[i] ??
+          trainingFrequencyViz.data.datasets[0].backgroundColor,
       }),
     );
 
