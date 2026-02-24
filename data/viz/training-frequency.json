@@ -9,8 +9,8 @@
       "name recognition",
       "confidence building",
       "handling (exam style)",
-      "down (stay)",
       "recall with distractions",
+      "down (stay)",
       "trick training"
     ],
     "datasets": [
@@ -25,7 +25,7 @@
           19,
           12,
           10,
-          9,
+          10,
           9
         ],
         "backgroundColor": [

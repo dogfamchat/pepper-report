@@ -1,0 +1,59 @@
+{
+  "date": "2026-02-24",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "I had such a great time in class today! 🤩\nWe put in some good work with our recall while there were many distractions going on. Later on in the day we spent time outdoors having play sessions and sniffs 🐾❄️",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "recall with distractions"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "recall with distractions",
+      "category": "advanced_training"
+    }
+  ],
+  "analyzedAt": "2026-02-24T22:35:46.569Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "loved every dog I met"
+  ],
+  "ooops": []
+}

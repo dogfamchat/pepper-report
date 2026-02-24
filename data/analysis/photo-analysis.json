@@ -1013,6 +1013,28 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-02-20T22:28:14.080Z"
+    },
+    {
+      "filename": "2026-02-24-001.jpg",
+      "date": "2026-02-24",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-02-24/2026-02-24-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Two friends sharing space near the indoor play equipment, with Pepper looking particularly pleased about something happening off-camera. The dark brindle pup in the background seems ready for action too.",
+      "tags": [
+        "indoor",
+        "play area",
+        "two dogs",
+        "equipment",
+        "friends",
+        "daycare floor"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-02-24T22:35:51.948Z"
     }
   ],
   "bestPhotos": [
@@ -1027,7 +1049,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-02-20T22:28:14.081Z",
-  "totalPhotos": 42,
+  "analyzedAt": "2026-02-24T22:35:51.949Z",
+  "totalPhotos": 43,
   "averageScore": 6.4
 }
