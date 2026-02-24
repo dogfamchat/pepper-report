@@ -1,0 +1,37 @@
+{
+  "date": "2026-02-24",
+  "completedDateTime": "2026-02-24T22:34:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Sky Oak"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "recall with distractions"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "I had such a great time in class today! 🤩\nWe put in some good work with our recall while there were many distractions going on. Later on in the day we spent time outdoors having play sessions and sniffs 🐾❄️",
+  "photos": [
+    "2026-02-24-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}
