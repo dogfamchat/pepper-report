@@ -1,0 +1,34 @@
+{
+  "date": "2026-02-27",
+  "completedDateTime": "2026-02-27T21:55:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Grove"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "napped with friends",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "take-it, leave-it, drop-it"
+  ],
+  "caughtBeingGood": [],
+  "ooops": [],
+  "noteworthyComments": "I had so much fun playing with my friends today, Riker was of course my best friend today, but I also enjoyed playing with Larry and all the other dogs. There were a few times I demand barked at my friends when they tried to take a break from play but I listened to my instructors well when the helped me move on. I did pretty well for the take it leave it exercise, I very much enjoyed it.",
+  "photos": [
+    "2026-02-27-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Aspen Creek"
+  }
+}
