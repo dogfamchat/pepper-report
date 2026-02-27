@@ -1035,6 +1035,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-02-24T22:35:51.948Z"
+    },
+    {
+      "filename": "2026-02-27-001.jpg",
+      "date": "2026-02-27",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-02-27/2026-02-27-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 8,
+      "compositionScore": 5,
+      "overallScore": 6.3,
+      "description": "Pepper strikes a picture-perfect pose for the camera while her daycare friends mill about in the background. The orange leash suggests someone's getting ready for an adventure.",
+      "tags": [
+        "indoor",
+        "leash",
+        "posing",
+        "portrait",
+        "daycare group",
+        "orange collar",
+        "sitting",
+        "camera focused"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-02-27T22:24:32.902Z"
     }
   ],
   "bestPhotos": [
@@ -1049,7 +1073,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-02-24T22:35:51.949Z",
-  "totalPhotos": 43,
+  "analyzedAt": "2026-02-27T22:24:32.903Z",
+  "totalPhotos": 44,
   "averageScore": 6.4
 }

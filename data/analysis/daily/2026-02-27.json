@@ -1,0 +1,55 @@
+{
+  "date": "2026-02-27",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [
+    "Riker",
+    "Larry"
+  ],
+  "comment": "I had so much fun playing with my friends today, Riker was of course my best friend today, but I also enjoyed playing with Larry and all the other dogs. There were a few times I demand barked at my friends when they tried to take a break from play but I listened to my instructors well when the helped me move on. I did pretty well for the take it leave it exercise, I very much enjoyed it.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "napped with friends",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "take-it, leave-it, drop-it"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "take-it, leave-it, drop-it",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-02-27T22:24:27.756Z",
+  "caughtBeingGood": [],
+  "ooops": []
+}

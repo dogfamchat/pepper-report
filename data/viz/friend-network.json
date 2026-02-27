@@ -4,20 +4,20 @@
     "labels": [
       "Riker",
       "Sage",
+      "Larry",
       "Ginny",
       "Robertson",
       "Nova",
       "Niko",
       "Joey",
       "Barolo",
-      "Freyja",
-      "June"
+      "Freyja"
     ],
     "datasets": [
       {
         "label": "Mentions",
         "data": [
-          4,
+          5,
           2,
           1,
           1,

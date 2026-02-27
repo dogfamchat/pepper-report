@@ -3,8 +3,8 @@
   "data": {
     "labels": [
       "played with as many buddies as possible",
-      "played outdoors",
       "napped with friends",
+      "played outdoors",
       "party animal",
       "hung out with my bestie",
       "one-on-one time with the trainer",
@@ -17,12 +17,12 @@
       {
         "label": "Frequency",
         "data": [
-          47,
+          48,
           45,
-          44,
+          45,
           37,
-          34,
-          30,
+          35,
+          31,
           22,
           10,
           8,

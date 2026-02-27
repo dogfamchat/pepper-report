@@ -308,5 +308,10 @@
     "date": "2026-02-24",
     "grade": "A",
     "gradeValue": 4
+  },
+  {
+    "date": "2026-02-27",
+    "grade": "A",
+    "gradeValue": 4
   }
 ]
