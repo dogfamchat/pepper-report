@@ -1,0 +1,53 @@
+{
+  "date": "2026-03-03",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [
+    "Ruby"
+  ],
+  "comment": "Today at school I worked super hard on my door manners! We practiced waiting politely at door thresholds both inside and outside. I learned to pause, stay calm, and move through only when invited. I’m getting really good at controlling my excitement!\n\nAfter all that focus, we went outside to soak up the sunshine and play with my friends. It was the perfect way to end the day! I loved playing with Ruby",
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    }
+  ],
+  "analyzedAt": "2026-03-03T22:30:40.837Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": []
+}

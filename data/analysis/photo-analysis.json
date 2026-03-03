@@ -1059,6 +1059,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-02-27T22:24:32.902Z"
+    },
+    {
+      "filename": "2026-03-03-001.jpg",
+      "date": "2026-03-03",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-03-03/2026-03-03-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pepper appears to be in full play mode with her shaggy companion while another friend watches from the background. The energy is palpable as they engage in some serious daycare socializing.",
+      "tags": [
+        "indoor",
+        "multiple dogs",
+        "vizsla",
+        "shaggy dog",
+        "social interaction",
+        "daycare floor",
+        "colorful collars"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-03-03T22:30:45.814Z"
     }
   ],
   "bestPhotos": [
@@ -1073,7 +1096,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-02-27T22:24:32.903Z",
-  "totalPhotos": 44,
+  "analyzedAt": "2026-03-03T22:30:45.815Z",
+  "totalPhotos": 45,
   "averageScore": 6.4
 }
