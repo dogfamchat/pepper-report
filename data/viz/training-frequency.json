@@ -9,22 +9,22 @@
       "recall",
       "confidence building",
       "handling (exam style)",
-      "recall with distractions",
       "down (stay)",
+      "recall with distractions",
       "trick training"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          36,
-          33,
+          37,
+          34,
           26,
           25,
           24,
           19,
           12,
-          10,
+          11,
           10,
           9
         ],

@@ -1082,6 +1082,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-03-03T22:30:45.814Z"
+    },
+    {
+      "filename": "2026-03-10-001.jpg",
+      "date": "2026-03-10",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-03-10/2026-03-10-001.jpg",
+      "qualityScore": 4,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 5.3,
+      "description": "Pepper reaches out with her paw as she looks up at the camera from floor level. The close-up angle captures her expressive face and extended paw in motion.",
+      "tags": [
+        "indoor",
+        "close-up",
+        "paw extended",
+        "looking up",
+        "floor level",
+        "reaching",
+        "motion blur"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-03-10T22:16:11.860Z"
     }
   ],
   "bestPhotos": [
@@ -1096,7 +1119,7 @@
     "2025-10-03-001.jpg",
     "2025-11-10-001.jpg"
   ],
-  "analyzedAt": "2026-03-03T22:30:45.815Z",
-  "totalPhotos": 45,
+  "analyzedAt": "2026-03-10T22:16:11.861Z",
+  "totalPhotos": 46,
   "averageScore": 6.4
 }
