@@ -1,0 +1,42 @@
+{
+  "date": "2026-03-13",
+  "completedDateTime": "2026-03-13T19:07:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Cedar"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "impulse control",
+    "trick training"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I played a fun luring game! 🐾 I had so much fun following along and the best part was getting yummy treats at the end! I had a great Friday with my party friends!! 🐶🍪🧡",
+  "photos": [
+    "2026-03-13-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Jasper Cedar"
+  }
+}
