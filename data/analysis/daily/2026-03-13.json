@@ -1,0 +1,80 @@
+{
+  "date": "2026-03-13",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Today I played a fun luring game! 🐾 I had so much fun following along and the best part was getting yummy treats at the end! I had a great Friday with my party friends!! 🐶🍪🧡",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "one-on-one time with the trainer",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "impulse control",
+    "trick training"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "engagement games",
+      "category": "enrichment"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "trick training",
+      "category": "fun_skills"
+    }
+  ],
+  "analyzedAt": "2026-03-13T21:51:31.238Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": []
+}

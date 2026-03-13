@@ -13,12 +13,12 @@
       {
         "label": "Training Count",
         "data": [
-          101,
-          64,
-          41,
+          103,
+          65,
+          42,
           26,
           16,
-          9
+          10
         ],
         "backgroundColor": [
           "rgba(214, 176, 122, 0.90)",
