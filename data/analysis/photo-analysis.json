@@ -1130,6 +1130,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-03-13T21:51:36.631Z"
+    },
+    {
+      "filename": "2026-03-17-001.jpg",
+      "date": "2026-03-17",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-03-17/2026-03-17-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pepper strikes a confident pose in the foreground while her golden retriever buddy hangs back, creating a perfect buddy system moment on the daycare floor.",
+      "tags": [
+        "indoor",
+        "concrete floor",
+        "multiple dogs",
+        "standing pose",
+        "daycare environment",
+        "golden retriever",
+        "vizsla",
+        "group interaction"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-03-17T21:27:55.121Z"
     }
   ],
   "bestPhotos": [
@@ -1144,7 +1168,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-03-13T21:51:36.632Z",
-  "totalPhotos": 47,
+  "analyzedAt": "2026-03-17T21:27:55.121Z",
+  "totalPhotos": 48,
   "averageScore": 6.4
 }

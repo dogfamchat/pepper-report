@@ -1,0 +1,64 @@
+{
+  "date": "2026-03-17",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "Lucky me—I had the BEST St. Paddy’s Day ever! 🍀 I spent my day zooming around with my friends, chasing toys, and getting into all kinds of playful mischief. There was so much fun to be had, I could hardly contain my wiggles! Between all the festive excitement and playtime, I made sure to share lots of happy tail wags and good vibes. Can’t wait for my next lucky day! 💚🐾",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2026-03-17T21:27:50.329Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ]
+}
