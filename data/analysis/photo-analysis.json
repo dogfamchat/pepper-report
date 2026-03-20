@@ -1154,6 +1154,32 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-03-17T21:27:55.121Z"
+    },
+    {
+      "filename": "2026-03-20-001.jpg",
+      "date": "2026-03-20",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-03-20/2026-03-20-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 8,
+      "compositionScore": 6,
+      "overallScore": 7,
+      "description": "Perfect profile pose on the artificial turf, showing off that athletic Vizsla build. The afternoon sun highlights her rust-colored coat as she stands alert in the play area.",
+      "tags": [
+        "profile",
+        "standing",
+        "artificial turf",
+        "chain link fence",
+        "outdoor daycare",
+        "alert pose",
+        "athletic build",
+        "rust colored coat",
+        "teal collar",
+        "shadows"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-03-20T21:21:35.628Z"
     }
   ],
   "bestPhotos": [
@@ -1168,7 +1194,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-03-17T21:27:55.121Z",
-  "totalPhotos": 48,
+  "analyzedAt": "2026-03-20T21:21:35.629Z",
+  "totalPhotos": 49,
   "averageScore": 6.4
 }

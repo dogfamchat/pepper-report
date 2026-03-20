@@ -1,0 +1,66 @@
+{
+  "date": "2026-03-20",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [
+    "Dottie"
+  ],
+  "comment": "Dottie was my favourite friend today, we played tug for a lot of the day. I also was super cuddly with the staff today. I was demand barking for some of the day but for the most part I respected my trainers when they asked me to stop. I did very well for the leave it exercise today.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "take-it, leave-it, drop-it"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "take-it, leave-it, drop-it",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-03-20T21:21:26.562Z",
+  "caughtBeingGood": [
+    "listened and respected my trainer"
+  ],
+  "ooops": []
+}
