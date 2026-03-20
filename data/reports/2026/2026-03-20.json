@@ -1,0 +1,38 @@
+{
+  "date": "2026-03-20",
+  "completedDateTime": "2026-03-20T20:46:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Grove"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "take-it, leave-it, drop-it"
+  ],
+  "caughtBeingGood": [
+    "listened and respected my trainer"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Dottie was my favourite friend today, we played tug for a lot of the day. I also was super cuddly with the staff today. I was demand barking for some of the day but for the most part I respected my trainers when they asked me to stop. I did very well for the leave it exercise today.",
+  "photos": [
+    "2026-03-20-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Dawn Birch",
+    "completedBy": "Forest Snow"
+  }
+}
