@@ -1,0 +1,38 @@
+{
+  "date": "2026-03-24",
+  "completedDateTime": "2026-03-24T22:43:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Jasper Oak"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "trick training",
+    "confidence building"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "I had the BEST day ever!! 🐾✨ I showed off my brainpower with some super fun trick training (I’m basically a genius now 😎🎓) and then burned off all that energy with tons of playtime with my friends! 🐕💨 From zoomies to silly games, I made sure to keep the fun going all day long. Can’t wait to come back and do it all again! 🐾💛 My demand barking was getting bad today.My trainers needed to give me constant breaks and walks to help keep my brain engaged",
+  "photos": [
+    "2026-03-24-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Rowan Stone",
+    "completedBy": "Jasper Oak"
+  }
+}
