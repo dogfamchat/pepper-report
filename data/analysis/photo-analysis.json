@@ -1180,6 +1180,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-03-20T21:21:35.628Z"
+    },
+    {
+      "filename": "2026-03-24-001.jpg",
+      "date": "2026-03-24",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-03-24/2026-03-24-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 8,
+      "compositionScore": 6,
+      "overallScore": 7,
+      "description": "High-five practice session in progress! Pepper's athletic build shines as she reaches up to meet her trainer's hand.",
+      "tags": [
+        "training",
+        "high-five",
+        "jumping",
+        "trainer interaction",
+        "indoor daycare",
+        "metal gates",
+        "concrete floor",
+        "athletic pose"
+      ],
+      "activity": "training",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-03-24T22:58:56.919Z"
     }
   ],
   "bestPhotos": [
@@ -1194,7 +1218,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-03-20T21:21:35.629Z",
-  "totalPhotos": 49,
+  "analyzedAt": "2026-03-24T22:58:56.920Z",
+  "totalPhotos": 50,
   "averageScore": 6.4
 }
