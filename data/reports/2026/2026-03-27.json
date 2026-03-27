@@ -1,0 +1,39 @@
+{
+  "date": "2026-03-27",
+  "completedDateTime": "2026-03-27T21:03:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Cedar Field"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "cuddling with friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "recall",
+    "recall with distractions"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Happy Friday!! I had a good day today, we started off playing with my friends followed by a potty break outside. Later we worked on recall for our training session. In the beginning we did one on one repetitions and afterwards practiced recall in a group setting to work on distractions. In the afternoon we had a nap and ended our day with another play session.",
+  "photos": [
+    "2026-03-27-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Lake Creek",
+    "completedBy": "Cedar Field"
+  }
+}
