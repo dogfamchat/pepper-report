@@ -1,0 +1,61 @@
+{
+  "date": "2026-03-27",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "Happy Friday!! I had a good day today, we started off playing with my friends followed by a potty break outside. Later we worked on recall for our training session. In the beginning we did one on one repetitions and afterwards practiced recall in a group setting to work on distractions. In the afternoon we had a nap and ended our day with another play session.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "party animal",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "recall",
+    "recall with distractions"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall with distractions",
+      "category": "advanced_training"
+    }
+  ],
+  "analyzedAt": "2026-03-27T21:55:51.022Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "made good choices"
+  ],
+  "ooops": []
+}

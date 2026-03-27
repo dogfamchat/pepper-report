@@ -9,9 +9,9 @@
       "recall",
       "confidence building",
       "handling (exam style)",
+      "recall with distractions",
       "down (stay)",
-      "trick training",
-      "recall with distractions"
+      "trick training"
     ],
     "datasets": [
       {
@@ -21,12 +21,12 @@
           35,
           28,
           27,
-          25,
+          26,
           21,
           12,
           11,
           11,
-          10
+          11
         ],
         "backgroundColor": [
           "rgba(214, 176, 122, 0.90)",
