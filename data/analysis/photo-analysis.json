@@ -1227,6 +1227,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-03-27T21:55:55.311Z"
+    },
+    {
+      "filename": "2026-03-31-001.jpg",
+      "date": "2026-03-31",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-03-31/2026-03-31-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 8,
+      "compositionScore": 6,
+      "overallScore": 7,
+      "description": "Close-up portrait in the daycare facility shows Pepper's attentive expression as she stands near the kennels. Her teal collar provides a nice pop of color against her rich rust coat.",
+      "tags": [
+        "indoor",
+        "portrait",
+        "close-up",
+        "teal collar",
+        "kennels",
+        "daycare facility",
+        "standing",
+        "alert expression"
+      ],
+      "activity": "posing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-03-31T22:02:46.131Z"
     }
   ],
   "bestPhotos": [
@@ -1241,7 +1265,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-03-27T21:55:55.312Z",
-  "totalPhotos": 51,
+  "analyzedAt": "2026-03-31T22:02:46.132Z",
+  "totalPhotos": 52,
   "averageScore": 6.4
 }

@@ -1,0 +1,83 @@
+{
+  "date": "2026-03-31",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "Happy Tuesday-yay! 🎉😄  \nWhat a blast of a day! 💥 We zoomed around outside 🌳🐕💨, had so much fun on the agility course 🐾🏃‍♂️, and even practiced our thresholds 🚪✋ (no bolting out the doors—woohoo! 🙌). Such amazing progress all around 🌟💯. What a fun-filled Tuesday! 🐾",
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-03-31T22:02:39.944Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ]
+}
