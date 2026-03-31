@@ -1,0 +1,45 @@
+{
+  "date": "2026-03-31",
+  "completedDateTime": "2026-03-31T19:33:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Snow"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play",
+    "respected thresholds",
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "Happy Tuesday-yay! 🎉😄  \nWhat a blast of a day! 💥 We zoomed around outside 🌳🐕💨, had so much fun on the agility course 🐾🏃‍♂️, and even practiced our thresholds 🚪✋ (no bolting out the doors—woohoo! 🙌). Such amazing progress all around 🌟💯. What a fun-filled Tuesday! 🐾",
+  "photos": [
+    "2026-03-31-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "River Pine",
+    "completedBy": "Forest Snow"
+  }
+}
