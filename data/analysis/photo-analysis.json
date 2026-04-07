@@ -1251,6 +1251,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-03-31T22:02:46.131Z"
+    },
+    {
+      "filename": "2026-04-07-001.jpg",
+      "date": "2026-04-07",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-04-07/2026-04-07-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 8,
+      "compositionScore": 5,
+      "overallScore": 6.3,
+      "description": "The pack gathers for what might be treat time - excitement levels are clearly high with all those open mouths and eager faces. Pepper's positioned front and center, ready for whatever goodness is coming their way.",
+      "tags": [
+        "group photo",
+        "excited dogs",
+        "indoor daycare",
+        "treat time",
+        "multiple dogs",
+        "anticipation",
+        "pack gathering"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-04-07T22:14:57.071Z"
     }
   ],
   "bestPhotos": [
@@ -1265,7 +1288,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-03-31T22:02:46.132Z",
-  "totalPhotos": 52,
+  "analyzedAt": "2026-04-07T22:14:57.072Z",
+  "totalPhotos": 53,
   "averageScore": 6.4
 }

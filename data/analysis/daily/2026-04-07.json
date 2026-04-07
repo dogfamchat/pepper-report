@@ -1,0 +1,68 @@
+{
+  "date": "2026-04-07",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Today I worked on puppy push-ups (sit-down-sit) and turned them into my own little workout session 💪🐶 I popped up, dropped down, and popped right back up again like a pro. It was a fun way to burn energy, use my brain, and show off my quick moves ✨🐾",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "down (stay)",
+    "stand (stay)"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "down (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "stand (stay)",
+      "category": "obedience_commands"
+    }
+  ],
+  "analyzedAt": "2026-04-07T22:14:51.644Z",
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": []
+}
