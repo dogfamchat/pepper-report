@@ -1,0 +1,38 @@
+{
+  "date": "2026-04-07",
+  "completedDateTime": "2026-04-07T18:55:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "down (stay)",
+    "stand (stay)"
+  ],
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I worked on puppy push-ups (sit-down-sit) and turned them into my own little workout session 💪🐶 I popped up, dropped down, and popped right back up again like a pro. It was a fun way to burn energy, use my brain, and show off my quick moves ✨🐾",
+  "photos": [
+    "2026-04-07-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Grove",
+    "completedBy": "Clay Valley"
+  }
+}
