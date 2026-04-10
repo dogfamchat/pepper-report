@@ -1,16 +1,16 @@
 {
   "summary": {
-    "totalReports": 72,
+    "totalReports": 73,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-04-07"
+      "end": "2026-04-10"
     },
-    "totalPositiveBehaviors": 205,
+    "totalPositiveBehaviors": 210,
     "totalNegativeBehaviors": 23,
-    "reportsWithPositive": 68,
+    "reportsWithPositive": 69,
     "reportsWithNegative": 21,
-    "positivePercentage": 94.44444444444444,
-    "negativePercentage": 29.166666666666668
+    "positivePercentage": 94.52054794520548,
+    "negativePercentage": 28.767123287671232
   },
   "timeline": [
     {
@@ -372,48 +372,53 @@
       "date": "2026-04-07",
       "positiveCount": 2,
       "negativeCount": 0
+    },
+    {
+      "date": "2026-04-10",
+      "positiveCount": 5,
+      "negativeCount": 0
     }
   ],
   "positiveBehaviors": [
     {
       "name": "sharing nicely (water bowl, toys, food)",
-      "count": 47,
-      "percentage": 22.926829268292686
+      "count": 48,
+      "percentage": 22.857142857142858
     },
     {
       "name": "listened and respected my trainer",
-      "count": 47,
-      "percentage": 22.926829268292686
+      "count": 48,
+      "percentage": 22.857142857142858
     },
     {
       "name": "practiced balanced and fair play",
-      "count": 38,
-      "percentage": 18.536585365853657
+      "count": 39,
+      "percentage": 18.571428571428573
     },
     {
       "name": "loved every dog I met",
-      "count": 31,
-      "percentage": 15.121951219512194
+      "count": 32,
+      "percentage": 15.238095238095239
     },
     {
       "name": "respected thresholds",
-      "count": 20,
-      "percentage": 9.75609756097561
+      "count": 21,
+      "percentage": 10
     },
     {
       "name": "made good choices",
       "count": 15,
-      "percentage": 7.317073170731707
+      "percentage": 7.142857142857142
     },
     {
       "name": "respected other's space",
       "count": 4,
-      "percentage": 1.951219512195122
+      "percentage": 1.9047619047619049
     },
     {
       "name": "helped the new kids fit in",
       "count": 3,
-      "percentage": 1.4634146341463417
+      "percentage": 1.4285714285714286
     }
   ],
   "negativeBehaviors": [
