@@ -3,15 +3,15 @@
   "data": {
     "labels": [
       "Riker",
-      "Sage",
+      "June",
       "Dottie",
+      "Sage",
       "Ruby",
       "Larry",
       "Ginny",
       "Robertson",
       "Nova",
-      "Niko",
-      "Joey"
+      "Niko"
     ],
     "datasets": [
       {
@@ -19,8 +19,8 @@
         "data": [
           5,
           2,
-          1,
-          1,
+          2,
+          2,
           1,
           1,
           1,

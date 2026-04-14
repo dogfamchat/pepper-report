@@ -4,29 +4,29 @@
     "labels": [
       "sit (stay)",
       "boundries, door-ways, and thresholds",
-      "impulse control",
       "name recognition",
+      "impulse control",
       "recall",
       "confidence building",
       "handling (exam style)",
-      "down (stay)",
       "recall with distractions",
+      "down (stay)",
       "trick training"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
-          42,
-          38,
+          43,
+          39,
+          29,
           29,
           28,
-          27,
           22,
           12,
           12,
-          11,
-          11
+          12,
+          12
         ],
         "backgroundColor": [
           "rgba(214, 176, 122, 0.90)",
