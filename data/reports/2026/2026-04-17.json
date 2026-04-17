@@ -1,0 +1,37 @@
+{
+  "date": "2026-04-17",
+  "completedDateTime": "2026-04-17T20:16:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Grove"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "confidence building"
+  ],
+  "caughtBeingGood": [],
+  "ooops": [],
+  "noteworthyComments": "I was very happy to play with Riker today. I did play with most of the dogs in the room, but Riker is always my favourite. I got a few corrections when we would go over threshold, especially when I slammed into the legs of the staff while playing. For today’s exercise, we worked on confidence building on a wheelchair and I did well. I jumped up with a good amount of confidence.",
+  "photos": [
+    "2026-04-17-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Lake Rock",
+    "completedBy": "Forest Snow"
+  }
+}
