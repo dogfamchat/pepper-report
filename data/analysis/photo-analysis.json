@@ -1299,6 +1299,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-04-10T21:27:17.321Z"
+    },
+    {
+      "filename": "2026-04-17-001.jpg",
+      "date": "2026-04-17",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-04-17/2026-04-17-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pepper has claimed the blue chair as her throne, sitting upright with perfect posture like she's ready for a board meeting. The indoor kennels suggest this might be quiet time, but someone's clearly not ready to settle down just yet.",
+      "tags": [
+        "indoor",
+        "kennel area",
+        "blue chair",
+        "sitting",
+        "alert",
+        "turquoise collar",
+        "metal gates",
+        "daycare facility"
+      ],
+      "activity": "resting",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-04-17T21:32:42.240Z"
     }
   ],
   "bestPhotos": [
@@ -1313,7 +1337,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-04-10T21:27:17.322Z",
-  "totalPhotos": 54,
+  "analyzedAt": "2026-04-17T21:32:42.241Z",
+  "totalPhotos": 55,
   "averageScore": 6.4
 }

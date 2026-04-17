@@ -2,11 +2,11 @@
   "week": "2026-W16",
   "startDate": "2026-04-13",
   "endDate": "2026-04-20",
-  "daysAttended": 1,
-  "averageGrade": 4,
+  "daysAttended": 2,
+  "averageGrade": 3.5,
   "gradeDistribution": {
     "A": 1,
-    "B": 0,
+    "B": 1,
     "C": 0,
     "D": 0
   }

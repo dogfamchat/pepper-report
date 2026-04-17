@@ -1,0 +1,73 @@
+{
+  "date": "2026-04-17",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [
+    "Riker"
+  ],
+  "comment": "I was very happy to play with Riker today. I did play with most of the dogs in the room, but Riker is always my favourite. I got a few corrections when we would go over threshold, especially when I slammed into the legs of the staff while playing. For today’s exercise, we worked on confidence building on a wheelchair and I did well. I jumped up with a good amount of confidence.",
+  "rawActivities": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2026-04-17T21:32:36.315Z",
+  "caughtBeingGood": [],
+  "ooops": []
+}
