@@ -1,0 +1,37 @@
+{
+  "date": "2026-04-21",
+  "completedDateTime": "2026-04-21T21:05:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "caught bubbles",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "confidence building",
+    "balancing skills"
+  ],
+  "caughtBeingGood": [
+    "practiced balanced and fair play",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today was an absolute party 🐾 I hit the slide like a pro, spent tons of time outside, and went all in chasing and popping bubbles 🫧🐶 I was living my best life, running around, having fun with my friends, and soaking up all the action. I'm going home happy, tired, and ready to do it all again 🎉✨",
+  "photos": [],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Clay Valley"
+  }
+}
