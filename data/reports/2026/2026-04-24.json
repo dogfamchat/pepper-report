@@ -1,0 +1,41 @@
+{
+  "date": "2026-04-24",
+  "completedDateTime": "2026-04-24T21:02:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ],
+  "noteworthyComments": "Fun Friday was a blast! I practiced my sit-stays and worked really hard to hold them strong. The wind was CRAZY, so I tried my best to avoid it (not a fan of that part 😅), but I still got out there, got some fresh air, and made the most of it! I had challenges with my demand barking\ntoday where breaks were needed",
+  "photos": [
+    "2026-04-24-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Forest Rain",
+    "completedBy": "Vale Elm"
+  }
+}
