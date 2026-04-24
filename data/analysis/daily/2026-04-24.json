@@ -1,0 +1,63 @@
+{
+  "date": "2026-04-24",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "Fun Friday was a blast! I practiced my sit-stays and worked really hard to hold them strong. The wind was CRAZY, so I tried my best to avoid it (not a fan of that part 😅), but I still got out there, got some fresh air, and made the most of it! I had challenges with my demand barking\ntoday where breaks were needed",
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-04-24T21:38:23.649Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [
+    "verbally expressed myself"
+  ]
+}

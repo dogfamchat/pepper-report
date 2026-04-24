@@ -2,8 +2,8 @@
   "type": "bar",
   "data": {
     "labels": [
-      "played with as many buddies as possible",
       "played outdoors",
+      "played with as many buddies as possible",
       "napped with friends",
       "party animal",
       "hung out with my bestie",
@@ -18,10 +18,10 @@
         "label": "Frequency",
         "data": [
           58,
-          57,
-          53,
+          58,
+          54,
           47,
-          43,
+          44,
           35,
           29,
           14,
