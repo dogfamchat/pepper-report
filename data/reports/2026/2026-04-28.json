@@ -1,0 +1,48 @@
+{
+  "date": "2026-04-28",
+  "completedDateTime": "2026-04-28T19:05:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Forest Oak"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "recall",
+    "recall with distractions",
+    "impulse control",
+    "focus work"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today we played fetch while also working on take it/ leave it!! Pepper had a blast playing with milo and finnigan🤍",
+  "photos": [
+    "2026-04-28-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Forest Oak"
+  }
+}

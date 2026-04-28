@@ -540,8 +540,18 @@
       "width": 1024,
       "height": 1024,
       "uploaded": "2026-04-24T21:38:02.995Z"
+    },
+    {
+      "filename": "2026-04-28-001.jpg",
+      "date": "2026-04-28",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-04-28/2026-04-28-001.jpg",
+      "thumbnailUrl": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-04-28/thumbnails/2026-04-28-001.jpg",
+      "size": 344739,
+      "width": 1024,
+      "height": 1024,
+      "uploaded": "2026-04-28T21:50:05.687Z"
     }
   ],
-  "totalSize": 9846913,
-  "count": 54
+  "totalSize": 10191652,
+  "count": 55
 }
