@@ -1373,6 +1373,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-04-28T21:50:28.766Z"
+    },
+    {
+      "filename": "2026-05-01-001.jpg",
+      "date": "2026-05-01",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-05-01/2026-05-01-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 8,
+      "compositionScore": 6,
+      "overallScore": 7,
+      "description": "Pepper strikes a serious pose while navigating the playground equipment, with her daycare buddies busy exploring in the background. The yellow play structure frames her perfectly as she surveys the scene with focused intensity.",
+      "tags": [
+        "playground equipment",
+        "yellow play structure",
+        "indoor play area",
+        "multiple dogs",
+        "artificial turf",
+        "daycare setting",
+        "brown/rust colored dogs"
+      ],
+      "activity": "exploring",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-05-01T21:42:26.600Z"
     }
   ],
   "bestPhotos": [
@@ -1387,7 +1410,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-04-28T21:50:28.767Z",
-  "totalPhotos": 57,
+  "analyzedAt": "2026-05-01T21:42:26.601Z",
+  "totalPhotos": 58,
   "averageScore": 6.5
 }

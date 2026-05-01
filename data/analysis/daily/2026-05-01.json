@@ -1,0 +1,86 @@
+{
+  "date": "2026-05-01",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Today I spent lots of time outside enjoying the sunshine and playing fetch with my friends ☀️🎾🐶 To make things a little more challenging, I also practiced sit-stays in between throws, working on my patience and impulse control before chasing the toy again. It was such a fun way to end the week🐾✨",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "had a pool party",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "take-it, leave-it, drop-it",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "socialization"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "take-it, leave-it, drop-it",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-05-01T21:42:21.672Z",
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": []
+}
