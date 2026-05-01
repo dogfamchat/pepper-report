@@ -1,0 +1,40 @@
+{
+  "date": "2026-05-01",
+  "completedDateTime": "2026-05-01T21:18:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "had a pool party",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "sit (stay)",
+    "take-it, leave-it, drop-it",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I spent lots of time outside enjoying the sunshine and playing fetch with my friends ☀️🎾🐶 To make things a little more challenging, I also practiced sit-stays in between throws, working on my patience and impulse control before chasing the toy again. It was such a fun way to end the week🐾✨",
+  "photos": [
+    "2026-05-01-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Cypress Elm",
+    "completedBy": "Clay Valley"
+  }
+}
