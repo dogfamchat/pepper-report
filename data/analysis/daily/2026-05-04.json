@@ -1,0 +1,61 @@
+{
+  "date": "2026-05-04",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [],
+  "comment": "I loved playing outside today. I was happy to see and play with all of my friends. I also loved getting pets and cuddles from Jadyn. I only demand barked a few times. I loved participating in the May the Fourth special event today!",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "special event"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "recall"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    },
+    {
+      "item": "special event",
+      "category": "special_event"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    }
+  ],
+  "analyzedAt": "2026-05-04T21:52:37.207Z",
+  "caughtBeingGood": [],
+  "ooops": []
+}
