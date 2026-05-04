@@ -1,0 +1,35 @@
+{
+  "date": "2026-05-04",
+  "completedDateTime": "2026-05-04T17:24:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Brook Grove"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "special event"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "recall"
+  ],
+  "caughtBeingGood": [],
+  "ooops": [],
+  "noteworthyComments": "I loved playing outside today. I was happy to see and play with all of my friends. I also loved getting pets and cuddles from Jadyn. I only demand barked a few times. I loved participating in the May the Fourth special event today!",
+  "photos": [
+    "2026-05-04-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Dawn Rock",
+    "completedBy": "Forest Snow"
+  }
+}
