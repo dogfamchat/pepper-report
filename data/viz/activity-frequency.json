@@ -2,8 +2,8 @@
   "type": "bar",
   "data": {
     "labels": [
-      "played outdoors",
       "played with as many buddies as possible",
+      "played outdoors",
       "napped with friends",
       "party animal",
       "hung out with my bestie",
@@ -11,21 +11,21 @@
       "played with my favorite toy",
       "played on the agility equipment",
       "engagement games",
-      "caught bubbles"
+      "had a pool party"
     ],
     "datasets": [
       {
         "label": "Frequency",
         "data": [
+          62,
           61,
-          61,
-          56,
-          49,
+          57,
+          50,
           45,
           37,
           31,
           15,
-          9,
+          10,
           9
         ],
         "backgroundColor": [

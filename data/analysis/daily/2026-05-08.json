@@ -1,0 +1,77 @@
+{
+  "date": "2026-05-08",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Today we had a dance party and it was such a fun way to end the week 🎉🐶 I spent the day moving, playing, and soaking up all the happy energy with my friends. The pool was out, the sun was shining, and we made the most of the beautiful weather ☀️💦🐾 It was the perfect mix of fun, excitement, and summer vibes ✨",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "napped with friends",
+    "had a pool party",
+    "engagement games"
+  ],
+  "rawTrainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "confidence building"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "socialization"
+    },
+    {
+      "item": "engagement games",
+      "category": "enrichment"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "confidence building",
+      "category": "physical_skills"
+    }
+  ],
+  "analyzedAt": "2026-05-08T21:47:34.997Z",
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": []
+}
