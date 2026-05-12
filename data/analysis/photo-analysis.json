@@ -1419,6 +1419,32 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-05-04T21:52:42.919Z"
+    },
+    {
+      "filename": "2026-05-12-001.jpg",
+      "date": "2026-05-12",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-05-12/2026-05-12-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 7,
+      "compositionScore": 6,
+      "overallScore": 6.7,
+      "description": "Training session in progress - Pepper maintains perfect focus on her handler while a small dark poodle waits patiently in the background. Her athletic stance shows she's ready for whatever command comes next.",
+      "tags": [
+        "training",
+        "outdoor",
+        "grass",
+        "leash",
+        "handler",
+        "focused",
+        "standing",
+        "poodle in background",
+        "athletic stance",
+        "mint collar"
+      ],
+      "activity": "training",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-05-12T22:02:02.095Z"
     }
   ],
   "bestPhotos": [
@@ -1433,7 +1459,7 @@
     "2025-09-26-001.jpg",
     "2025-10-03-001.jpg"
   ],
-  "analyzedAt": "2026-05-04T21:52:42.920Z",
-  "totalPhotos": 59,
+  "analyzedAt": "2026-05-12T22:02:02.096Z",
+  "totalPhotos": 60,
   "averageScore": 6.5
 }
