@@ -1,0 +1,39 @@
+{
+  "date": "2026-05-15",
+  "completedDateTime": "2026-05-15T18:22:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "B",
+  "gradeDescription": "B = I practiced consistent good behaviour.",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "take-it, leave-it, drop-it",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I spent lots of time outside playing with toys and having an absolute blast with the frisbee 🥏🐶 I ran around with my friends Charlie and Willow, burned off tons of energy, and made the most of the day outside ☀️🐾 It was such a fun day full of play. I'm ready for the long weekend!✨",
+  "photos": [
+    "2026-05-15-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Ocean Grove",
+    "completedBy": "Clay Valley"
+  }
+}
