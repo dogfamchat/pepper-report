@@ -1,0 +1,76 @@
+{
+  "date": "2026-05-15",
+  "grade": "B",
+  "gradeNumeric": 3,
+  "friends": [
+    "Charlie",
+    "Willow"
+  ],
+  "comment": "Today I spent lots of time outside playing with toys and having an absolute blast with the frisbee 🥏🐶 I ran around with my friends Charlie and Willow, burned off tons of energy, and made the most of the day outside ☀️🐾 It was such a fun day full of play. I'm ready for the long weekend!✨",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "engagement games",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "boundries, door-ways, and thresholds",
+    "take-it, leave-it, drop-it",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "engagement games",
+      "category": "enrichment"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "take-it, leave-it, drop-it",
+      "category": "impulse_control_and_focus"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-05-15T21:47:17.092Z",
+  "caughtBeingGood": [
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": []
+}

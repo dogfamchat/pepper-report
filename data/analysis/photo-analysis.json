@@ -1445,6 +1445,29 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-05-12T22:02:02.095Z"
+    },
+    {
+      "filename": "2026-05-15-001.jpg",
+      "date": "2026-05-15",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-05-15/2026-05-15-001.jpg",
+      "qualityScore": 8,
+      "cutenessScore": 7,
+      "compositionScore": 8,
+      "overallScore": 7.7,
+      "description": "Pepper strikes a curious pose as her friend investigates something fascinating on the floor behind her. The low angle captures her inquisitive expression perfectly while showcasing the busy daycare atmosphere.",
+      "tags": [
+        "indoor",
+        "low angle",
+        "portrait",
+        "two dogs",
+        "clean background",
+        "natural lighting",
+        "curious expression"
+      ],
+      "activity": "exploring",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-05-15T21:47:21.951Z"
     }
   ],
   "bestPhotos": [
@@ -1453,13 +1476,13 @@
     "2025-10-20-001.jpg",
     "2025-12-13-001.jpg",
     "2026-03-13-001.jpg",
+    "2026-05-15-001.jpg",
     "2025-08-22-001.jpg",
     "2025-09-10-001.jpg",
     "2025-09-15-001.jpg",
-    "2025-09-26-001.jpg",
-    "2025-10-03-001.jpg"
+    "2025-09-26-001.jpg"
   ],
-  "analyzedAt": "2026-05-12T22:02:02.096Z",
-  "totalPhotos": 60,
+  "analyzedAt": "2026-05-15T21:47:21.952Z",
+  "totalPhotos": 61,
   "averageScore": 6.5
 }
