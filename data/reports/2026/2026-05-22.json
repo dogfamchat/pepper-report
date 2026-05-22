@@ -1,0 +1,43 @@
+{
+  "date": "2026-05-22",
+  "completedDateTime": "2026-05-22T18:57:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Ridge Cedar"
+  ],
+  "grade": "C",
+  "gradeDescription": "C = I needed a little help from the trainer.",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sequence (3 different skills in varying order)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": [
+    "bullying or pestering another dog",
+    "challenge with self regulation"
+  ],
+  "noteworthyComments": "Today was a daily crazy day tons of energy and play throughout the day without a lot of calm. Most of us had a blast. And for our skills we worked on puppy push-ups (sit-down-up). Most of us did great and were very engaged. Overall fun day! Pepper was struggling a lot with the energy levels for most of the day. Wit overstimulated play as well as running after dogs barking at them if they wouldn’t play. Pepper did ok with separation but did much better with a hands free walk.",
+  "photos": [
+    "2026-05-22-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Vale Bloom",
+    "completedBy": "Ridge Cedar"
+  }
+}
