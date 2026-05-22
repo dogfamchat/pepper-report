@@ -1468,6 +1468,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-05-15T21:47:21.951Z"
+    },
+    {
+      "filename": "2026-05-22-001.jpg",
+      "date": "2026-05-22",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-05-22/2026-05-22-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 6,
+      "compositionScore": 6,
+      "overallScore": 6.3,
+      "description": "Pepper sits front and center while her daycare friends mill around in the background. The water bowl suggests playtime might be winding down for a hydration break.",
+      "tags": [
+        "outdoor play area",
+        "artificial grass",
+        "water bowl",
+        "sitting",
+        "daycare group",
+        "fence enclosure",
+        "multiple dogs",
+        "break time"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-05-22T21:56:55.619Z"
     }
   ],
   "bestPhotos": [
@@ -1482,7 +1506,7 @@
     "2025-09-15-001.jpg",
     "2025-09-26-001.jpg"
   ],
-  "analyzedAt": "2026-05-15T21:47:21.952Z",
-  "totalPhotos": 61,
+  "analyzedAt": "2026-05-22T21:56:55.620Z",
+  "totalPhotos": 62,
   "averageScore": 6.5
 }

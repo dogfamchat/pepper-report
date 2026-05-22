@@ -1,0 +1,81 @@
+{
+  "date": "2026-05-22",
+  "grade": "C",
+  "gradeNumeric": 2,
+  "friends": [],
+  "comment": "Today was a daily crazy day tons of energy and play throughout the day without a lot of calm. Most of us had a blast. And for our skills we worked on puppy push-ups (sit-down-up). Most of us did great and were very engaged. Overall fun day! Pepper was struggling a lot with the energy levels for most of the day. Wit overstimulated play as well as running after dogs barking at them if they wouldn’t play. Pepper did ok with separation but did much better with a hands free walk.",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "played on the agility equipment",
+    "one-on-one time with the trainer"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "boundries, door-ways, and thresholds",
+    "sequence (3 different skills in varying order)"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "playtime"
+    },
+    {
+      "item": "played on the agility equipment",
+      "category": "training"
+    },
+    {
+      "item": "one-on-one time with the trainer",
+      "category": "training"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "sequence (3 different skills in varying order)",
+      "category": "advanced_training"
+    }
+  ],
+  "analyzedAt": "2026-05-22T21:56:48.901Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "respected thresholds",
+    "loved every dog I met"
+  ],
+  "ooops": [
+    "bullying or pestering another dog",
+    "challenge with self regulation"
+  ]
+}

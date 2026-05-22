@@ -11,8 +11,8 @@
       "verbally expressed myself",
       "respected other's space",
       "bullying or pestering another dog",
-      "helped the new kids fit in",
       "challenge with self regulation",
+      "helped the new kids fit in",
       "cranky (lacking patience and a little irritable",
       "missed social cues"
     ],
@@ -20,16 +20,16 @@
       {
         "label": "Frequency",
         "data": [
-          52,
+          53,
           52,
           41,
-          38,
-          23,
+          39,
+          24,
           18,
           17,
           5,
+          5,
           4,
-          3,
           3,
           1,
           1
@@ -44,8 +44,8 @@
           "rgba(191, 110, 69, 0.8)",
           "rgba(91, 173, 191, 0.8)",
           "rgba(191, 110, 69, 0.8)",
-          "rgba(91, 173, 191, 0.8)",
           "rgba(191, 110, 69, 0.8)",
+          "rgba(91, 173, 191, 0.8)",
           "rgba(191, 110, 69, 0.8)",
           "rgba(191, 110, 69, 0.8)"
         ],

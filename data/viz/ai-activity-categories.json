@@ -5,8 +5,8 @@
       "Playtime",
       "Socialization",
       "Outdoor",
-      "Rest",
       "Training",
+      "Rest",
       "Enrichment",
       "Special Event"
     ],
@@ -14,11 +14,11 @@
       {
         "label": "Activity Count",
         "data": [
-          246,
-          172,
-          73,
+          250,
+          174,
+          74,
+          59,
           58,
-          57,
           25,
           4
         ],
