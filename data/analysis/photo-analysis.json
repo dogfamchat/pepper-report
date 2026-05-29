@@ -1492,6 +1492,33 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-05-22T21:56:55.619Z"
+    },
+    {
+      "filename": "2026-05-29-001.jpg",
+      "date": "2026-05-29",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-05-29/2026-05-29-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 8,
+      "compositionScore": 5,
+      "overallScore": 6.3,
+      "description": "Pepper's signature close-up photobomb strikes again - this time with that unmistakable \"did someone say treats?\" expression while her golden friend investigates something interesting in the background.",
+      "tags": [
+        "close-up",
+        "outdoor play area",
+        "vizsla",
+        "golden retriever",
+        "daycare yard",
+        "concrete surface",
+        "play equipment",
+        "two dogs",
+        "photobomb"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [
+        "golden retriever"
+      ],
+      "pepperVisible": true,
+      "analyzedAt": "2026-05-29T22:15:16.725Z"
     }
   ],
   "bestPhotos": [
@@ -1506,7 +1533,7 @@
     "2025-09-15-001.jpg",
     "2025-09-26-001.jpg"
   ],
-  "analyzedAt": "2026-05-22T21:56:55.620Z",
-  "totalPhotos": 62,
+  "analyzedAt": "2026-05-29T22:15:16.726Z",
+  "totalPhotos": 63,
   "averageScore": 6.5
 }

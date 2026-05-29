@@ -1,0 +1,86 @@
+{
+  "date": "2026-05-29",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [],
+  "comment": "Today was a pool party kind of day 💦☀️🐶 I spent time practicing nice play with my friends and making good social choices during all the excitement. Of course, I also had plenty of zoomies, splashed around, and burned off lots of happy energy with the pack 🐾✨",
+  "rawActivities": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "had a pool party",
+    "played with my favorite toy"
+  ],
+  "rawTrainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "hands-free work",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "played with as many buddies as possible",
+      "category": "playtime"
+    },
+    {
+      "item": "played with as many buddies as possible",
+      "category": "socialization"
+    },
+    {
+      "item": "party animal",
+      "category": "playtime"
+    },
+    {
+      "item": "party animal",
+      "category": "socialization"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "socialization"
+    },
+    {
+      "item": "played with my favorite toy",
+      "category": "playtime"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "collar grab games",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "boundries, door-ways, and thresholds",
+      "category": "handling_and_manners"
+    },
+    {
+      "item": "hands-free work",
+      "category": "advanced_training"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-05-29T22:15:11.603Z",
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": []
+}
