@@ -1,0 +1,40 @@
+{
+  "date": "2026-05-29",
+  "completedDateTime": "2026-05-29T21:04:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Clay Valley"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "played with as many buddies as possible",
+    "party animal",
+    "played outdoors",
+    "had a pool party",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "collar grab games",
+    "boundries, door-ways, and thresholds",
+    "hands-free work",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "loved every dog I met",
+    "made good choices"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today was a pool party kind of day 💦☀️🐶 I spent time practicing nice play with my friends and making good social choices during all the excitement. Of course, I also had plenty of zoomies, splashed around, and burned off lots of happy energy with the pack 🐾✨",
+  "photos": [
+    "2026-05-29-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Jasper Oak",
+    "completedBy": "Clay Valley"
+  }
+}
