@@ -1,16 +1,16 @@
 {
   "summary": {
-    "totalReports": 85,
+    "totalReports": 86,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-05-29"
+      "end": "2026-06-02"
     },
-    "totalPositiveBehaviors": 237,
-    "totalNegativeBehaviors": 28,
-    "reportsWithPositive": 79,
-    "reportsWithNegative": 24,
-    "positivePercentage": 92.94117647058823,
-    "negativePercentage": 28.235294117647058
+    "totalPositiveBehaviors": 239,
+    "totalNegativeBehaviors": 30,
+    "reportsWithPositive": 80,
+    "reportsWithNegative": 25,
+    "positivePercentage": 93.02325581395348,
+    "negativePercentage": 29.069767441860467
   },
   "timeline": [
     {
@@ -437,75 +437,80 @@
       "date": "2026-05-29",
       "positiveCount": 2,
       "negativeCount": 0
+    },
+    {
+      "date": "2026-06-02",
+      "positiveCount": 2,
+      "negativeCount": 2
     }
   ],
   "positiveBehaviors": [
     {
       "name": "sharing nicely (water bowl, toys, food)",
-      "count": 53,
-      "percentage": 22.362869198312236
+      "count": 54,
+      "percentage": 22.594142259414227
     },
     {
       "name": "listened and respected my trainer",
       "count": 52,
-      "percentage": 21.940928270042196
+      "percentage": 21.75732217573222
     },
     {
       "name": "practiced balanced and fair play",
       "count": 41,
-      "percentage": 17.29957805907173
+      "percentage": 17.154811715481173
     },
     {
       "name": "loved every dog I met",
-      "count": 40,
-      "percentage": 16.877637130801688
+      "count": 41,
+      "percentage": 17.154811715481173
     },
     {
       "name": "respected thresholds",
       "count": 24,
-      "percentage": 10.126582278481013
+      "percentage": 10.0418410041841
     },
     {
       "name": "made good choices",
       "count": 19,
-      "percentage": 8.016877637130802
+      "percentage": 7.949790794979079
     },
     {
       "name": "respected other's space",
       "count": 5,
-      "percentage": 2.109704641350211
+      "percentage": 2.092050209205021
     },
     {
       "name": "helped the new kids fit in",
       "count": 3,
-      "percentage": 1.2658227848101267
+      "percentage": 1.2552301255230125
     }
   ],
   "negativeBehaviors": [
     {
       "name": "verbally expressed myself",
-      "count": 17,
-      "percentage": 60.71428571428571
+      "count": 18,
+      "percentage": 60
     },
     {
       "name": "bullying or pestering another dog",
       "count": 5,
-      "percentage": 17.857142857142858
+      "percentage": 16.666666666666664
     },
     {
       "name": "challenge with self regulation",
-      "count": 4,
-      "percentage": 14.285714285714285
+      "count": 5,
+      "percentage": 16.666666666666664
     },
     {
       "name": "cranky (lacking patience and a little irritable",
       "count": 1,
-      "percentage": 3.571428571428571
+      "percentage": 3.3333333333333335
     },
     {
       "name": "missed social cues",
       "count": 1,
-      "percentage": 3.571428571428571
+      "percentage": 3.3333333333333335
     }
   ]
 }

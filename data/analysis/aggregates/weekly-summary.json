@@ -1,12 +1,12 @@
 {
-  "week": "2026-W22",
-  "startDate": "2026-05-25",
-  "endDate": "2026-06-01",
+  "week": "2026-W23",
+  "startDate": "2026-06-01",
+  "endDate": "2026-06-08",
   "daysAttended": 1,
-  "averageGrade": 4,
+  "averageGrade": 3,
   "gradeDistribution": {
-    "A": 1,
-    "B": 0,
+    "A": 0,
+    "B": 1,
     "C": 0,
     "D": 0
   }

@@ -1519,6 +1519,31 @@
       ],
       "pepperVisible": true,
       "analyzedAt": "2026-05-29T22:15:16.725Z"
+    },
+    {
+      "filename": "2026-06-02-001.jpg",
+      "date": "2026-06-02",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-06-02/2026-06-02-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 8,
+      "compositionScore": 7,
+      "overallScore": 7,
+      "description": "Pepper stands tall while her darker-coated friends lounge at ground level, creating a perfect study in contrasts. The geometry of three dogs at different heights makes for an unexpectedly artistic moment.",
+      "tags": [
+        "indoor",
+        "group photo",
+        "multiple dogs",
+        "resting",
+        "standing",
+        "composition",
+        "contrast",
+        "different heights",
+        "floor level"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-06-02T22:20:21.654Z"
     }
   ],
   "bestPhotos": [
@@ -1533,7 +1558,7 @@
     "2025-09-15-001.jpg",
     "2025-09-26-001.jpg"
   ],
-  "analyzedAt": "2026-05-29T22:15:16.726Z",
-  "totalPhotos": 63,
+  "analyzedAt": "2026-06-02T22:20:21.655Z",
+  "totalPhotos": 64,
   "averageScore": 6.5
 }
