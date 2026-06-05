@@ -4,14 +4,14 @@
     "labels": [
       "Riker",
       "Milo",
+      "Ruby",
       "June",
       "Dottie",
       "Sage",
       "Sadie-lou",
       "Charlie",
       "Willow",
-      "Finnigan",
-      "Ruby"
+      "Finnigan"
     ],
     "datasets": [
       {
@@ -22,7 +22,7 @@
           2,
           2,
           2,
-          1,
+          2,
           1,
           1,
           1,

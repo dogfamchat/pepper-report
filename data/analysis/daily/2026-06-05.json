@@ -1,0 +1,76 @@
+{
+  "date": "2026-06-05",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [
+    "Ruby"
+  ],
+  "comment": "Today at daycare, I practiced lots of impulse control with a fun game called Red Light, Green Light! It took all my focus to stop when asked, but I worked hard and did a great job. After our training session, it was time for some well-earned fun! I spent the rest of the day playing with my friends, splashing in the pool, and soaking up all the excitement. What a pawsome day of learning and play! My bestie was Ruby today, we had a blast playing",
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "had a pool party"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall",
+    "impulse control"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "playtime"
+    },
+    {
+      "item": "had a pool party",
+      "category": "outdoor"
+    },
+    {
+      "item": "had a pool party",
+      "category": "socialization"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "impulse control",
+      "category": "impulse_control_and_focus"
+    }
+  ],
+  "analyzedAt": "2026-06-05T21:36:52.364Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": []
+}

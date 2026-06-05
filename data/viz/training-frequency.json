@@ -2,8 +2,8 @@
   "type": "bar",
   "data": {
     "labels": [
-      "boundries, door-ways, and thresholds",
       "sit (stay)",
+      "boundries, door-ways, and thresholds",
       "name recognition",
       "impulse control",
       "recall",
@@ -17,11 +17,11 @@
       {
         "label": "Frequency",
         "data": [
+          50,
           49,
-          49,
-          36,
-          36,
-          32,
+          37,
+          37,
+          33,
           25,
           15,
           12,
