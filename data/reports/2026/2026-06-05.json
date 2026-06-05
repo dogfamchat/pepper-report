@@ -1,0 +1,40 @@
+{
+  "date": "2026-06-05",
+  "completedDateTime": "2026-06-05T20:01:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "had a pool party"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall",
+    "impulse control"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today at daycare, I practiced lots of impulse control with a fun game called Red Light, Green Light! It took all my focus to stop when asked, but I worked hard and did a great job. After our training session, it was time for some well-earned fun! I spent the rest of the day playing with my friends, splashing in the pool, and soaking up all the excitement. What a pawsome day of learning and play! My bestie was Ruby today, we had a blast playing",
+  "photos": [
+    "2026-06-05-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "River Elm",
+    "completedBy": "Vale Elm"
+  }
+}
