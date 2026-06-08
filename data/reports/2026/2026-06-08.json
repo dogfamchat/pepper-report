@@ -1,0 +1,39 @@
+{
+  "date": "2026-06-08",
+  "completedDateTime": "2026-06-08T21:35:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing with familiar friends.",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "special event"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I celebrated National Best Friends Day with all of my favorite buddies 🐶💛🐾 I spent the day playing, hanging out with my friends, and making lots of happy memories. Whether I was running around with the pack or relaxing beside a pal, I loved spending time with my besties. It was such a fun day filled with friendship, wagging tails, and good vibes ✨🥰🐶 My favourite friend was Marty",
+  "photos": [
+    "2026-06-08-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Aspen Creek",
+    "completedBy": "Vale Elm"
+  }
+}
