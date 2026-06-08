@@ -1569,6 +1569,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-06-05T21:36:57.585Z"
+    },
+    {
+      "filename": "2026-06-08-001.jpg",
+      "date": "2026-06-08",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-06-08/2026-06-08-001.jpg",
+      "qualityScore": 7,
+      "cutenessScore": 8,
+      "compositionScore": 6,
+      "overallScore": 7,
+      "description": "Pepper and her black-coated playmate share an intimate moment of canine connection, noses touching in what looks like either a gentle greeting or the calm before a playful chase.",
+      "tags": [
+        "nose-to-nose",
+        "interaction",
+        "outdoor",
+        "artificial turf",
+        "chain link fence",
+        "two dogs",
+        "bonding",
+        "socializing"
+      ],
+      "activity": "socializing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-06-08T22:19:00.697Z"
     }
   ],
   "bestPhotos": [
@@ -1583,7 +1607,7 @@
     "2025-09-10-001.jpg",
     "2025-09-15-001.jpg"
   ],
-  "analyzedAt": "2026-06-05T21:36:57.586Z",
-  "totalPhotos": 65,
+  "analyzedAt": "2026-06-08T22:19:00.698Z",
+  "totalPhotos": 66,
   "averageScore": 6.5
 }

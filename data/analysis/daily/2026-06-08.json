@@ -1,0 +1,63 @@
+{
+  "date": "2026-06-08",
+  "grade": "A",
+  "gradeNumeric": 4,
+  "friends": [
+    "Marty"
+  ],
+  "comment": "Today I celebrated National Best Friends Day with all of my favorite buddies 🐶💛🐾 I spent the day playing, hanging out with my friends, and making lots of happy memories. Whether I was running around with the pack or relaxing beside a pal, I loved spending time with my besties. It was such a fun day filled with friendship, wagging tails, and good vibes ✨🥰🐶 My favourite friend was Marty",
+  "rawActivities": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "special event"
+  ],
+  "rawTrainingSkills": [
+    "name recognition",
+    "sit (stay)",
+    "recall"
+  ],
+  "aiActivityCategories": [
+    {
+      "item": "hung out with my bestie",
+      "category": "socialization"
+    },
+    {
+      "item": "napped with friends",
+      "category": "rest"
+    },
+    {
+      "item": "played outdoors",
+      "category": "playtime"
+    },
+    {
+      "item": "played outdoors",
+      "category": "outdoor"
+    },
+    {
+      "item": "special event",
+      "category": "special_event"
+    }
+  ],
+  "aiTrainingCategories": [
+    {
+      "item": "name recognition",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "sit (stay)",
+      "category": "obedience_commands"
+    },
+    {
+      "item": "recall",
+      "category": "obedience_commands"
+    }
+  ],
+  "analyzedAt": "2026-06-08T22:18:55.549Z",
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": []
+}
