@@ -1,0 +1,39 @@
+{
+  "date": "2026-06-09",
+  "completedDateTime": "2026-06-09T20:27:00.000Z",
+  "dog": {
+    "name": "Pepper",
+    "owners": "John & Nadine"
+  },
+  "staffNames": [
+    "Vale Elm"
+  ],
+  "grade": "A",
+  "gradeDescription": "A = I excelled at everything I did today!",
+  "bestPartOfDay": "playing outside!",
+  "whatIDidToday": [
+    "hung out with my bestie",
+    "napped with friends",
+    "played outdoors",
+    "one-on-one time with the trainer",
+    "played with my favorite toy"
+  ],
+  "trainingSkills": [
+    "name recognition",
+    "place work (go to matt/table)"
+  ],
+  "caughtBeingGood": [
+    "sharing nicely (water bowl, toys, food)",
+    "listened and respected my trainer",
+    "practiced balanced and fair play"
+  ],
+  "ooops": [],
+  "noteworthyComments": "Today I worked on my place command! We practiced building excitement and engagement for going to my mat, then worked on staying there calmly. I had lots of fun learning that my place is a great spot to be before enjoying the rest of my day with my friends! My favourite part of the day was playing with toys and getting my friends to chase me around the yard !",
+  "photos": [
+    "2026-06-09-001.jpg"
+  ],
+  "metadata": {
+    "addedBy": "Glen Mountain",
+    "completedBy": "Vale Elm"
+  }
+}
