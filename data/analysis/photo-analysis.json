@@ -1593,6 +1593,30 @@
       "visibleFriends": [],
       "pepperVisible": true,
       "analyzedAt": "2026-06-08T22:19:00.697Z"
+    },
+    {
+      "filename": "2026-06-09-001.jpg",
+      "date": "2026-06-09",
+      "r2Url": "https://pub-b8722eee76f74d30878a2b749c995f24.r2.dev/photos/2026-06-09/2026-06-09-001.jpg",
+      "qualityScore": 6,
+      "cutenessScore": 7,
+      "compositionScore": 5,
+      "overallScore": 6,
+      "description": "Pepper's got her bright yellow toy perfectly positioned while other dogs mill around in the background. The focused grip and determined expression suggest this particular toy is worth defending.",
+      "tags": [
+        "toy",
+        "yellow toy",
+        "outdoor play area",
+        "turf",
+        "chain link fence",
+        "multiple dogs",
+        "daycare yard",
+        "group play"
+      ],
+      "activity": "playing",
+      "visibleFriends": [],
+      "pepperVisible": true,
+      "analyzedAt": "2026-06-09T23:17:45.350Z"
     }
   ],
   "bestPhotos": [
@@ -1607,7 +1631,7 @@
     "2025-09-10-001.jpg",
     "2025-09-15-001.jpg"
   ],
-  "analyzedAt": "2026-06-08T22:19:00.698Z",
-  "totalPhotos": 66,
+  "analyzedAt": "2026-06-09T23:17:45.351Z",
+  "totalPhotos": 67,
   "averageScore": 6.5
 }
