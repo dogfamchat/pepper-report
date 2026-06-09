@@ -1,9 +1,9 @@
 {
   "summary": {
-    "totalReports": 88,
+    "totalReports": 89,
     "dateRange": {
       "start": "2025-08-08",
-      "end": "2026-06-08"
+      "end": "2026-06-09"
     },
     "totalActivityInstances": 433,
     "totalTrainingInstances": 348
