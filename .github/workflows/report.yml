@@ -1,9 +1,10 @@
 name: Report Card Checker
 
 on:
-  schedule:
-    # Run every 15 minutes from 3pm to 5pm MST (school days)
-    - cron: "*/15 21-23 * * 1-5" # 3pm-4:45pm MST (10pm-11:45pm UTC), Mon-Fri
+  # Disabled while we adapt to new report card format
+  #schedule:
+  #  # Run every 15 minutes from 3pm to 5pm MST (school days)
+  #  - cron: "*/15 21-23 * * 1-5" # 3pm-4:45pm MST (10pm-11:45pm UTC), Mon-Fri
   workflow_dispatch: # Allow manual trigger
     inputs:
       date:
